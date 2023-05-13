@@ -1,0 +1,3 @@
+[submodule "parsimon"]
+	path = parsimon
+	url = git@github.com:netiken/parsimon.git
