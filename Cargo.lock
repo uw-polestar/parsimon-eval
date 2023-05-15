@@ -229,7 +229,7 @@ checksum = "8a2dd5a6fe8c6e3502f568a6353e5273bbb15193ad9a89e457b9970798efbea1"
 [[package]]
 name = "clustering-impls"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git#f468eb51476571e6d9899feb531cb00712fb0b87"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#32d679f5ae6804e08e0b701646f78ef5c950032d"
 dependencies = [
  "dashmap",
  "derive-new",
@@ -332,6 +332,27 @@ checksum = "1bfb12502f3fc46cca1bb51ac28df9d618d813cdc3d2f25b9fe775a34af26bb3"
 dependencies = [
  "generic-array",
  "typenum",
+]
+
+[[package]]
+name = "csv"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b015497079b9a9d69c02ad25de6c0a6edef051ea6360a327d0bd05802ef64ad"
+dependencies = [
+ "csv-core",
+ "itoa",
+ "ryu",
+ "serde",
+]
+
+[[package]]
+name = "csv-core"
+version = "0.1.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b2466559f260f48ad25fe6317b3c8dac77b5bdb5763ac7d9d6103530663bc90"
+dependencies = [
+ "memchr",
 ]
 
 [[package]]
@@ -868,15 +889,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "large-distributed"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "parsimon",
-]
-
-[[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -889,9 +901,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b00cc1c228a6782d0f076e7b232802e0c5689d41bb5df366f2a6b6621cfdfe1"
 
 [[package]]
+name = "libm"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "348108ab3fba42ec82ff6e9564fc4ca0247bdccdc68dd8af9764bbc79c3c8ffb"
+
+[[package]]
 name = "linksim-impls"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git#f468eb51476571e6d9899feb531cb00712fb0b87"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#32d679f5ae6804e08e0b701646f78ef5c950032d"
 dependencies = [
  "anyhow",
  "minim",
@@ -1096,7 +1114,7 @@ dependencies = [
 [[package]]
 name = "ns3-frontend"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git#f468eb51476571e6d9899feb531cb00712fb0b87"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#32d679f5ae6804e08e0b701646f78ef5c950032d"
 dependencies = [
  "derivative",
  "parsimon-core",
@@ -1131,6 +1149,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "578ede34cf02f8924ab9447f50c28075b4d3e5b269972345e7e0372b38c6cdcd"
 dependencies = [
  "autocfg",
+ "libm",
 ]
 
 [[package]]
@@ -1228,7 +1247,7 @@ dependencies = [
 [[package]]
 name = "parsimon"
 version = "0.0.0"
-source = "git+https://github.com/netiken/parsimon.git#f468eb51476571e6d9899feb531cb00712fb0b87"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#32d679f5ae6804e08e0b701646f78ef5c950032d"
 dependencies = [
  "clustering-impls",
  "linksim-impls",
@@ -1240,7 +1259,7 @@ dependencies = [
 [[package]]
 name = "parsimon-core"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git#f468eb51476571e6d9899feb531cb00712fb0b87"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#32d679f5ae6804e08e0b701646f78ef5c950032d"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1268,7 +1287,7 @@ dependencies = [
 [[package]]
 name = "parsimon-utils"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git#f468eb51476571e6d9899feb531cb00712fb0b87"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#32d679f5ae6804e08e0b701646f78ef5c950032d"
 dependencies = [
  "linksim-impls",
  "parsimon-core",
@@ -1281,7 +1300,7 @@ dependencies = [
 [[package]]
 name = "parsimon-worker"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git#f468eb51476571e6d9899feb531cb00712fb0b87"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#32d679f5ae6804e08e0b701646f78ef5c950032d"
 dependencies = [
  "anyhow",
  "clap",
@@ -1467,6 +1486,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
  "getrandom",
+]
+
+[[package]]
+name = "rand_distr"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "32cb0b9bc82b0a0876c2dd994a7e7a2683d3e7390ca40e6886785ef0c7e3ee31"
+dependencies = [
+ "num-traits",
+ "rand",
 ]
 
 [[package]]
@@ -2030,6 +2059,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "711b9620af191e0cdc7468a8d14e709c3dcdb115b36f838e601583af800a370a"
 
 [[package]]
+name = "utils"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "ordered-float",
+ "parsimon",
+ "rand",
+ "thiserror",
+]
+
+[[package]]
 name = "vcpkg"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2324,4 +2364,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "80d0f4e272c85def139476380b12f9ac60926689dd2e01d4923222f40580869d"
 dependencies = [
  "winapi",
+]
+
+[[package]]
+name = "workload"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "csv",
+ "derive-new",
+ "itertools",
+ "parsimon",
+ "rand",
+ "rand_distr",
+ "rustc-hash",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "typed-builder 0.10.0",
+ "utils",
 ]
