@@ -7,13 +7,13 @@ default-run = "large-distributed"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+serde_json = { version = "1.0.96" }
 anyhow = "1.0.71"
 clap = { version = "4.2.7", features = ["derive", "suggestions"] }
-csv.workspace = true
+csv = { version = "1.2.1" }
 parsimon = { git = "https://github.com/netiken/parsimon.git", branch = "main" }
-rand.workspace = true
-rayon.workspace = true
-serde = { workspace = true, features = ["derive"] }
-serde_json.workspace = true
+rand = { version = "0.8.5" }
+rayon = { version = "1.7.0" }
+serde = { version = "1.0.163", features = ["derive"] }
 utils = { version = "0.1.0", path = "../../crates/utils" }
 workload = { version = "0.1.0", path = "../../workload" }
