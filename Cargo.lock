@@ -1997,6 +1997,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "typed-builder"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "64cba322cb9b7bc6ca048de49e83918223f35e7a86311267013afff257004870"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
 name = "typenum"
 version = "1.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2382,6 +2393,6 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror",
- "typed-builder 0.10.0",
+ "typed-builder 0.14.0",
  "utils",
 ]
