@@ -1,6 +1,7 @@
 [workspace]
-members = ["workload", "crates/utils"]
-exclude = ["expts/large-distributed"]
+# members = ["workload", "crates/utils"]
+# exclude = ["expts/large-distributed"]
+members = ["workload", "crates/utils", "expts/large-distributed"]
 
 [workspace.dependencies]
 anyhow = "1.0.65"
