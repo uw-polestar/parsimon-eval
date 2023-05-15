@@ -2,10 +2,18 @@
 name = "large-distributed"
 version = "0.1.0"
 edition = "2021"
+default-run = "large-distributed"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 anyhow = "1.0.71"
 clap = { version = "4.2.7", features = ["derive", "suggestions"] }
+csv.workspace = true
 parsimon = { git = "https://github.com/netiken/parsimon.git", branch = "main" }
+rand.workspace = true
+rayon.workspace = true
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+utils = { version = "0.1.0", path = "../../crates/utils" }
+workload = { version = "0.1.0", path = "../../workload" }
