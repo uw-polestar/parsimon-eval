@@ -8,4 +8,5 @@ RUN cargo build --release --bin worker
 # Stage 2
 FROM debian:bullseye
 COPY --from=builder /usr/src/parsimon-worker/target/release/worker /usr/local/bin/parsimon-worker
+EXPOSE 2727
 CMD ["parsimon-worker"]
