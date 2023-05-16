@@ -1,12 +1,12 @@
 #!/bin/bash
-mode=${1}
-# echo "Mode: $mode"
-# eval "$mode"
-if [ "$mode" == "parsimon-worker" ]; then
-  eval "$mode"
-elif [ "$mode" == "parsimon-manager" ]; then
-  eval sh
+
+set -eu
+
+if [ "$MODE" == "worker" ]; then
+  exec parsimon-worker
+elif [ "$MODE" == "manager" ]; then
+  exec /bin/sh
 else
-  echo "Invalid ENTRYPOINT_MODE: $ENTRYPOINT_MODE"
+  echo "Invalid MODE: $MODE"
   exit 1
 fi
