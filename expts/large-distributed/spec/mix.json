@@ -1,7 +1,7 @@
 {
     "id": 0,
-    "spatial": "../../workload/spatials/cluster_b.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
+    "spatial": "spec/cluster_b.json",
+    "size_dist": "spec/webserver-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.5,
     "cluster": "spec/topology.json",
