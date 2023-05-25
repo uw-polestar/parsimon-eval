@@ -22,3 +22,6 @@ typed-builder = "0.14.0"
 utils = { path = "../crates/utils" }
 
 [features]
+
+[dev-dependencies]
+insta = { version = "1.29.0", features = ["yaml"] }
