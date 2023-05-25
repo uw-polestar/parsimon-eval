@@ -1,9 +1,12 @@
 use parsimon::core::network::NodeId;
+use parsimon::core::routing::RoutingAlgo;
+
+use super::Cluster;
 
 const NR_TORS_PER_POD: usize = 48;
 
 #[derive(Debug)]
-pub struct Routes {
+pub struct FabricRoutes {
     nr_pods: usize,
     nr_fabs_per_pod: usize,
     nr_spines_per_plane: usize,
@@ -16,13 +19,24 @@ pub struct Routes {
     nodes: Vec<FabricNode>,
 }
 
-impl Routes {
-    pub fn next_hops_unchecked(&self, from: NodeId, to: NodeId) -> Vec<NodeId> {
+impl FabricRoutes {
+    pub fn new(cluster: &Cluster) -> Self {
+        // TODO: implement me
+        todo!()
+    }
+}
+
+impl RoutingAlgo for FabricRoutes {
+    fn next_hops(&self, from: NodeId, to: NodeId) -> Option<Vec<NodeId>> {
+        let len = self.nodes.len();
+        if from.inner() >= len || to.inner() >= len {
+            return None;
+        }
         if from == to {
-            return vec![from];
+            return Some(vec![from]);
         }
         let (from, to) = (from.inner(), to.inner());
-        match self.nodes[from] {
+        let hops = match self.nodes[from] {
             FabricNode::Host => {
                 // Next hop has to be the top-of-rack switch.
                 vec![NodeId::new(self.tor_of_host(from))]
@@ -63,9 +77,12 @@ impl Routes {
                     _ => self.fabrics_of_spine(from).map(NodeId::new).collect(),
                 }
             }
-        }
+        };
+        Some(hops)
     }
+}
 
+impl FabricRoutes {
     fn tor_of_host(&self, host: usize) -> usize {
         assert!(matches!(self.nodes[host], FabricNode::Host));
         self.tor_base + host / self.nr_hosts_per_rack
@@ -126,4 +143,31 @@ enum FabricNode {
     TopOfRack,
     Fabric,
     Spine,
+}
+
+#[cfg(test)]
+mod tests {
+    use parsimon::core::network::topology::Topology;
+    use parsimon::core::routing::BfsRoutes;
+
+    use crate::{fabric::Cluster, testing::TINY_CLUSTER};
+
+    use super::*;
+
+    #[test]
+    fn routes_correct() -> anyhow::Result<()> {
+        let mut cluster: Cluster = serde_json::from_str(TINY_CLUSTER)?;
+        cluster.contiguousify();
+
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let topology = Topology::new(&nodes, &links)?;
+        let bfs_routes = BfsRoutes::new(&topology);
+
+        let fabric_routes = FabricRoutes::new(&cluster);
+
+        // TODO: Compare the two across all pairs of nodes;
+
+        Ok(())
+    }
 }

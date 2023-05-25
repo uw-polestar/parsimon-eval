@@ -1,6 +1,10 @@
 use std::iter;
 
-use parsimon::core::network::types::{Link, Node};
+use parsimon::core::network::{
+    types::{Link, Node},
+    NodeId,
+};
+use rustc_hash::FxHashMap;
 
 pub const NR_RACKS_PER_POD: usize = 48;
 
@@ -32,6 +36,47 @@ impl Cluster {
             .iter()
             .chain(self.pods.iter().flat_map(|p| p.links()))
     }
+
+    pub fn contiguousify(&mut self) {
+        // Collect nodes in a very specific way: hosts first, then ToRs, the fabric switches, then
+        // spine switches, preserving all ordering.
+        let spines = self.planes.iter().flat_map(|plane| plane.iter());
+        let mut fabs = Vec::new();
+        let mut tors = Vec::new();
+        let mut hosts = Vec::new();
+        for pod in &self.pods {
+            for fab in &pod.fabs {
+                fabs.push(fab);
+            }
+            for rack in &pod.racks {
+                tors.push(&rack.tor);
+                for host in &rack.hosts {
+                    hosts.push(host);
+                }
+            }
+        }
+        let nodes = hosts
+            .into_iter()
+            .chain(tors.into_iter().chain(fabs.into_iter().chain(spines)));
+
+        // Now rename node IDs.
+        let old2new = nodes
+            .into_iter()
+            .enumerate()
+            .map(|(i, n)| (n.id, NodeId::new(i)))
+            .collect::<FxHashMap<_, _>>();
+        for plane in &mut self.planes {
+            for spine in plane {
+                rename_node(spine, &old2new);
+            }
+        }
+        for pod in &mut self.pods {
+            pod.rename(&old2new);
+        }
+        for link in &mut self.fab2spine {
+            rename_link(link, &old2new);
+        }
+    }
 }
 
 pub type Plane = Vec<Node>;
@@ -55,6 +100,18 @@ impl Pod {
             .iter()
             .chain(self.racks.iter().flat_map(|r| r.links()))
     }
+
+    fn rename(&mut self, old2new: &FxHashMap<NodeId, NodeId>) {
+        for fab in &mut self.fabs {
+            rename_node(fab, old2new);
+        }
+        for rack in &mut self.racks {
+            rack.rename(old2new);
+        }
+        for link in &mut self.tor2fab {
+            rename_link(link, old2new);
+        }
+    }
 }
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
@@ -71,5 +128,39 @@ impl Rack {
 
     pub fn links(&self) -> impl Iterator<Item = &Link> {
         self.host2tor.iter()
+    }
+
+    fn rename(&mut self, old2new: &FxHashMap<NodeId, NodeId>) {
+        rename_node(&mut self.tor, old2new);
+        for host in &mut self.hosts {
+            rename_node(host, old2new);
+        }
+        for link in &mut self.host2tor {
+            rename_link(link, old2new);
+        }
+    }
+}
+
+fn rename_node(node: &mut Node, old2new: &FxHashMap<NodeId, NodeId>) {
+    node.id = *old2new.get(&node.id).unwrap();
+}
+
+fn rename_link(link: &mut Link, old2new: &FxHashMap<NodeId, NodeId>) {
+    link.a = *old2new.get(&link.a).unwrap();
+    link.b = *old2new.get(&link.b).unwrap();
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::testing::TINY_CLUSTER;
+
+    use super::*;
+
+    #[test]
+    fn contiguousify_correct() -> anyhow::Result<()> {
+        let mut cluster: Cluster = serde_json::from_str(TINY_CLUSTER)?;
+        cluster.contiguousify();
+        insta::assert_yaml_snapshot!(&cluster);
+        Ok(())
     }
 }
