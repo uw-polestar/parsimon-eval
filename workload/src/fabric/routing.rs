@@ -33,23 +33,35 @@ impl Routes {
                     FabricNode::Host if self.tor_of_host(to) == from => {
                         vec![NodeId::new(to)]
                     }
+                    FabricNode::Fabric if self.fabrics_of_tor(from).any(|f| f == to) => {
+                        vec![NodeId::new(to)]
+                    }
                     _ => self.fabrics_of_tor(from).map(NodeId::new).collect(),
                 }
             }
             FabricNode::Fabric => {
                 // Go down to a ToR if `to` is a node in this pod. Othwerwise, go up to a spine switch.
                 match self.nodes[to] {
-                    FabricNode::Fabric if self.pod_of_fabric(from) == self.pod_of_fabric(to) => {
+                    FabricNode::TopOfRack if self.tor_in_pod(self.pod_of_fabric(from), to) => {
+                        vec![NodeId::new(to)]
+                    }
+                    FabricNode::Host if self.host_in_pod(self.pod_of_fabric(from), to) => {
                         self.tors_of_fabric(from).map(NodeId::new).collect()
+                    }
+                    FabricNode::Spine if self.is_fabric_spine(from, to) => {
+                        vec![NodeId::new(to)]
                     }
                     _ => self.spines_of_fabric(from).map(NodeId::new).collect(),
                 }
             }
             FabricNode::Spine => {
                 // Go down to the fabric switches in the target pod.
-                self.fabrics_of_pod(self.pod_of_fabric(to))
-                    .map(NodeId::new)
-                    .collect()
+                match self.nodes[to] {
+                    FabricNode::Fabric if self.is_fabric_spine(to, from) => {
+                        vec![NodeId::new(to)]
+                    }
+                    _ => self.fabrics_of_spine(from).map(NodeId::new).collect(),
+                }
             }
         }
     }
@@ -77,9 +89,21 @@ impl Routes {
         (fab - self.fabric_base) / self.nr_fabs_per_pod
     }
 
-    fn fabrics_of_pod(&self, pod: usize) -> impl Iterator<Item = usize> {
-        let start = self.fabric_base + pod * self.nr_fabs_per_pod;
-        start..(start + self.nr_fabs_per_pod)
+    fn fabrics_of_spine(&self, spine: usize) -> impl Iterator<Item = usize> {
+        let plane = (spine - self.spine_base) / self.nr_spines_per_plane;
+        let start = self.fabric_base + plane; // offset
+        let end: usize = self.fabric_base * self.nr_pods + plane;
+        (start..end).step_by(self.nr_fabs_per_pod)
+    }
+
+    fn host_in_pod(&self, pod: usize, host: usize) -> bool {
+        let start = pod * self.nr_fabs_per_pod;
+        host >= start && host <= start + self.nr_hosts_per_rack
+    }
+
+    fn tor_in_pod(&self, pod: usize, tor: usize) -> bool {
+        let start = self.tor_base + pod * self.nr_fabs_per_pod;
+        tor >= start && tor <= start + NR_TORS_PER_POD
     }
 
     fn spines_of_fabric(&self, fab: usize) -> impl Iterator<Item = usize> {
@@ -87,6 +111,12 @@ impl Routes {
         let plane = fab % self.nr_fabs_per_pod;
         let start = self.spine_base + plane * self.nr_spines_per_plane;
         start..(start + self.nr_spines_per_plane)
+    }
+
+    fn is_fabric_spine(&self, fab: usize, spine: usize) -> bool {
+        let plane = fab % self.nr_fabs_per_pod;
+        let start = self.spine_base + plane * self.nr_spines_per_plane;
+        spine >= start && spine <= start + self.nr_spines_per_plane
     }
 }
 
