@@ -24,6 +24,33 @@ impl Cluster {
         self.pods.get(0).map(|p| p.racks.len()).unwrap_or(0)
     }
 
+    pub fn nr_fabs_per_pod(&self) -> usize {
+        self.pods.get(0).map(|p| p.fabs.len()).unwrap_or(0)
+    }
+
+    pub fn nr_spines_per_plane(&self) -> usize {
+        self.planes.get(0).map(|p| p.len()).unwrap_or(0)
+    }
+
+    pub fn nr_hosts_per_rack(&self) -> usize {
+        self.pods.get(0).map(|p| p.nr_hosts_per_rack()).unwrap_or(0)
+    }
+
+    pub fn tor_base(&self) -> usize {
+        self.pods.get(0).map(|p| p.tor_base()).unwrap_or(0)
+    }
+
+    pub fn fabric_base(&self) -> usize {
+        self.pods.get(0).map(|p| p.fabric_base()).unwrap_or(0)
+    }
+
+    pub fn spine_base(&self) -> usize {
+        self.planes
+            .get(0)
+            .map(|p| p.get(0).map(|s| s.id.inner()).unwrap_or(0))
+            .unwrap_or(0) // Q? default value here?
+    }
+
     pub fn nodes(&self) -> impl Iterator<Item = &Node> {
         self.planes
             .iter()
@@ -89,6 +116,18 @@ pub struct Pod {
 }
 
 impl Pod {
+    pub fn nr_hosts_per_rack(&self) -> usize {
+        self.racks.get(0).map(|r| r.hosts.len()).unwrap_or(0)
+    }
+
+    pub fn tor_base(&self) -> usize {
+        self.racks.get(0).map(|r| r.tor.id.inner()).unwrap_or(0) // Q? what should default value be
+    }
+
+    pub fn fabric_base(&self) -> usize {
+        self.fabs.get(0).map(|f| f.id.inner()).unwrap_or(0) // Q? what should default value be
+    }
+
     pub fn nodes(&self) -> impl Iterator<Item = &Node> {
         self.fabs
             .iter()
