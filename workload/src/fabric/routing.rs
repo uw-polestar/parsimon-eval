@@ -1,9 +1,8 @@
+use super::Cluster;
+use itertools::Itertools;
+use parsimon::core::network::types::Node;
 use parsimon::core::network::NodeId;
 use parsimon::core::routing::RoutingAlgo;
-
-use super::Cluster;
-
-const NR_TORS_PER_POD: usize = 48;
 
 #[derive(Debug)]
 pub struct FabricRoutes {
@@ -11,6 +10,7 @@ pub struct FabricRoutes {
     nr_fabs_per_pod: usize,
     nr_spines_per_plane: usize,
     nr_hosts_per_rack: usize,
+    nr_tors_per_pod: usize,
 
     tor_base: usize,
     fabric_base: usize,
@@ -20,9 +20,40 @@ pub struct FabricRoutes {
 }
 
 impl FabricRoutes {
+    // cluster already contiguousified
     pub fn new(cluster: &Cluster) -> Self {
-        // TODO: implement me
-        todo!()
+        let tor_base = cluster.tor_base();
+        let fabric_base = cluster.fabric_base();
+        let spine_base = cluster.spine_base();
+        let mut sorted_nodes: Vec<_> = cluster.nodes().collect();
+        sorted_nodes.sort_by_key(|m| m.id);
+        FabricRoutes {
+            nr_pods: cluster.nr_pods(),
+            nr_fabs_per_pod: cluster.nr_fabs_per_pod(),
+            nr_spines_per_plane: cluster.nr_spines_per_plane(),
+            nr_hosts_per_rack: cluster.nr_hosts_per_rack(),
+            nr_tors_per_pod: cluster.nr_tors_per_pod(),
+            tor_base,
+            fabric_base,
+            spine_base,
+            nodes: Self::fabric_nodes(sorted_nodes.as_slice(), tor_base, fabric_base, spine_base),
+        }
+    }
+    fn fabric_nodes(
+        nodes: &[&Node],
+        tor_base: usize,
+        fabric_base: usize,
+        spine_base: usize,
+    ) -> Vec<FabricNode> {
+        nodes
+            .iter()
+            .map(|n| match n.id.inner() {
+                n if n < tor_base => FabricNode::Host,
+                n if n >= tor_base && n < fabric_base => FabricNode::TopOfRack,
+                n if n >= fabric_base && n < spine_base => FabricNode::Fabric,
+                _ => FabricNode::Spine,
+            })
+            .collect_vec()
     }
 }
 
@@ -33,7 +64,7 @@ impl RoutingAlgo for FabricRoutes {
             return None;
         }
         if from == to {
-            return Some(vec![from]);
+            return Some(vec![]);
         }
         let (from, to) = (from.inner(), to.inner());
         let hops = match self.nodes[from] {
@@ -56,15 +87,14 @@ impl RoutingAlgo for FabricRoutes {
             FabricNode::Fabric => {
                 // Go down to a ToR if `to` is a node in this pod. Othwerwise, go up to a spine switch.
                 match self.nodes[to] {
-                    FabricNode::TopOfRack if self.tor_in_pod(self.pod_of_fabric(from), to) => {
+                    FabricNode::TopOfRack if self.tor_in_pod(self.pod_of_node(from), to) => {
                         vec![NodeId::new(to)]
                     }
-                    FabricNode::Host if self.host_in_pod(self.pod_of_fabric(from), to) => {
-                        self.tors_of_fabric(from).map(NodeId::new).collect()
-                    }
-                    FabricNode::Spine if self.is_fabric_spine(from, to) => {
-                        vec![NodeId::new(to)]
-                    }
+                    FabricNode::Host if self.host_in_pod(self.pod_of_node(from), to) => self
+                        .tors_of_fabric(from)
+                        .filter(|&t| t == self.tor_of_host(to))
+                        .map(NodeId::new)
+                        .collect(),
                     _ => self.spines_of_fabric(from).map(NodeId::new).collect(),
                 }
             }
@@ -74,7 +104,14 @@ impl RoutingAlgo for FabricRoutes {
                     FabricNode::Fabric if self.is_fabric_spine(to, from) => {
                         vec![NodeId::new(to)]
                     }
-                    _ => self.fabrics_of_spine(from).map(NodeId::new).collect(),
+                    _ => {
+                        let target_pod = self.pod_of_node(to);
+                        let spine_fabs = self.fabrics_of_spine(from);
+                        spine_fabs
+                            .filter(|&f| self.pod_of_node(f) == target_pod)
+                            .map(NodeId::new)
+                            .collect()
+                    }
                 }
             }
         };
@@ -90,37 +127,40 @@ impl FabricRoutes {
 
     fn fabrics_of_tor(&self, tor: usize) -> impl Iterator<Item = usize> {
         assert!(matches!(self.nodes[tor], FabricNode::TopOfRack));
-        let start =
-            self.fabric_base + ((tor - self.tor_base) / NR_TORS_PER_POD) * self.nr_fabs_per_pod;
+        let start = self.fabric_base
+            + ((tor - self.tor_base) / self.nr_tors_per_pod) * self.nr_fabs_per_pod;
         start..(start + self.nr_fabs_per_pod)
     }
 
     fn tors_of_fabric(&self, fab: usize) -> impl Iterator<Item = usize> {
         assert!(matches!(self.nodes[fab], FabricNode::Fabric));
-        let start = self.pod_of_fabric(fab) * NR_TORS_PER_POD + self.tor_base;
-        start..(start + NR_TORS_PER_POD)
+        let start = self.pod_of_node(fab) * self.nr_tors_per_pod + self.tor_base;
+        start..(start + self.nr_tors_per_pod)
     }
 
-    fn pod_of_fabric(&self, fab: usize) -> usize {
-        assert!(matches!(self.nodes[fab], FabricNode::Fabric));
-        (fab - self.fabric_base) / self.nr_fabs_per_pod
+    fn pod_of_node(&self, node: usize) -> usize {
+        match self.nodes[node] {
+            FabricNode::Host => node / (self.nr_hosts_per_rack * self.nr_tors_per_pod),
+            FabricNode::TopOfRack => (node - self.tor_base) / self.nr_tors_per_pod,
+            FabricNode::Fabric => (node - self.fabric_base) / self.nr_fabs_per_pod,
+            FabricNode::Spine => unreachable!(),
+        }
     }
 
     fn fabrics_of_spine(&self, spine: usize) -> impl Iterator<Item = usize> {
-        let plane = (spine - self.spine_base) / self.nr_spines_per_plane;
+        let plane: usize = (spine - self.spine_base) / self.nr_spines_per_plane;
         let start = self.fabric_base + plane; // offset
-        let end: usize = self.fabric_base * self.nr_pods + plane;
-        (start..end).step_by(self.nr_fabs_per_pod)
+        (start..).step_by(self.nr_fabs_per_pod).take(self.nr_pods)
     }
 
     fn host_in_pod(&self, pod: usize, host: usize) -> bool {
-        let start = pod * self.nr_fabs_per_pod;
-        host >= start && host <= start + self.nr_hosts_per_rack
+        let start = pod * self.nr_hosts_per_rack * self.nr_tors_per_pod;
+        host >= start && host < start + self.nr_hosts_per_rack * self.nr_tors_per_pod
     }
 
     fn tor_in_pod(&self, pod: usize, tor: usize) -> bool {
         let start = self.tor_base + pod * self.nr_fabs_per_pod;
-        tor >= start && tor <= start + NR_TORS_PER_POD
+        tor >= start && tor < start + self.nr_tors_per_pod
     }
 
     fn spines_of_fabric(&self, fab: usize) -> impl Iterator<Item = usize> {
@@ -133,7 +173,7 @@ impl FabricRoutes {
     fn is_fabric_spine(&self, fab: usize, spine: usize) -> bool {
         let plane = fab % self.nr_fabs_per_pod;
         let start = self.spine_base + plane * self.nr_spines_per_plane;
-        spine >= start && spine <= start + self.nr_spines_per_plane
+        spine >= start && spine < start + self.nr_spines_per_plane
     }
 }
 
@@ -165,8 +205,26 @@ mod tests {
         let bfs_routes = BfsRoutes::new(&topology);
 
         let fabric_routes = FabricRoutes::new(&cluster);
+        let valid_pairs =
+            itertools::iproduct!(nodes.iter().map(|n| n.id), nodes.iter().map(|n| n.id)).filter(
+                |(n1, n2)| {
+                    matches!(fabric_routes.nodes[n2.inner()], FabricNode::Host)
+                        || matches!(fabric_routes.nodes[n1.inner()], FabricNode::Host)
+                },
+            );
 
-        // TODO: Compare the two across all pairs of nodes;
+        // Compare the two across all pairs of nodes
+        for (from, to) in valid_pairs {
+            let bfs_next_hops = bfs_routes.next_hops(from, to).map(|mut h| {
+                h.sort();
+                h
+            });
+            let fabric_next_hops = fabric_routes.next_hops(from, to).map(|mut h| {
+                h.sort();
+                h
+            });
+            assert_eq!(bfs_next_hops, fabric_next_hops, "from: {from} to: {to}");
+        }
 
         Ok(())
     }
