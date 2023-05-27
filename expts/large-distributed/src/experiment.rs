@@ -23,7 +23,7 @@ use parsimon::{
 use rand::prelude::*;
 use rayon::prelude::*;
 use workload::{
-    fabric::Cluster,
+    fabric::{Cluster, FabricRoutes},
     flowgen::{FlowGenerator, StopWhen},
     spatial::SpatialData,
 };
@@ -112,12 +112,13 @@ impl Experiment {
 
     fn run_pmn_mc(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::PmnMC;
-        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let mut cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        cluster.contiguousify();
         let flows = self.flows(mix)?;
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let start = Instant::now(); // timer start
-        let network = Network::new(&nodes, &links)?;
+        let network = Network::new_with_routes(&nodes, &links, FabricRoutes::new(&cluster))?;
         let mut network = network.into_simulations(flows.clone());
         let clusterer = GreedyClustering::new(feature::dists_and_load, is_close_enough);
         network.cluster(&clusterer);
@@ -170,7 +171,8 @@ impl Experiment {
 
     fn gen_flows(&self, mix: &Mix, to: impl AsRef<Path>) -> anyhow::Result<()> {
         let spatial: SpatialData = serde_json::from_str(&fs::read_to_string(&mix.spatial)?)?;
-        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let mut cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        cluster.contiguousify();
         let size_dist = utils::read_ecdf(&mix.size_dist)?;
         let flowgen = FlowGenerator::builder()
             .spatial_data(spatial)
