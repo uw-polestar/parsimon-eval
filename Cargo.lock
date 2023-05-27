@@ -217,7 +217,7 @@ dependencies = [
  "heck",
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
 ]
 
 [[package]]
@@ -229,7 +229,7 @@ checksum = "2da6da31387c7e4ef160ffab6d5e7f00c42626fe39aea70a7b0f1773f7dd6c1b"
 [[package]]
 name = "clustering-impls"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=main#65e12389f0fc5910fcee7ea0304f7f0bf1ba2c31"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#149d06be1e565df8387412f3ba1309430d01de14"
 dependencies = [
  "dashmap",
  "derive-new",
@@ -963,7 +963,7 @@ checksum = "0717cef1bc8b636c6e1c1bbdefc09e6322da8a9321966e8928ef80d20f7f770f"
 [[package]]
 name = "linksim-impls"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=main#65e12389f0fc5910fcee7ea0304f7f0bf1ba2c31"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#149d06be1e565df8387412f3ba1309430d01de14"
 dependencies = [
  "anyhow",
  "minim",
@@ -1168,7 +1168,7 @@ dependencies = [
 [[package]]
 name = "ns3-frontend"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=main#65e12389f0fc5910fcee7ea0304f7f0bf1ba2c31"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#149d06be1e565df8387412f3ba1309430d01de14"
 dependencies = [
  "derivative",
  "parsimon-core",
@@ -1245,7 +1245,7 @@ checksum = "a948666b637a0f465e8564c73e89d4dde00d72d4d473cc972f390fc3dcee7d9c"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
 ]
 
 [[package]]
@@ -1301,7 +1301,7 @@ dependencies = [
 [[package]]
 name = "parsimon"
 version = "0.0.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=main#65e12389f0fc5910fcee7ea0304f7f0bf1ba2c31"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#149d06be1e565df8387412f3ba1309430d01de14"
 dependencies = [
  "clustering-impls",
  "linksim-impls",
@@ -1313,7 +1313,7 @@ dependencies = [
 [[package]]
 name = "parsimon-core"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=main#65e12389f0fc5910fcee7ea0304f7f0bf1ba2c31"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#149d06be1e565df8387412f3ba1309430d01de14"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1341,7 +1341,7 @@ dependencies = [
 [[package]]
 name = "parsimon-utils"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=main#65e12389f0fc5910fcee7ea0304f7f0bf1ba2c31"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#149d06be1e565df8387412f3ba1309430d01de14"
 dependencies = [
  "linksim-impls",
  "parsimon-core",
@@ -1354,7 +1354,7 @@ dependencies = [
 [[package]]
 name = "parsimon-worker"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=main#65e12389f0fc5910fcee7ea0304f7f0bf1ba2c31"
+source = "git+https://github.com/netiken/parsimon.git?branch=main#149d06be1e565df8387412f3ba1309430d01de14"
 dependencies = [
  "anyhow",
  "clap",
@@ -1432,7 +1432,7 @@ dependencies = [
  "pest_meta",
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
 ]
 
 [[package]]
@@ -1753,7 +1753,7 @@ checksum = "8c805777e3930c8883389c602315a24224bcc738b63905ef87cd1420353ea93e"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
 ]
 
 [[package]]
@@ -1874,9 +1874,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.17"
+version = "2.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "45b6ddbb36c5b969c182aec3c4a0bce7df3fbad4b77114706a49aacc80567388"
+checksum = "32d41677bcbe24c20c52e7c70b0d8db04134c5d1066bf98662e2871ad200ea3e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1913,7 +1913,7 @@ checksum = "f9456a42c5b0d803c8cd86e73dd7cc9edd429499f37a3550d286d5e86720569f"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
 ]
 
 [[package]]
@@ -1969,7 +1969,7 @@ checksum = "630bdcf245f78637c13ec01ffae6187cca34625e8c63150d424b59e55af2675e"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
 ]
 
 [[package]]
@@ -2195,7 +2195,7 @@ dependencies = [
  "once_cell",
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
  "wasm-bindgen-shared",
 ]
 
@@ -2229,7 +2229,7 @@ checksum = "e128beba882dd1eb6200e1dc92ae6c5dbaa4311aa7bb211ca035779e5efc39f8"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.18",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]

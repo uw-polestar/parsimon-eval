@@ -1,5 +1,5 @@
 use crate::{
-    fabric::Cluster,
+    fabric::{Cluster, FabricRoutes},
     spatial::{SpatialData, SpatialWorkload},
 };
 use parsimon::core::{
@@ -70,7 +70,8 @@ impl FlowGenerator {
     ) -> ChannelInfo {
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
-        let network = Network::new(&nodes, &links).expect("invalid cluster specification");
+        let network = Network::new_with_routes(&nodes, &links, FabricRoutes::new(cluster))
+            .expect("invalid cluster specification");
         let flows = (0..nr_test_flows)
             .map(|i| {
                 let (src, dst) = spatial_wk.sample(&mut rng);
