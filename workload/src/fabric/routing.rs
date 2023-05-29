@@ -70,7 +70,13 @@ impl RoutingAlgo for FabricRoutes {
         let hops = match self.nodes[from] {
             FabricNode::Host => {
                 // Next hop has to be the top-of-rack switch.
-                vec![NodeId::new(self.tor_of_host(from))]
+                // If fabric or spine, has to be a ToR in the same plane
+                match self.nodes[to] {
+                    FabricNode::TopOfRack if self.tor_of_host(from) == to => {
+                        vec![NodeId::new(to)]
+                    }
+                    _ => vec![NodeId::new(self.tor_of_host(from))],
+                }
             }
             FabricNode::TopOfRack => {
                 // Go down if `to` is a host in this rack. Otherwise, go up to a fabric switch.
@@ -78,16 +84,23 @@ impl RoutingAlgo for FabricRoutes {
                     FabricNode::Host if self.tor_of_host(to) == from => {
                         vec![NodeId::new(to)]
                     }
-                    FabricNode::Fabric if self.fabrics_of_tor(from).any(|f| f == to) => {
-                        vec![NodeId::new(to)]
+                    FabricNode::Fabric | FabricNode::Spine => {
+                        let target_plane = self.plane_of_node(to);
+                        self.fabrics_of_tor(from)
+                            .filter(|&f| self.plane_of_node(f) == target_plane)
+                            .map(NodeId::new)
+                            .collect()
                     }
                     _ => self.fabrics_of_tor(from).map(NodeId::new).collect(),
                 }
             }
             FabricNode::Fabric => {
-                // Go down to a ToR if `to` is a node in this pod. Othwerwise, go up to a spine switch.
+                // Go down to a ToR if `to` is a node in this pod.
+                // Go down to a ToR or up to a spine if `to` is a node in another pod and plane.
+                // Othwerwise, go up to a spine switch.
                 match self.nodes[to] {
                     FabricNode::TopOfRack if self.tor_in_pod(self.pod_of_node(from), to) => {
+                        // ToR in this pod
                         vec![NodeId::new(to)]
                     }
                     FabricNode::Host if self.host_in_pod(self.pod_of_node(from), to) => self
@@ -95,6 +108,23 @@ impl RoutingAlgo for FabricRoutes {
                         .filter(|&t| t == self.tor_of_host(to))
                         .map(NodeId::new)
                         .collect(),
+                    FabricNode::Fabric
+                        if self.plane_of_node(from) != self.plane_of_node(to)
+                            && self.pod_of_node(from) != self.pod_of_node(to) =>
+                    {
+                        self.tors_of_fabric(from)
+                            .chain(self.spines_of_fabric(from))
+                            .map(NodeId::new)
+                            .collect()
+                    }
+                    FabricNode::Fabric | FabricNode::Spine
+                        if self.plane_of_node(from) != self.plane_of_node(to) =>
+                    {
+                        self.tors_of_fabric(from).map(NodeId::new).collect()
+                    }
+                    FabricNode::Spine if self.is_fabric_spine(from, to) => {
+                        vec![NodeId::new(to)]
+                    }
                     _ => self.spines_of_fabric(from).map(NodeId::new).collect(),
                 }
             }
@@ -104,10 +134,10 @@ impl RoutingAlgo for FabricRoutes {
                     FabricNode::Fabric if self.is_fabric_spine(to, from) => {
                         vec![NodeId::new(to)]
                     }
+                    FabricNode::Spine => self.fabrics_of_spine(from).map(NodeId::new).collect(),
                     _ => {
                         let target_pod = self.pod_of_node(to);
-                        let spine_fabs = self.fabrics_of_spine(from);
-                        spine_fabs
+                        self.fabrics_of_spine(from)
                             .filter(|&f| self.pod_of_node(f) == target_pod)
                             .map(NodeId::new)
                             .collect()
@@ -144,6 +174,15 @@ impl FabricRoutes {
             FabricNode::TopOfRack => (node - self.tor_base) / self.nr_tors_per_pod,
             FabricNode::Fabric => (node - self.fabric_base) / self.nr_fabs_per_pod,
             FabricNode::Spine => unreachable!(),
+        }
+    }
+
+    fn plane_of_node(&self, node: usize) -> usize {
+        match self.nodes[node] {
+            FabricNode::Host => unreachable!(),
+            FabricNode::TopOfRack => unreachable!(),
+            FabricNode::Fabric => (node - self.fabric_base) % self.nr_fabs_per_pod,
+            FabricNode::Spine => (node - self.spine_base) / self.nr_spines_per_plane,
         }
     }
 
@@ -205,16 +244,10 @@ mod tests {
         let bfs_routes = BfsRoutes::new(&topology);
 
         let fabric_routes = FabricRoutes::new(&cluster);
-        let valid_pairs =
-            itertools::iproduct!(nodes.iter().map(|n| n.id), nodes.iter().map(|n| n.id)).filter(
-                |(n1, n2)| {
-                    matches!(fabric_routes.nodes[n2.inner()], FabricNode::Host)
-                        || matches!(fabric_routes.nodes[n1.inner()], FabricNode::Host)
-                },
-            );
-
+        let all_pairs =
+            itertools::iproduct!(nodes.iter().map(|n| n.id), nodes.iter().map(|n| n.id));
         // Compare the two across all pairs of nodes
-        for (from, to) in valid_pairs {
+        for (from, to) in all_pairs {
             let bfs_next_hops = bfs_routes.next_hops(from, to).map(|mut h| {
                 h.sort();
                 h
