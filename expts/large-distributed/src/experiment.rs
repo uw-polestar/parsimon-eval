@@ -112,8 +112,7 @@ impl Experiment {
 
     fn run_pmn_mc(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::PmnMC;
-        let mut cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
-        cluster.contiguousify();
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
@@ -171,8 +170,7 @@ impl Experiment {
 
     fn gen_flows(&self, mix: &Mix, to: impl AsRef<Path>) -> anyhow::Result<()> {
         let spatial: SpatialData = serde_json::from_str(&fs::read_to_string(&mix.spatial)?)?;
-        let mut cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
-        cluster.contiguousify();
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let size_dist = utils::read_ecdf(&mix.size_dist)?;
         let flowgen = FlowGenerator::builder()
             .spatial_data(spatial)

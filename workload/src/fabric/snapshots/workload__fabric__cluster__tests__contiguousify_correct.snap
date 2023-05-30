@@ -5,11 +5,7 @@ expression: "&cluster"
 planes:
   - - id: 16
       kind: Switch
-    - id: 17
-      kind: Switch
-  - - id: 18
-      kind: Switch
-    - id: 19
+  - - id: 17
       kind: Switch
 pods:
   - fabs:
@@ -131,32 +127,16 @@ fab2spine:
     b: 16
     bandwidth: 40000000000
     delay: 1000
-  - a: 12
+  - a: 13
     b: 17
-    bandwidth: 40000000000
-    delay: 1000
-  - a: 13
-    b: 18
-    bandwidth: 40000000000
-    delay: 1000
-  - a: 13
-    b: 19
     bandwidth: 40000000000
     delay: 1000
   - a: 14
     b: 16
     bandwidth: 40000000000
     delay: 1000
-  - a: 14
+  - a: 15
     b: 17
-    bandwidth: 40000000000
-    delay: 1000
-  - a: 15
-    b: 18
-    bandwidth: 40000000000
-    delay: 1000
-  - a: 15
-    b: 19
     bandwidth: 40000000000
     delay: 1000
 
