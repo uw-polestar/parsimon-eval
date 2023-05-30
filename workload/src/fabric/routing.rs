@@ -226,16 +226,16 @@ enum FabricNode {
 
 #[cfg(test)]
 mod tests {
-    use parsimon::core::network::topology::Topology;
+    use parsimon::core::network::{topology::Topology, Network};
     use parsimon::core::routing::BfsRoutes;
 
-    use crate::{fabric::Cluster, testing::TINY_CLUSTER};
+    use crate::{fabric::Cluster, testing::TINY_CLUSTER_OVERSUB};
 
     use super::*;
 
     #[test]
     fn routes_correct() -> anyhow::Result<()> {
-        let mut cluster: Cluster = serde_json::from_str(TINY_CLUSTER)?;
+        let mut cluster: Cluster = serde_json::from_str(TINY_CLUSTER_OVERSUB)?;
         cluster.contiguousify();
 
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
