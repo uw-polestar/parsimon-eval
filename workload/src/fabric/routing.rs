@@ -227,13 +227,13 @@ mod tests {
     use parsimon::core::network::topology::Topology;
     use parsimon::core::routing::BfsRoutes;
 
-    use crate::{fabric::Cluster, testing::TINY_CLUSTER};
+    use crate::{fabric::Cluster, testing::MEDIUM_CLUSTER};
 
     use super::*;
 
     #[test]
     fn routes_correct() -> anyhow::Result<()> {
-        let cluster: Cluster = serde_json::from_str(TINY_CLUSTER)?;
+        let cluster: Cluster = serde_json::from_str(MEDIUM_CLUSTER)?;
 
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
