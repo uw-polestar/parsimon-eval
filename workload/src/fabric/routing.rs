@@ -86,10 +86,7 @@ impl RoutingAlgo for FabricRoutes {
                     }
                     FabricNode::Fabric | FabricNode::Spine => {
                         let target_plane = self.plane_of_node(to);
-                        self.fabrics_of_tor(from)
-                            .filter(|&f| self.plane_of_node(f) == target_plane)
-                            .map(NodeId::new)
-                            .collect()
+                        vec![NodeId::new(self.fabric_of_tor_in_plane(from, target_plane))]
                     }
                     _ => self.fabrics_of_tor(from).map(NodeId::new).collect(),
                 }
@@ -135,10 +132,7 @@ impl RoutingAlgo for FabricRoutes {
                     FabricNode::Spine => self.fabrics_of_spine(from).map(NodeId::new).collect(),
                     _ => {
                         let target_pod = self.pod_of_node(to);
-                        self.fabrics_of_spine(from)
-                            .filter(|&f| self.pod_of_node(f) == target_pod)
-                            .map(NodeId::new)
-                            .collect()
+                        vec![NodeId::new(self.fabric_of_spine_in_pod(from, target_pod))]
                     }
                 }
             }
@@ -158,6 +152,11 @@ impl FabricRoutes {
         let start = self.fabric_base
             + ((tor - self.tor_base) / self.nr_tors_per_pod) * self.nr_fabs_per_pod;
         start..(start + self.nr_fabs_per_pod)
+    }
+
+    fn fabric_of_tor_in_plane(&self, tor: usize, plane: usize) -> usize {
+        assert!(matches!(self.nodes[tor], FabricNode::TopOfRack));
+        self.fabric_base + self.pod_of_node(tor) * self.nr_fabs_per_pod + plane
     }
 
     fn tors_of_fabric(&self, fab: usize) -> impl Iterator<Item = usize> {
@@ -185,17 +184,25 @@ impl FabricRoutes {
     }
 
     fn fabrics_of_spine(&self, spine: usize) -> impl Iterator<Item = usize> {
+        assert!(matches!(self.nodes[spine], FabricNode::Spine));
         let plane: usize = (spine - self.spine_base) / self.nr_spines_per_plane;
         let start = self.fabric_base + plane; // offset
         (start..).step_by(self.nr_fabs_per_pod).take(self.nr_pods)
     }
 
+    fn fabric_of_spine_in_pod(&self, spine: usize, pod: usize) -> usize {
+        assert!(matches!(self.nodes[spine], FabricNode::Spine));
+        self.fabric_base + pod * self.nr_fabs_per_pod + self.plane_of_node(spine)
+    }
+
     fn host_in_pod(&self, pod: usize, host: usize) -> bool {
+        assert!(matches!(self.nodes[host], FabricNode::Host));
         let start = pod * self.nr_hosts_per_rack * self.nr_tors_per_pod;
         host >= start && host < start + self.nr_hosts_per_rack * self.nr_tors_per_pod
     }
 
     fn tor_in_pod(&self, pod: usize, tor: usize) -> bool {
+        assert!(matches!(self.nodes[tor], FabricNode::TopOfRack));
         let start = self.tor_base + pod * self.nr_tors_per_pod;
         tor >= start && tor < start + self.nr_tors_per_pod
     }
@@ -208,6 +215,8 @@ impl FabricRoutes {
     }
 
     fn is_fabric_spine(&self, fab: usize, spine: usize) -> bool {
+        assert!(matches!(self.nodes[fab], FabricNode::Fabric));
+        assert!(matches!(self.nodes[spine], FabricNode::Spine));
         let plane = fab % self.nr_fabs_per_pod;
         let start = self.spine_base + plane * self.nr_spines_per_plane;
         spine >= start && spine < start + self.nr_spines_per_plane
