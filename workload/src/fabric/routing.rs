@@ -103,11 +103,9 @@ impl RoutingAlgo for FabricRoutes {
                         // ToR in this pod
                         vec![NodeId::new(to)]
                     }
-                    FabricNode::Host if self.host_in_pod(self.pod_of_node(from), to) => self
-                        .tors_of_fabric(from)
-                        .filter(|&t| t == self.tor_of_host(to))
-                        .map(NodeId::new)
-                        .collect(),
+                    FabricNode::Host if self.host_in_pod(self.pod_of_node(from), to) => {
+                        vec![NodeId::new(self.tor_of_host(to))]
+                    }
                     FabricNode::Fabric
                         if self.plane_of_node(from) != self.plane_of_node(to)
                             && self.pod_of_node(from) != self.pod_of_node(to) =>
@@ -198,7 +196,7 @@ impl FabricRoutes {
     }
 
     fn tor_in_pod(&self, pod: usize, tor: usize) -> bool {
-        let start = self.tor_base + pod * self.nr_fabs_per_pod;
+        let start = self.tor_base + pod * self.nr_tors_per_pod;
         tor >= start && tor < start + self.nr_tors_per_pod
     }
 
