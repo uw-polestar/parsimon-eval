@@ -1,6 +1,6 @@
 {
     "id": 0,
-    "spatial": "spec/cluster_b.json",
+    "spatial": "spec/spatial.json",
     "size_dist": "spec/webserver-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.5,
