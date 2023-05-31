@@ -233,8 +233,7 @@ mod tests {
 
     #[test]
     fn routes_correct() -> anyhow::Result<()> {
-        let mut cluster: Cluster = serde_json::from_str(TINY_CLUSTER)?;
-        cluster.contiguousify();
+        let cluster: Cluster = serde_json::from_str(TINY_CLUSTER)?;
 
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();

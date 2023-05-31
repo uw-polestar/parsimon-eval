@@ -191,13 +191,13 @@ fn rename_link(link: &mut Link, old2new: &FxHashMap<NodeId, NodeId>) {
 
 #[cfg(test)]
 mod tests {
-    use crate::testing::TINY_CLUSTER;
+    use crate::testing::TINY_CLUSTER_UNORDERED;
 
     use super::*;
 
     #[test]
     fn contiguousify_correct() -> anyhow::Result<()> {
-        let mut cluster: Cluster = serde_json::from_str(TINY_CLUSTER)?;
+        let mut cluster: Cluster = serde_json::from_str(TINY_CLUSTER_UNORDERED)?;
         cluster.contiguousify();
         insta::assert_yaml_snapshot!(&cluster);
         Ok(())
