@@ -13,6 +13,7 @@ csv = { workspace = true }
 parsimon = { workspace = true }
 rand = { workspace = true }
 rayon = { workspace = true }
+rmp-serde = "1.1.1"
 serde = { workspace = true }
 serde_json = { workspace = true }
 utils = { version = "0.1.0", path = "../../crates/utils" }
