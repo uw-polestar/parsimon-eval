@@ -14,6 +14,7 @@ itertools = { workspace = true }
 parsimon = { workspace = true }
 rand = { workspace = true }
 rand_distr = { workspace = true }
+rmp-serde = "1.1.1"
 rustc-hash = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
