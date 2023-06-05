@@ -5,5 +5,5 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5,
     "cluster": "spec/topology.json",
-    "duration": 5
+    "duration": 1
 }

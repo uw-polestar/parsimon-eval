@@ -1,5 +1,4 @@
 use std::{
-    borrow::Borrow,
     fmt, fs,
     net::{IpAddr, Ipv4Addr, SocketAddr},
     path::{Path, PathBuf},
@@ -183,7 +182,9 @@ impl Experiment {
             .seed(self.seed)
             .build();
         let flows = flowgen.generate();
+        println!("  Serializing flows...");
         let s = rmp_serde::encode::to_vec(&flows)?;
+        println!("  Done");
         fs::write(&to, s)?;
         Ok(())
     }
