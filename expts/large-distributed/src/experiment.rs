@@ -160,8 +160,6 @@ impl Experiment {
 
     fn flows(&self, mix: &Mix) -> anyhow::Result<Vec<Flow>> {
         let path = self.flow_file(mix)?;
-        println!("{}", path.display());
-
         if !path.exists() {
             println!("Generating flows...");
             self.gen_flows(mix, &path)?;
@@ -172,18 +170,9 @@ impl Experiment {
     }
 
     fn gen_flows(&self, mix: &Mix, to: impl AsRef<Path>) -> anyhow::Result<()> {
-        println!("Reading spatial data...");
-        let string = mix.spatial.display();
-        println!("Spatial data {string}");
         let spatial: SpatialData = serde_json::from_str(&fs::read_to_string(&mix.spatial)?)?;
-        println!("Reading cluster data...");
-
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
-        println!("Reading size dist data...");
-
         let size_dist = utils::read_ecdf(&mix.size_dist)?;
-        println!("Flowgen...");
-
         let flowgen = FlowGenerator::builder()
             .spatial_data(spatial)
             .cluster(cluster)
@@ -193,10 +182,7 @@ impl Experiment {
             .stop_when(StopWhen::Elapsed(mix.duration))
             .seed(self.seed)
             .build();
-        println!("Generating...");
         let flows = flowgen.generate();
-        println!("Encoding...");
-
         let s = rmp_serde::encode::to_vec(&flows)?;
         fs::write(&to, s)?;
         Ok(())
