@@ -1,5 +1,4 @@
 use std::{
-    borrow::Borrow,
     fmt, fs,
     net::{IpAddr, Ipv4Addr, SocketAddr},
     path::{Path, PathBuf},
@@ -173,7 +172,8 @@ impl Experiment {
 
     fn gen_flows(&self, mix: &Mix, to: impl AsRef<Path>) -> anyhow::Result<()> {
         println!("Reading spatial data...");
-
+        let string = mix.spatial.display();
+        println!("Spatial data {string}");
         let spatial: SpatialData = serde_json::from_str(&fs::read_to_string(&mix.spatial)?)?;
         println!("Reading cluster data...");
 
