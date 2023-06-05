@@ -194,7 +194,6 @@ impl Experiment {
             .seed(self.seed)
             .build();
         println!("Generating...");
-        dbg!(flowgen.borrow());
         let flows = flowgen.generate();
         println!("Encoding...");
 
