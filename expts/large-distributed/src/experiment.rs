@@ -117,10 +117,11 @@ impl Experiment {
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let start = Instant::now(); // timer start
+        let a = Instant::now();
         let network = Network::new_with_routes(&nodes, &links, FabricRoutes::new(&cluster))?;
         let mut network = network.into_simulations(flows.clone());
         let clusterer = GreedyClustering::new(feature::dists_and_load, is_close_enough);
-        network.cluster(&clusterer);
+        network.cluster(clusterer);
         let nr_clusters = network.clusters().len();
         let frac = nr_clusters as f64 / (links.len() * 2) as f64;
         let linksim = MinimLink::builder()
@@ -128,11 +129,14 @@ impl Experiment {
             .dctcp_gain(DCTCP_GAIN)
             .dctcp_ai(DCTCP_AI)
             .build();
+        let b = a.elapsed().as_secs();
+        println!("Setup took {b} seconds");
         let sim_opts = SimOpts::builder()
             .link_sim(linksim)
             .workers(self.workers.clone())
             .build();
         let network = network.into_delays(sim_opts)?;
+        let a = Instant::now();
         let records: Vec<_> = flows
             .par_iter()
             .enumerate()
@@ -150,6 +154,8 @@ impl Experiment {
                     })
             })
             .collect();
+        let b = a.elapsed().as_secs();
+        println!("Sampling took {b} seconds");
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_clustering(mix, sim, frac)?;
         self.put_elapsed(mix, sim, elapsed_secs)?;
