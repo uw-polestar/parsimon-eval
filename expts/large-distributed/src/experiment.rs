@@ -111,15 +111,23 @@ impl Experiment {
     }
 
     fn run_pmn_mc(&self, mix: &Mix) -> anyhow::Result<()> {
+        println!("Run PMN-MC...");
         let sim = SimKind::PmnMC;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let a = Instant::now();
         let flows = self.flows(mix)?;
+        let b = a.elapsed().as_secs();
+        println!("Getting flows took {b} seconds");
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let start = Instant::now(); // timer start
         let a = Instant::now();
         let network = Network::new_with_routes(&nodes, &links, FabricRoutes::new(&cluster))?;
+        let b = a.elapsed().as_secs();
+        println!("New network took {b} seconds");
         let mut network = network.into_simulations(flows.clone());
+        let b = a.elapsed().as_secs();
+        println!("Into simulations took {b} seconds");
         let clusterer = GreedyClustering::new(feature::dists_and_load, is_close_enough);
         network.cluster(clusterer);
         let nr_clusters = network.clusters().len();
@@ -135,8 +143,11 @@ impl Experiment {
             .link_sim(linksim)
             .workers(self.workers.clone())
             .build();
+        let b = a.elapsed().as_secs();
+        println!("SimOpts builder took {b} seconds");
         let network = network.into_delays(sim_opts)?;
-        let a = Instant::now();
+        let b = a.elapsed().as_secs();
+        println!("Into delay network took {b} seconds");
         let records: Vec<_> = flows
             .par_iter()
             .enumerate()
