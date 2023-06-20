@@ -10,7 +10,9 @@ anyhow = { workspace = true }
 clap = { workspace = true, features = ["derive", "suggestions"] }
 csv = { workspace = true }
 derive-new = { workspace = true }
+indicatif = "0.17.5"
 itertools = { workspace = true }
+log = "0.4.19"
 parsimon = { workspace = true }
 rand = { workspace = true }
 rand_distr = { workspace = true }

@@ -10,6 +10,8 @@ default-run = "large-distributed"
 anyhow = { workspace = true }
 clap = { workspace = true }
 csv = { workspace = true }
+env_logger = "0.10.0"
+log = "0.4.19"
 parsimon = { workspace = true }
 rand = { workspace = true }
 rayon = { workspace = true }

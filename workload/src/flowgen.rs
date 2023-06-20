@@ -2,6 +2,10 @@ use crate::{
     fabric::{Cluster, FabricRoutes},
     spatial::{SpatialData, SpatialWorkload},
 };
+
+use indicatif::ProgressBar;
+use log::info;
+
 use parsimon::core::{
     network::{Channel, Flow, FlowId, Network},
     units::{BitsPerSec, Bytes, Nanosecs, Secs},
@@ -38,13 +42,11 @@ impl FlowGenerator {
             StopWhen::Elapsed(_) => self.cluster.links().count() * 1000,
             StopWhen::NrFlows(nr_flows) => nr_flows,
         };
-        println!("  Finding the most loaded channel...");
         let chan = Self::most_loaded_channel(&spatial_wk, &self.cluster, nr_test_flows, &mut rng);
         let total_rate = chan
             .bandwidth
             .scale_by(self.max_load)
             .scale_by(chan.frac.recip());
-        println!("  Done: {:?}", chan);
 
         // Get inter-arrival distribution
         let mean_f = Bytes::new(self.size_dist.mean().round() as u64);
@@ -74,7 +76,7 @@ impl FlowGenerator {
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let network = Network::new_with_routes(&nodes, &links, FabricRoutes::new(cluster))
             .expect("invalid cluster specification");
-        println!("    Generating test flows...");
+        info!("Generating test flows");
         let flows = (0..nr_test_flows)
             .map(|i| {
                 let (src, dst) = spatial_wk.sample(&mut rng);
@@ -87,11 +89,9 @@ impl FlowGenerator {
                 }
             })
             .collect::<Vec<_>>();
-        println!("    Done");
-        println!("    Pushing test flows...");
+        info!("Pushing test flows");
         let network = network.into_simulations(flows);
-        println!("    Done");
-        println!("    Iterating links...");
+        info!("Iterating links");
         let (nr_link_flows, bandwidth) = network
             .channels()
             .map(|chan| {
@@ -103,7 +103,6 @@ impl FlowGenerator {
             .max_by(|(a, _, _), (b, _, _)| a.partial_cmp(b).unwrap())
             .map(|(_, nr_flows, bandwidth)| (nr_flows, bandwidth))
             .unwrap();
-        println!("    Done");
         ChannelInfo {
             bandwidth,
             frac: nr_link_flows as f64 / nr_test_flows as f64,
@@ -127,7 +126,8 @@ impl FlowGenerator {
             StopWhen::Elapsed(duration) => (start_time + duration.into(), usize::MAX),
             StopWhen::NrFlows(max_nr_flows) => (Nanosecs::MAX, max_nr_flows),
         };
-        println!("Generating workload flows...");
+        info!("Generating workload flows");
+        let bar = ProgressBar::new(max_nr_flows as u64);
         while cur < end && nr_flows < max_nr_flows {
             let (src, dst) = spatial_wk.sample(&mut rng);
             let size = Bytes::new(size_dist.sample(&mut rng).round() as u64);
@@ -141,9 +141,10 @@ impl FlowGenerator {
             };
             flows.push(flow);
             nr_flows += 1;
+            bar.inc(1);
             cur += delta;
         }
-        println!("Done");
+        bar.finish_and_clear();
         flows
     }
 }
