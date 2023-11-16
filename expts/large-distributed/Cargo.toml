@@ -1,0 +1,19 @@
+[package]
+name = "large-distributed"
+version = "0.1.0"
+edition = "2021"
+default-run = "large-distributed"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true }
+csv = { workspace = true }
+parsimon = { workspace = true }
+rand = { workspace = true }
+rayon = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+utils = { version = "0.1.0", path = "../../crates/utils" }
+workload = { version = "0.1.0", path = "../../workload" }

@@ -1,0 +1,27 @@
+[package]
+name = "workload"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true, features = ["derive", "suggestions"] }
+csv = { workspace = true }
+derive-new = { workspace = true }
+itertools = { workspace = true }
+parsimon = { workspace = true }
+rand = { workspace = true }
+rand_distr = { workspace = true }
+rustc-hash = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+typed-builder = "0.14.0"
+utils = { path = "../crates/utils" }
+
+[features]
+
+[dev-dependencies]
+insta = { version = "1.29.0", features = ["yaml"] }
