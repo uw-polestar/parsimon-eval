@@ -1,5 +1,5 @@
 use clap::Parser;
-use large_distributed::Experiment;
+use scaling::Experiment;
 
 fn main() -> anyhow::Result<()> {
     let expt = Experiment::parse();
