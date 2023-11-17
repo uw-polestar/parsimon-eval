@@ -1,5 +1,5 @@
 [workspace]
-members = ["workload", "crates/utils", "expts/fig_7", "expts/large-distributed"]
+members = ["workload", "crates/utils", "expts/fig_7"]
 resolver = "2"
 
 [workspace.dependencies]
