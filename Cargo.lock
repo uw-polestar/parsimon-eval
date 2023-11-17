@@ -1741,6 +1741,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bebd363326d05ec3e2f532ab7660680f3b02130d780c299bca73469d521bc0ed"
 
 [[package]]
+name = "sensitivity-analysis"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "csv",
+ "ns3-frontend",
+ "parsimon",
+ "rand",
+ "rayon",
+ "serde",
+ "serde_json",
+ "utils",
+ "workload",
+]
+
+[[package]]
 name = "serde"
 version = "1.0.192"
 source = "registry+https://github.com/rust-lang/crates.io-index"
