@@ -119,7 +119,7 @@ impl SpatialData {
                     .map(|rack| rack.tor.id)
                     .collect::<Vec<_>>();
                 tor_ids.shuffle(&mut rng);
-                tors.iter().zip(tor_ids.into_iter())
+                tors.iter().zip(tor_ids)
             })
             .collect::<FxHashMap<_, _>>();
 
@@ -193,13 +193,12 @@ impl SpatialData {
             .inner
             .iter()
             .enumerate()
-            .filter_map(|(i, row)| {
-                keep_indices.contains(&i).then(|| {
-                    row.iter()
-                        .enumerate()
-                        .filter_map(|(i, &count)| keep_indices.contains(&i).then_some(count))
-                        .collect::<Vec<_>>()
-                })
+            .filter(|&(i, _)| keep_indices.contains(&i))
+            .map(|(_, row)| {
+                row.iter()
+                    .enumerate()
+                    .filter_map(|(i, &count)| keep_indices.contains(&i).then_some(count))
+                    .collect::<Vec<_>>()
             })
             .collect::<Vec<_>>();
         let new_idx2name = keep_indices
