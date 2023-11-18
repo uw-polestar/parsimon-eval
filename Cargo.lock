@@ -1697,6 +1697,7 @@ dependencies = [
  "clap",
  "csv",
  "ns3-frontend",
+ "openssl",
  "parsimon",
  "rand",
  "rayon",
