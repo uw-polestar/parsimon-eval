@@ -1,5 +1,9 @@
 # parsimon-eval
 
+### Setup
+- Download the repo ``parsimon`` and put it in the same directory as this repo.
+- Build ns3 in parsimon/backends/High-Precision-Congestion-Control/simulation
+- Set the ns3 path in parsimon-eval/expts/fig_8/src/experiment.rs
 
 ### Path simulations are good enough?
 

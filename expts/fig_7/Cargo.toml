@@ -14,7 +14,7 @@ ns3-frontend = { workspace = true }
 rand = { workspace = true }
 rayon = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
-serde_json = { workspace = true }
+serde_json = { worksgemenpace = true }
 utils = { version = "0.1.0", path = "../../crates/utils" }
 workload = { version = "0.1.0", path = "../../workload" }
 openssl = { version = "0.10", features = ["vendored"] }
