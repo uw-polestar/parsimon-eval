@@ -135,7 +135,7 @@ impl Experiment {
                 }
             }
         }
-
+        println!("The selected path is ({:?}, {:?})", max_row,max_col);
         // get flows for a specific path
         let path= network.path(NodeId::new(max_row), NodeId::new(max_col), |choices| choices.first());
         let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
