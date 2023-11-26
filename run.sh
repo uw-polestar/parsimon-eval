@@ -4,6 +4,7 @@ cargo clean
 cargo run --release -- --mix spec/1.mix.json ns3
 cargo run --release -- --mix spec/1.mix.json pmn-m
 cargo run --release -- --mix spec/1.mix.json pmn-mc
+cargo run --release -- --mix spec/1.mix.json pmn-path
 
 
 cargo run --release -- --mixes spec/25.mix.json ns3
@@ -15,6 +16,7 @@ cargo run --release -- --mixes spec/25.mix.json pmn-path
 cargo run --release -- --mixes spec/all.mix.json ns3
 cargo run --release -- --mixes spec/all.mix.json pmn-m
 cargo run --release -- --mixes spec/all.mix.json pmn-mc
+cargo run --release -- --mixes spec/all.mix.json pmn-path
 
 python run.py --root /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/ns3 --cc dctcp --trace flows --bw 10 --topo topology --fwin 18000 --base_rtt 14400
 
