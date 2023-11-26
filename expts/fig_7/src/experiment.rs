@@ -91,7 +91,7 @@ impl Experiment {
     }
 
     fn run_pmn_path(&self, mix: &Mix) -> anyhow::Result<()> {
-        let sim = SimKind::Ns3;
+        let sim = SimKind::PmnPath;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         let start = Instant::now(); // timer start
@@ -116,7 +116,9 @@ impl Experiment {
                 }
             }
         }
-        println!("The selected path is ({:?}, {:?})", max_row,max_col);
+        let path_str=format!("{},{}", max_row,max_col);
+        self.put_path(mix, sim, path_str)?;
+        // println!("The selected path is ({:?}, {:?})", max_row,max_col);
         // get flows for a specific path
         let path= network.path(NodeId::new(max_row), NodeId::new(max_col), |choices| choices.first());
         let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
@@ -331,6 +333,11 @@ impl Experiment {
         Ok(())
     }
 
+    fn put_path(&self, mix: &Mix, sim: SimKind, path_str: String) -> anyhow::Result<()> {
+        fs::write(self.path_file(mix, sim)?, path_str)?;
+        Ok(())
+    }
+
     fn put_clustering(&self, mix: &Mix, sim: SimKind, frac: f64) -> anyhow::Result<()> {
         fs::write(self.clustering_file(mix, sim)?, frac.to_string())?;
         Ok(())
@@ -375,6 +382,13 @@ impl Experiment {
 
     fn elapsed_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "elapsed.txt".as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
+    fn path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), "path.txt".as_ref()]
             .into_iter()
             .collect();
         Ok(file)
