@@ -1,7 +1,7 @@
 use std::{
     fmt, fs,
     path::{Path, PathBuf},
-    time::Instant, collections::HashSet,
+    time::Instant, collections::HashSet, collections::HashMap,
 };
 
 use ns3_frontend::Ns3Simulation;
@@ -118,28 +118,23 @@ impl Experiment {
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         // get a specific path
-        let spatial: SpatialData = serde_json::from_str(&fs::read_to_string(&mix.spatial)?)?;
-        let traffic_mat=spatial.matrix.inner;
-        let mut max_val = 0;
-        let mut max_row = 0;
-        let mut max_col = 0;
-
-        for i in 0..traffic_mat.len() {
-            for j in 0..traffic_mat[i].len() {
-                if i!=j {
-                    if traffic_mat[i][j] > max_val {
-                        max_val = traffic_mat[i][j];
-                        max_row = i;
-                        max_col = j;
-                    }
-                }
+        let mut flow_to_num_map: HashMap<(NodeId,NodeId), i32> = HashMap::new();
+        for flow in flows.iter(){
+            let key_tuple=(flow.src,flow.dst);
+            match flow_to_num_map.get(&key_tuple) {
+                Some(count) => { flow_to_num_map.insert(key_tuple, count + 1); }
+                None => { flow_to_num_map.insert(key_tuple, 1); }
             }
         }
+        let src_dst_pair = flow_to_num_map.iter().max_by(|a, b| a.1.cmp(&b.1)).map(|(k, _v)| k).unwrap();
+        
+        let max_row=src_dst_pair.0;
+        let max_col=src_dst_pair.1;
         let path_str=format!("{},{}", max_row,max_col);
         self.put_path(mix, sim, path_str)?;
         // println!("The selected path is ({:?}, {:?})", max_row,max_col);
         // get flows for a specific path
-        let path= network.path(NodeId::new(max_row), NodeId::new(max_col), |choices| choices.first());
+        let path= network.path(max_row, max_col, |choices| choices.first());
         let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
         let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
         let ns3 = Ns3Simulation::builder()
