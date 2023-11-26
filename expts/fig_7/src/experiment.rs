@@ -109,10 +109,12 @@ impl Experiment {
 
         for i in 0..traffic_mat.len() {
             for j in 0..traffic_mat[i].len() {
-                if traffic_mat[i][j] > max_val {
-                    max_val = traffic_mat[i][j];
-                    max_row = i;
-                    max_col = j;
+                if i!=j {
+                    if traffic_mat[i][j] > max_val {
+                        max_val = traffic_mat[i][j];
+                        max_row = i;
+                        max_col = j;
+                    }
                 }
             }
         }
