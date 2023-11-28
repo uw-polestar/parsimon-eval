@@ -69,8 +69,13 @@ impl Experiment {
                     self.run_pmn_mc(mix)?;
                 }
             },
-            SimKind::PmnPath => {
-                mixes.par_iter().try_for_each(|mix| self.run_pmn_path(mix))?;
+            SimKind::Ns3Path => {
+                mixes.par_iter().try_for_each(|mix| self.run_ns3_path(mix))?;
+            },
+            SimKind::PmnMPath => {
+                for mix in &mixes {
+                    self.run_pmn_m_path(mix)?;
+                }
             }
         }
         Ok(())
@@ -83,7 +88,7 @@ impl Experiment {
         let start = Instant::now(); // timer start
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
-            .data_dir(self.sim_dir(mix, SimKind::Ns3)?)
+            .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
             .window(WINDOW)
@@ -107,8 +112,8 @@ impl Experiment {
         Ok(())
     }
 
-    fn run_pmn_path(&self, mix: &Mix) -> anyhow::Result<()> {
-        let sim = SimKind::PmnPath;
+    fn run_ns3_path(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Ns3Path;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         let start = Instant::now(); // timer start
@@ -139,7 +144,7 @@ impl Experiment {
         let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
-            .data_dir(self.sim_dir(mix, SimKind::PmnPath)?)
+            .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
             .window(WINDOW)
@@ -175,7 +180,7 @@ impl Experiment {
         let loads = network.link_loads().collect::<Vec<_>>();
         let linksim =
             Ns3Link::builder()
-                .root_dir(self.sim_dir(mix, SimKind::Pmn)?)
+                .root_dir(self.sim_dir(mix, sim)?)
                 .ns3_dir(NS3_DIR)
                 .window(WINDOW)
                 .base_rtt(BASE_RTT)
@@ -223,6 +228,69 @@ impl Experiment {
         let network = network.into_delays(sim_opts)?;
         let mut rng = StdRng::seed_from_u64(self.seed);
         let records: Vec<_> = flows
+            .iter()
+            .filter_map(|f| {
+                network
+                    .slowdown(f.size, (f.src, f.dst), &mut rng)
+                    .map(|slowdown| Record {
+                        mix_id: mix.id,
+                        flow_id: f.id,
+                        size: f.size,
+                        slowdown,
+                        sim,
+                    })
+            })
+            .collect();
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_loads(mix, sim, &loads)?;
+        self.put_elapsed(mix, sim, elapsed_secs)?;
+        self.put_records(mix, sim, &records)?;
+        Ok(())
+    }
+
+    fn run_pmn_m_path(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::PmnMPath;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations(flows.clone());
+        // get a specific path
+        let mut flow_to_num_map: HashMap<(NodeId,NodeId), i32> = HashMap::new();
+        for flow in flows.iter(){
+            let key_tuple=(flow.src,flow.dst);
+            match flow_to_num_map.get(&key_tuple) {
+                Some(count) => { flow_to_num_map.insert(key_tuple, count + 1); }
+                None => { flow_to_num_map.insert(key_tuple, 1); }
+            }
+        }
+        let src_dst_pair = flow_to_num_map.iter().max_by(|a, b| a.1.cmp(&b.1)).map(|(k, _v)| k).unwrap();
+        
+        let max_row=src_dst_pair.0;
+        let max_col=src_dst_pair.1;
+        let path_str=format!("{},{}", max_row,max_col);
+        self.put_path(mix, sim, path_str)?;
+        // println!("The selected path is ({:?}, {:?})", max_row,max_col);
+        // get flows for a specific path
+        let path= network.path(max_row, max_col, |choices| choices.first());
+        let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
+        let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
+
+        let start = Instant::now(); // timer start
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations(flows_remaining.clone());
+        let loads = network.link_loads().collect::<Vec<_>>();
+        let linksim = MinimLink::builder()
+            .window(WINDOW)
+            .dctcp_gain(DCTCP_GAIN)
+            .dctcp_ai(DCTCP_AI)
+            .build();
+        let sim_opts = SimOpts::builder().link_sim(linksim).build();
+        let network = network.into_delays(sim_opts)?;
+        let mut rng = StdRng::seed_from_u64(self.seed);
+        let records: Vec<_> = flows_remaining
             .iter()
             .filter_map(|f| {
                 network
@@ -429,7 +497,8 @@ pub enum SimKind {
     Pmn,
     PmnM,
     PmnMC,
-    PmnPath
+    Ns3Path,
+    PmnMPath
 }
 
 impl fmt::Display for SimKind {
@@ -439,7 +508,8 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::PmnPath => "pmn-path",
+            SimKind::Ns3Path => "ns3-path",
+            SimKind::PmnMPath => "pmn-m-path",
         };
         write!(f, "{}", s)
     }
