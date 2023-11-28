@@ -252,9 +252,10 @@ impl Experiment {
         let sim = SimKind::PmnMPath;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+        let start = Instant::now(); // timer start
+        // construct SimNetwork
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
-        
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         // get a specific path
@@ -278,7 +279,6 @@ impl Experiment {
         let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
         let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
 
-        let start = Instant::now(); // timer start
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows_remaining.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
