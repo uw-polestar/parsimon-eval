@@ -25,13 +25,17 @@ use workload::{
 };
 
 use crate::mix::{Mix, MixId};
+use crate::flowsim::FlowSim;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 2_000_000;
+const NR_FLOWS: usize = 4_000_000;
+
+const FLOWSIM_DIR: &str = "./";
+const PYTHON_DIR: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin/python";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -75,6 +79,11 @@ impl Experiment {
             SimKind::PmnMPath => {
                 for mix in &mixes {
                     self.run_pmn_m_path(mix)?;
+                }
+            },
+            SimKind::FlowSim => {
+                for mix in &mixes {
+                    self.run_flow_sim(mix)?;
                 }
             }
         }
@@ -311,6 +320,63 @@ impl Experiment {
         Ok(())
     }
 
+    fn run_flow_sim(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::FlowSim;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+        // construct SimNetwork
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations(flows.clone());
+        // get a specific path
+        let mut flow_to_num_map: HashMap<(NodeId,NodeId), i32> = HashMap::new();
+        for flow in flows.iter(){
+            let key_tuple=(flow.src,flow.dst);
+            match flow_to_num_map.get(&key_tuple) {
+                Some(count) => { flow_to_num_map.insert(key_tuple, count + 1); }
+                None => { flow_to_num_map.insert(key_tuple, 1); }
+            }
+        }
+        let src_dst_pair = flow_to_num_map.iter().max_by(|a, b| a.1.cmp(&b.1)).map(|(k, _v)| k).unwrap();
+        
+        let max_row=src_dst_pair.0;
+        let max_col=src_dst_pair.1;
+        let path_str=format!("{},{}", max_row,max_col);
+        self.put_path(mix, sim, path_str)?;
+        // println!("The selected path is ({:?}, {:?})", max_row,max_col);
+        // get flows for a specific path
+        let path= network.path(max_row, max_col, |choices| choices.first());
+        let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
+        let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
+        
+        let start = Instant::now(); // timer start
+        let flowsim = FlowSim::builder()
+            .python_dir(PYTHON_DIR)
+            .script_dir(FLOWSIM_DIR)
+            .data_dir(self.sim_dir(mix, sim)?)
+            .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
+            .links(cluster.links().cloned().collect::<Vec<_>>())
+            .flows(flows_remaining)
+            .build();
+        let records = flowsim
+            .run()?
+            .into_iter()
+            .map(|rec| Record {
+                mix_id: mix.id,
+                flow_id: rec.id,
+                size: rec.size,
+                slowdown: rec.slowdown(),
+                sim,
+            })
+            .collect::<Vec<_>>();
+
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
+        self.put_records(mix, sim, &records)?;
+        Ok(())
+    }
+
     fn run_pmn_mc(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::PmnMC;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
@@ -498,7 +564,8 @@ pub enum SimKind {
     PmnM,
     PmnMC,
     Ns3Path,
-    PmnMPath
+    PmnMPath,
+    FlowSim
 }
 
 impl fmt::Display for SimKind {
@@ -510,6 +577,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMC => "pmn-mc",
             SimKind::Ns3Path => "ns3-path",
             SimKind::PmnMPath => "pmn-m-path",
+            SimKind::FlowSim => "flow-sim",
         };
         write!(f, "{}", s)
     }
