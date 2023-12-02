@@ -19,3 +19,7 @@ serde_json = { workspace = true }
 utils = { version = "0.1.0", path = "../../crates/utils" }
 workload = { version = "0.1.0", path = "../../workload" }
 openssl = { version = "0.10", features = ["vendored"] }
+derivative = "2.2.0"
+typed-builder = "0.18.0"
+thiserror = "1.0.50"
+insta = { version = "1.34.0", features = ["yaml"] }

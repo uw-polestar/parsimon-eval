@@ -26,3 +26,7 @@ PATH=$PATH:/data1/lichenni/software/anaconda3/envs/py27/bin
 
 
 CC='gcc-5' CXX='g++-5' ./waf configure --build-profile=optimized
+
+CC='gcc-5' CXX='g++-5' ./waf configure --build-profile=debug --out=build/debug
+
+export NS_LOG=PacketPathExample=info

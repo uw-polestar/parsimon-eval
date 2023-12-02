@@ -2,5 +2,6 @@
 
 pub mod experiment;
 pub mod mix;
+pub mod flowsim;
 
 pub use experiment::Experiment;

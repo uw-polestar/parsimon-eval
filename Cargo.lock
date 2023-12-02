@@ -1820,6 +1820,8 @@ dependencies = [
  "anyhow",
  "clap",
  "csv",
+ "derivative",
+ "insta",
  "ns3-frontend",
  "openssl",
  "parsimon",
@@ -1827,6 +1829,8 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
+ "thiserror",
+ "typed-builder 0.18.0",
  "utils",
  "workload",
 ]
