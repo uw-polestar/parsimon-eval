@@ -49,67 +49,45 @@ def fix_seed(seed):
 
 
 parser = argparse.ArgumentParser(description="")
-parser.add_argument(
-    "-p",
-    dest="prefix",
-    action="store",
-    default="topo4-4_traffic",
-    help="Specify the prefix of the fct file. Usually like fct_<topology>_<trace>",
-)
-parser.add_argument("-s", dest="step", action="store", default="5")
 parser.add_argument("--shard", dest="shard", type=int, default=0, help="random seed")
+# parser.add_argument("--cc", dest="cc", action="store", default="dctcp", help="")
 parser.add_argument(
-    "-t",
-    dest="type",
-    action="store",
-    type=int,
-    default=0,
-    help="0: normal, 1: incast, 2: all",
-)
-# parser.add_argument('-T', dest='time_limit', action='store', type=int, default=20000000000, help="only consider flows that finish before T")
-parser.add_argument("--cc", dest="cc", action="store", default="dctcp", help="")
-parser.add_argument(
-    "--nhost", dest="nhost", type=int, default=6, help="number of hosts"
+    "--nhost", dest="nhost", type=int, default=1, help="number of hosts"
 )
 parser.add_argument(
     "-b",
     dest="bw",
     action="store",
     type=int,
-    default=10,
+    default=1,
     help="bandwidth of edge link (Gbps)",
 )
 parser.add_argument(
-    "--output_dir",
-    dest="output_dir",
+    "--root",
+    dest="root",
     action="store",
-    default="data/input",
-    help="the name of the flow file",
-)
-parser.add_argument(
-    "--scenario_dir",
-    dest="scenario_dir",
-    action="store",
-    default="AliStorage2019_exp_util0.5_lr10Gbps_nflows10000_nhosts4",
-    help="the name of the flow file",
+    default="mix",
+    help="the root directory for configs and results",
 )
 args = parser.parse_args()
 
 fix_seed(args.shard)
 
-dir_input = "%s/%s" % (args.output_dir, args.scenario_dir)
+dir_input = args.root
 
 nhost = int(args.nhost)
+bw = int(args.bw)
 output_dir = dir_input
 # output_dir = "/data1/lichenni/projects/flow_simulation/High-Precision-Congestion-Control/gc"
 # os.makedirs(output_dir, exist_ok=True)
-
-if not os.path.exists("%s/fcts_flowsim.npy" % output_dir) and os.path.exists(
-    "%s/flow_sizes.npy" % output_dir
+fcts_flowsim_path = f"{output_dir}/fcts_flowsim.npy"
+print("fcts_flowsim_path: ", fcts_flowsim_path)
+if not os.path.exists(fcts_flowsim_path) and os.path.exists(
+    f"{dir_input}/flow_sizes.npy"
 ):
-    sizes = np.load("%s/flow_sizes.npy" % (dir_input))
-    fats = np.load("%s/flow_arrival_times.npy" % (dir_input))
-    flow_src_dst = np.load("%s/flow_src_dst.npy" % (dir_input))
+    sizes = np.load(f"{dir_input}/flow_sizes.npy")
+    fats = np.load(f"{dir_input}/flow_arrival_times.npy")
+    flow_src_dst = np.load(f"{dir_input}/flow_src_dst.npy")
 
     n_flows = len(sizes)
     MTU = 1000
@@ -129,9 +107,9 @@ if not os.path.exists("%s/fcts_flowsim.npy" % output_dir) and os.path.exists(
     src_pt = make_array(c_int, flow_src_dst[:, 0])
     dst_pt = make_array(c_int, flow_src_dst[:, 1])
     # topo_pt=make_array(c_int, np.array([2,2,1,2,1,1]))
-    topo_pt = make_array(c_int, np.array([1, 1]))
+    topo_pt = make_array(c_int, np.array([1, 4]))
     res = C_LIB.get_fct_mmf(
-        n_flows, fats_pt, sizes_pt, src_pt, dst_pt, nhost, topo_pt, 1, 8, 2, 10
+        n_flows, fats_pt, sizes_pt, src_pt, dst_pt, nhost, topo_pt, 1, 8, 2, bw
     )
 
     estimated_fcts = np.fromiter(res.estimated_fcts, dtype=np.float64, count=n_flows)

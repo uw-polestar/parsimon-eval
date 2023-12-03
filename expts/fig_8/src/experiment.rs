@@ -1,7 +1,9 @@
 use std::{
+    collections::HashMap,
+    collections::HashSet,
     fmt, fs,
     path::{Path, PathBuf},
-    time::Instant, collections::HashSet, collections::HashMap,
+    time::Instant,
 };
 
 use ns3_frontend::Ns3Simulation;
@@ -24,18 +26,19 @@ use workload::{
     spatial::SpatialData,
 };
 
+use crate::flowsim::Flowsim;
 use crate::mix::{Mix, MixId};
-use crate::flowsim::FlowSim;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 4_000_000;
+// const NR_FLOWS: usize = 2_000_000;
+const NR_FLOWS: usize = 2_000;
 
-const FLOWSIM_DIR: &str = "./";
-const PYTHON_DIR: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin/python";
+const FLOWSIM_PATH: &str = "./src/main_flowsim_mmf.py";
+const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -72,18 +75,20 @@ impl Experiment {
                 for mix in &mixes {
                     self.run_pmn_mc(mix)?;
                 }
-            },
+            }
             SimKind::Ns3Path => {
-                mixes.par_iter().try_for_each(|mix| self.run_ns3_path(mix))?;
-            },
+                mixes
+                    .par_iter()
+                    .try_for_each(|mix| self.run_ns3_path(mix))?;
+            }
             SimKind::PmnMPath => {
                 for mix in &mixes {
                     self.run_pmn_m_path(mix)?;
                 }
-            },
-            SimKind::FlowSim => {
+            }
+            SimKind::Flowsim => {
                 for mix in &mixes {
-                    self.run_flow_sim(mix)?;
+                    self.run_flowsim(mix)?;
                 }
             }
         }
@@ -131,25 +136,40 @@ impl Experiment {
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         // get a specific path
-        let mut flow_to_num_map: HashMap<(NodeId,NodeId), i32> = HashMap::new();
-        for flow in flows.iter(){
-            let key_tuple=(flow.src,flow.dst);
+        let mut flow_to_num_map: HashMap<(NodeId, NodeId), i32> = HashMap::new();
+        for flow in flows.iter() {
+            let key_tuple = (flow.src, flow.dst);
             match flow_to_num_map.get(&key_tuple) {
-                Some(count) => { flow_to_num_map.insert(key_tuple, count + 1); }
-                None => { flow_to_num_map.insert(key_tuple, 1); }
+                Some(count) => {
+                    flow_to_num_map.insert(key_tuple, count + 1);
+                }
+                None => {
+                    flow_to_num_map.insert(key_tuple, 1);
+                }
             }
         }
-        let src_dst_pair = flow_to_num_map.iter().max_by(|a, b| a.1.cmp(&b.1)).map(|(k, _v)| k).unwrap();
-        
-        let max_row=src_dst_pair.0;
-        let max_col=src_dst_pair.1;
-        let path_str=format!("{},{}", max_row,max_col);
+        let src_dst_pair = flow_to_num_map
+            .iter()
+            .max_by(|a, b| a.1.cmp(&b.1))
+            .map(|(k, _v)| k)
+            .unwrap();
+
+        let max_row = src_dst_pair.0;
+        let max_col = src_dst_pair.1;
+        let path_str = format!("{},{}", max_row, max_col);
         self.put_path(mix, sim, path_str)?;
         // println!("The selected path is ({:?}, {:?})", max_row,max_col);
         // get flows for a specific path
-        let path= network.path(max_row, max_col, |choices| choices.first());
-        let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
-        let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
+        let path = network.path(max_row, max_col, |choices| choices.first());
+        let flow_ids = path
+            .iter()
+            .flat_map(|(_, c)| c.flow_ids())
+            .collect::<HashSet<_>>();
+        let flows_remaining = flows
+            .into_iter()
+            .filter(|flow| flow_ids.contains(&flow.id))
+            .collect::<Vec<_>>();
+
         let start = Instant::now(); // timer start
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
@@ -187,13 +207,12 @@ impl Experiment {
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
-        let linksim =
-            Ns3Link::builder()
-                .root_dir(self.sim_dir(mix, sim)?)
-                .ns3_dir(NS3_DIR)
-                .window(WINDOW)
-                .base_rtt(BASE_RTT)
-                .build();
+        let linksim = Ns3Link::builder()
+            .root_dir(self.sim_dir(mix, sim)?)
+            .ns3_dir(NS3_DIR)
+            .window(WINDOW)
+            .base_rtt(BASE_RTT)
+            .build();
         let sim_opts = SimOpts::builder().link_sim(linksim).build();
         let network = network.into_delays(sim_opts)?;
         let mut rng = StdRng::seed_from_u64(self.seed);
@@ -267,26 +286,40 @@ impl Experiment {
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         // get a specific path
-        let mut flow_to_num_map: HashMap<(NodeId,NodeId), i32> = HashMap::new();
-        for flow in flows.iter(){
-            let key_tuple=(flow.src,flow.dst);
+        let mut flow_to_num_map: HashMap<(NodeId, NodeId), i32> = HashMap::new();
+        for flow in flows.iter() {
+            let key_tuple = (flow.src, flow.dst);
             match flow_to_num_map.get(&key_tuple) {
-                Some(count) => { flow_to_num_map.insert(key_tuple, count + 1); }
-                None => { flow_to_num_map.insert(key_tuple, 1); }
+                Some(count) => {
+                    flow_to_num_map.insert(key_tuple, count + 1);
+                }
+                None => {
+                    flow_to_num_map.insert(key_tuple, 1);
+                }
             }
         }
-        let src_dst_pair = flow_to_num_map.iter().max_by(|a, b| a.1.cmp(&b.1)).map(|(k, _v)| k).unwrap();
-        
-        let max_row=src_dst_pair.0;
-        let max_col=src_dst_pair.1;
-        let path_str=format!("{},{}", max_row,max_col);
+        let src_dst_pair = flow_to_num_map
+            .iter()
+            .max_by(|a, b| a.1.cmp(&b.1))
+            .map(|(k, _v)| k)
+            .unwrap();
+
+        let max_row = src_dst_pair.0;
+        let max_col = src_dst_pair.1;
+        let path_str = format!("{},{}", max_row, max_col);
         self.put_path(mix, sim, path_str)?;
         // println!("The selected path is ({:?}, {:?})", max_row,max_col);
         // get flows for a specific path
-        let path= network.path(max_row, max_col, |choices| choices.first());
-        let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
-        let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
-        
+        let path = network.path(max_row, max_col, |choices| choices.first());
+        let flow_ids = path
+            .iter()
+            .flat_map(|(_, c)| c.flow_ids())
+            .collect::<HashSet<_>>();
+        let flows_remaining = flows
+            .into_iter()
+            .filter(|flow| flow_ids.contains(&flow.id))
+            .collect::<Vec<_>>();
+
         let start = Instant::now(); // timer start
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows_remaining.clone());
@@ -320,8 +353,8 @@ impl Experiment {
         Ok(())
     }
 
-    fn run_flow_sim(&self, mix: &Mix) -> anyhow::Result<()> {
-        let sim = SimKind::FlowSim;
+    fn run_flowsim(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Flowsim;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         // construct SimNetwork
@@ -330,37 +363,81 @@ impl Experiment {
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         // get a specific path
-        let mut flow_to_num_map: HashMap<(NodeId,NodeId), i32> = HashMap::new();
-        for flow in flows.iter(){
-            let key_tuple=(flow.src,flow.dst);
+        let mut flow_to_num_map: HashMap<(NodeId, NodeId), i32> = HashMap::new();
+        for flow in flows.iter() {
+            let key_tuple = (flow.src, flow.dst);
             match flow_to_num_map.get(&key_tuple) {
-                Some(count) => { flow_to_num_map.insert(key_tuple, count + 1); }
-                None => { flow_to_num_map.insert(key_tuple, 1); }
+                Some(count) => {
+                    flow_to_num_map.insert(key_tuple, count + 1);
+                }
+                None => {
+                    flow_to_num_map.insert(key_tuple, 1);
+                }
             }
         }
-        let src_dst_pair = flow_to_num_map.iter().max_by(|a, b| a.1.cmp(&b.1)).map(|(k, _v)| k).unwrap();
-        
-        let max_row=src_dst_pair.0;
-        let max_col=src_dst_pair.1;
-        let path_str=format!("{},{}", max_row,max_col);
+        let src_dst_pair = flow_to_num_map
+            .iter()
+            .max_by(|a, b| a.1.cmp(&b.1))
+            .map(|(k, _v)| k)
+            .unwrap();
+
+        let max_row = src_dst_pair.0;
+        let max_col = src_dst_pair.1;
+        let path_str = format!("{},{}", max_row, max_col);
         self.put_path(mix, sim, path_str)?;
-        // println!("The selected path is ({:?}, {:?})", max_row,max_col);
+        // println!(
+        //     "The selected path is ({:?}, {:?}), with flows of {:?}",
+        //     max_row, max_col, flow_to_num_map[src_dst_pair]
+        // );
         // get flows for a specific path
-        let path= network.path(max_row, max_col, |choices| choices.first());
-        let flow_ids=path.iter().flat_map(|(_,c)| c.flow_ids()).collect::<HashSet<_>>();
-        let flows_remaining=flows.into_iter().filter(|flow| flow_ids.contains(&flow.id)).collect::<Vec<_>>();
-        
+        let path = network.path(max_row, max_col, |choices| choices.first());
+        let flow_ids = path
+            .iter()
+            .flat_map(|(_, c)| c.flow_ids())
+            .collect::<HashSet<_>>();
+        let mut flows_remaining = flows
+            .into_iter()
+            .filter(|flow| flow_ids.contains(&flow.id))
+            .collect::<Vec<_>>();
+
+        let mut flow_to_path_map: HashMap<FlowId, (usize, usize)> = HashMap::new();
+        let mut path_length = 1;
+        for (_, c) in path.iter() {
+            let flows = c.flow_ids();
+            for key_flowid in flows {
+                // println!("flow {} is on path {}", key_flowid, idx);
+                match flow_to_path_map.get(&key_flowid) {
+                    Some(count) => {
+                        // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
+                        // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
+                        // assert!(count.1 == idx);
+                        flow_to_path_map.insert(key_flowid, (count.0, path_length));
+                    }
+                    None => {
+                        flow_to_path_map.insert(key_flowid, (path_length - 1, path_length));
+                    }
+                }
+            }
+            path_length += 1;
+        }
+        for idx in 0..flows_remaining.len() {
+            let flow = flows_remaining[idx];
+            let src = NodeId::new(flow_to_path_map[&flow.id].0);
+            let dst = NodeId::new(flow_to_path_map[&flow.id].1);
+            flows_remaining[idx].src = src;
+            flows_remaining[idx].dst = dst;
+        }
         let start = Instant::now(); // timer start
-        let flowsim = FlowSim::builder()
-            .python_dir(PYTHON_DIR)
-            .script_dir(FLOWSIM_DIR)
+        let flowsim = Flowsim::builder()
+            .python_path(PYTHON_PATH)
+            .script_path(FLOWSIM_PATH)
             .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
             .flows(flows_remaining)
             .build();
         let records = flowsim
-            .run()?
+            .run(path_length)?
             .into_iter()
             .map(|rec| Record {
                 mix_id: mix.id,
@@ -434,16 +511,15 @@ impl Experiment {
         let spatial: SpatialData = serde_json::from_str(&fs::read_to_string(&mix.spatial)?)?;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let size_dist = utils::read_ecdf(&mix.size_dist)?;
-        let flowgen =
-            FlowGenerator::builder()
-                .spatial_data(spatial)
-                .cluster(cluster)
-                .size_dist(size_dist)
-                .lognorm_sigma(mix.lognorm_sigma)
-                .max_load(mix.max_load)
-                .stop_when(StopWhen::NrFlows(NR_FLOWS))
-                .seed(self.seed)
-                .build();
+        let flowgen = FlowGenerator::builder()
+            .spatial_data(spatial)
+            .cluster(cluster)
+            .size_dist(size_dist)
+            .lognorm_sigma(mix.lognorm_sigma)
+            .max_load(mix.max_load)
+            .stop_when(StopWhen::NrFlows(NR_FLOWS))
+            .seed(self.seed)
+            .build();
         let flows = flowgen.generate();
         let s = serde_json::to_string(&flows)?;
         fs::write(&to, s)?;
@@ -565,7 +641,7 @@ pub enum SimKind {
     PmnMC,
     Ns3Path,
     PmnMPath,
-    FlowSim
+    Flowsim,
 }
 
 impl fmt::Display for SimKind {
@@ -577,7 +653,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMC => "pmn-mc",
             SimKind::Ns3Path => "ns3-path",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::FlowSim => "flow-sim",
+            SimKind::Flowsim => "flowsim",
         };
         write!(f, "{}", s)
     }

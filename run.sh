@@ -12,6 +12,7 @@ cargo run --release -- --mixes spec/25.mix.json pmn
 cargo run --release -- --mixes spec/25.mix.json pmn-m
 cargo run --release -- --mixes spec/25.mix.json pmn-mc
 cargo run --release -- --mixes spec/25.mix.json pmn-path
+cargo run --release -- --mixes spec/25.mix.json flowsim
 
 cargo run --release -- --mixes spec/all.mix.json ns3
 cargo run --release -- --mixes spec/all.mix.json pmn-m
