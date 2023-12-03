@@ -72,7 +72,7 @@ impl Flowsim {
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
+            format!("fct_flowsim_{}.txt", self.cc_kind.as_str()).as_ref(),
         ))?;
         let records = parse_flowsim_records(&s)?;
         Ok(records)
@@ -87,12 +87,12 @@ impl Flowsim {
         let script_path = std::fs::canonicalize(&self.script_path)?;
         let script_path = script_path.display();
         let n_hosts = n_hosts.to_string();
-
+        let cc = self.cc_kind.as_str();
         // Build the command that runs the Python script.
         let python_command = format!(
-            "{python_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} > {data_dir}/output.txt 2>&1"
+            "{python_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         );
-        println!("{}", python_command);
+        // println!("{}", python_command);
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
@@ -145,12 +145,25 @@ pub enum Error {
 // }
 
 fn translate_flows(flows: &[Flow]) -> String {
-    let nr_flows = flows.len();
+    // let nr_flows = flows.len();
     // First line: # of flows
     // src0 dst0 3 dst_port0 size0 start_time0
     // src1 dst1 3 dst_port1 size1 start_time1
-    let lines = std::iter::once(nr_flows.to_string())
-        .chain(flows.iter().map(|f| {
+    // let lines = std::iter::once(nr_flows.to_string())
+    //     .chain(flows.iter().map(|f| {
+    //         format!(
+    //             "{} {} {} 3 100 {} {}",
+    //             f.id,
+    //             f.src,
+    //             f.dst,
+    //             f.size.into_u64(),
+    //             f.start.into_u64() as f64 / 1e9 // in seconds, for some reason
+    //         )
+    //     }))
+    //     .collect::<Vec<_>>();
+    let lines = flows
+        .iter()
+        .map(|f| {
             format!(
                 "{} {} {} 3 100 {} {}",
                 f.id,
@@ -159,7 +172,7 @@ fn translate_flows(flows: &[Flow]) -> String {
                 f.size.into_u64(),
                 f.start.into_u64() as f64 / 1e9 // in seconds, for some reason
             )
-        }))
+        })
         .collect::<Vec<_>>();
     lines.join("\n")
 }
@@ -170,7 +183,7 @@ fn parse_flowsim_records(s: &str) -> Result<Vec<FctRecord>, ParseFlowsimError> {
 
 fn parse_flowsim_record(s: &str) -> Result<FctRecord, ParseFlowsimError> {
     // sip, dip, sport, dport, size (B), start_time, fct (ns), standalone_fct (ns)
-    const NR_FLOWSIM_FIELDS: usize = 9;
+    const NR_FLOWSIM_FIELDS: usize = 5;
     let fields = s.split_whitespace().collect::<Vec<_>>();
     let nr_fields = fields.len();
     if nr_fields != NR_FLOWSIM_FIELDS {
@@ -181,10 +194,10 @@ fn parse_flowsim_record(s: &str) -> Result<FctRecord, ParseFlowsimError> {
     }
     Ok(FctRecord {
         id: fields[0].parse()?,
-        size: fields[5].parse()?,
-        start: fields[6].parse()?,
-        fct: fields[7].parse()?,
-        ideal: fields[8].parse()?,
+        size: fields[1].parse()?,
+        start: fields[2].parse()?,
+        fct: fields[3].parse()?,
+        ideal: fields[4].parse()?,
     })
 }
 

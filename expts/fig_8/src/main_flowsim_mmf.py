@@ -6,6 +6,12 @@ from time import time
 import argparse
 import os
 
+MTU = 1000
+HEADER_SIZE = 48
+DELAY_PROPAGATION_BASE = 1000
+BYTE_TO_BIT = 8
+UNIT_G = 1000000000
+
 
 class FCTStruct(Structure):
     _fields_ = [
@@ -44,13 +50,21 @@ C_LIB.free_fctstruct.argtypes = [FCTStruct]
 C_LIB.free_fctstruct.restype = None
 
 
+def get_base_delay(sizes, n_links_passed, lr):
+    pkt_head = np.clip(sizes, a_min=0, a_max=MTU)
+    return (
+        DELAY_PROPAGATION_BASE * 2 * n_links_passed
+        + (pkt_head) * BYTE_TO_BIT / lr * n_links_passed
+    )
+
+
 def fix_seed(seed):
     np.random.seed(seed)
 
 
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("--shard", dest="shard", type=int, default=0, help="random seed")
-# parser.add_argument("--cc", dest="cc", action="store", default="dctcp", help="")
+parser.add_argument("--cc", dest="cc", action="store", default="dctcp", help="")
 parser.add_argument(
     "--nhost", dest="nhost", type=int, default=1, help="number of hosts"
 )
@@ -80,18 +94,29 @@ bw = int(args.bw)
 output_dir = dir_input
 # output_dir = "/data1/lichenni/projects/flow_simulation/High-Precision-Congestion-Control/gc"
 # os.makedirs(output_dir, exist_ok=True)
-fcts_flowsim_path = f"{output_dir}/fcts_flowsim.npy"
-print("fcts_flowsim_path: ", fcts_flowsim_path)
-if not os.path.exists(fcts_flowsim_path) and os.path.exists(
-    f"{dir_input}/flow_sizes.npy"
-):
-    sizes = np.load(f"{dir_input}/flow_sizes.npy")
-    fats = np.load(f"{dir_input}/flow_arrival_times.npy")
-    flow_src_dst = np.load(f"{dir_input}/flow_src_dst.npy")
-
-    n_flows = len(sizes)
-    MTU = 1000
-    HEADER_SIZE = 48
+fcts_flowsim_path = f"{output_dir}/fct_flowsim_{args.cc}.txt"
+flows_path = f"{dir_input}/flows.txt"
+if not os.path.exists(fcts_flowsim_path) and os.path.exists(flows_path):
+    # sizes = np.load(f"{dir_input}/flow_sizes.npy")
+    # fats = np.load(f"{dir_input}/flow_arrival_times.npy")
+    # flow_src_dst = np.load(f"{dir_input}/flow_src_dst.npy")
+    flow_id = []
+    sizes = []
+    fats = []
+    flow_src_dst = []
+    with open(flows_path, "r") as f:
+        for line in f:
+            data = line.split()
+            flow_id.append(int(data[0]))
+            flow_src_dst.append([int(data[1]), int(data[2])])
+            sizes.append(int(data[5]))
+            fats.append(int(float(data[6]) * UNIT_G))
+    flow_id = np.array(flow_id).astype("int32")
+    fats = np.array(fats).astype("int64")
+    sizes = np.array(sizes).astype("int64")
+    flow_src_dst = np.array(flow_src_dst).astype("int32")
+    n_flows = len(flow_id)
+    print("n_flows: ", n_flows)
 
     start = time()
     fats_pt = make_array(c_double, fats)
@@ -128,9 +153,22 @@ if not os.path.exists(fcts_flowsim_path) and os.path.exists(
     # print(f"num_flows-{len(num_flows)}: {np.mean(num_flows)}")
     # print(f"num_flows_enq-{len(num_flows_enq)}: {np.mean(num_flows_enq)}")
 
-    np.save("%s/fcts_flowsim.npy" % output_dir, estimated_fcts)
-    os.system("rm %s/traffic.txt" % (output_dir))
+    # np.save("%s/fcts_flowsim.npy" % output_dir, estimated_fcts)
     # np.save(f"{output_dir}/t_flows_flowsim.npy", np.array(t_flows))
     # np.save(f"{output_dir}/num_flows_flowsim.npy", np.array(num_flows))
     # np.save(f"{output_dir}/num_flows_enq_flowsim.npy", num_flows_enq)
     C_LIB.free_fctstruct(res)
+
+    n_links_passed = abs(flow_src_dst[:, 0] - flow_src_dst[:, 1]) + 2
+    DELAY_PROPAGATION_perflow = get_base_delay(
+        sizes=sizes, n_links_passed=n_links_passed, lr=bw
+    )
+    i_fcts_flowsim = (
+        sizes + np.ceil(sizes / MTU) * HEADER_SIZE
+    ) * BYTE_TO_BIT / bw + DELAY_PROPAGATION_perflow
+    i_fcts_flowsim = i_fcts_flowsim.astype("int64")
+    estimated_fcts = (estimated_fcts + DELAY_PROPAGATION_perflow).astype("int64")
+    with open(fcts_flowsim_path, "w") as file:
+        for idx in range(n_flows):
+            line = f"{flow_id[idx]} {sizes[idx]} {fats[idx]} {estimated_fcts[idx]} {i_fcts_flowsim[idx]}\n"
+            file.write(line)
