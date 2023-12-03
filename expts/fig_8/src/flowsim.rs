@@ -21,13 +21,13 @@ use parsimon::core::{
 
 /// An ns-3 simulation.
 #[derive(Debug, typed_builder::TypedBuilder)]
-pub struct FlowSim {
+pub struct Flowsim {
     /// The python directory to run `main_flowsim_mmf.py`.
     #[builder(setter(into))]
-    pub python_dir: PathBuf,
+    pub python_path: PathBuf,
     /// The directory in the flowsim source tree containing the `main_flowsim_mmf.py`.
     #[builder(setter(into))]
-    pub script_dir: PathBuf,
+    pub script_path: PathBuf,
     /// The directory in which to write simulation configs and data.
     #[builder(setter(into))]
     pub data_dir: PathBuf,
@@ -43,21 +43,21 @@ pub struct FlowSim {
     pub flows: Vec<Flow>,
 }
 
-impl FlowSim {
+impl Flowsim {
     /// Run the simulation, returning a vector of [FctRecord]s.
     ///
     /// This routine can fail due to IO errors or errors parsing ns-3 data.
-    pub fn run(&self) -> Result<Vec<FctRecord>, Error> {
+    pub fn run(&self, n_hosts: usize) -> Result<Vec<FctRecord>, Error> {
         // Set up directory
         let mk_path = |dir, file| [dir, file].into_iter().collect::<PathBuf>();
         fs::create_dir_all(&self.data_dir)?;
 
         // Set up the topology
-        let topology = translate_topology(&self.nodes, &self.links);
-        fs::write(
-            mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
-            topology,
-        )?;
+        // let topology = translate_topology(&self.nodes, &self.links);
+        // fs::write(
+        //     mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
+        //     topology,
+        // )?;
 
         // Set up the flows
         let flows = translate_flows(&self.flows);
@@ -67,7 +67,7 @@ impl FlowSim {
         )?;
 
         // Run flowsim
-        self.invoke_flowsim()?;
+        self.invoke_flowsim(n_hosts)?;
 
         // Parse and return results
         let s = fs::read_to_string(mk_path(
@@ -78,20 +78,21 @@ impl FlowSim {
         Ok(records)
     }
 
-    fn invoke_flowsim(&self) -> io::Result<()> {
+    fn invoke_flowsim(&self, n_hosts: usize) -> io::Result<()> {
         // We need to canonicalize the directories because we run `cd` below.
         let data_dir = std::fs::canonicalize(&self.data_dir)?;
         let data_dir = data_dir.display();
-        let python_dir = std::fs::canonicalize(&self.python_dir)?;
-        let python_dir = python_dir.display();
-        let script_dir = std::fs::canonicalize(&self.script_dir)?;
-        let script_dir = script_dir.display();
+        let python_path = std::fs::canonicalize(&self.python_path)?;
+        let python_path = python_path.display();
+        let script_path = std::fs::canonicalize(&self.script_path)?;
+        let script_path = script_path.display();
+        let n_hosts = n_hosts.to_string();
 
         // Build the command that runs the Python script.
         let python_command = format!(
-            "{python_dir}python {script_dir}/main_flowsim_mmf.py \
-            > {data_dir}/output.txt 2>&1"
+            "{python_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} > {data_dir}/output.txt 2>&1"
         );
+        println!("{}", python_command);
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
@@ -107,41 +108,41 @@ impl FlowSim {
 pub enum Error {
     /// Error parsing ns-3 formats.
     #[error("failed to parse ns-3 format")]
-    ParseFlowSim(#[from] ParseFlowSimError),
+    ParseFlowsim(#[from] ParseFlowsimError),
 
     /// IO error.
     #[error(transparent)]
     Io(#[from] std::io::Error),
 }
 
-fn translate_topology(nodes: &[Node], links: &[Link]) -> String {
-    let mut s = String::new();
-    let switches = nodes
-        .iter()
-        .filter(|&n| matches!(n.kind, NodeKind::Switch))
-        .collect::<Vec<_>>();
-    // First line: total node #, switch node #, link #
-    writeln!(s, "{} {} {}", nodes.len(), switches.len(), links.len()).unwrap();
-    // Second line: switch node IDs...
-    let switch_ids = switches
-        .iter()
-        .map(|&s| s.id.to_string())
-        .collect::<Vec<_>>()
-        .join(" ");
-    writeln!(s, "{switch_ids}").unwrap();
-    // src0 dst0 rate delay error_rate
-    // src1 dst1 rate delay error_rate
-    // ...
-    for link in links {
-        writeln!(
-            s,
-            "{} {} {} {} 0",
-            link.a, link.b, link.bandwidth, link.delay
-        )
-        .unwrap();
-    }
-    s
-}
+// fn translate_topology(nodes: &[Node], links: &[Link]) -> String {
+//     let mut s = String::new();
+//     let switches = nodes
+//         .iter()
+//         .filter(|&n| matches!(n.kind, NodeKind::Switch))
+//         .collect::<Vec<_>>();
+//     // First line: total node #, switch node #, link #
+//     writeln!(s, "{} {} {}", nodes.len(), switches.len(), links.len()).unwrap();
+//     // Second line: switch node IDs...
+//     let switch_ids = switches
+//         .iter()
+//         .map(|&s| s.id.to_string())
+//         .collect::<Vec<_>>()
+//         .join(" ");
+//     writeln!(s, "{switch_ids}").unwrap();
+//     // src0 dst0 rate delay error_rate
+//     // src1 dst1 rate delay error_rate
+//     // ...
+//     for link in links {
+//         writeln!(
+//             s,
+//             "{} {} {} {} 0",
+//             link.a, link.b, link.bandwidth, link.delay
+//         )
+//         .unwrap();
+//     }
+//     s
+// }
 
 fn translate_flows(flows: &[Flow]) -> String {
     let nr_flows = flows.len();
@@ -163,17 +164,17 @@ fn translate_flows(flows: &[Flow]) -> String {
     lines.join("\n")
 }
 
-fn parse_flowsim_records(s: &str) -> Result<Vec<FctRecord>, ParseFlowSimError> {
+fn parse_flowsim_records(s: &str) -> Result<Vec<FctRecord>, ParseFlowsimError> {
     s.lines().map(parse_flowsim_record).collect()
 }
 
-fn parse_flowsim_record(s: &str) -> Result<FctRecord, ParseFlowSimError> {
+fn parse_flowsim_record(s: &str) -> Result<FctRecord, ParseFlowsimError> {
     // sip, dip, sport, dport, size (B), start_time, fct (ns), standalone_fct (ns)
     const NR_FLOWSIM_FIELDS: usize = 9;
     let fields = s.split_whitespace().collect::<Vec<_>>();
     let nr_fields = fields.len();
     if nr_fields != NR_FLOWSIM_FIELDS {
-        return Err(ParseFlowSimError::WrongNrFields {
+        return Err(ParseFlowsimError::WrongNrFields {
             expected: NR_FLOWSIM_FIELDS,
             got: nr_fields,
         });
@@ -189,7 +190,7 @@ fn parse_flowsim_record(s: &str) -> Result<FctRecord, ParseFlowSimError> {
 
 /// Error parsing ns-3 formats.
 #[derive(Debug, thiserror::Error)]
-pub enum ParseFlowSimError {
+pub enum ParseFlowsimError {
     /// Incorrect number of fields.
     #[error("Wrong number of fields (expected {expected}, got {got}")]
     WrongNrFields {
@@ -238,25 +239,24 @@ mod tests {
         units::{Bytes, Nanosecs},
     };
 
-    #[test]
-    fn translate_topology_correct() -> anyhow::Result<()> {
-        let (nodes, links) = testing::eight_node_config();
-        let s = translate_topology(&nodes, &links);
-        insta::assert_snapshot!(s, @r###"
-        8 4 8
-        4 5 6 7
-        0 4 10000000000bps 1000ns 0
-        1 4 10000000000bps 1000ns 0
-        2 5 10000000000bps 1000ns 0
-        3 5 10000000000bps 1000ns 0
-        4 6 10000000000bps 1000ns 0
-        4 7 10000000000bps 1000ns 0
-        5 6 10000000000bps 1000ns 0
-        5 7 10000000000bps 1000ns 0
-        "###);
-        Ok(())
-    }
-
+    // #[test]
+    // fn translate_topology_correct() -> anyhow::Result<()> {
+    //     let (nodes, links) = testing::eight_node_config();
+    //     let s = translate_topology(&nodes, &links);
+    //     insta::assert_snapshot!(s, @r###"
+    //     8 4 8
+    //     4 5 6 7
+    //     0 4 10000000000bps 1000ns 0
+    //     1 4 10000000000bps 1000ns 0
+    //     2 5 10000000000bps 1000ns 0
+    //     3 5 10000000000bps 1000ns 0
+    //     4 6 10000000000bps 1000ns 0
+    //     4 7 10000000000bps 1000ns 0
+    //     5 6 10000000000bps 1000ns 0
+    //     5 7 10000000000bps 1000ns 0
+    //     "###);
+    //     Ok(())
+    // }
     #[test]
     fn translate_flows_correct() -> anyhow::Result<()> {
         let flows = vec![
