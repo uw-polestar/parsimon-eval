@@ -4,6 +4,7 @@ use std::{
     fmt, fs,
     path::{Path, PathBuf},
     time::Instant,
+    io::{self, BufRead}
 };
 
 use ns3_frontend::Ns3Simulation;
@@ -34,8 +35,8 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 2_000_000;
-// const NR_FLOWS: usize = 2_000;
+// const NR_FLOWS: usize = 2_000_000;
+const NR_FLOWS: usize = 2_000;
 
 const FLOWSIM_PATH: &str = "./src/main_flowsim_mmf.py";
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
@@ -130,41 +131,35 @@ impl Experiment {
         let sim = SimKind::Ns3Path;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
-        // construct SimNetwork
-        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
-        let links = cluster.links().cloned().collect::<Vec<_>>();
-        let network = Network::new(&nodes, &links)?;
-        let network = network.into_simulations(flows.clone());
-        // get a specific path
-        let mut flow_to_num_map: HashMap<(NodeId, NodeId), i32> = HashMap::new();
-        for flow in flows.iter() {
-            let key_tuple = (flow.src, flow.dst);
-            match flow_to_num_map.get(&key_tuple) {
-                Some(count) => {
-                    flow_to_num_map.insert(key_tuple, count + 1);
-                }
-                None => {
-                    flow_to_num_map.insert(key_tuple, 1);
-                }
+
+        // read flows associated with a path
+        let mut max_row=0;
+        let mut max_col=0;
+        let mut num_flows_in_f_prime=0;
+        let mut flow_ids: Vec<FlowId> = Vec::new();
+
+        let flow_on_path_file=self.flow_on_path_file(mix,sim)?;
+        let file = fs::File::open(flow_on_path_file)?;
+
+        // Create a buffered reader to efficiently read lines
+        let reader = io::BufReader::new(file);
+        for (line_number, line) in reader.lines().enumerate() {
+            let line = line?;
+            if line_number==0 {
+                let tmp=line.split(",").collect::<Vec<_>>();
+                max_row=tmp[0].parse::<usize>().unwrap();
+                max_col=tmp[1].parse::<usize>().unwrap();
+                num_flows_in_f_prime=tmp[2].parse::<usize>().unwrap();
+            }
+            else {
+                flow_ids.push(line.trim().parse::<FlowId>().unwrap());
             }
         }
-        let src_dst_pair = flow_to_num_map
-            .iter()
-            .max_by(|a, b| a.1.cmp(&b.1))
-            .map(|(k, _v)| k)
-            .unwrap();
 
-        let max_row = src_dst_pair.0;
-        let max_col = src_dst_pair.1;
-        let path_str = format!("{},{}", max_row, max_col);
+        let path_str = format!("{},{},{}", max_row, max_col,num_flows_in_f_prime);
         self.put_path(mix, sim, path_str)?;
         // println!("The selected path is ({:?}, {:?})", max_row,max_col);
         // get flows for a specific path
-        let path = network.path(max_row, max_col, |choices| choices.first());
-        let flow_ids = path
-            .iter()
-            .flat_map(|(_, c)| c.flow_ids())
-            .collect::<HashSet<_>>();
         let flows_remaining = flows
             .into_iter()
             .filter(|flow| flow_ids.contains(&flow.id))
@@ -575,6 +570,13 @@ impl Experiment {
 
     fn flow_file(&self, mix: &Mix) -> anyhow::Result<PathBuf> {
         let file = [self.mix_dir(mix)?.as_path(), "flows.json".as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
+    fn flow_on_path_file(&self, mix: &Mix,sim: SimKind) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), "../ns3/flows_on_path.txt".as_ref()]
             .into_iter()
             .collect();
         Ok(file)
