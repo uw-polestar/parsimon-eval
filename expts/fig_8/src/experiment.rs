@@ -35,8 +35,8 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-// const NR_FLOWS: usize = 2_000_000;
-const NR_FLOWS: usize = 2_000;
+const NR_FLOWS: usize = 2_000_000;
+// const NR_FLOWS: usize = 2_000;
 
 const FLOWSIM_PATH: &str = "./src/main_flowsim_mmf.py";
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";

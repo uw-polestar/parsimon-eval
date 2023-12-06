@@ -1,19 +1,17 @@
 Waf: Entering directory `/data1/lichenni/projects/flow_simulation/parsimon/backends/High-Precision-Congestion-Control/simulation/build'
-[ 689/1431] cxx: scratch/third.cc -> build/scratch/third.cc.1.o
-[1423/1431] cxxprogram: build/scratch/third.cc.1.o -> build/scratch/third
 Waf: Leaving directory `/data1/lichenni/projects/flow_simulation/parsimon/backends/High-Precision-Congestion-Control/simulation/build'
-'build' finished successfully (6.029s)
+'build' finished successfully (0.363s)
 ENABLE_QCN			Yes
 USE_DYNAMIC_PFC_THRESHOLD	Yes
 PACKET_PAYLOAD_SIZE		1000
-TOPOLOGY_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/topology.txt
-FLOW_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/flows.txt
-FLOW_ON_PATH_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/flows_on_path.txt
-FLOW_PATH_MAP_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/flows_path_map.txt
-TRACE_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/trace.txt
-TRACE_OUTPUT_FILE		/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/mix_topology_flows_dctcp.tr
-FCT_OUTPUT_FILE		/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/fct_topology_flows_dctcp.txt
-PFC_OUTPUT_FILE				/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/pfc_topology_flows_dctcp.txt
+TOPOLOGY_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/topology.txt
+FLOW_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/flows.txt
+FLOW_ON_PATH_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/flows_on_path.txt
+FLOW_PATH_MAP_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/flows_path_map.txt
+TRACE_FILE			/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/trace.txt
+TRACE_OUTPUT_FILE		/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/mix_topology_flows_dctcp.tr
+FCT_OUTPUT_FILE		/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/fct_topology_flows_dctcp.txt
+PFC_OUTPUT_FILE				/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/pfc_topology_flows_dctcp.txt
 SIMULATOR_STOP_TIME		600
 CC_MODE		8
 ALPHA_RESUME_INTERVAL		1
@@ -49,7 +47,7 @@ KMAX_MAP				 10000000000 30 40000000000 120
 KMIN_MAP				 10000000000 30 40000000000 120
 PMAX_MAP				 10000000000 1 40000000000 1
 BUFFER_SIZE				3
-QLEN_MON_FILE				/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3/qlen_topology_flows_dctcp.txt
+QLEN_MON_FILE				/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/25/ns3-path/qlen_topology_flows_dctcp.txt
 QLEN_MON_START				2000000000
 QLEN_MON_END				3000000000
 FIXED_WIN				18000
@@ -656,4 +654,4 @@ t = 597000 ms
 t = 598000 ms
 t = 599000 ms
 path_num_flows_in_f=4 path_src=254 path_dst=61
-130.347
+106.862
