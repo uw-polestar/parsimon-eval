@@ -1,6 +1,6 @@
 Waf: Entering directory `/data1/lichenni/projects/flow_simulation/parsimon/backends/High-Precision-Congestion-Control/simulation/build'
 Waf: Leaving directory `/data1/lichenni/projects/flow_simulation/parsimon/backends/High-Precision-Congestion-Control/simulation/build'
-'build' finished successfully (0.310s)
+'build' finished successfully (0.309s)
 ENABLE_QCN			Yes
 USE_DYNAMIC_PFC_THRESHOLD	Yes
 PACKET_PAYLOAD_SIZE		1000
@@ -654,4 +654,4 @@ t = 597000 ms
 t = 598000 ms
 t = 599000 ms
 path_num_flows_in_f=3 path_src=61 path_dst=252
-93.8067
+92.9506
