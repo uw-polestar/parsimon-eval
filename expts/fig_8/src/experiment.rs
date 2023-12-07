@@ -438,69 +438,70 @@ impl Experiment {
         let sim = SimKind::Flowsim;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
-        // construct SimNetwork
-        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
-        let links = cluster.links().cloned().collect::<Vec<_>>();
-        let network = Network::new(&nodes, &links)?;
-        let network = network.into_simulations(flows.clone());
-        // get a specific path
-        let mut flow_to_num_map: HashMap<(NodeId, NodeId), i32> = HashMap::new();
-        for flow in flows.iter() {
-            let key_tuple = (flow.src, flow.dst);
-            match flow_to_num_map.get(&key_tuple) {
-                Some(count) => {
-                    flow_to_num_map.insert(key_tuple, count + 1);
-                }
-                None => {
-                    flow_to_num_map.insert(key_tuple, 1);
-                }
-            }
-        }
-        let src_dst_pair = flow_to_num_map
-            .iter()
-            .max_by(|a, b| a.1.cmp(&b.1))
-            .map(|(k, _v)| k)
-            .unwrap();
 
-        let max_row = src_dst_pair.0;
-        let max_col = src_dst_pair.1;
-        let path_str = format!("{},{}", max_row, max_col);
+        let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
+        
+        let path_file=self.path_all_file(mix,sim)?;
+        let mut file = fs::File::open(path_file)?;
+
+        // Create a buffered reader to efficiently read lines
+        let reader = io::BufReader::new(file);
+        let mut path:Vec<(NodeId,NodeId)>=Vec::new();
+        if let Some(Ok(first_line)) = reader.lines().next() {
+            path=first_line.split(",").collect::<Vec<_>>().iter().rev().skip(1).map(|x| x.split("-").map(|x| x.parse::<usize>().unwrap()).collect::<Vec<_>>()).map(|x| (NodeId::new(x[0]),NodeId::new(x[1]))).collect::<Vec<_>>();
+        }
+
+        let mut channel_to_flowids_map: HashMap<(NodeId,NodeId),HashSet<FlowId>>=HashMap::new();
+        let flow_path_map_file=self.flow_path_map_file(mix,sim)?;
+        file = fs::File::open(flow_path_map_file)?;
+        // Create a buffered reader to efficiently read lines
+        let reader = io::BufReader::new(file);
+        for line in reader.lines() {
+            let line = line?;
+                let tmp=line.split(",").map(|x| x.parse::<usize>().unwrap()).collect::<Vec<_>>();
+                let tmp_key=(NodeId::new(tmp[1]),NodeId::new(tmp[2]));
+                for &val in &tmp[4..] {
+                    channel_to_flowids_map.entry(tmp_key).or_insert_with(HashSet::new).insert(FlowId::new(val));
+                }
+        }
+
+        let path_str = format!("{},{}", path.last().unwrap().0,path.last().unwrap().1);
         self.put_path(mix, sim, path_str)?;
         // println!(
         //     "The selected path is ({:?}, {:?}), with flows of {:?}",
         //     max_row, max_col, flow_to_num_map[src_dst_pair]
         // );
-        // get flows for a specific path
-        let path = network.path(max_row, max_col, |choices| choices.first());
-        let flow_ids = path
-            .iter()
-            .flat_map(|(_, c)| c.flow_ids())
-            .collect::<HashSet<_>>();
-        let mut flows_remaining = flows
-            .into_iter()
-            .filter(|flow| flow_ids.contains(&flow.id))
-            .collect::<Vec<_>>();
+        
 
         let mut flow_to_path_map: HashMap<FlowId, (usize, usize)> = HashMap::new();
         let mut path_length = 1;
-        for (_, c) in path.iter() {
-            let flows = c.flow_ids();
-            for key_flowid in flows {
-                // println!("flow {} is on path {}", key_flowid, idx);
-                match flow_to_path_map.get(&key_flowid) {
-                    Some(count) => {
-                        // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
-                        // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
-                        // assert!(count.1 == idx);
-                        flow_to_path_map.insert(key_flowid, (count.0, path_length));
-                    }
-                    None => {
-                        flow_to_path_map.insert(key_flowid, (path_length - 1, path_length));
+        for src_dst_pair in path.iter() {
+            if channel_to_flowids_map.contains_key(src_dst_pair){
+                let flows = channel_to_flowids_map.get(src_dst_pair).unwrap();
+                flow_ids_in_f_prime.extend(flows);
+                for &key_flowid in flows {
+                    // println!("flow {} is on path {}", key_flowid, idx);
+                    match flow_to_path_map.get(&key_flowid) {
+                        Some(count) => {
+                            // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
+                            // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
+                            // assert!(count.1 == idx);
+                            flow_to_path_map.insert(key_flowid, (count.0, path_length));
+                        }
+                        None => {
+                            flow_to_path_map.insert(key_flowid, (path_length - 1, path_length));
+                        }
                     }
                 }
+                path_length += 1;
             }
-            path_length += 1;
         }
+        // get flows for a specific path
+        let mut flows_remaining = flows
+            .into_iter()
+            .filter(|flow| flow_ids_in_f_prime.contains(&flow.id))
+            .collect::<Vec<_>>();
+
         for idx in 0..flows_remaining.len() {
             let flow = flows_remaining[idx];
             let src = NodeId::new(flow_to_path_map[&flow.id].0);
@@ -656,6 +657,13 @@ impl Experiment {
 
     fn flow_file(&self, mix: &Mix) -> anyhow::Result<PathBuf> {
         let file = [self.mix_dir(mix)?.as_path(), "flows.json".as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
+    fn path_all_file(&self, mix: &Mix,sim: SimKind) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), "../ns3-path-all/path.txt".as_ref()]
             .into_iter()
             .collect();
         Ok(file)
