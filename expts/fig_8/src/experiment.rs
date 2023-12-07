@@ -203,15 +203,15 @@ impl Experiment {
         let flows = self.flows(mix)?;
 
         // read flows associated with a path
-        let mut max_row=0;
-        let mut max_col=0;
-        let mut num_flows_in_f_prime=0;
-        let mut flow_ids_in_f: Vec<FlowId> = Vec::new();
+        // let mut max_row=0;
+        // let mut max_col=0;
+        // let mut num_flows_in_f_prime=0;
+        let flow_ids_in_f: HashSet<FlowId>;
         let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
         
         let mut channel_to_flowids_map: Vec<HashSet<FlowId>> = Vec::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<usize>> = HashMap::new();
-        let mut path_to_flows_map: HashMap<Vec<usize>,HashSet<usize>> = HashMap::new();
+        let mut path_to_flows_map: HashMap<Vec<NodeId>,HashSet<usize>> = HashMap::new();
         
         let flow_path_map_file=self.flow_path_map_file(mix,sim)?;
         let file = fs::File::open(flow_path_map_file)?;
@@ -228,24 +228,27 @@ impl Experiment {
                 }
                 channel_to_flowids_map.push(tmp_set);
         }
-        for (flow, path) in flow_to_path_map {
-            let mut key_vec=path.into_iter().collect::<Vec<_>>();
+        for (flow_id, path) in flow_to_path_map {
+            let mut key_vec=path.into_iter().map(|x| NodeId::new(x)).collect::<Vec<_>>();
             key_vec.sort();
-            path_to_flows_map.entry(key_vec).or_insert_with(HashSet::new).insert(flow);
+            key_vec.insert(0, flows[flow_id].src);
+            key_vec.insert(1, flows[flow_id].dst);
+            path_to_flows_map.entry(key_vec).or_insert_with(HashSet::new).insert(flow_id);
         }
         
         let path=path_to_flows_map.iter().max_by_key(|x| x.1.len()).unwrap().0;
-        flow_ids_in_f=path_to_flows_map[path].iter().map(|x| FlowId::new(*x)).collect::<Vec<_>>();
+        flow_ids_in_f=path_to_flows_map[path].iter().map(|x| FlowId::new(*x)).collect::<HashSet<_>>();
 
-        for flow in flow_ids_in_f.iter() {
+        for &flow in &flow_ids_in_f {
             for channel in channel_to_flowids_map.iter() {
-                if channel.contains(flow) {
+                if channel.contains(&flow) {
                     flow_ids_in_f_prime.extend(channel.iter());
                 }
             }
         }
-        let path_str = format!("{:?}",path);
-        self.put_path(mix, sim, path_str)?;
+        let path_str = path.iter().map(|&x| x.to_string()).collect::<Vec<String>>().join(", ");
+        let flow_str=flow_ids_in_f.iter().map(|&x| x.to_string()).collect::<Vec<String>>().join(", ");
+        self.put_path(mix, sim, format!("{}\n{}",path_str,flow_str))?;
         // println!("The selected path is ({:?}, {:?})", max_row,max_col);
 
         // get flows for a specific path
