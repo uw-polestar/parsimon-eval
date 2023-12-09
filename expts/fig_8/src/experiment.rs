@@ -7,6 +7,7 @@ use std::{
     io::{self, BufRead}
 };
 
+use anyhow::Ok;
 use ns3_frontend::Ns3Simulation;
 use parsimon::core::{
     network::{Flow, FlowId, Network, NodeId},
@@ -35,7 +36,9 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 2_000_000;
+const NR_FLOWS: usize = 6_000_000;
+const NR_PATHS_SAMPLED: usize = 200;
+const NR_PARALLEL_PROCESS: usize = 100;
 // const NR_FLOWS: usize = 2_000;
 
 const FLOWSIM_PATH: &str = "./src/main_flowsim_mmf.py";
@@ -82,10 +85,17 @@ impl Experiment {
                     .par_iter()
                     .try_for_each(|mix| self.run_ns3_path(mix))?;
             }
+            SimKind::Ns3PathOne => {
+                let mix_list=mixes.chunks(NR_PARALLEL_PROCESS).collect::<Vec<_>>();
+                
+                for mix_tmp in &mix_list {
+                    mix_tmp.par_iter().try_for_each(|mix| self.run_ns3_path_one(mix))?;
+                }
+            }
             SimKind::Ns3PathAll => {
-                mixes
-                    .par_iter()
-                    .try_for_each(|mix| self.run_ns3_path_all(mix))?;
+                for mix in &mixes {
+                    self.run_ns3_path_all(mix)?;
+                }
             }
             SimKind::PmnMPath => {
                 for mix in &mixes {
@@ -197,8 +207,8 @@ impl Experiment {
         Ok(())
     }
 
-    fn run_ns3_path_all(&self, mix: &Mix) -> anyhow::Result<()> {
-        let sim = SimKind::Ns3PathAll;
+    fn run_ns3_path_one(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Ns3PathOne;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
 
@@ -261,9 +271,8 @@ impl Experiment {
             .base_rtt(BASE_RTT)
             .flows(flows_remaining)
             .build();
-        let records = ns3
-            .run()?
-            .into_iter()
+        let mut records = ns3
+            .run()?.into_iter()
             .map(|rec| Record {
                 mix_id: mix.id,
                 flow_id: rec.id,
@@ -275,6 +284,93 @@ impl Experiment {
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
         self.put_records(mix, sim, &records)?;
+        Ok(())
+    }
+
+    fn run_ns3_path_all(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Ns3PathAll;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+
+        // read flows associated with a path
+        let flow_ids_in_f: HashSet<FlowId>;
+        let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
+        
+        let mut channel_to_flowids_map: HashMap<(NodeId,NodeId),HashSet<FlowId>>=HashMap::new();
+        let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId,NodeId)>> = HashMap::new();
+        let mut path_to_flows_map: HashMap<Vec<(NodeId,NodeId)>,HashSet<usize>> = HashMap::new();
+        
+        let flow_path_map_file=self.flow_path_map_file(mix,sim)?;
+        let file = fs::File::open(flow_path_map_file)?;
+
+        // Create a buffered reader to efficiently read lines
+        let reader = io::BufReader::new(file);
+        for line in reader.lines() {
+            let line = line?;
+                let tmp=line.split(",").map(|x| x.parse::<usize>().unwrap()).collect::<Vec<_>>();
+                let tmp_key=(NodeId::new(tmp[1]),NodeId::new(tmp[2]));
+                for &val in &tmp[4..] {
+                    flow_to_path_map.entry(val).or_insert_with(HashSet::new).insert(tmp_key);
+                    channel_to_flowids_map.entry(tmp_key).or_insert_with(HashSet::new).insert(FlowId::new(val));
+                }
+        }
+        for (flow_id, path) in flow_to_path_map {
+            let mut key_vec=path.into_iter().collect::<Vec<_>>();
+            key_vec.sort();
+            key_vec.insert(0, (flows[flow_id].src,flows[flow_id].dst));
+            path_to_flows_map.entry(key_vec).or_insert_with(HashSet::new).insert(flow_id);
+        }
+        
+        let mut path_to_flows_vec_sorted=path_to_flows_map.iter().collect::<Vec<_>>();
+        path_to_flows_vec_sorted.sort_by(|x,y| x.1.len().cmp(&y.1.len()));
+        let path_list=path_to_flows_vec_sorted.into_iter().take(NR_PATHS_SAMPLED).map(|x| x.0).collect::<Vec<_>>();
+        
+        let start = Instant::now(); // timer start
+        path_list.par_iter().enumerate().for_each(|(path_idx, &path)| {
+            flow_ids_in_f=path_to_flows_map[path].iter().map(|x| FlowId::new(*x)).collect::<HashSet<_>>();
+
+            for pair in path {
+                if channel_to_flowids_map.contains_key(&pair) {
+                    flow_ids_in_f_prime.extend(channel_to_flowids_map[&pair].iter());
+                }
+            }
+        
+            let path_str = path.iter().map(|&x| format!("{}-{}",x.0,x.1)).collect::<Vec<String>>().join(",");
+            let flow_str=flow_ids_in_f.iter().map(|&x| x.to_string()).collect::<Vec<String>>().join("\n");
+            self.put_path_with_idx(mix, sim, path_idx,format!("{},{}\n{}",path_str,flow_ids_in_f.len(),flow_str));
+            // println!("The selected path is ({:?}, {:?})", max_row,max_col);
+
+            // get flows for a specific path
+            let flows_remaining = flows
+                .into_iter()
+                .filter(|flow| flow_ids_in_f_prime.contains(&flow.id))
+                .collect::<Vec<_>>();
+            
+            let ns3 = Ns3Simulation::builder()
+                .ns3_dir(NS3_DIR)
+                .data_dir(self.sim_dir(mix, sim).unwrap())
+                .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
+                .links(cluster.links().cloned().collect::<Vec<_>>())
+                .window(WINDOW)
+                .base_rtt(BASE_RTT)
+                .flows(flows_remaining)
+                .build();
+            let mut records = ns3
+                .run().unwrap().into_iter()
+                .map(|rec| Record {
+                    mix_id: mix.id,
+                    flow_id: rec.id,
+                    size: rec.size,
+                    slowdown: rec.slowdown(),
+                    sim,
+                })
+                .collect::<Vec<_>>();
+            self.put_records(mix, sim, &records);
+        });
+        
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
+        
         Ok(())
     }
 
@@ -441,7 +537,7 @@ impl Experiment {
 
         let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
         
-        let path_file=self.path_all_file(mix,sim)?;
+        let path_file=self.path_one_file(mix,sim)?;
         let mut file = fs::File::open(path_file)?;
 
         // Create a buffered reader to efficiently read lines
@@ -627,6 +723,10 @@ impl Experiment {
         fs::write(self.path_file(mix, sim)?, path_str)?;
         Ok(())
     }
+    fn put_path_with_idx(&self, mix: &Mix, sim: SimKind, path_idx:usize,path_str: String) -> anyhow::Result<()> {
+        fs::write(self.path_file_with_idx(mix, sim,path_idx)?, path_str)?;
+        Ok(())
+    }
 
     fn put_clustering(&self, mix: &Mix, sim: SimKind, frac: f64) -> anyhow::Result<()> {
         fs::write(self.clustering_file(mix, sim)?, frac.to_string())?;
@@ -657,6 +757,13 @@ impl Experiment {
 
     fn flow_file(&self, mix: &Mix) -> anyhow::Result<PathBuf> {
         let file = [self.mix_dir(mix)?.as_path(), "flows.json".as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
+    fn path_one_file(&self, mix: &Mix,sim: SimKind) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), "../ns3-path-one/path.txt".as_ref()]
             .into_iter()
             .collect();
         Ok(file)
@@ -704,6 +811,13 @@ impl Experiment {
         Ok(file)
     }
 
+    fn path_file_with_idx(&self, mix: &Mix, sim: SimKind,path_idx:usize) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), format!("path_{}.txt",path_idx).as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
     fn clustering_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "clustering.txt".as_ref()]
             .into_iter()
@@ -717,6 +831,14 @@ impl Experiment {
             .collect();
         Ok(file)
     }
+}
+
+fn get_top_n_vectors(vectors: &Vec<Vec<i32>>, n: usize) -> Vec<Vec<i32>> {
+    let mut sorted_vectors = vectors.clone(); // Clone the vectors to avoid modifying the original
+    sorted_vectors.sort_by(|a, b| b.len().cmp(&a.len())); // Sort vectors by length in descending order
+
+    // Take the top N vectors
+    sorted_vectors.into_iter().take(n).collect()
 }
 
 fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
@@ -743,6 +865,7 @@ pub enum SimKind {
     PmnM,
     PmnMC,
     Ns3Path,
+    Ns3PathOne,
     Ns3PathAll,
     PmnMPath,
     Flowsim,
@@ -756,6 +879,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
             SimKind::Ns3Path => "ns3-path",
+            SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Flowsim => "flowsim",
