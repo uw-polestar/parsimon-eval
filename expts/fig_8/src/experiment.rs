@@ -7,7 +7,6 @@ use std::{
     io::{self, BufRead}
 };
 
-use anyhow::Ok;
 use ns3_frontend::Ns3Simulation;
 use parsimon::core::{
     network::{Flow, FlowId, Network, NodeId},
@@ -271,7 +270,7 @@ impl Experiment {
             .base_rtt(BASE_RTT)
             .flows(flows_remaining)
             .build();
-        let mut records = ns3
+        let records = ns3
             .run()?.into_iter()
             .map(|rec| Record {
                 mix_id: mix.id,
@@ -293,8 +292,6 @@ impl Experiment {
         let flows = self.flows(mix)?;
 
         // read flows associated with a path
-        let flow_ids_in_f: HashSet<FlowId>;
-        let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
         
         let mut channel_to_flowids_map: HashMap<(NodeId,NodeId),HashSet<FlowId>>=HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId,NodeId)>> = HashMap::new();
@@ -327,6 +324,8 @@ impl Experiment {
         
         let start = Instant::now(); // timer start
         path_list.par_iter().enumerate().for_each(|(path_idx, &path)| {
+            let flow_ids_in_f: HashSet<FlowId>;
+            let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
             flow_ids_in_f=path_to_flows_map[path].iter().map(|x| FlowId::new(*x)).collect::<HashSet<_>>();
 
             for pair in path {
@@ -337,11 +336,11 @@ impl Experiment {
         
             let path_str = path.iter().map(|&x| format!("{}-{}",x.0,x.1)).collect::<Vec<String>>().join(",");
             let flow_str=flow_ids_in_f.iter().map(|&x| x.to_string()).collect::<Vec<String>>().join("\n");
-            self.put_path_with_idx(mix, sim, path_idx,format!("{},{}\n{}",path_str,flow_ids_in_f.len(),flow_str));
+            self.put_path_with_idx(mix, sim, path_idx,format!("{},{}\n{}",path_str,flow_ids_in_f.len(),flow_str)).unwrap();
             // println!("The selected path is ({:?}, {:?})", max_row,max_col);
 
             // get flows for a specific path
-            let flows_remaining = flows
+            let flows_remaining = flows.clone()
                 .into_iter()
                 .filter(|flow| flow_ids_in_f_prime.contains(&flow.id))
                 .collect::<Vec<_>>();
@@ -355,7 +354,7 @@ impl Experiment {
                 .base_rtt(BASE_RTT)
                 .flows(flows_remaining)
                 .build();
-            let mut records = ns3
+            let records = ns3
                 .run().unwrap().into_iter()
                 .map(|rec| Record {
                     mix_id: mix.id,
@@ -365,7 +364,7 @@ impl Experiment {
                     sim,
                 })
                 .collect::<Vec<_>>();
-            self.put_records(mix, sim, &records);
+            self.put_records(mix, sim, &records).unwrap();
         });
         
         let elapsed_secs = start.elapsed().as_secs(); // timer end
@@ -769,8 +768,8 @@ impl Experiment {
         Ok(file)
     }
 
-    fn path_all_file(&self, mix: &Mix,sim: SimKind) -> anyhow::Result<PathBuf> {
-        let file = [self.sim_dir(mix, sim)?.as_path(), "../ns3-path-all/path.txt".as_ref()]
+    fn path_one_with_idx_file(&self, mix: &Mix,sim: SimKind,path_idx:usize) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), format!("../ns3-path-one/path_{}.txt",path_idx).as_ref()]
             .into_iter()
             .collect();
         Ok(file)
@@ -831,14 +830,6 @@ impl Experiment {
             .collect();
         Ok(file)
     }
-}
-
-fn get_top_n_vectors(vectors: &Vec<Vec<i32>>, n: usize) -> Vec<Vec<i32>> {
-    let mut sorted_vectors = vectors.clone(); // Clone the vectors to avoid modifying the original
-    sorted_vectors.sort_by(|a, b| b.len().cmp(&a.len())); // Sort vectors by length in descending order
-
-    // Take the top N vectors
-    sorted_vectors.into_iter().take(n).collect()
 }
 
 fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
