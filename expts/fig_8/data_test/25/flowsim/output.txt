@@ -1,5 +1,5 @@
 n_flows:  99
-c_sim:0.000311
+c_sim:0.000299
 estimated_fcts:64586.298990
 Simulating parking lot with parameters: length = 5
   bw = [10, 40]

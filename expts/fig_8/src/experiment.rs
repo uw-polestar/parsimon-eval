@@ -36,7 +36,7 @@ const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 6_000_000;
-const NR_PATHS_SAMPLED: usize = 20;
+const NR_PATHS_SAMPLED: usize = 10;
 const NR_PARALLEL_PROCESSES: usize = 100;
 // const NR_FLOWS: usize = 2_000;
 
@@ -687,33 +687,17 @@ impl Experiment {
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
 
+        // read flows associated with a path
+        let flow_ids_in_f: HashSet<FlowId>;
         let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
 
-        let path_file = self.path_one_file(mix, sim)?;
-        let mut file = fs::File::open(path_file)?;
-
-        // Create a buffered reader to efficiently read lines
-        let reader = io::BufReader::new(file);
-        let mut path: Vec<(NodeId, NodeId)> = Vec::new();
-        if let Some(Ok(first_line)) = reader.lines().next() {
-            path = first_line
-                .split(",")
-                .collect::<Vec<_>>()
-                .iter()
-                .rev()
-                .skip(2)
-                .map(|x| {
-                    x.split("-")
-                        .map(|x| x.parse::<usize>().unwrap())
-                        .collect::<Vec<_>>()
-                })
-                .map(|x| (NodeId::new(x[0]), NodeId::new(x[1])))
-                .collect::<Vec<_>>();
-        }
-
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
+        let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
+        let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
-        file = fs::File::open(flow_path_map_file)?;
+        let file = fs::File::open(flow_path_map_file)?;
+
         // Create a buffered reader to efficiently read lines
         let reader = io::BufReader::new(file);
         for line in reader.lines() {
@@ -724,37 +708,60 @@ impl Experiment {
                 .collect::<Vec<_>>();
             let tmp_key = (NodeId::new(tmp[1]), NodeId::new(tmp[2]));
             for &val in &tmp[4..] {
+                flow_to_path_map
+                    .entry(val)
+                    .or_insert_with(HashSet::new)
+                    .insert(tmp_key);
                 channel_to_flowids_map
                     .entry(tmp_key)
                     .or_insert_with(HashSet::new)
                     .insert(FlowId::new(val));
             }
         }
+        for (flow_id, path) in flow_to_path_map {
+            let mut key_vec = path.into_iter().collect::<Vec<_>>();
+            key_vec.sort();
+            key_vec.insert(0, (flows[flow_id].src, flows[flow_id].dst));
+            path_to_flows_map
+                .entry(key_vec)
+                .or_insert_with(HashSet::new)
+                .insert(flow_id);
+        }
 
-        let path_str = format!("{},{}", path.last().unwrap().0, path.last().unwrap().1);
-        self.put_path(mix, sim, path_str)?;
-        // println!(
-        //     "The selected path is ({:?}, {:?}), with flows of {:?}",
-        //     max_row, max_col, flow_to_num_map[src_dst_pair]
-        // );
+        let path = path_to_flows_map
+            .iter()
+            .max_by_key(|x| x.1.len())
+            .unwrap()
+            .0;
+        flow_ids_in_f = path_to_flows_map[path]
+            .iter()
+            .map(|x| FlowId::new(*x))
+            .collect::<HashSet<_>>();
 
-        let mut flow_to_path_map: HashMap<FlowId, (usize, usize)> = HashMap::new();
+        for pair in path {
+            if channel_to_flowids_map.contains_key(&pair) {
+                flow_ids_in_f_prime.extend(channel_to_flowids_map[&pair].iter());
+            }
+        }
+
+        let mut flow_to_srcdst_map_in_flowsim: HashMap<FlowId, (usize, usize)> = HashMap::new();
         let mut path_length = 1;
         for src_dst_pair in path.iter() {
             if channel_to_flowids_map.contains_key(src_dst_pair) {
                 let flows = channel_to_flowids_map.get(src_dst_pair).unwrap();
-                flow_ids_in_f_prime.extend(flows);
                 for &key_flowid in flows {
                     // println!("flow {} is on path {}", key_flowid, idx);
-                    match flow_to_path_map.get(&key_flowid) {
+                    match flow_to_srcdst_map_in_flowsim.get(&key_flowid) {
                         Some(count) => {
                             // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
                             // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
                             // assert!(count.1 == idx);
-                            flow_to_path_map.insert(key_flowid, (count.0, path_length));
+                            flow_to_srcdst_map_in_flowsim
+                                .insert(key_flowid, (count.0, path_length));
                         }
                         None => {
-                            flow_to_path_map.insert(key_flowid, (path_length - 1, path_length));
+                            flow_to_srcdst_map_in_flowsim
+                                .insert(key_flowid, (path_length - 1, path_length));
                         }
                     }
                 }
@@ -769,11 +776,38 @@ impl Experiment {
 
         for idx in 0..flows_remaining.len() {
             let flow = flows_remaining[idx];
-            let src = NodeId::new(flow_to_path_map[&flow.id].0);
-            let dst = NodeId::new(flow_to_path_map[&flow.id].1);
-            flows_remaining[idx].src = src;
-            flows_remaining[idx].dst = dst;
+            flows_remaining[idx].src = NodeId::new(flow_to_srcdst_map_in_flowsim[&flow.id].0);
+            flows_remaining[idx].dst = NodeId::new(flow_to_srcdst_map_in_flowsim[&flow.id].1);
         }
+
+        let path_str = path
+            .iter()
+            .map(|&x| format!("{}-{}", x.0, x.1))
+            .collect::<Vec<String>>()
+            .join(",");
+        let flow_ids_in_f_str = flow_ids_in_f
+            .iter()
+            .map(|&x| x.to_string())
+            .collect::<Vec<String>>()
+            .join(",");
+        let flow_ids_in_f_prime_str = flow_ids_in_f_prime
+            .iter()
+            .map(|&x| x.to_string())
+            .collect::<Vec<String>>()
+            .join(",");
+        self.put_path(
+            mix,
+            sim,
+            format!(
+                "{},{},{}\n{}\n{}",
+                path_str,
+                flow_ids_in_f.len(),
+                flow_ids_in_f_prime.len(),
+                flow_ids_in_f_str,
+                flow_ids_in_f_prime_str
+            ),
+        )?;
+
         let start = Instant::now(); // timer start
         let flowsim = Flowsim::builder()
             .python_path(PYTHON_PATH)
@@ -786,6 +820,7 @@ impl Experiment {
         let records = flowsim
             .run(path_length)?
             .into_iter()
+            .filter(|rec| flow_ids_in_f.contains(&rec.id))
             .map(|rec| Record {
                 mix_id: mix.id,
                 flow_id: rec.id,
