@@ -10,6 +10,6 @@ for shard in {0..191..1}
 do
     COMMAND="rm -rf ${OUTPUT_PATH}/${shard}/ns3-path-one"
     echo "$COMMAND">>"$cur_dir/rm.log"
-    # ${COMMAND}>>"$cur_dir/rm.log"
+    ${COMMAND}>>"$cur_dir/rm.log"
     echo "">>"$cur_dir/rm.log"
 done
