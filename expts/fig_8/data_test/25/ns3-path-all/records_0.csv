@@ -1,0 +1,4 @@
+mix_id,flow_id,size,slowdown,sim
+25,614,364,1.0,Ns3PathAll
+25,1170,829,1.0,Ns3PathAll
+25,1357,380051,1.000003088574129,Ns3PathAll

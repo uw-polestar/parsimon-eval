@@ -36,8 +36,8 @@ const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 6_000_000;
-const NR_PATHS_SAMPLED: usize = 200;
-const NR_PARALLEL_PROCESS: usize = 100;
+const NR_PATHS_SAMPLED: usize = 20;
+const NR_PARALLEL_PROCESSES: usize = 100;
 // const NR_FLOWS: usize = 2_000;
 
 const FLOWSIM_PATH: &str = "./src/main_flowsim_mmf.py";
@@ -85,7 +85,7 @@ impl Experiment {
                     .try_for_each(|mix| self.run_ns3_path(mix))?;
             }
             SimKind::Ns3PathOne => {
-                let mix_list = mixes.chunks(NR_PARALLEL_PROCESS).collect::<Vec<_>>();
+                let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
                 for mix_tmp in &mix_list {
                     mix_tmp
@@ -338,7 +338,6 @@ impl Experiment {
         let flows = self.flows(mix)?;
 
         // read flows associated with a path
-
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
         let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
@@ -377,7 +376,7 @@ impl Experiment {
         }
 
         let mut path_to_flows_vec_sorted = path_to_flows_map.iter().collect::<Vec<_>>();
-        path_to_flows_vec_sorted.sort_by(|x, y| x.1.len().cmp(&y.1.len()));
+        path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()));
         let path_list = path_to_flows_vec_sorted
             .into_iter()
             .take(NR_PATHS_SAMPLED)
@@ -442,7 +441,7 @@ impl Experiment {
 
                 let ns3 = Ns3Simulation::builder()
                     .ns3_dir(NS3_DIR)
-                    .data_dir(self.sim_dir(mix, sim).unwrap())
+                    .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
                     .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
                     .links(cluster.links().cloned().collect::<Vec<_>>())
                     .window(WINDOW)
@@ -462,7 +461,8 @@ impl Experiment {
                         sim,
                     })
                     .collect::<Vec<_>>();
-                self.put_records(mix, sim, &records).unwrap();
+                self.put_records_with_idx(mix, sim, path_idx, &records)
+                    .unwrap();
             });
 
         let elapsed_secs = start.elapsed().as_secs(); // timer end
@@ -883,6 +883,22 @@ impl Experiment {
         Ok(())
     }
 
+    fn put_records_with_idx(
+        &self,
+        mix: &Mix,
+        sim: SimKind,
+        path_idx: usize,
+        records: &[Record],
+    ) -> anyhow::Result<()> {
+        let path = self.record_file_with_idx(mix, sim, path_idx)?;
+        let mut wtr = csv::Writer::from_path(path)?;
+        for record in records {
+            wtr.serialize(record)?;
+        }
+        wtr.flush()?;
+        Ok(())
+    }
+
     fn put_elapsed(&self, mix: &Mix, sim: SimKind, secs: u64) -> anyhow::Result<()> {
         fs::write(self.elapsed_file(mix, sim)?, secs.to_string())?;
         Ok(())
@@ -929,6 +945,22 @@ impl Experiment {
         fs::create_dir_all(&dir)?;
         Ok(dir)
     }
+    fn sim_dir_with_idx(
+        &self,
+        mix: &Mix,
+        sim: SimKind,
+        path_idx: usize,
+    ) -> anyhow::Result<PathBuf> {
+        let dir = [
+            self.mix_dir(mix)?.as_path(),
+            sim.to_string().as_ref(),
+            path_idx.to_string().as_ref(),
+        ]
+        .into_iter()
+        .collect();
+        fs::create_dir_all(&dir)?;
+        Ok(dir)
+    }
 
     fn flow_file(&self, mix: &Mix) -> anyhow::Result<PathBuf> {
         let file = [self.mix_dir(mix)?.as_path(), "flows.json".as_ref()]
@@ -947,7 +979,7 @@ impl Experiment {
         Ok(file)
     }
 
-    fn path_one_with_idx_file(
+    fn path_all_with_idx_file(
         &self,
         mix: &Mix,
         sim: SimKind,
@@ -986,6 +1018,20 @@ impl Experiment {
         let file = [self.sim_dir(mix, sim)?.as_path(), "records.csv".as_ref()]
             .into_iter()
             .collect();
+        Ok(file)
+    }
+    fn record_file_with_idx(
+        &self,
+        mix: &Mix,
+        sim: SimKind,
+        path_idx: usize,
+    ) -> anyhow::Result<PathBuf> {
+        let file = [
+            self.sim_dir(mix, sim)?.as_path(),
+            format!("records_{}.csv", path_idx).as_ref(),
+        ]
+        .into_iter()
+        .collect();
         Ok(file)
     }
 
