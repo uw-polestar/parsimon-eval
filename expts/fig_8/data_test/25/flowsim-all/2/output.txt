@@ -1,0 +1,6 @@
+n_flows:  95
+c_sim:0.000324
+estimated_fcts:33955.746667
+Simulating one-layer parking lot: length = 5
+  bw = [10.000000, 40.000000, 40.000000, 10.000000]
+5 PEs, 0 switches, 5 nodes (switch+PE), 4 links

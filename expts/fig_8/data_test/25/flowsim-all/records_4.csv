@@ -1,0 +1,3 @@
+mix_id,flow_id,size,slowdown,sim
+25,1455,612,1.0,FlowsimAll
+25,1494,645,1.0,FlowsimAll
