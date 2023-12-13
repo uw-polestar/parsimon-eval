@@ -1,10 +1,10 @@
 [
   {
-    "id": 7,
+    "id": 65,
     "spatial": "../../workload/spatials/cluster_b_2_16.json",
     "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
     "lognorm_sigma": 2.0,
-    "max_load": 0.7126208270275072,
+    "max_load": 0.3469791436046634,
     "cluster": "spec/cluster_1_to_1.json"
   }
 ]
