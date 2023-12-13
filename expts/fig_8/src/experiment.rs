@@ -36,7 +36,7 @@ const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 6_000_000;
-const NR_PATHS_SAMPLED: usize = 50;
+const NR_PATHS_SAMPLED: usize = 10;
 const NR_PARALLEL_PROCESSES: usize = 50;
 // const NR_FLOWS: usize = 2_000;
 
@@ -391,15 +391,15 @@ impl Experiment {
         for (flow_id, path) in flow_to_path_map {
             let mut key_vec = path.into_iter().collect::<Vec<_>>();
             key_vec.sort();
-            // key_vec = [
-            //     &key_vec[0..key_vec.len() / 2],
-            //     &key_vec[key_vec.len() / 2..]
-            //         .iter()
-            //         .rev()
-            //         .cloned()
-            //         .collect::<Vec<_>>(),
-            // ]
-            // .concat();
+            key_vec = [
+                &key_vec[0..key_vec.len() / 2],
+                &key_vec[key_vec.len() / 2..]
+                    .iter()
+                    .rev()
+                    .cloned()
+                    .collect::<Vec<_>>(),
+            ]
+            .concat();
             key_vec.insert(0, (flows[flow_id].src, flows[flow_id].dst));
             path_to_flows_map
                 .entry(key_vec)
@@ -955,20 +955,25 @@ impl Experiment {
             }
         }
         for (flow_id, path) in flow_to_path_map {
-            let mut key_vec = path.into_iter().collect::<Vec<_>>();
-            key_vec.sort();
-            key_vec = [
-                &key_vec[0..key_vec.len() / 2],
-                &key_vec[key_vec.len() / 2..]
-                    .iter()
-                    .rev()
-                    .cloned()
-                    .collect::<Vec<_>>(),
-            ]
-            .concat();
-            key_vec.insert(0, (flows[flow_id].src, flows[flow_id].dst));
+            let mut pairs = path.into_iter().collect::<Vec<_>>();
+            pairs.sort();
+            let mut path_ordered = Vec::<(NodeId, NodeId)>::new();
+            if let Some(first_pair) = pairs.first() {
+                path_ordered.push(*first_pair);
+
+                // Iterate over the remaining pairs
+                while path_ordered.len() != pairs.len() {
+                    for pair in pairs.iter().skip(1) {
+                        // If the source of the current pair equals the destination of the last pair in the ordered list
+                        if pair.0 == path_ordered.last().unwrap().1 {
+                            path_ordered.push(*pair);
+                        }
+                    }
+                }
+            }
+            path_ordered.insert(0, (flows[flow_id].src, flows[flow_id].dst));
             path_to_flows_map
-                .entry(key_vec)
+                .entry(path_ordered)
                 .or_insert_with(HashSet::new)
                 .insert(flow_id);
         }
