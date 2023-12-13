@@ -8,7 +8,7 @@ OUTPUT_PATH='/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/
 for shard in {0..191..1}
 # for shard in 0
 do
-    COMMAND="rm -rf ${OUTPUT_PATH}/${shard}/flowsim"
+    COMMAND="rm -rf ${OUTPUT_PATH}/${shard}/flowsim-all"
     echo "$COMMAND">>"$cur_dir/rm.log"
     ${COMMAND}>>"$cur_dir/rm.log"
     echo "">>"$cur_dir/rm.log"
