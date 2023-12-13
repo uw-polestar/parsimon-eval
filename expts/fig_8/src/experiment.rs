@@ -104,6 +104,7 @@ impl Experiment {
                 }
             }
             SimKind::Flowsim => {
+                // mixes.par_iter().try_for_each(|mix| self.run_flowsim(mix))?;
                 for mix in &mixes {
                     self.run_flowsim(mix)?;
                 }
