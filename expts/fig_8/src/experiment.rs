@@ -104,10 +104,10 @@ impl Experiment {
                 }
             }
             SimKind::Flowsim => {
-                // mixes.par_iter().try_for_each(|mix| self.run_flowsim(mix))?;
-                for mix in &mixes {
-                    self.run_flowsim(mix)?;
-                }
+                mixes.par_iter().try_for_each(|mix| self.run_flowsim(mix))?;
+                // for mix in &mixes {
+                //     self.run_flowsim(mix)?;
+                // }
             }
             SimKind::FlowsimAll => {
                 for mix in &mixes {
@@ -761,11 +761,35 @@ impl Experiment {
                 .insert(flow_id);
         }
 
-        let mut path = path_to_flows_map
-            .iter()
-            .max_by_key(|x| x.1.len())
-            .unwrap()
-            .0;
+        // let mut path = path_to_flows_map
+        //     .iter()
+        //     .max_by_key(|x| x.1.len())
+        //     .unwrap()
+        //     .0;
+        // get a specific path
+        let path_file = self.path_one_file(mix, sim)?;
+        let file = fs::File::open(path_file)?;
+
+        // Create a buffered reader to efficiently read lines
+        let reader = io::BufReader::new(file);
+        let mut path_ori: Vec<(NodeId, NodeId)> = Vec::new();
+        if let Some(Ok(first_line)) = reader.lines().next() {
+            path_ori = first_line
+                .split(",")
+                .collect::<Vec<_>>()
+                .iter()
+                .rev()
+                .skip(2)
+                .map(|x| {
+                    x.split("-")
+                        .map(|x| x.parse::<usize>().unwrap())
+                        .collect::<Vec<_>>()
+                })
+                .map(|x| (NodeId::new(x[0]), NodeId::new(x[1])))
+                .collect::<Vec<_>>()
+        }
+        path_ori.sort();
+        let mut path: &Vec<(NodeId, NodeId)> = &path_ori;
         flow_ids_in_f = path_to_flows_map[path]
             .iter()
             .map(|x| FlowId::new(*x))
