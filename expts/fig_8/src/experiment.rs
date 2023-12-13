@@ -778,8 +778,8 @@ impl Experiment {
         }
 
         let path_sorted = [
-            &path[0..path.len() / 2],
-            &path[path.len() / 2..]
+            &path[0..(path.len() + 1) / 2],
+            &path[(path.len() + 1) / 2..]
                 .iter()
                 .rev()
                 .cloned()
@@ -944,19 +944,28 @@ impl Experiment {
         path_list
             .par_iter()
             .enumerate()
-            .for_each(|(path_idx, &path)| {
+            .for_each(|(path_idx, &path_unsorted)| {
                 let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
-                flow_ids_in_f = path_to_flows_map[path]
+                flow_ids_in_f = path_to_flows_map[path_unsorted]
                     .iter()
                     .map(|x| FlowId::new(*x))
                     .collect::<HashSet<_>>();
 
-                for pair in path {
+                for pair in path_unsorted {
                     if channel_to_flowids_map.contains_key(&pair) {
                         flow_ids_in_f_prime.extend(channel_to_flowids_map[&pair].iter());
                     }
                 }
+                let path = [
+                    &path_unsorted[0..(path_unsorted.len() + 1) / 2],
+                    &path_unsorted[(path_unsorted.len() + 1) / 2..]
+                        .iter()
+                        .rev()
+                        .cloned()
+                        .collect::<Vec<_>>(),
+                ]
+                .concat();
 
                 let mut flow_to_srcdst_map_in_flowsim: HashMap<FlowId, (usize, usize)> =
                     HashMap::new();
