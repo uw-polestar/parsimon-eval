@@ -95,9 +95,16 @@ impl Experiment {
                 }
             }
             SimKind::Ns3PathAll => {
-                for mix in &mixes {
-                    self.run_ns3_path_all(mix)?;
+                let mix_list = mixes.chunks(10).collect::<Vec<_>>();
+
+                for mix_tmp in &mix_list {
+                    mix_tmp
+                        .par_iter()
+                        .try_for_each(|mix| self.run_ns3_path_all(mix))?;
                 }
+                // for mix in &mixes {
+                //     self.run_ns3_path_all(mix)?;
+                // }
             }
             SimKind::PmnMPath => {
                 for mix in &mixes {
