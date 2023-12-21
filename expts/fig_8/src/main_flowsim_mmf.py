@@ -153,7 +153,7 @@ if not os.path.exists(fcts_flowsim_path) and os.path.exists(flows_path):
     # print(f"num_flows-{len(num_flows)}: {np.mean(num_flows)}")
     # print(f"num_flows_enq-{len(num_flows_enq)}: {np.mean(num_flows_enq)}")
 
-    # np.save("%s/fcts_flowsim.npy" % output_dir, estimated_fcts)
+    np.save("%s/fcts_flowsim.npy" % output_dir, estimated_fcts)
     # np.save(f"{output_dir}/t_flows_flowsim.npy", np.array(t_flows))
     # np.save(f"{output_dir}/num_flows_flowsim.npy", np.array(num_flows))
     # np.save(f"{output_dir}/num_flows_enq_flowsim.npy", num_flows_enq)
