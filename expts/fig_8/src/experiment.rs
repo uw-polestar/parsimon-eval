@@ -1542,20 +1542,20 @@ impl Experiment {
         Ok(file)
     }
 
-    fn path_all_with_idx_file(
-        &self,
-        mix: &Mix,
-        sim: SimKind,
-        path_idx: usize,
-    ) -> anyhow::Result<PathBuf> {
-        let file = [
-            self.sim_dir(mix, sim)?.as_path(),
-            format!("../ns3-path-all/path_{}.txt", path_idx).as_ref(),
-        ]
-        .into_iter()
-        .collect();
-        Ok(file)
-    }
+    // fn path_all_with_idx_file(
+    //     &self,
+    //     mix: &Mix,
+    //     sim: SimKind,
+    //     path_idx: usize,
+    // ) -> anyhow::Result<PathBuf> {
+    //     let file = [
+    //         self.sim_dir(mix, sim)?.as_path(),
+    //         format!("../ns3-path-all/path_{}.txt", path_idx).as_ref(),
+    //     ]
+    //     .into_iter()
+    //     .collect();
+    //     Ok(file)
+    // }
 
     fn flow_on_path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [
