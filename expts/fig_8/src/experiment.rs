@@ -28,6 +28,7 @@ use workload::{
 };
 
 use crate::flowsim::Flowsim;
+use crate::mlsys::Mlsys;
 use crate::mix::{Mix, MixId};
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
@@ -35,14 +36,16 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 20_000_000;
-const NR_PATHS_SAMPLED: usize = 20;
-const NR_PARALLEL_PROCESSES: usize = 50;
-const FLOWS_ON_PATH_THRESHOLD: usize = 20;
+const NR_FLOWS: usize = 6_000_000;
+const NR_PATHS_SAMPLED: usize = 1000;
+const NR_PARALLEL_PROCESSES: usize = 10;
+const FLOWS_ON_PATH_THRESHOLD: usize = 50;
 // const NR_FLOWS: usize = 2_000;
 
-const FLOWSIM_PATH: &str = "./src/main_flowsim_mmf.py";
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
+const FLOWSIM_PATH: &str = "./src/main_flowsim_mmf.py";
+const MLSYS_PATH: &str = "/data1/lichenni/projects/flow_simulation/fast-mmf-fattree";
+
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -64,6 +67,11 @@ impl Experiment {
         match self.sim {
             SimKind::Ns3 => {
                 mixes.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+
+                // for mix_tmp in &mix_list {
+                //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                // }
             }
             SimKind::Pmn => {
                 for mix in &mixes {
@@ -128,6 +136,11 @@ impl Experiment {
             SimKind::FlowsimAll => {
                 for mix in &mixes {
                     self.run_flowsim_all(mix)?;
+                }
+            }
+            SimKind::Mlsys => {
+                for mix in &mixes {
+                    self.run_mlsys(mix)?;
                 }
             }
         }
@@ -531,9 +544,11 @@ impl Experiment {
         let sim = SimKind::Pmn;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+
+        let start = Instant::now(); // timer start
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
-        let start = Instant::now(); // timer start
+        
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
@@ -1163,6 +1178,205 @@ impl Experiment {
         Ok(())
     }
 
+    fn run_mlsys(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Mlsys;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+        
+        let start = Instant::now(); // timer start
+        // read flows associated with a path
+        let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
+        let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
+        let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+
+        let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
+        let file = fs::File::open(flow_path_map_file)?;
+
+        // Create a buffered reader to efficiently read lines
+        let reader = io::BufReader::new(file);
+        for line in reader.lines() {
+            let line = line?;
+            let tmp = line
+                .split(",")
+                .map(|x| x.parse::<usize>().unwrap())
+                .collect::<Vec<_>>();
+            let tmp_key = (NodeId::new(tmp[1]), NodeId::new(tmp[2]));
+            for &val in &tmp[4..] {
+                flow_to_path_map
+                    .entry(val)
+                    .or_insert_with(HashSet::new)
+                    .insert(tmp_key);
+                channel_to_flowids_map
+                    .entry(tmp_key)
+                    .or_insert_with(HashSet::new)
+                    .insert(FlowId::new(val));
+            }
+        }
+        for (flow_id, path) in flow_to_path_map {
+            let mut pairs = path.into_iter().collect::<Vec<_>>();
+            pairs.sort();
+            let mut path_ordered = Vec::<(NodeId, NodeId)>::new();
+            if let Some(first_pair) = pairs.first() {
+                path_ordered.push(*first_pair);
+
+                // Iterate over the remaining pairs
+                while path_ordered.len() != pairs.len() {
+                    for pair in pairs.iter().skip(1) {
+                        // If the source of the current pair equals the destination of the last pair in the ordered list
+                        if pair.0 == path_ordered.last().unwrap().1 {
+                            path_ordered.push(*pair);
+                        }
+                    }
+                }
+            }
+            path_ordered.insert(0, (flows[flow_id].src, flows[flow_id].dst));
+            path_to_flows_map
+                .entry(path_ordered)
+                .or_insert_with(HashSet::new)
+                .insert(flow_id);
+        }
+
+        let mut path_to_flows_vec_sorted = path_to_flows_map
+            .iter()
+            .filter(|&(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+            .collect::<Vec<_>>();
+        path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
+        // let path_list = path_to_flows_vec_sorted
+        //     .into_iter()
+        //     .take(NR_PATHS_SAMPLED)
+        //     .map(|x| x.0)
+        //     .collect::<Vec<_>>();
+        let mut rng = StdRng::seed_from_u64(self.seed);
+        let path_list = path_to_flows_vec_sorted
+            .choose_multiple(&mut rng, NR_PATHS_SAMPLED)
+            .cloned()
+            .map(|x| x.0)
+            .collect::<Vec<_>>();
+        self.put_path(mix, sim, format!("{}", path_to_flows_vec_sorted.len()))
+            .unwrap();
+
+        path_list
+            .par_iter()
+            .enumerate()
+            .for_each(|(path_idx, &path)| {
+                // let mut start_tmp = Instant::now();
+                let flow_ids_in_f: HashSet<FlowId>;
+                let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
+                flow_ids_in_f = path_to_flows_map[path]
+                    .iter()
+                    .map(|x| FlowId::new(*x))
+                    .collect::<HashSet<_>>();
+
+                for pair in path {
+                    if channel_to_flowids_map.contains_key(&pair) {
+                        flow_ids_in_f_prime.extend(channel_to_flowids_map[&pair].iter());
+                    }
+                }
+
+                let mut flow_to_srcdst_map_in_flowsim: HashMap<FlowId, (usize, usize)> =
+                    HashMap::new();
+                let mut path_length = 1;
+                for src_dst_pair in path.iter() {
+                    if channel_to_flowids_map.contains_key(src_dst_pair) {
+                        let flows = channel_to_flowids_map.get(src_dst_pair).unwrap();
+                        for &key_flowid in flows {
+                            // println!("flow {} is on path {}", key_flowid, idx);
+                            match flow_to_srcdst_map_in_flowsim.get(&key_flowid) {
+                                Some(count) => {
+                                    // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
+                                    // println!("flow {}: {} {} {}", key_flowid, count.0, count.1, idx);
+                                    // assert!(count.1 == idx);
+                                    flow_to_srcdst_map_in_flowsim
+                                        .insert(key_flowid, (count.0, path_length));
+                                }
+                                None => {
+                                    flow_to_srcdst_map_in_flowsim
+                                        .insert(key_flowid, (path_length - 1, path_length));
+                                }
+                            }
+                        }
+                        path_length += 1;
+                    }
+                }
+
+                let path_str = path
+                    .iter()
+                    .map(|&x| format!("{}-{}", x.0, x.1))
+                    .collect::<Vec<String>>()
+                    .join(",");
+                let flow_ids_in_f_str = flow_ids_in_f
+                    .iter()
+                    .map(|&x| x.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",");
+                let flow_ids_in_f_prime_str = flow_ids_in_f_prime
+                    .iter()
+                    .map(|&x| x.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",");
+                self.put_path_with_idx(
+                    mix,
+                    sim,
+                    path_idx,
+                    format!(
+                        "{},{},{}\n{}\n{}",
+                        path_str,
+                        flow_ids_in_f.len(),
+                        flow_ids_in_f_prime.len(),
+                        flow_ids_in_f_str,
+                        flow_ids_in_f_prime_str
+                    ),
+                )
+                .unwrap();
+
+                // get flows for a specific path
+                let mut flows_remaining = flows
+                    .clone()
+                    .into_iter()
+                    .filter(|flow| flow_ids_in_f_prime.contains(&flow.id))
+                    .collect::<Vec<_>>();
+
+                for idx in 0..flows_remaining.len() {
+                    let flow = flows_remaining[idx];
+                    flows_remaining[idx].src =
+                        NodeId::new(flow_to_srcdst_map_in_flowsim[&flow.id].0);
+                    flows_remaining[idx].dst =
+                        NodeId::new(flow_to_srcdst_map_in_flowsim[&flow.id].1);
+                }
+                // let mut elapsed_secs_tmp = start_tmp.elapsed().as_secs();
+                // println!("path {} is done in {} seconds", path_idx, elapsed_secs_tmp);
+                // start_tmp= Instant::now();
+                let mlsys = Mlsys::builder()
+                    .script_path(MLSYS_PATH)
+                    .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
+                    .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
+                    .links(cluster.links().cloned().collect::<Vec<_>>())
+                    .flows(flows_remaining)
+                    .build();
+                let _ = mlsys.run(path_length);
+                // elapsed_secs_tmp = start_tmp.elapsed().as_secs();
+                // println!("mlsys {} is done in {} seconds", path_idx, elapsed_secs_tmp);
+                // let records = mlsys
+                //     .run(path_length)
+                //     .unwrap()
+                //     .into_iter()
+                //     .filter(|rec| flow_ids_in_f.contains(&rec.id))
+                //     .map(|rec| Record {
+                //         mix_id: mix.id,
+                //         flow_id: rec.id,
+                //         size: rec.size,
+                //         slowdown: rec.slowdown(),
+                //         sim,
+                //     })
+                //     .collect::<Vec<_>>();
+                // self.put_records_with_idx(mix, sim, path_idx, &records).unwrap();
+            });
+
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
+        Ok(())
+    }
+
     fn run_pmn_mc(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::PmnMC;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
@@ -1470,6 +1684,7 @@ pub enum SimKind {
     PmnMPath,
     Flowsim,
     FlowsimAll,
+    Mlsys,
 }
 
 impl fmt::Display for SimKind {
@@ -1485,6 +1700,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Flowsim => "flowsim",
             SimKind::FlowsimAll => "flowsim-all",
+            SimKind::Mlsys => "mlsys",
         };
         write!(f, "{}", s)
     }
