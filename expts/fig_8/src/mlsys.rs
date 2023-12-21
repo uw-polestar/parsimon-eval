@@ -64,11 +64,11 @@ impl Mlsys {
         self.invoke_mlsys(n_hosts)?;
 
         // Parse and return results
-        let s = fs::read_to_string(mk_path(
-            self.data_dir.as_path(),
-            // format!("fct_mlsys_{}.txt", self.cc_kind.as_str()).as_ref(),
-            format!("fct_mlsys.txt").as_ref(),
-        ))?;
+        // let s = fs::read_to_string(mk_path(
+        //     self.data_dir.as_path(),
+        //     // format!("fct_mlsys_{}.txt", self.cc_kind.as_str()).as_ref(),
+        //     format!("fct_mlsys.txt").as_ref(),
+        // ))?;
         // let records = parse_mlsys_records(&s)?;
         // Ok(records)
         Ok(())
@@ -93,7 +93,7 @@ impl Mlsys {
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
-            .arg(format!("cd {script_path}; {c_command}"))
+            .arg(format!("cd {script_path}; {c_command}; rm {data_dir}/flows.txt"))
             .output()?;
         Ok(())
     }
