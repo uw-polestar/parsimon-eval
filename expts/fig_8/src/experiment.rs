@@ -1183,7 +1183,6 @@ impl Experiment {
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         
-        let start = Instant::now(); // timer start
         // read flows associated with a path
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
@@ -1192,6 +1191,7 @@ impl Experiment {
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
 
+        let start = Instant::now(); // timer start
         // Create a buffered reader to efficiently read lines
         let reader = io::BufReader::new(file);
         for line in reader.lines() {
@@ -1259,7 +1259,7 @@ impl Experiment {
             .par_iter()
             .enumerate()
             .for_each(|(path_idx, &path)| {
-                // let mut start_tmp = Instant::now();
+                let mut start_tmp = Instant::now();
                 let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
                 flow_ids_in_f = path_to_flows_map[path]
@@ -1299,36 +1299,6 @@ impl Experiment {
                     }
                 }
 
-                let path_str = path
-                    .iter()
-                    .map(|&x| format!("{}-{}", x.0, x.1))
-                    .collect::<Vec<String>>()
-                    .join(",");
-                let flow_ids_in_f_str = flow_ids_in_f
-                    .iter()
-                    .map(|&x| x.to_string())
-                    .collect::<Vec<String>>()
-                    .join(",");
-                let flow_ids_in_f_prime_str = flow_ids_in_f_prime
-                    .iter()
-                    .map(|&x| x.to_string())
-                    .collect::<Vec<String>>()
-                    .join(",");
-                self.put_path_with_idx(
-                    mix,
-                    sim,
-                    path_idx,
-                    format!(
-                        "{},{},{}\n{}\n{}",
-                        path_str,
-                        flow_ids_in_f.len(),
-                        flow_ids_in_f_prime.len(),
-                        flow_ids_in_f_str,
-                        flow_ids_in_f_prime_str
-                    ),
-                )
-                .unwrap();
-
                 // get flows for a specific path
                 let mut flows_remaining = flows
                     .clone()
@@ -1343,9 +1313,8 @@ impl Experiment {
                     flows_remaining[idx].dst =
                         NodeId::new(flow_to_srcdst_map_in_flowsim[&flow.id].1);
                 }
-                // let mut elapsed_secs_tmp = start_tmp.elapsed().as_secs();
-                // println!("path {} is done in {} seconds", path_idx, elapsed_secs_tmp);
-                // start_tmp= Instant::now();
+                let elapsed_secs_preprop = start_tmp.elapsed().as_secs();
+                start_tmp= Instant::now();
                 let mlsys = Mlsys::builder()
                     .script_path(MLSYS_PATH)
                     .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
@@ -1354,22 +1323,40 @@ impl Experiment {
                     .flows(flows_remaining)
                     .build();
                 let _ = mlsys.run(path_length);
-                // elapsed_secs_tmp = start_tmp.elapsed().as_secs();
-                // println!("mlsys {} is done in {} seconds", path_idx, elapsed_secs_tmp);
-                // let records = mlsys
-                //     .run(path_length)
-                //     .unwrap()
-                //     .into_iter()
-                //     .filter(|rec| flow_ids_in_f.contains(&rec.id))
-                //     .map(|rec| Record {
-                //         mix_id: mix.id,
-                //         flow_id: rec.id,
-                //         size: rec.size,
-                //         slowdown: rec.slowdown(),
-                //         sim,
-                //     })
-                //     .collect::<Vec<_>>();
-                // self.put_records_with_idx(mix, sim, path_idx, &records).unwrap();
+
+                let elapsed_secs_mlsys = start_tmp.elapsed().as_secs();
+                
+                let path_str = path
+                    .iter()
+                    .map(|&x| format!("{}-{}", x.0, x.1))
+                    .collect::<Vec<String>>()
+                    .join(",");
+                // let flow_ids_in_f_str = flow_ids_in_f
+                //     .iter()
+                //     .map(|&x| x.to_string())
+                //     .collect::<Vec<String>>()
+                //     .join(",");
+                // let flow_ids_in_f_prime_str = flow_ids_in_f_prime
+                //     .iter()
+                //     .map(|&x| x.to_string())
+                //     .collect::<Vec<String>>()
+                //     .join(",");
+                self.put_path_with_idx(
+                    mix,
+                    sim,
+                    path_idx,
+                    format!(
+                        "{},{},{}\n{}\n{}",
+                        path_str,
+                        flow_ids_in_f.len(),
+                        flow_ids_in_f_prime.len(),
+                        // flow_ids_in_f_str,
+                        // flow_ids_in_f_prime_str
+                        elapsed_secs_preprop,
+                        elapsed_secs_mlsys
+                    ),
+                )
+                .unwrap();
             });
 
         let elapsed_secs = start.elapsed().as_secs(); // timer end
