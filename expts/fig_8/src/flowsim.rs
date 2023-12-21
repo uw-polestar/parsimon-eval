@@ -7,14 +7,14 @@
 use std::fs;
 use std::path::PathBuf;
 use std::process::Command;
-use std::{fmt::Write, io};
+use std::io;
 
 use derivative::Derivative;
 use parsimon::core::{
     network::Flow,
     network::{
         types::{Link, Node},
-        FctRecord, NodeKind,
+        FctRecord,
     },
     // units::{Bytes, Nanosecs},
 };

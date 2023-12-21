@@ -173,24 +173,24 @@ fn translate_flows(flows: &[Flow]) -> String {
     lines.join("\n")
 }
 
-fn parse_mlsys_records(s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
-    parse_flowsim_record(s.lines().next().unwrap())
-}
+// fn parse_mlsys_records(s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
+//     parse_flowsim_record(s.lines().next().unwrap())
+// }
 
-fn parse_flowsim_record(s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
-    // sip, dip, sport, dport, size (B), start_time, fct (ns), standalone_fct (ns)
-    const NR_MLSYS_FIELDS: usize = 80;
-    const NR_SIZE_BUCKETS: usize = 4;
-    let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
-    let nr_fields = fields.len();
-    if nr_fields != NR_MLSYS_FIELDS {
-        return Err(ParseMlsysError::WrongNrFields {
-            expected: NR_MLSYS_FIELDS,
-            got: nr_fields,
-        });
-    }
-    Ok(fields.chunks_mut(NR_SIZE_BUCKETS).map(|row| row.to_vec()).collect())
-}
+// fn parse_flowsim_record(s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
+//     // sip, dip, sport, dport, size (B), start_time, fct (ns), standalone_fct (ns)
+//     const NR_MLSYS_FIELDS: usize = 80;
+//     const NR_SIZE_BUCKETS: usize = 4;
+//     let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
+//     let nr_fields = fields.len();
+//     if nr_fields != NR_MLSYS_FIELDS {
+//         return Err(ParseMlsysError::WrongNrFields {
+//             expected: NR_MLSYS_FIELDS,
+//             got: nr_fields,
+//         });
+//     }
+//     Ok(fields.chunks_mut(NR_SIZE_BUCKETS).map(|row| row.to_vec()).collect())
+// }
 
 /// Error parsing ns-3 formats.
 #[derive(Debug, thiserror::Error)]
