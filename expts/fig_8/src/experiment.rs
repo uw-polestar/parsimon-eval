@@ -1,7 +1,7 @@
 use std::{
     collections::HashMap,
     collections::HashSet,
-    fmt::{self, format}, fs,
+    fmt::{self}, fs,
     io::{self, BufRead},
     path::{Path, PathBuf},
     time::Instant,
@@ -38,7 +38,7 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 10_000_000;
+const NR_FLOWS: usize = 6_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
 const FLOWS_ON_PATH_THRESHOLD: usize = 20;
@@ -1256,29 +1256,41 @@ impl Experiment {
         //     .collect::<Vec<_>>();
         let mut path_counts: HashMap<Vec<(NodeId, NodeId)>, usize> = HashMap::new();
 
-        let weights: Vec<usize> = path_to_flows_map.iter().map(|x| x.1.len()).collect();
+        let weights: Vec<usize> = path_to_flows_map.iter()
+        .map(|(_, flows)| if flows.len() < FLOWS_ON_PATH_THRESHOLD { 0 } else { flows.len() })
+        .collect();
         let weighted_index = WeightedIndex::new(weights).unwrap();
 
         let mut rng = StdRng::seed_from_u64(self.seed);
-        let _ = (0..NR_PATHS_SAMPLED).map(|_| {
+        (0..NR_PATHS_SAMPLED).for_each(|_| {
             let sampled_index = weighted_index.sample(&mut rng);
             let key = path_to_flows_map.keys().nth(sampled_index).unwrap().clone();
 
             // Update counts
             *path_counts.entry(key.clone()).or_insert(0) += 1;
-            key
         });
 
         let mut path_counts_str = String::new();
         for (key, value) in &path_counts {
-            path_counts_str.push_str(&format!("{:?} => {}\n", key, value));
+            path_counts_str.push_str(&format!("{}:{}:{},", key.iter()
+            .map(|&x| format!("{}-{}", x.0, x.1))
+            .collect::<Vec<String>>()
+            .join("|"), value,path_to_flows_map[key].len()));
+        }
+
+        let mut path_to_flows_map_str = String::new();
+        for (key, value) in &path_to_flows_map {
+            path_to_flows_map_str.push_str(&format!("{}:{}\n", key.iter()
+            .map(|&x| format!("{}-{}", x.0, x.1))
+            .collect::<Vec<String>>()
+            .join("|"), value.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",")));
         }
 
         // Derive the unique set of paths
         let path_list: Vec<Vec<(NodeId, NodeId)>> = path_counts.into_keys().collect();
         
 
-        self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_counts_str))
+        self.put_path(mix, sim, format!("{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_counts_str,path_to_flows_map_str))
             .unwrap();
 
         let start_2 = Instant::now(); // timer start
@@ -1358,11 +1370,11 @@ impl Experiment {
                     .map(|&x| format!("{}-{}", x.0, x.1))
                     .collect::<Vec<String>>()
                     .join(",");
-                let flow_ids_in_f_str = flow_ids_in_f
-                    .iter()
-                    .map(|&x| x.to_string())
-                    .collect::<Vec<String>>()
-                    .join(",");
+                // let flow_ids_in_f_str = flow_ids_in_f
+                //     .iter()
+                //     .map(|&x| x.to_string())
+                //     .collect::<Vec<String>>()
+                //     .join(",");
                 // let flow_ids_in_f_prime_str = flow_ids_in_f_prime
                 //     .iter()
                 //     .map(|&x| x.to_string())
@@ -1373,7 +1385,7 @@ impl Experiment {
                     sim,
                     path_idx,
                     format!(
-                        "{},{},{}\n{},{}\n{}",
+                        "{},{},{}\n{},{}",
                         path_str,
                         flow_ids_in_f.len(),
                         flow_ids_in_f_prime.len(),
@@ -1381,7 +1393,7 @@ impl Experiment {
                         // flow_ids_in_f_prime_str
                         elapsed_secs_preprop,
                         elapsed_secs_mlsys,
-                        flow_ids_in_f_str,
+                        // ,
                     ),
                 )
                 .unwrap();
