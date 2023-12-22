@@ -81,7 +81,7 @@ impl Mlsys {
         let script_path = std::fs::canonicalize(&self.script_path)?;
         let script_path = script_path.display();
         let n_hosts = n_hosts.to_string();
-        let cc = self.cc_kind.as_str();
+        // let cc = self.cc_kind.as_str();
         // Build the command that runs the Python script.
         // let python_command = format!(
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
