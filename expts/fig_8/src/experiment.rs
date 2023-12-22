@@ -1,7 +1,7 @@
 use std::{
     collections::HashMap,
     collections::HashSet,
-    fmt, fs,
+    fmt::{self, format}, fs,
     io::{self, BufRead},
     path::{Path, PathBuf},
     time::Instant,
@@ -31,15 +31,17 @@ use crate::flowsim::Flowsim;
 use crate::mlsys::Mlsys;
 use crate::mix::{Mix, MixId};
 
+use rand::distributions::WeightedIndex;
+
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 6_000_000;
+const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
-const FLOWS_ON_PATH_THRESHOLD: usize = 50;
+const FLOWS_ON_PATH_THRESHOLD: usize = 20;
 // const NR_FLOWS: usize = 2_000;
 
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
@@ -1191,7 +1193,7 @@ impl Experiment {
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
 
-        let start = Instant::now(); // timer start
+        let start_1 = Instant::now(); // timer start
         // Create a buffered reader to efficiently read lines
         let reader = io::BufReader::new(file);
         for line in reader.lines() {
@@ -1236,29 +1238,54 @@ impl Experiment {
                 .insert(flow_id);
         }
 
-        let mut path_to_flows_vec_sorted = path_to_flows_map
-            .iter()
-            .filter(|&(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
-            .collect::<Vec<_>>();
-        path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
+        // let mut path_to_flows_vec_sorted = path_to_flows_map
+        //     .iter()
+        //     .filter(|&(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+        //     .collect::<Vec<_>>();
+        // path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
         // let path_list = path_to_flows_vec_sorted
         //     .into_iter()
         //     .take(NR_PATHS_SAMPLED)
         //     .map(|x| x.0)
         //     .collect::<Vec<_>>();
+        // let mut rng = StdRng::seed_from_u64(self.seed);
+        // let path_list = path_to_flows_vec_sorted
+        //     .choose_multiple(&mut rng, NR_PATHS_SAMPLED)
+        //     .cloned()
+        //     .map(|x| x.0)
+        //     .collect::<Vec<_>>();
+        let mut path_counts: HashMap<Vec<(NodeId, NodeId)>, usize> = HashMap::new();
+
+        let weights: Vec<usize> = path_to_flows_map.iter().map(|x| x.1.len()).collect();
+        let weighted_index = WeightedIndex::new(weights).unwrap();
+
         let mut rng = StdRng::seed_from_u64(self.seed);
-        let path_list = path_to_flows_vec_sorted
-            .choose_multiple(&mut rng, NR_PATHS_SAMPLED)
-            .cloned()
-            .map(|x| x.0)
-            .collect::<Vec<_>>();
-        self.put_path(mix, sim, format!("{}", path_to_flows_vec_sorted.len()))
+        let _ = (0..NR_PATHS_SAMPLED).map(|_| {
+            let sampled_index = weighted_index.sample(&mut rng);
+            let key = path_to_flows_map.keys().nth(sampled_index).unwrap().clone();
+
+            // Update counts
+            *path_counts.entry(key.clone()).or_insert(0) += 1;
+            key
+        });
+
+        let mut path_counts_str = String::new();
+        for (key, value) in &path_counts {
+            path_counts_str.push_str(&format!("{:?} => {}\n", key, value));
+        }
+
+        // Derive the unique set of paths
+        let path_list: Vec<Vec<(NodeId, NodeId)>> = path_counts.into_keys().collect();
+        
+
+        self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_counts_str))
             .unwrap();
 
+        let start_2 = Instant::now(); // timer start
         path_list
             .par_iter()
             .enumerate()
-            .for_each(|(path_idx, &path)| {
+            .for_each(|(path_idx, path)| {
                 let mut start_tmp = Instant::now();
                 let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
@@ -1331,11 +1358,11 @@ impl Experiment {
                     .map(|&x| format!("{}-{}", x.0, x.1))
                     .collect::<Vec<String>>()
                     .join(",");
-                // let flow_ids_in_f_str = flow_ids_in_f
-                //     .iter()
-                //     .map(|&x| x.to_string())
-                //     .collect::<Vec<String>>()
-                //     .join(",");
+                let flow_ids_in_f_str = flow_ids_in_f
+                    .iter()
+                    .map(|&x| x.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",");
                 // let flow_ids_in_f_prime_str = flow_ids_in_f_prime
                 //     .iter()
                 //     .map(|&x| x.to_string())
@@ -1346,21 +1373,24 @@ impl Experiment {
                     sim,
                     path_idx,
                     format!(
-                        "{},{},{}\n{}\n{}",
+                        "{},{},{}\n{},{}\n{}",
                         path_str,
                         flow_ids_in_f.len(),
                         flow_ids_in_f_prime.len(),
                         // flow_ids_in_f_str,
                         // flow_ids_in_f_prime_str
                         elapsed_secs_preprop,
-                        elapsed_secs_mlsys
+                        elapsed_secs_mlsys,
+                        flow_ids_in_f_str,
                     ),
                 )
                 .unwrap();
             });
-
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
-        self.put_elapsed(mix, sim, elapsed_secs)?;
+        
+        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
+        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
+        
+        self.put_elapsed_str(mix, sim, format!("{},{}", elapsed_secs_1, elapsed_secs_2))?;
         Ok(())
     }
 
@@ -1464,6 +1494,11 @@ impl Experiment {
 
     fn put_elapsed(&self, mix: &Mix, sim: SimKind, secs: u64) -> anyhow::Result<()> {
         fs::write(self.elapsed_file(mix, sim)?, secs.to_string())?;
+        Ok(())
+    }
+
+    fn put_elapsed_str(&self, mix: &Mix, sim: SimKind, secs: String) -> anyhow::Result<()> {
+        fs::write(self.elapsed_file(mix, sim)?, secs)?;
         Ok(())
     }
 
