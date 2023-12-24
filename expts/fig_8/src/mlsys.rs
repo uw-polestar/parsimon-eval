@@ -25,10 +25,6 @@ pub struct Mlsys {
     /// The directory in which to write simulation configs and data.
     #[builder(setter(into))]
     pub data_dir: PathBuf,
-    /// The topology nodes.
-    pub nodes: Vec<Node>,
-    /// The topology links.
-    pub links: Vec<Link>,
     /// The congestion control protocol.
     #[builder(default)]
     pub cc_kind: CcKind,

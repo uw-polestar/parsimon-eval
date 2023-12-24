@@ -1296,8 +1296,6 @@ impl Experiment {
                 let mlsys = Mlsys::builder()
                     .script_path(MLSYS_PATH)
                     .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
-                    .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
-                    .links(cluster.links().cloned().collect::<Vec<_>>())
                     .flows(flows_remaining)
                     .build();
                 let _ = mlsys.run(path_length);
