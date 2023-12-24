@@ -21,7 +21,7 @@ cargo run --release -- --root=./data_test --mixes spec/63.mix.json flowsim
 cargo run --release -- --mixes spec/all.mix.json ns3
 cargo run --release -- --mixes spec/all.mix.json pmn-m
 cargo run --release -- --mixes spec/all.mix.json pmn-mc
-cargo run --release -- --mixes spec/all.mix.json pmn-path
+cargo run --release -- --mixes spec/all.mix.json mlsys
 
 python run.py --root /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/ns3 --cc dctcp --trace flows --bw 10 --topo topology --fwin 18000 --base_rtt 14400
 
