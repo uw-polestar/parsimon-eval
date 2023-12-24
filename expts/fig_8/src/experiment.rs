@@ -91,17 +91,12 @@ impl Experiment {
                 }
             }
             SimKind::Ns3Path => {
-                mixes
-                    .par_iter()
-                    .try_for_each(|mix| self.run_ns3_path(mix))?;
-            }
-            SimKind::Ns3PathOne => {
                 let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
                 for mix_tmp in &mix_list {
                     mix_tmp
                         .par_iter()
-                        .try_for_each(|mix| self.run_ns3_path_one(mix))?;
+                        .try_for_each(|mix| self.run_ns3_path(mix))?;
                 }
             }
             SimKind::Ns3PathAll => {
@@ -149,6 +144,35 @@ impl Experiment {
         Ok(())
     }
 
+    fn get_path_to_flowId( path_to_flowId: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>>) -> HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> {
+        let mut path_to_flowId: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+
+        for (flow_id, path) in flow_to_path_map {
+            let mut pairs = path.into_iter().collect::<Vec<_>>();
+            pairs.sort();
+            let mut path_ordered = Vec::<(NodeId, NodeId)>::new();
+            if let Some(first_pair) = pairs.first() {
+                path_ordered.push(*first_pair);
+
+                // Iterate over the remaining pairs
+                while path_ordered.len() != pairs.len() {
+                    for pair in pairs.iter().skip(1) {
+                        // If the source of the current pair equals the destination of the last pair in the ordered list
+                        if pair.0 == path_ordered.last().unwrap().1 {
+                            path_ordered.push(*pair);
+                        }
+                    }
+                }
+            }
+            path_ordered.insert(0, (flows[flow_id].src, flows[flow_id].dst));
+            path_to_flowId
+                .entry(path_ordered)
+                .or_insert_with(HashSet::new)
+                .insert(flow_id);
+        }
+        path_to_flowId
+    }
+
     fn run_ns3(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::Ns3;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
@@ -186,76 +210,12 @@ impl Experiment {
         let flows = self.flows(mix)?;
 
         // read flows associated with a path
-        let mut max_row = 0;
-        let mut max_col = 0;
-        let mut num_flows_in_f_prime = 0;
-        let mut flow_ids: Vec<FlowId> = Vec::new();
-
-        let flow_on_path_file = self.flow_on_path_file(mix, sim)?;
-        let file = fs::File::open(flow_on_path_file)?;
-
-        // Create a buffered reader to efficiently read lines
-        let reader = io::BufReader::new(file);
-        for (line_number, line) in reader.lines().enumerate() {
-            let line = line?;
-            if line_number == 0 {
-                let tmp = line.split(",").collect::<Vec<_>>();
-                max_row = tmp[0].parse::<usize>().unwrap();
-                max_col = tmp[1].parse::<usize>().unwrap();
-                num_flows_in_f_prime = tmp[2].parse::<usize>().unwrap();
-            } else {
-                flow_ids.push(line.trim().parse::<FlowId>().unwrap());
-            }
-        }
-
-        let path_str = format!("{},{},{}", max_row, max_col, num_flows_in_f_prime);
-        self.put_path(mix, sim, path_str)?;
-        // println!("The selected path is ({:?}, {:?})", max_row,max_col);
-        // get flows for a specific path
-        let flows_remaining = flows
-            .into_iter()
-            .filter(|flow| flow_ids.contains(&flow.id))
-            .collect::<Vec<_>>();
-
-        let start = Instant::now(); // timer start
-        let ns3 = Ns3Simulation::builder()
-            .ns3_dir(NS3_DIR)
-            .data_dir(self.sim_dir(mix, sim)?)
-            .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
-            .links(cluster.links().cloned().collect::<Vec<_>>())
-            .window(WINDOW)
-            .base_rtt(BASE_RTT)
-            .flows(flows_remaining)
-            .build();
-        let records = ns3
-            .run()?
-            .into_iter()
-            .map(|rec| Record {
-                mix_id: mix.id,
-                flow_id: rec.id,
-                size: rec.size,
-                slowdown: rec.slowdown(),
-                sim,
-            })
-            .collect::<Vec<_>>();
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
-        self.put_elapsed(mix, sim, elapsed_secs)?;
-        self.put_records(mix, sim, &records)?;
-        Ok(())
-    }
-
-    fn run_ns3_path_one(&self, mix: &Mix) -> anyhow::Result<()> {
-        let sim = SimKind::Ns3PathOne;
-        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
-        let flows = self.flows(mix)?;
-
-        // read flows associated with a path
         let flow_ids_in_f: HashSet<FlowId>;
         let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
 
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
-        let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+        let mut path_to_flowId: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
 
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
@@ -293,18 +253,18 @@ impl Experiment {
             // ]
             // .concat();
             key_vec.insert(0, (flows[flow_id].src, flows[flow_id].dst));
-            path_to_flows_map
+            path_to_flowId
                 .entry(key_vec)
                 .or_insert_with(HashSet::new)
                 .insert(flow_id);
         }
 
-        let path = path_to_flows_map
+        let path = path_to_flowId
             .iter()
             .max_by_key(|x| x.1.len())
             .unwrap()
             .0;
-        flow_ids_in_f = path_to_flows_map[path]
+        flow_ids_in_f = path_to_flowId[path]
             .iter()
             .map(|x| FlowId::new(*x))
             .collect::<HashSet<_>>();
@@ -386,7 +346,7 @@ impl Experiment {
         // read flows associated with a path
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
-        let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+        let mut path_to_flowId: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
 
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
@@ -429,13 +389,13 @@ impl Experiment {
                 }
             }
             path_ordered.insert(0, (flows[flow_id].src, flows[flow_id].dst));
-            path_to_flows_map
+            path_to_flowId
                 .entry(path_ordered)
                 .or_insert_with(HashSet::new)
                 .insert(flow_id);
         }
 
-        let mut path_to_flows_vec_sorted = path_to_flows_map
+        let mut path_to_flows_vec_sorted = path_to_flowId
             .iter()
             .filter(|&(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
@@ -461,7 +421,7 @@ impl Experiment {
             .for_each(|(path_idx, &path)| {
                 let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
-                flow_ids_in_f = path_to_flows_map[path]
+                flow_ids_in_f = path_to_flowId[path]
                     .iter()
                     .map(|x| FlowId::new(*x))
                     .collect::<HashSet<_>>();
@@ -766,7 +726,7 @@ impl Experiment {
 
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
-        let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+        let mut path_to_flowId: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
 
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
@@ -804,13 +764,13 @@ impl Experiment {
             // ]
             // .concat();
             key_vec.insert(0, (flows[flow_id].src, flows[flow_id].dst));
-            path_to_flows_map
+            path_to_flowId
                 .entry(key_vec)
                 .or_insert_with(HashSet::new)
                 .insert(flow_id);
         }
 
-        // let mut path = path_to_flows_map
+        // let mut path = path_to_flowId
         //     .iter()
         //     .max_by_key(|x| x.1.len())
         //     .unwrap()
@@ -839,7 +799,7 @@ impl Experiment {
         }
         path_ori.sort();
         let mut path: &Vec<(NodeId, NodeId)> = &path_ori;
-        flow_ids_in_f = path_to_flows_map[path]
+        flow_ids_in_f = path_to_flowId[path]
             .iter()
             .map(|x| FlowId::new(*x))
             .collect::<HashSet<_>>();
@@ -961,7 +921,7 @@ impl Experiment {
         // read flows associated with a path
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
-        let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+        let mut path_to_flowId: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
 
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
@@ -1004,13 +964,13 @@ impl Experiment {
                 }
             }
             path_ordered.insert(0, (flows[flow_id].src, flows[flow_id].dst));
-            path_to_flows_map
+            path_to_flowId
                 .entry(path_ordered)
                 .or_insert_with(HashSet::new)
                 .insert(flow_id);
         }
 
-        let mut path_to_flows_vec_sorted = path_to_flows_map
+        let mut path_to_flows_vec_sorted = path_to_flowId
             .iter()
             .filter(|&(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
@@ -1059,7 +1019,7 @@ impl Experiment {
 
                 let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
-                flow_ids_in_f = path_to_flows_map[path]
+                flow_ids_in_f = path_to_flowId[path]
                     .iter()
                     .map(|x| FlowId::new(*x))
                     .collect::<HashSet<_>>();
@@ -1184,11 +1144,11 @@ impl Experiment {
         let sim = SimKind::Mlsys;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
-        
+        let path_sampling_opt=0;
+
         // read flows associated with a path
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flow_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
-        let mut path_to_flows_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
 
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
@@ -1214,83 +1174,62 @@ impl Experiment {
                     .insert(FlowId::new(val));
             }
         }
-        for (flow_id, path) in flow_to_path_map {
-            let mut pairs = path.into_iter().collect::<Vec<_>>();
-            pairs.sort();
-            let mut path_ordered = Vec::<(NodeId, NodeId)>::new();
-            if let Some(first_pair) = pairs.first() {
-                path_ordered.push(*first_pair);
+        
+        let path_to_flowId:HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>>=get_path_to_flowId(path_to_flowId);
 
-                // Iterate over the remaining pairs
-                while path_ordered.len() != pairs.len() {
-                    for pair in pairs.iter().skip(1) {
-                        // If the source of the current pair equals the destination of the last pair in the ordered list
-                        if pair.0 == path_ordered.last().unwrap().1 {
-                            path_ordered.push(*pair);
-                        }
-                    }
-                }
-            }
-            path_ordered.insert(0, (flows[flow_id].src, flows[flow_id].dst));
-            path_to_flows_map
-                .entry(path_ordered)
-                .or_insert_with(HashSet::new)
-                .insert(flow_id);
-        }
-
-        // let mut path_to_flows_vec_sorted = path_to_flows_map
-        //     .iter()
-        //     .filter(|&(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
-        //     .collect::<Vec<_>>();
-        // path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
-        // let path_list = path_to_flows_vec_sorted
-        //     .into_iter()
-        //     .take(NR_PATHS_SAMPLED)
-        //     .map(|x| x.0)
-        //     .collect::<Vec<_>>();
-        // let mut rng = StdRng::seed_from_u64(self.seed);
-        // let path_list = path_to_flows_vec_sorted
-        //     .choose_multiple(&mut rng, NR_PATHS_SAMPLED)
-        //     .cloned()
-        //     .map(|x| x.0)
-        //     .collect::<Vec<_>>();
         let mut path_counts: HashMap<Vec<(NodeId, NodeId)>, usize> = HashMap::new();
+        if path_sampling_opt==0{
+            let mut path_to_flows_vec_sorted = path_to_flowId
+            .iter()
+            .filter(|&(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+            .collect::<Vec<_>>();
+            path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
+            let path_list = path_to_flows_vec_sorted
+                .into_iter()
+                .take(NR_PATHS_SAMPLED)
+                .map(|x| x.0)
+                .collect::<Vec<_>>();
+            for path in &path_list {
+                // Update counts
+                *path_counts.entry(path.clone()).or_insert(0) += 1;
+            }
+        }
+        else if path_sampling_opt==1{
+            let weights: Vec<usize> = path_to_flowId.iter()
+            .map(|(_, flows)| if flows.len() < FLOWS_ON_PATH_THRESHOLD { 0 } else { flows.len() })
+            .collect();
+            let weighted_index = WeightedIndex::new(weights).unwrap();
+    
+            let mut rng = StdRng::seed_from_u64(self.seed);
+            (0..NR_PATHS_SAMPLED).for_each(|_| {
+                let sampled_index = weighted_index.sample(&mut rng);
+                let key = path_to_flowId.keys().nth(sampled_index).unwrap().clone();
+    
+                // Update counts
+                *path_counts.entry(key.clone()).or_insert(0) += 1;
+            });
 
-        let weights: Vec<usize> = path_to_flows_map.iter()
-        .map(|(_, flows)| if flows.len() < FLOWS_ON_PATH_THRESHOLD { 0 } else { flows.len() })
-        .collect();
-        let weighted_index = WeightedIndex::new(weights).unwrap();
-
-        let mut rng = StdRng::seed_from_u64(self.seed);
-        (0..NR_PATHS_SAMPLED).for_each(|_| {
-            let sampled_index = weighted_index.sample(&mut rng);
-            let key = path_to_flows_map.keys().nth(sampled_index).unwrap().clone();
-
-            // Update counts
-            *path_counts.entry(key.clone()).or_insert(0) += 1;
-        });
+             // Derive the unique set of paths
+            let path_list: Vec<Vec<(NodeId, NodeId)>> = path_counts.into_keys().collect();
+        }
 
         let mut path_counts_str = String::new();
         for (key, value) in &path_counts {
             path_counts_str.push_str(&format!("{}:{}:{},", key.iter()
             .map(|&x| format!("{}-{}", x.0, x.1))
             .collect::<Vec<String>>()
-            .join("|"), value,path_to_flows_map[key].len()));
+            .join("|"), value,path_to_flowId[key].len()));
         }
 
-        let mut path_to_flows_map_str = String::new();
-        for (key, value) in &path_to_flows_map {
-            path_to_flows_map_str.push_str(&format!("{}:{}\n", key.iter()
+        let mut path_to_flowId_str = String::new();
+        for (key, value) in &path_to_flowId {
+            path_to_flowId_str.push_str(&format!("{}:{}\n", key.iter()
             .map(|&x| format!("{}-{}", x.0, x.1))
             .collect::<Vec<String>>()
             .join("|"), value.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",")));
-        }
+        }        
 
-        // Derive the unique set of paths
-        let path_list: Vec<Vec<(NodeId, NodeId)>> = path_counts.into_keys().collect();
-        
-
-        self.put_path(mix, sim, format!("{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_counts_str,path_to_flows_map_str))
+        self.put_path(mix, sim, format!("{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_counts_str,path_to_flowId_str))
             .unwrap();
 
         let start_2 = Instant::now(); // timer start
@@ -1301,7 +1240,7 @@ impl Experiment {
                 let mut start_tmp = Instant::now();
                 let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
-                flow_ids_in_f = path_to_flows_map[path]
+                flow_ids_in_f = path_to_flowId[path]
                     .iter()
                     .map(|x| FlowId::new(*x))
                     .collect::<HashSet<_>>();
@@ -1713,7 +1652,6 @@ pub enum SimKind {
     PmnM,
     PmnMC,
     Ns3Path,
-    Ns3PathOne,
     Ns3PathAll,
     PmnMPath,
     Flowsim,
@@ -1729,7 +1667,6 @@ impl fmt::Display for SimKind {
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
             SimKind::Ns3Path => "ns3-path",
-            SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Flowsim => "flowsim",
