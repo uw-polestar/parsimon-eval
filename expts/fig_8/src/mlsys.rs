@@ -83,7 +83,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30> {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_v1.bin ../data_test/checkpoints/model_mlp_v1.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30> {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
