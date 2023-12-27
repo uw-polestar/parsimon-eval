@@ -41,7 +41,7 @@ const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
-const FLOWS_ON_PATH_THRESHOLD: usize = 10;
+const FLOWS_ON_PATH_THRESHOLD: usize = 50;
 // const NR_FLOWS: usize = 2_000;
 
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
@@ -1114,7 +1114,7 @@ impl Experiment {
     fn run_mlsys(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::Mlsys;
         let flows = self.flows(mix)?;
-        let sample_mode=1;
+        let sample_mode=2;
         println!("sample_mode: {}", sample_mode);
         // read flows associated with a path
         let mut channel_to_flowids_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
@@ -1288,12 +1288,12 @@ impl Experiment {
             .enumerate()
             .for_each(|(path_idx, path)| {
                 let mut start_tmp = Instant::now();
-                let flow_ids_in_f: HashSet<FlowId>;
+                // let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
-                flow_ids_in_f = path_to_flows_map[path]
-                    .iter()
-                    .map(|x| FlowId::new(*x))
-                    .collect::<HashSet<_>>();
+                // flow_ids_in_f = path_to_flows_map[path]
+                //     .iter()
+                //     .map(|x| FlowId::new(*x))
+                //     .collect::<HashSet<_>>();
 
                 for pair in path {
                     if channel_to_flowids_map.contains_key(&pair) {
@@ -1356,7 +1356,7 @@ impl Experiment {
                     .iter()
                     .map(|&x| format!("{}-{}", x.0, x.1))
                     .collect::<Vec<String>>()
-                    .join(",");
+                    .join("|");
                 // let flow_ids_in_f_str = flow_ids_in_f
                 //     .iter()
                 //     .map(|&x| x.to_string())
@@ -1374,7 +1374,8 @@ impl Experiment {
                     format!(
                         "{},{},{},{}\n{},{}",
                         path_str,
-                        flow_ids_in_f.len(),
+                        // flow_ids_in_f.len(),
+                        path_to_flows_map[path].len(),
                         flow_ids_in_f_prime.len(),
                         path_counts[path],
                         // flow_ids_in_f_str,

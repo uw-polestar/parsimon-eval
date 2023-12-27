@@ -12,7 +12,7 @@ NR_PATHS_SAMPLED=1000
 n_size_bucket_list_output=4
 n_percentiles=20
 N = 100
-min_length=50
+min_length=10
 def main(sample_mode=0,n_mix=192):
     res=[]
     print(f"sample_mode: {sample_mode}, n_mix: {n_mix}")
@@ -104,8 +104,8 @@ def main(sample_mode=0,n_mix=192):
             print(len(path_sampled_list))
         elif sample_mode==3:
             flowid_to_path={}
-            for path in path_to_flowid:
-                for flowid in path_to_flowid[path]:
+            for path in path_to_flowid_filtered:
+                for flowid in path_to_flowid_filtered[path]:
                     assert flowid not in flowid_to_path
                     flowid_to_path[flowid]=path
             # prob=path_to_n_flows/np.sum(path_to_n_flows)
