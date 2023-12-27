@@ -183,20 +183,20 @@ def main(sample_mode=0,n_mix=192):
         
         print(f"df_ns3: {df_ns3.shape[0]}, df_pmn_m: {df_pmn_m.shape[0]}, df_mlsys: {sldn_mlsys_len}")
 
-        # bin_ns3=np.digitize(sizes_ns3, bin_size_list)
-        # bin_pmn=np.digitize(sizes_pmn, bin_size_list)
-        # bin_mlsys=np.digitize(sizes_mlsys, bin_size_list)
+        bin_ns3=np.digitize(sizes_ns3, bin_size_list)
+        bin_pmn=np.digitize(sizes_pmn, bin_size_list)
+        bin_mlsys=np.digitize(sizes_mlsys, bin_size_list)
             
-        # for i in range(len(bin_size_list)+1):
-        #     tmp_sldn_ns3 = np.extract(bin_ns3==i, sldn_ns3)
-        #     tmp_sldn_pmn_m = np.extract(bin_pmn==i, sldn_pmn_m)
-        #     tmp_sldn_mlsys=np.extract(bin_mlsys==i, sldn_mlsys)
-        #     # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_ns3)-len(tmp_sldn_mlsys)), constant_values=1)
-        #     # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_mlsys)), 
-        #     sldn_ns3_p99=np.percentile(tmp_sldn_ns3,99)
-        #     sldn_pmn_m_p99=np.percentile(tmp_sldn_pmn_m,99)
-        #     df_mlsys_p99=np.percentile(tmp_sldn_mlsys,99)
-        #     res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
+        for i in range(len(bin_size_list)+1):
+            tmp_sldn_ns3 = np.extract(bin_ns3==i, sldn_ns3)
+            tmp_sldn_pmn_m = np.extract(bin_pmn==i, sldn_pmn_m)
+            tmp_sldn_mlsys=np.extract(bin_mlsys==i, sldn_mlsys)
+            # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_ns3)-len(tmp_sldn_mlsys)), constant_values=1)
+            # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_mlsys)), 
+            sldn_ns3_p99=np.percentile(tmp_sldn_ns3,99)
+            sldn_pmn_m_p99=np.percentile(tmp_sldn_pmn_m,99)
+            df_mlsys_p99=np.percentile(tmp_sldn_mlsys,99)
+            res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
         res.append(res_tmp)
     res = np.array(res)
     np.save(f'./gen_opt_{sample_mode}.npy',res)

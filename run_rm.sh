@@ -9,7 +9,7 @@ for shard in {0..191..1}
 # for shard in 0
 do
     # COMMAND="rm -rf ${OUTPUT_PATH}/${shard}/mlsys"
-    COMMAND="mv ${OUTPUT_PATH}/${shard}/mlsys ${OUTPUT_PATH}/${shard}/mlsys_param"
+    COMMAND="mv ${OUTPUT_PATH}/${shard}/mlsys ${OUTPUT_PATH}/${shard}/mlsys_s2_bt10"
     # COMMAND="rm ${OUTPUT_PATH}/${shard}/ns3-path-one/flows.txt"
     echo "$COMMAND">>"$cur_dir/rm.log"
     ${COMMAND}>>"$cur_dir/rm.log"
