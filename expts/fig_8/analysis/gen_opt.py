@@ -141,6 +141,10 @@ def main(sample_mode=0,n_mix=192):
             path_sampled_list=list(set(path_sampled_list))
             # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED*100), replace=False)
             print(len(path_sampled_list))
+        elif sample_mode==5:
+            prob=path_to_n_flows_filtered/np.sum(path_to_n_flows_filtered)
+            path_sampled_list=np.random.choice(list(path_to_flowid_filtered.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
+            path_sampled_list=list(set(path_sampled_list))
         for path_idx,key in enumerate(path_sampled_list):
             flowid_list=path_to_flowid[key]
             if sample_mode>=2 and sample_mode<5:
