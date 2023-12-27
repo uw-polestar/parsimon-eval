@@ -12,7 +12,7 @@ NR_PATHS_SAMPLED=1000
 n_size_bucket_list_output=4
 n_percentiles=20
 N = 100
-min_length=10
+min_length=50
 def main(sample_mode=0,n_mix=192):
     res=[]
     print(f"sample_mode: {sample_mode}, n_mix: {n_mix}")
@@ -85,8 +85,8 @@ def main(sample_mode=0,n_mix=192):
             path_sampled_list=np.random.choice(list(path_to_flowid_filtered.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
         elif sample_mode==2:
             flowid_to_path={}
-            for path in path_to_flowid:
-                for flowid in path_to_flowid[path]:
+            for path in path_to_flowid_filtered:
+                for flowid in path_to_flowid_filtered[path]:
                     assert flowid not in flowid_to_path
                     flowid_to_path[flowid]=path
             # prob=path_to_n_flows/np.sum(path_to_n_flows)
@@ -199,7 +199,7 @@ def main(sample_mode=0,n_mix=192):
             res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
         res.append(res_tmp)
     res = np.array(res)
-    np.save(f'./gen_opt_{sample_mode}.npy',res)
+    np.save(f'./gen_opt_{sample_mode}_{min_length}.npy',res)
     print(sample_mode,res.shape)
 
 if __name__ == "__main__":
