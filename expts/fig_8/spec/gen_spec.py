@@ -7,7 +7,8 @@ def filter_json(json_file, output_file):
         data = json.load(f)
 
     # Filter based on the existence of corresponding files
-    filtered_data = [item for item in data if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item['id']}/ns3/records.csv")]
+    # filtered_data = [item for item in data if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item['id']}/ns3/records.csv")]
+    filtered_data = [item for item in data if not os.path.exists(f"/data2/lichenni/data_1m/{item['id']}/ns3/records.csv")]
     print(len(filtered_data))
     # Export the filtered data to a new JSON file
     # with open(output_file, 'w') as f:
@@ -34,5 +35,5 @@ json_file_path_sub = 'filtered.mix.json'  # Replace with the desired output file
 
 output_file_path = 'filtered_remain.mix.json'  # Replace with the desired output file path
 
-# filter_json(json_file_path, output_file_path)
-sub_json(json_file_path, json_file_path_sub,output_file_path)
+filter_json(json_file_path, output_file_path)
+# sub_json(json_file_path, json_file_path_sub,output_file_path)

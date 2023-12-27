@@ -12,6 +12,7 @@ NR_PATHS_SAMPLED=1000
 n_size_bucket_list_output=4
 n_percentiles=20
 N = 100
+min_length=10
 def main(sample_mode=0,n_mix=192):
     res=[]
     print(f"sample_mode: {sample_mode}, n_mix: {n_mix}")
@@ -51,8 +52,11 @@ def main(sample_mode=0,n_mix=192):
                     
         assert n_path_sampled==len(path_to_info)
         
+        path_to_flowid_filtered = {key: value for key, value in path_to_flowid.items() if len(value) >= min_length}
+        
         # n_sampled_paths=np.sum([path_to_info[key][0] for key in path_to_info])
         path_to_n_flows=np.array([len(path_to_flowid[key]) for key in path_to_flowid])
+        path_to_n_flows_filtered=np.array([len(path_to_flowid[key]) for key in path_to_flowid_filtered])
         # print(f"n_sampled_paths/total_path: {n_sampled_paths}/{len(path_to_n_flows)},{n_sampled_paths/len(path_to_n_flows)}")
 
         # n_flows_in_sampled_paths=np.sum([path_to_info[key][1] for key in path_to_info])
@@ -77,8 +81,8 @@ def main(sample_mode=0,n_mix=192):
         if sample_mode==0:
             path_sampled_list=np.random.choice(list(path_to_flowid.keys()), NR_PATHS_SAMPLED, replace=False) 
         elif sample_mode==1:
-            prob=path_to_n_flows/np.sum(path_to_n_flows)
-            path_sampled_list=np.random.choice(list(path_to_flowid.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
+            prob=path_to_n_flows_filtered/np.sum(path_to_n_flows_filtered)
+            path_sampled_list=np.random.choice(list(path_to_flowid_filtered.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
         elif sample_mode==2:
             flowid_to_path={}
             for path in path_to_flowid:
@@ -92,19 +96,54 @@ def main(sample_mode=0,n_mix=192):
             
             flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED, replace=False) 
             path_sampled_list=[]
-            flowid_blacklist=set([])
             for flowid in flow_sampled_list:
-                if flowid not in flowid_blacklist:
-                    path=flowid_to_path[flowid]
-                    path_sampled_list.append(path)
-                    flowid_blacklist.update(path_to_flowid[path])
-            # path_sampled_list=list(set(path_sampled_list))
-            path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED), replace=False)
+                path=flowid_to_path[flowid]
+                path_sampled_list.append(path)
+            path_sampled_list=list(set(path_sampled_list))
+            # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED), replace=False)
             print(len(path_sampled_list))
-        
-        for key in path_sampled_list:
+        elif sample_mode==3:
+            flowid_to_path={}
+            for path in path_to_flowid:
+                for flowid in path_to_flowid[path]:
+                    assert flowid not in flowid_to_path
+                    flowid_to_path[flowid]=path
+            # prob=path_to_n_flows/np.sum(path_to_n_flows)
+            # sorted_indices = np.argsort(prob)[::-1]
+            # top_indices = sorted_indices[:NR_PATHS_SAMPLED]
+            # path_sampled_list= np.array(list(path_to_flowid.keys()))[top_indices]
+            
+            flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED*10, replace=False) 
+            path_sampled_list=[]
+            # flowid_blacklist=set([])
+            for flowid in flow_sampled_list:
+                path=flowid_to_path[flowid]
+                path_sampled_list.append(path)
+            path_sampled_list=list(set(path_sampled_list))
+            # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED*10), replace=False)
+            print(len(path_sampled_list))
+        elif sample_mode==4:
+            flowid_to_path={}
+            for path in path_to_flowid:
+                for flowid in path_to_flowid[path]:
+                    assert flowid not in flowid_to_path
+                    flowid_to_path[flowid]=path
+            # prob=path_to_n_flows/np.sum(path_to_n_flows)
+            # sorted_indices = np.argsort(prob)[::-1]
+            # top_indices = sorted_indices[:NR_PATHS_SAMPLED]
+            # path_sampled_list= np.array(list(path_to_flowid.keys()))[top_indices]
+            
+            flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED//2, replace=False) 
+            path_sampled_list=[]
+            for flowid in flow_sampled_list:
+                path=flowid_to_path[flowid]
+                path_sampled_list.append(path)
+            path_sampled_list=list(set(path_sampled_list))
+            # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED*100), replace=False)
+            print(len(path_sampled_list))
+        for path_idx,key in enumerate(path_sampled_list):
             flowid_list=path_to_flowid[key]
-            if sample_mode==2:
+            if sample_mode>=2 and sample_mode<5:
                 sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list if flowid in flow_sampled_list])
                 sizes_mlsys.extend([flowId_to_sldn_size[flowid][1] for flowid in flowid_list if flowid in flow_sampled_list])
             elif sample_mode==1:
@@ -117,6 +156,16 @@ def main(sample_mode=0,n_mix=192):
                 tmp_size = np.interp(new_indices, np.arange(len(tmp_size)), tmp_size)
                 sldn_mlsys.extend(tmp_sldn)
                 sizes_mlsys.extend(tmp_size)
+            # elif sample_mode==6:
+            #     # Generate a random-sized array
+            #     tmp_sldn=np.array([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
+            #     tmp_size=np.array([flowId_to_sldn_size[flowid][1] for flowid in flowid_list])
+                
+            #     new_indices = np.linspace(0, len(tmp_sldn) - 1, N*aggre_weight[path_idx])
+            #     tmp_sldn = np.interp(new_indices, np.arange(len(tmp_sldn)), tmp_sldn)
+            #     tmp_size = np.interp(new_indices, np.arange(len(tmp_size)), tmp_size)
+            #     sldn_mlsys.extend(tmp_sldn)
+            #     sizes_mlsys.extend(tmp_size)
             else:
                 # for _ in range(path_to_info[key][0]):
                 sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
@@ -134,20 +183,20 @@ def main(sample_mode=0,n_mix=192):
         
         print(f"df_ns3: {df_ns3.shape[0]}, df_pmn_m: {df_pmn_m.shape[0]}, df_mlsys: {sldn_mlsys_len}")
 
-        bin_ns3=np.digitize(sizes_ns3, bin_size_list)
-        bin_pmn=np.digitize(sizes_pmn, bin_size_list)
-        bin_mlsys=np.digitize(sizes_mlsys, bin_size_list)
+        # bin_ns3=np.digitize(sizes_ns3, bin_size_list)
+        # bin_pmn=np.digitize(sizes_pmn, bin_size_list)
+        # bin_mlsys=np.digitize(sizes_mlsys, bin_size_list)
             
-        for i in range(len(bin_size_list)+1):
-            tmp_sldn_ns3 = np.extract(bin_ns3==i, sldn_ns3)
-            tmp_sldn_pmn_m = np.extract(bin_pmn==i, sldn_pmn_m)
-            tmp_sldn_mlsys=np.extract(bin_mlsys==i, sldn_mlsys)
-            # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_ns3)-len(tmp_sldn_mlsys)), constant_values=1)
-            # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_mlsys)), 
-            sldn_ns3_p99=np.percentile(tmp_sldn_ns3,99)
-            sldn_pmn_m_p99=np.percentile(tmp_sldn_pmn_m,99)
-            df_mlsys_p99=np.percentile(tmp_sldn_mlsys,99)
-            res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
+        # for i in range(len(bin_size_list)+1):
+        #     tmp_sldn_ns3 = np.extract(bin_ns3==i, sldn_ns3)
+        #     tmp_sldn_pmn_m = np.extract(bin_pmn==i, sldn_pmn_m)
+        #     tmp_sldn_mlsys=np.extract(bin_mlsys==i, sldn_mlsys)
+        #     # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_ns3)-len(tmp_sldn_mlsys)), constant_values=1)
+        #     # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_mlsys)), 
+        #     sldn_ns3_p99=np.percentile(tmp_sldn_ns3,99)
+        #     sldn_pmn_m_p99=np.percentile(tmp_sldn_pmn_m,99)
+        #     df_mlsys_p99=np.percentile(tmp_sldn_mlsys,99)
+        #     res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
         res.append(res_tmp)
     res = np.array(res)
     np.save(f'./gen_opt_{sample_mode}.npy',res)
