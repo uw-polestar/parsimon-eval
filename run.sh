@@ -40,3 +40,5 @@ export NS_LOG=PacketPathExample=info
 ./waf -d debug -out=debug.txt --run 'scratch/test'
 
 https://github.com/kwzhao/High-Precision-Congestion-Control/compare/325635a6baf0131b8d46b3b4394c0a1d621f4aff...3b7ad3222598937dc0a5b423ba8f360489e24ce4
+
+python test.py > gen_mlsys_s2_bt50_dedupe.log

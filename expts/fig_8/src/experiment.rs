@@ -41,7 +41,7 @@ const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
-const FLOWS_ON_PATH_THRESHOLD: usize = 50;
+const FLOWS_ON_PATH_THRESHOLD: usize = 100;
 // const NR_FLOWS: usize = 2_000;
 
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
@@ -1201,7 +1201,7 @@ impl Experiment {
         }
         let mut elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
 
-        let mut path_to_flows_vec_sorted = path_to_flowid_map
+        let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
@@ -1371,7 +1371,7 @@ impl Experiment {
                 .iter()
                 .filter_map(|&flow_id| flowid_to_flow_map.get(&flow_id).cloned())
                 .collect();
-                flows_remaining.sort_by(|a, b| a.start.cmp(&b.start));
+                flows_remaining.sort_by(|a, b| a.id.cmp(&b.id));
 
                 for flow in flows_remaining.iter_mut() {
                     if let Some(count) = flow_to_srcdst_map_in_flowsim.get(&flow.id) {
