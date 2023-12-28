@@ -57,10 +57,9 @@ def recover_data(sampling_percentiles, sampled_data,target_percentiles):
 
 target_percentiles = np.arange(1, 101, 1)
 
-
-
-mlsys_dir="mlsys_s2_bt20"
-save_file=f'./gen_{mlsys_dir}.npy'
+mlsys_dir="mlsys_s2_bt50_2k"
+save_file=f'./gen_{mlsys_dir}_dedupe.npy'
+# save_file=f'./gen_{mlsys_dir}.npy'
 if not os.path.exists(save_file):
     res_final=[]
     for worst_low_id in range(0,192):
@@ -71,10 +70,16 @@ if not os.path.exists(save_file):
         df_ns3 = pd.read_csv(f'{mix_dir}/ns3/records.csv')
         df_pmn_m = pd.read_csv(f'{mix_dir}/pmn-m/records.csv')
         df_mlsys = []
+        n_flows_list=[]
         path_idx=0
+        mix_dir=f'/data2/lichenni/data_10m/{worst_low_id}'
         while os.path.exists(f'{mix_dir}/{mlsys_dir}/{path_idx}/fct_mlsys.txt'):
             with open(f'{mix_dir}/{mlsys_dir}/path_{path_idx}.txt', 'r') as file:
-                n_freq=int(file.readline().strip().split(",")[-1])
+                # n_freq=int(file.readline().strip().split(",")[-1])
+                # number of flows in the path
+                n_freq=1
+                n_flows=int(file.readline().strip().split(",")[-3])
+                n_flows_list.append(n_flows)
             with open(f'{mix_dir}/{mlsys_dir}/{path_idx}/fct_mlsys.txt', 'r') as file:
                 data = np.array([float(value) for line in file for value in line.split()])
                 assert data.shape[0] == n_size_bucket_list_output*n_percentiles
@@ -85,11 +90,16 @@ if not os.path.exists(save_file):
                         tmp_list.append(recover_data(P99_PERCENTILE_LIST, tmp[i].tolist(),target_percentiles))
                     df_mlsys.append(np.array(tmp_list))
             path_idx+=1
+            
         df_mlsys_tmp=np.array(df_mlsys)
-        df_mlsys=[]
-        for i in range(n_size_bucket_list_output):
-            df_mlsys.append(df_mlsys_tmp[:,i,:].flatten())
-        df_mlsys=np.array(df_mlsys)
+        
+        weight=np.array(n_flows_list)/np.sum(n_flows_list)
+        df_mlsys=np.average(df_mlsys_tmp,axis=0,weights=weight)
+        
+        # df_mlsys=[]
+        # for i in range(n_size_bucket_list_output):
+        #     df_mlsys.append(df_mlsys_tmp[:,i,:].flatten())
+        # df_mlsys=np.array(df_mlsys)
 
         sizes_ns3=np.array(df_ns3['size'])
         sizes_pmn=np.array(df_pmn_m['size'])
