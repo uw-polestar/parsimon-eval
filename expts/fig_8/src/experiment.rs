@@ -1131,22 +1131,45 @@ impl Experiment {
         let start_1 = Instant::now(); // timer start
         // Create a buffered reader to efficiently read lines
         let reader = io::BufReader::new(file);
+        // for line in reader.lines() {
+        //     let line = line?;
+        //     let tmp = line
+        //         .split(",")
+        //         .map(|x| x.parse::<usize>().unwrap())
+        //         .collect::<Vec<_>>();
+        //     let tmp_key = (NodeId::new(tmp[1]), NodeId::new(tmp[2]));
+        //     for &val in &tmp[4..] {
+        //         flowid_to_path_map
+        //             .entry(val)
+        //             .or_insert_with(HashSet::new)
+        //             .insert(tmp_key);
+        //         channel_to_flowid_map
+        //             .entry(tmp_key)
+        //             .or_insert_with(HashSet::new)
+        //             .insert(FlowId::new(val));
+        //     }
+        // }
         for line in reader.lines() {
             let line = line?;
-            let tmp = line
-                .split(",")
-                .map(|x| x.parse::<usize>().unwrap())
-                .collect::<Vec<_>>();
-            let tmp_key = (NodeId::new(tmp[1]), NodeId::new(tmp[2]));
-            for &val in &tmp[4..] {
-                flowid_to_path_map
-                    .entry(val)
-                    .or_insert_with(HashSet::new)
-                    .insert(tmp_key);
-                channel_to_flowid_map
-                    .entry(tmp_key)
-                    .or_insert_with(HashSet::new)
-                    .insert(FlowId::new(val));
+            let mut tmp = line
+                .split(",");
+                // .map(|x| x.parse::<usize>().unwrap())
+                // .collect::<Vec<_>>();
+            let src = tmp.nth(1).and_then(|x| x.parse::<NodeId>().ok());
+            let dst = tmp.next().and_then(|x| x.parse::<NodeId>().ok());
+            // let tmp_key = (NodeId::new(tmp[1]), NodeId::new(tmp[2]));
+            if let (Some(src), Some(dst)) = (src, dst) {
+                let tmp_key = (src, dst);
+                for val in tmp.skip(1).filter_map(|x| x.parse::<usize>().ok()) {
+                    flowid_to_path_map
+                        .entry(val)
+                        .or_insert_with(HashSet::new)
+                        .insert(tmp_key);
+                    channel_to_flowid_map
+                        .entry(tmp_key)
+                        .or_insert_with(HashSet::new)
+                        .insert(FlowId::new(val));
+                }
             }
         }
 
@@ -1182,7 +1205,7 @@ impl Experiment {
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
-        path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
+        // path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
         // let path_to_flows_vec_sorted: Vec<(&Vec<(NodeId, NodeId)>, &HashSet<usize>)> = {
         //     let mut temp_vec: Vec<_> = path_to_flowid_map
         //         .iter()
@@ -1243,11 +1266,13 @@ impl Experiment {
             let mut rng = StdRng::seed_from_u64(self.seed);
             flow_sampled_set=flowid_pool.choose_multiple(&mut rng, NR_PATHS_SAMPLED).cloned().collect();
 
-            path_list = flow_sampled_set.iter()
+            let path_list_ori = flow_sampled_set.iter()
             .map(|&flow_id| flowid_to_path_map_ordered[&flow_id].clone())
-            .collect::<HashSet<_>>().into_iter().collect::<Vec<_>>();
+            .collect::<Vec<_>>();
+            
+            path_list=path_list_ori.clone().into_iter().collect::<HashSet<_>>().into_iter().collect::<Vec<_>>();
 
-            path_counts = path_list.iter()
+            path_counts = path_list_ori.iter()
             .fold(HashMap::new(), |mut acc, path| {
                 *acc.entry(path.clone()).or_insert(0) += 1;
                 acc
@@ -1346,6 +1371,7 @@ impl Experiment {
                 .iter()
                 .filter_map(|&flow_id| flowid_to_flow_map.get(&flow_id).cloned())
                 .collect();
+                flows_remaining.sort_by(|a, b| a.start.cmp(&b.start));
 
                 for flow in flows_remaining.iter_mut() {
                     if let Some(count) = flow_to_srcdst_map_in_flowsim.get(&flow.id) {
