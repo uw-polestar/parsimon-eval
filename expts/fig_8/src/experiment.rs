@@ -42,7 +42,7 @@ const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
 const FLOWS_ON_PATH_THRESHOLD: usize = 100;
-const INPUT_PERCENTILES: [f32; 21] = [0.0, 0.10, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 1.0];
+const INPUT_PERCENTILES: [f32; 21] = [0.0, 0.10, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 1.001];
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const SAMPLE_MODE: usize = 2;
@@ -1285,7 +1285,7 @@ impl Experiment {
         }
 
         // path_list.sort_by(|x, y| path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len()));
-        path_list.sort_by(|x, y| y.len().cmp(&x.len()));
+        path_list.sort_by(|x, y| y.len().cmp(&x.len()).then(path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len())));
         
         // start_extra = Instant::now(); // timer start
         // let mut path_to_flows_map_str = String::new();
