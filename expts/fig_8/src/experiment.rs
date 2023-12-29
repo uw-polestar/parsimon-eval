@@ -1175,7 +1175,7 @@ impl Experiment {
             }
         }
 
-        let mut start_extra = Instant::now(); // timer start
+        let start_extra = Instant::now(); // timer start
         for (flow_id, path) in flowid_to_path_map {
             let mut pairs = path.into_iter().collect::<Vec<_>>();
             pairs.sort();
@@ -1201,7 +1201,7 @@ impl Experiment {
                 .insert(flow_id);
             flowid_to_path_map_ordered.insert(flow_id, path_ordered.clone());
         }
-        let mut elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
+        let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
 
         let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
@@ -1284,16 +1284,17 @@ impl Experiment {
             panic!("invalid sample mode");
         }
 
-        path_list.sort_by(|x, y| path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len()));
+        // path_list.sort_by(|x, y| path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len()));
+        path_list.sort_by(|x, y| y.len().cmp(&x.len()));
         
-        start_extra = Instant::now(); // timer start
-        let mut path_to_flows_map_str = String::new();
-        for (key, value) in &path_to_flowid_map {
-            path_to_flows_map_str.push_str(&format!("{}:{}\n", key.iter()
-            .map(|&x| format!("{}-{}", x.0, x.1))
-            .collect::<Vec<String>>()
-            .join("|"), value.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",")));
-        }
+        // start_extra = Instant::now(); // timer start
+        // let mut path_to_flows_map_str = String::new();
+        // for (key, value) in &path_to_flowid_map {
+        //     path_to_flows_map_str.push_str(&format!("{}:{}\n", key.iter()
+        //     .map(|&x| format!("{}-{}", x.0, x.1))
+        //     .collect::<Vec<String>>()
+        //     .join("|"), value.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",")));
+        // }
         
         // let mut path_counts_str = String::new();
         // for (key, value) in &path_counts {
@@ -1303,18 +1304,18 @@ impl Experiment {
         //     .join("|"), value));
         // }
 
-        if SAMPLE_MODE==1{
-            self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_to_flows_map_str))
-                .unwrap();
-        }
-        else if SAMPLE_MODE==2{
-            let flow_sampled_str=flow_sampled_set.iter().map(|&x| x.to_string()).collect::<Vec<_>>().join(",");
-            self.put_path(mix, sim, format!("{},{}\n{}{}", NR_PATHS_SAMPLED,path_list.len(),path_to_flows_map_str,flow_sampled_str))
-            .unwrap();
-        }
-        else{
-            panic!("invalid sample mode");
-        }
+        // if SAMPLE_MODE==1{
+        //     self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_to_flows_map_str))
+        //         .unwrap();
+        // }
+        // else if SAMPLE_MODE==2{
+        //     let flow_sampled_str=flow_sampled_set.iter().map(|&x| x.to_string()).collect::<Vec<_>>().join(",");
+        //     self.put_path(mix, sim, format!("{},{}\n{}{}", NR_PATHS_SAMPLED,path_list.len(),path_to_flows_map_str,flow_sampled_str))
+        //     .unwrap();
+        // }
+        // else{
+        //     panic!("invalid sample mode");
+        // }
 
         // let mut path_counts_str = String::new();
         // for (key, value) in &path_counts {
@@ -1324,7 +1325,7 @@ impl Experiment {
         //     .join("|"), value,path_to_flowid_map[key].len()));
         // }
         
-        elapsed_secs_extra += start_extra.elapsed().as_secs(); // timer end
+        // elapsed_secs_extra += start_extra.elapsed().as_secs(); // timer end
 
         let start_2 = Instant::now(); // timer start
         let results:Vec<_> = path_list
@@ -1433,6 +1434,28 @@ impl Experiment {
                 result
             }).collect();
         println!("results: {}", results.len());
+
+        let mut results_str = String::new();
+        for result in results {
+            let tmp=result.unwrap();
+            for vec in tmp.iter() {
+                results_str.push_str(&format!("{}\n", vec.iter().map(|&x| x.to_string()).collect::<Vec<_>>().join(",")));
+            }
+        }
+        
+        if SAMPLE_MODE==1{
+            self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),results_str))
+                .unwrap();
+        }
+        else if SAMPLE_MODE==2{
+            let flow_sampled_str=flow_sampled_set.iter().map(|&x| x.to_string()).collect::<Vec<_>>().join(",");
+            self.put_path(mix, sim, format!("{},{}\n{}{}", NR_PATHS_SAMPLED,path_list.len(),results_str,flow_sampled_str))
+            .unwrap();
+        }
+        else{
+            panic!("invalid sample mode");
+        }
+
         let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
         let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
