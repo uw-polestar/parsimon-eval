@@ -32,9 +32,13 @@ pub struct Mlsys {
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
+    /// The random seed for sampling target percentiles.
     pub seed: u64,
+    /// The input percentiles.
     pub input_percentiles: Vec<f32>,
+    /// The number of size buckets for the feature map from mlsys.
     pub nr_size_buckets: usize,
+    /// The number of output percentiles.
     pub output_length: usize,
 }
 
@@ -110,8 +114,9 @@ impl Mlsys {
         let target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.0..1.0)).collect();
     
         for set_index in 0..input_sets {
-            let input_set = &input_values[set_index];
-    
+            let mut input_set = input_values[set_index].clone();
+            input_set.insert(0, 1.0);
+            assert!(input_set.len() == self.input_percentiles.len());
             let mut set_result = Vec::with_capacity(self.output_length);
     
             for &target_percentile in &target_percentiles {
@@ -160,7 +165,7 @@ impl Mlsys {
         
         let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
         let nr_fields = fields.len();
-        let nr_mlsys_fields=self.nr_size_buckets*self.input_percentiles.len();
+        let nr_mlsys_fields=self.nr_size_buckets*(self.input_percentiles.len()-1);
         if nr_fields != nr_mlsys_fields {
             return Err(ParseMlsysError::WrongNrFields {
                 expected: nr_mlsys_fields,
