@@ -42,6 +42,9 @@ const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
 const FLOWS_ON_PATH_THRESHOLD: usize = 100;
+const INPUT_PERCENTILES: [f32; 21] = [0.0, 0.10, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 0.9999];
+const NR_SIZE_BUCKETS: usize = 4;
+const OUTPUT_LEN: usize = 100;
 // const NR_FLOWS: usize = 2_000;
 
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
@@ -1385,6 +1388,10 @@ impl Experiment {
                     .script_path(MLSYS_PATH)
                     .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
                     .flows(flows_remaining)
+                    .seed(self.seed)
+                    .input_percentiles(INPUT_PERCENTILES)
+                    .nr_size_buckets(NR_SIZE_BUCKETS)
+                    .output_length(OUTPUT_LEN)
                     .build();
                 let _ = mlsys.run(path_length);
 
