@@ -111,9 +111,8 @@ impl Mlsys {
         let mut result = Vec::with_capacity(input_sets);
         let mut rng = StdRng::seed_from_u64(self.seed);
     
-        let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.0..1.0)).collect();
+        let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.001..1.0)).collect();
         target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    
         for set_index in 0..input_sets {
             let mut input_set = input_values[set_index].clone();
             input_set.insert(0, 1.0);
