@@ -15,6 +15,7 @@ use parsimon::core::{
     // network::types::{Link, Node},
     // units::{Bytes, Nanosecs},
 };
+use rand::prelude::*;
 
 /// An ns-3 simulation.
 #[derive(Debug, typed_builder::TypedBuilder)]
@@ -31,13 +32,17 @@ pub struct Mlsys {
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
+    pub seed: u64,
+    pub input_percentiles: Vec<f32>,
+    pub nr_size_buckets: usize,
+    pub output_length: usize,
 }
 
 impl Mlsys {
     /// Run the simulation, returning a vector of [FctRecord]s.
     ///
     /// This routine can fail due to IO errors or errors parsing ns-3 data.
-    pub fn run(&self, n_hosts: usize) -> io::Result<()> {
+    pub fn run(&self, n_hosts: usize) -> Result<Vec<Vec<f32>>, Error> {
         // Set up directory
         let mk_path = |dir, file| [dir, file].into_iter().collect::<PathBuf>();
         fs::create_dir_all(&self.data_dir)?;
@@ -60,14 +65,14 @@ impl Mlsys {
         self.invoke_mlsys(n_hosts)?;
 
         // Parse and return results
-        // let s = fs::read_to_string(mk_path(
-        //     self.data_dir.as_path(),
-        //     // format!("fct_mlsys_{}.txt", self.cc_kind.as_str()).as_ref(),
-        //     format!("fct_mlsys.txt").as_ref(),
-        // ))?;
-        // let records = parse_mlsys_records(&s)?;
-        // Ok(records)
-        Ok(())
+        let s = fs::read_to_string(mk_path(
+            self.data_dir.as_path(),
+            // format!("fct_mlsys_{}.txt", self.cc_kind.as_str()).as_ref(),
+            format!("fct_mlsys.txt").as_ref(),
+        ))?;
+        let records = self.parse_mlsys_record(s.lines().nth(1).unwrap())?;
+        Ok(records)
+        // Ok(())
     }
 
     fn invoke_mlsys(&self, n_hosts: usize) -> io::Result<()> {
@@ -92,6 +97,79 @@ impl Mlsys {
             .arg(format!("cd {script_path}; {c_command}; rm {data_dir}/flows.txt"))
             .output()?;
         Ok(())
+    }
+    fn interpolate_values(
+        &self,
+        input_values: Vec<Vec<f32>>,
+    ) -> Vec<Vec<f32>> {
+        let input_sets = input_values.len();
+    
+        let mut result = Vec::with_capacity(input_sets);
+        let mut rng = StdRng::seed_from_u64(self.seed);
+    
+        let target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.0..1.0)).collect();
+    
+        for set_index in 0..input_sets {
+            let input_set = &input_values[set_index];
+    
+            let mut set_result = Vec::with_capacity(self.output_length);
+    
+            for &target_percentile in &target_percentiles {
+                // Find the closest lower and upper percentiles
+                let (lower_index, upper_index) = self.find_percentile_indices(target_percentile, &self.input_percentiles);
+    
+                let lower_value = input_set[lower_index];
+                let upper_value = input_set[upper_index];
+    
+                // Linear interpolation
+                let t =
+                    (target_percentile - self.input_percentiles[lower_index])
+                        / (self.input_percentiles[upper_index] - self.input_percentiles[lower_index]);
+    
+                set_result.push((1.0 - t) * lower_value + t * upper_value);
+            }
+    
+            result.push(set_result);
+        }
+    
+        result
+    }
+    
+    // Function to find the closest lower and upper percentiles
+    fn find_percentile_indices(&self, target_percentile: f32, percentiles: &[f32]) -> (usize, usize) {
+        let mut lower_index = 0;
+        let mut upper_index = 0;
+        let mut min_diff = f32::MAX;
+    
+        for (i, &p) in percentiles.iter().enumerate() {
+            let diff = (p - target_percentile).abs();
+            if diff < min_diff {
+                lower_index = i;
+                min_diff = diff;
+            } else {
+                upper_index = i;
+                break;
+            }
+        }
+    
+        (lower_index, upper_index)
+    }
+    
+    fn parse_mlsys_record(&self, s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
+        // sip, dip, sport, dport, size (B), start_time, fct (ns), standalone_fct (ns)
+        
+        let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
+        let nr_fields = fields.len();
+        let nr_mlsys_fields=self.nr_size_buckets*self.input_percentiles.len();
+        if nr_fields != nr_mlsys_fields {
+            return Err(ParseMlsysError::WrongNrFields {
+                expected: nr_mlsys_fields,
+                got: nr_fields,
+            });
+        }
+        let feat_vecs=fields.chunks_mut(self.nr_size_buckets).map(|row| row.to_vec()).collect();
+        let output_feat=self.interpolate_values(feat_vecs);
+        Ok(output_feat)
     }
 }
 
@@ -168,25 +246,6 @@ fn translate_flows(flows: &[Flow]) -> String {
     //     .collect::<Vec<_>>();
     lines.join("\n")
 }
-
-// fn parse_mlsys_records(s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
-//     parse_flowsim_record(s.lines().next().unwrap())
-// }
-
-// fn parse_flowsim_record(s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
-//     // sip, dip, sport, dport, size (B), start_time, fct (ns), standalone_fct (ns)
-//     const NR_MLSYS_FIELDS: usize = 80;
-//     const NR_SIZE_BUCKETS: usize = 4;
-//     let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
-//     let nr_fields = fields.len();
-//     if nr_fields != NR_MLSYS_FIELDS {
-//         return Err(ParseMlsysError::WrongNrFields {
-//             expected: NR_MLSYS_FIELDS,
-//             got: nr_fields,
-//         });
-//     }
-//     Ok(fields.chunks_mut(NR_SIZE_BUCKETS).map(|row| row.to_vec()).collect())
-// }
 
 /// Error parsing ns-3 formats.
 #[derive(Debug, thiserror::Error)]

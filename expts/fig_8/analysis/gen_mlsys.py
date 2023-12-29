@@ -1,16 +1,10 @@
 import pandas as pd
-import json
 import os
-import altair as alt
 import seaborn as sns
-import matplotlib.pyplot as plt
-from scipy.stats import wasserstein_distance
 # sns.set(style='ticks', context='paper', font='CMU Sans Serif')
 sns.set(style='ticks', context='paper')
 from collections import defaultdict
 import numpy as np
-import subprocess
-from util import plot_cdf
 
 def pn_distance(a, b, p):
     x = a.quantile(p)
@@ -57,7 +51,7 @@ def recover_data(sampling_percentiles, sampled_data,target_percentiles):
 
 target_percentiles = np.arange(1, 101, 1)
 
-mlsys_dir="mlsys_s2_bt50_2k"
+mlsys_dir="mlsys_s2_bt100"
 save_file=f'./gen_{mlsys_dir}_dedupe.npy'
 # save_file=f'./gen_{mlsys_dir}.npy'
 if not os.path.exists(save_file):
@@ -72,7 +66,7 @@ if not os.path.exists(save_file):
         df_mlsys = []
         n_flows_list=[]
         path_idx=0
-        mix_dir=f'/data2/lichenni/data_10m/{worst_low_id}'
+        # mix_dir=f'/data2/lichenni/data_10m/{worst_low_id}'
         while os.path.exists(f'{mix_dir}/{mlsys_dir}/{path_idx}/fct_mlsys.txt'):
             with open(f'{mix_dir}/{mlsys_dir}/path_{path_idx}.txt', 'r') as file:
                 # n_freq=int(file.readline().strip().split(",")[-1])
