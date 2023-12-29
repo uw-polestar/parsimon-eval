@@ -74,7 +74,7 @@ impl Mlsys {
             // format!("fct_mlsys_{}.txt", self.cc_kind.as_str()).as_ref(),
             format!("fct_mlsys.txt").as_ref(),
         ))?;
-        let records = self.parse_mlsys_record(s.lines().nth(1).unwrap())?;
+        let records = self.parse_mlsys_record(s.lines().next().unwrap())?;
         Ok(records)
         // Ok(())
     }
@@ -107,16 +107,16 @@ impl Mlsys {
         input_values: Vec<Vec<f32>>,
     ) -> Vec<Vec<f32>> {
         let input_sets = input_values.len();
-    
+        assert!(input_sets == self.nr_size_buckets);
         let mut result = Vec::with_capacity(input_sets);
         let mut rng = StdRng::seed_from_u64(self.seed);
     
-        let target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.0..1.0)).collect();
+        let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.0..1.0)).collect();
+        target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
     
         for set_index in 0..input_sets {
             let mut input_set = input_values[set_index].clone();
             input_set.insert(0, 1.0);
-            assert!(input_set.len() == self.input_percentiles.len());
             let mut set_result = Vec::with_capacity(self.output_length);
     
             for &target_percentile in &target_percentiles {
@@ -172,7 +172,7 @@ impl Mlsys {
                 got: nr_fields,
             });
         }
-        let feat_vecs=fields.chunks_mut(self.nr_size_buckets).map(|row| row.to_vec()).collect();
+        let feat_vecs:Vec<_>=fields.chunks_mut(self.input_percentiles.len()-1).map(|row| row.to_vec()).collect();
         let output_feat=self.interpolate_values(feat_vecs);
         Ok(output_feat)
     }
