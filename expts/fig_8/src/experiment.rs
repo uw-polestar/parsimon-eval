@@ -42,9 +42,10 @@ const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
 const FLOWS_ON_PATH_THRESHOLD: usize = 100;
-const INPUT_PERCENTILES: [f32; 21] = [0.0, 0.10, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 0.9999];
+const INPUT_PERCENTILES: [f32; 21] = [0.0, 0.10, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 1.0];
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
+const SAMPLE_MODE: usize = 2;
 // const NR_FLOWS: usize = 2_000;
 
 const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
@@ -1117,8 +1118,6 @@ impl Experiment {
     fn run_mlsys(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::Mlsys;
         let flows = self.flows(mix)?;
-        let sample_mode=2;
-        println!("sample_mode: {}", sample_mode);
         // read flows associated with a path
         let mut channel_to_flowid_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
         let mut flowid_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
@@ -1241,7 +1240,7 @@ impl Experiment {
         //     .collect::<Vec<_>>();
 
         // Sample-1: randomly select N flows, with the probability of a flow being selected proportional to the number of paths it is on
-        if sample_mode==1{
+        if SAMPLE_MODE==1{
             let weights: Vec<usize> = path_to_flows_vec_sorted.iter()
             .map(|(_, flows)| flows.len()).collect();
             let weighted_index = WeightedIndex::new(weights).unwrap();
@@ -1258,7 +1257,7 @@ impl Experiment {
             // Derive the unique set of paths
             path_list = path_counts.clone().into_keys().collect();
         }
-        else if sample_mode==2{
+        else if SAMPLE_MODE==2{
             // Sample-2: randomly select N flows, and then collect the paths they are on
             let flowid_pool= path_to_flows_vec_sorted
                 .iter()
@@ -1304,11 +1303,11 @@ impl Experiment {
         //     .join("|"), value));
         // }
 
-        if sample_mode==1{
+        if SAMPLE_MODE==1{
             self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),path_to_flows_map_str))
                 .unwrap();
         }
-        else if sample_mode==2{
+        else if SAMPLE_MODE==2{
             let flow_sampled_str=flow_sampled_set.iter().map(|&x| x.to_string()).collect::<Vec<_>>().join(",");
             self.put_path(mix, sim, format!("{},{}\n{}{}", NR_PATHS_SAMPLED,path_list.len(),path_to_flows_map_str,flow_sampled_str))
             .unwrap();
@@ -1328,10 +1327,10 @@ impl Experiment {
         elapsed_secs_extra += start_extra.elapsed().as_secs(); // timer end
 
         let start_2 = Instant::now(); // timer start
-        path_list
+        let results:Vec<_> = path_list
             .par_iter()
             .enumerate()
-            .for_each(|(path_idx, path)| {
+            .map(|(path_idx, path)| {
                 let mut start_tmp = Instant::now();
                 // let flow_ids_in_f: HashSet<FlowId>;
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
@@ -1389,11 +1388,11 @@ impl Experiment {
                     .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
                     .flows(flows_remaining)
                     .seed(self.seed)
-                    .input_percentiles(INPUT_PERCENTILES)
+                    .input_percentiles(INPUT_PERCENTILES.to_vec())
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
                     .build();
-                let _ = mlsys.run(path_length);
+                let result = mlsys.run(path_length);
 
                 let elapsed_secs_mlsys = start_tmp.elapsed().as_secs();
                 
@@ -1431,8 +1430,9 @@ impl Experiment {
                     ),
                 )
                 .unwrap();
-            });
-        
+                result
+            }).collect();
+        println!("results: {}", results.len());
         let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
         let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
