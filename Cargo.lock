@@ -1827,6 +1827,7 @@ dependencies = [
  "parsimon",
  "rand",
  "rayon",
+ "rustc-hash",
  "serde",
  "serde_json",
  "thiserror",
