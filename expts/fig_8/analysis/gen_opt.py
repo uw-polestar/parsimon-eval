@@ -2,6 +2,7 @@ import numpy as np
 import os
 import pandas as pd
 import sys
+from collections import defaultdict
 
 save_path="/data2/lichenni/ns3"
 MTU=1000
@@ -12,8 +13,7 @@ NR_PATHS_SAMPLED=1000
 n_size_bucket_list_output=4
 n_percentiles=20
 N = 100
-min_length=10
-def main(sample_mode=0,n_mix=192):
+def main(sample_mode=0,n_mix=192,min_length=10):
     res=[]
     print(f"sample_mode: {sample_mode}, n_mix: {n_mix}")
     for mix_id in range(n_mix):
@@ -52,11 +52,10 @@ def main(sample_mode=0,n_mix=192):
                     
         assert n_path_sampled==len(path_to_info)
         
-        path_to_flowid_filtered = {key: value for key, value in path_to_flowid.items() if len(value) >= min_length}
+        path_to_flowid = {key: value for key, value in path_to_flowid.items() if len(value) >= min_length}
         
         # n_sampled_paths=np.sum([path_to_info[key][0] for key in path_to_info])
         path_to_n_flows=np.array([len(path_to_flowid[key]) for key in path_to_flowid])
-        path_to_n_flows_filtered=np.array([len(path_to_flowid[key]) for key in path_to_flowid_filtered])
         # print(f"n_sampled_paths/total_path: {n_sampled_paths}/{len(path_to_n_flows)},{n_sampled_paths/len(path_to_n_flows)}")
 
         # n_flows_in_sampled_paths=np.sum([path_to_info[key][1] for key in path_to_info])
@@ -81,12 +80,16 @@ def main(sample_mode=0,n_mix=192):
         if sample_mode==0:
             path_sampled_list=np.random.choice(list(path_to_flowid.keys()), NR_PATHS_SAMPLED, replace=False) 
         elif sample_mode==1:
-            prob=path_to_n_flows_filtered/np.sum(path_to_n_flows_filtered)
-            path_sampled_list=np.random.choice(list(path_to_flowid_filtered.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
+            prob=path_to_n_flows/np.sum(path_to_n_flows)
+            path_sampled_list=np.random.choice(list(path_to_flowid.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
+            path_count=defaultdict(lambda:0)
+            for path in path_sampled_list:
+                path_count[path]+=1
+            path_sampled_list=list(set(path_sampled_list))
         elif sample_mode==2:
             flowid_to_path={}
-            for path in path_to_flowid_filtered:
-                for flowid in path_to_flowid_filtered[path]:
+            for path in path_to_flowid:
+                for flowid in path_to_flowid[path]:
                     assert flowid not in flowid_to_path
                     flowid_to_path[flowid]=path
             # prob=path_to_n_flows/np.sum(path_to_n_flows)
@@ -104,8 +107,8 @@ def main(sample_mode=0,n_mix=192):
             print(len(path_sampled_list))
         elif sample_mode==3:
             flowid_to_path={}
-            for path in path_to_flowid_filtered:
-                for flowid in path_to_flowid_filtered[path]:
+            for path in path_to_flowid:
+                for flowid in path_to_flowid[path]:
                     assert flowid not in flowid_to_path
                     flowid_to_path[flowid]=path
             # prob=path_to_n_flows/np.sum(path_to_n_flows)
@@ -142,34 +145,39 @@ def main(sample_mode=0,n_mix=192):
             # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED*100), replace=False)
             print(len(path_sampled_list))
         elif sample_mode==5:
-            prob=path_to_n_flows_filtered/np.sum(path_to_n_flows_filtered)
-            path_sampled_list=np.random.choice(list(path_to_flowid_filtered.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
-            path_sampled_list=list(set(path_sampled_list))
-        for path_idx,key in enumerate(path_sampled_list):
-            flowid_list=path_to_flowid[key]
+            flowid_to_path={}
+            for path in path_to_flowid:
+                for flowid in path_to_flowid[path]:
+                    assert flowid not in flowid_to_path
+                    flowid_to_path[flowid]=path
+           
+            flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED, replace=False) 
+            path_count=defaultdict(lambda:0)
+            for flowid in flow_sampled_list:
+                path=flowid_to_path[flowid]
+                path_count[path]+=1
+            path_sampled_list=list(path_count.keys())
+            print(len(path_sampled_list))
+        for _,path in enumerate(path_sampled_list):
+            flowid_list=path_to_flowid[path]
             if sample_mode>=2 and sample_mode<5:
                 sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list if flowid in flow_sampled_list])
                 sizes_mlsys.extend([flowId_to_sldn_size[flowid][1] for flowid in flowid_list if flowid in flow_sampled_list])
-            elif sample_mode==1:
+            elif sample_mode==1 or sample_mode==5:
                 # Generate a random-sized array
-                tmp_sldn=np.array([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
-                tmp_size=np.array([flowId_to_sldn_size[flowid][1] for flowid in flowid_list])
+                # tmp_sldn=np.array([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
+                # tmp_size=np.array([flowId_to_sldn_size[flowid][1] for flowid in flowid_list])
                 
-                new_indices = np.linspace(0, len(tmp_sldn) - 1, N)
-                tmp_sldn = np.interp(new_indices, np.arange(len(tmp_sldn)), tmp_sldn)
-                tmp_size = np.interp(new_indices, np.arange(len(tmp_size)), tmp_size)
-                sldn_mlsys.extend(tmp_sldn)
-                sizes_mlsys.extend(tmp_size)
-            # elif sample_mode==6:
-            #     # Generate a random-sized array
-            #     tmp_sldn=np.array([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
-            #     tmp_size=np.array([flowId_to_sldn_size[flowid][1] for flowid in flowid_list])
+                tmp=np.array([flowId_to_sldn_size[flowid] for flowid in flowid_list])
+                sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
+                tmp=tmp[sorted_indices]
                 
-            #     new_indices = np.linspace(0, len(tmp_sldn) - 1, N*aggre_weight[path_idx])
-            #     tmp_sldn = np.interp(new_indices, np.arange(len(tmp_sldn)), tmp_sldn)
-            #     tmp_size = np.interp(new_indices, np.arange(len(tmp_size)), tmp_size)
-            #     sldn_mlsys.extend(tmp_sldn)
-            #     sizes_mlsys.extend(tmp_size)
+                new_indices = np.linspace(0, tmp.shape[0] - 1, N)
+                tmp_sldn = np.interp(new_indices, np.arange(tmp.shape[0]), tmp[:,0])
+                tmp_size = np.interp(new_indices, np.arange(tmp.shape[0]), tmp[:,1])
+                for _ in range(path_count[path]):
+                    sldn_mlsys.extend(tmp_sldn)
+                    sizes_mlsys.extend(tmp_size)
             else:
                 # for _ in range(path_to_info[key][0]):
                 sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
@@ -207,7 +215,7 @@ def main(sample_mode=0,n_mix=192):
     print(sample_mode,res.shape)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python script.py arg1 arg2")
+    if len(sys.argv) != 4:
+        print("Usage: python script.py arg1 arg2 arg3")
         sys.exit(1)
-    main(sample_mode= int(sys.argv[1]),n_mix=int(sys.argv[2]))
+    main(sample_mode= int(sys.argv[1]),n_mix=int(sys.argv[2]),min_length=int(sys.argv[3]))

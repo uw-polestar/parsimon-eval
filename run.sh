@@ -42,3 +42,12 @@ export NS_LOG=PacketPathExample=info
 https://github.com/kwzhao/High-Precision-Congestion-Control/compare/325635a6baf0131b8d46b3b4394c0a1d621f4aff...3b7ad3222598937dc0a5b423ba8f360489e24ce4
 
 python test.py > gen_mlsys_s2_bt50_dedupe.log
+
+python gen_opt.py 1 192 1 > gen_opt_1_1.log
+python gen_opt.py 1 192 20 > gen_opt_1_20.log
+python gen_opt.py 1 192 50 > gen_opt_1_50.log
+python gen_opt.py 1 192 100 > gen_opt_1_100.log
+
+python gen_opt.py 5 192 1 > gen_opt_5_1.log
+python gen_opt.py 5 192 20 > gen_opt_5_20.log
+python gen_opt.py 5 192 50 > gen_opt_5_50.log

@@ -96,14 +96,14 @@ impl Mlsys {
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
-        let _output = Command::new("sh")
-            .arg("-c")
-            .arg(format!("cd {script_path}; {c_command}"))
-            .output()?;
         // let _output = Command::new("sh")
         //     .arg("-c")
-        //     .arg(format!("cd {script_path}; {c_command}; rm {data_dir}/flows.txt"))
+        //     .arg(format!("cd {script_path}; {c_command}"))
         //     .output()?;
+        let _output = Command::new("sh")
+            .arg("-c")
+            .arg(format!("cd {script_path}; {c_command}; rm {data_dir}/flows.txt"))
+            .output()?;
         Ok(())
     }
     fn interpolate_values(
