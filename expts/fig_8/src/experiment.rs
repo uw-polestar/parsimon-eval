@@ -32,6 +32,7 @@ use crate::mlsys::Mlsys;
 use crate::mix::{Mix, MixId};
 
 use rand::distributions::WeightedIndex;
+use rustc_hash::FxHashMap;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
@@ -1119,14 +1120,14 @@ impl Experiment {
         let sim = SimKind::Mlsys;
         let flows = self.flows(mix)?;
         // read flows associated with a path
-        let mut channel_to_flowid_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
-        let mut flowid_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
-        let mut flowid_to_path_map_ordered: HashMap<usize, Vec<(NodeId, NodeId)>> = HashMap::new();
-        let mut path_to_flowid_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
-        let flowid_to_flow_map: HashMap<FlowId, Flow> = flows
+        let mut channel_to_flowid_map: FxHashMap<(NodeId, NodeId), HashSet<FlowId>> = FxHashMap::default();
+        let mut flowid_to_path_map: FxHashMap<usize, HashSet<(NodeId, NodeId)>> = FxHashMap::default();
+        let mut flowid_to_path_map_ordered: FxHashMap<usize, Vec<(NodeId, NodeId)>> = FxHashMap::default();
+        let mut path_to_flowid_map: FxHashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = FxHashMap::default();
+        let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
             .iter()
             .map(|flow| (flow.id, flow.clone()))
-            .collect::<HashMap<_, _>>();
+            .collect::<FxHashMap<_, _>>();
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
         let file = fs::File::open(flow_path_map_file)?;
 
@@ -1158,12 +1159,14 @@ impl Experiment {
         for (flow_id, path) in flowid_to_path_map {
             let mut pairs = path.into_iter().collect::<Vec<_>>();
             pairs.sort();
-            let mut path_ordered = Vec::<(NodeId, NodeId)>::new();
+            let mut path_ordered = Vec::<(NodeId, NodeId)>::with_capacity(pairs.len() + 1);
+            path_ordered.push((flows[flow_id].src, flows[flow_id].dst));
+
             if let Some(first_pair) = pairs.first() {
                 path_ordered.push(*first_pair);
 
                 // Iterate over the remaining pairs
-                while path_ordered.len() != pairs.len() {
+                while path_ordered.len() != pairs.len()+1 {
                     for pair in pairs.iter().skip(1) {
                         // If the source of the current pair equals the destination of the last pair in the ordered list
                         if pair.0 == path_ordered.last().unwrap().1 {
@@ -1172,8 +1175,6 @@ impl Experiment {
                     }
                 }
             }
-            path_ordered.insert(0, (flows[flow_id].src, flows[flow_id].dst));
-
             path_to_flowid_map
                 .entry(path_ordered.clone())
                 .or_insert_with(HashSet::new)
@@ -1202,7 +1203,7 @@ impl Experiment {
 
         let mut path_list: Vec<Vec<(NodeId, NodeId)>>;
         let mut flow_sampled_set: Vec<&usize>=Vec::new();
-        let mut path_counts: HashMap<Vec<(NodeId, NodeId)>, usize> = HashMap::new();
+        let mut path_counts: FxHashMap<Vec<(NodeId, NodeId)>, usize> = FxHashMap::default();
 
         // Sample-1: randomly select N flows, with the probability of a flow being selected proportional to the number of paths it is on
         if SAMPLE_MODE==1{
@@ -1237,7 +1238,7 @@ impl Experiment {
             path_list=path_list_ori.clone().collect::<HashSet<_>>().into_iter().collect::<Vec<_>>();
 
             path_counts = path_list_ori
-            .fold(HashMap::new(), |mut acc, path| {
+            .fold(FxHashMap::default(), |mut acc, path| {
                 *acc.entry(path.clone()).or_insert(0) += 1;
                 acc
             });
@@ -1257,8 +1258,7 @@ impl Experiment {
                 let mut start_tmp = Instant::now();
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
 
-                let mut flow_to_srcdst_map_in_flowsim: HashMap<FlowId, (usize, usize)> =
-                    HashMap::new();
+                let mut flow_to_srcdst_map_in_flowsim: FxHashMap<FlowId, (usize, usize)> = FxHashMap::default();
                 let mut path_length = 1;
                 for src_dst_pair in path.iter() {
                     if let Some(flows_on_path) = channel_to_flowid_map.get(src_dst_pair) {
