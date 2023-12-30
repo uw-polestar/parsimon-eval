@@ -1555,15 +1555,15 @@ impl Experiment {
     //     Ok(file)
     // }
 
-    fn flow_on_path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
-        let file = [
-            self.sim_dir(mix, sim)?.as_path(),
-            "../ns3/flows_on_path.txt".as_ref(),
-        ]
-        .into_iter()
-        .collect();
-        Ok(file)
-    }
+    // fn flow_on_path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
+    //     let file = [
+    //         self.sim_dir(mix, sim)?.as_path(),
+    //         "../ns3/flows_on_path.txt".as_ref(),
+    //     ]
+    //     .into_iter()
+    //     .collect();
+    //     Ok(file)
+    // }
 
     fn flow_path_map_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [
