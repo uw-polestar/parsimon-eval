@@ -1201,7 +1201,7 @@ impl Experiment {
         // };
 
         let mut path_list: Vec<Vec<(NodeId, NodeId)>>;
-        let mut flow_sampled_set: HashSet<usize>=HashSet::new();
+        let mut flow_sampled_set: Vec<&usize>=Vec::new();
         let mut path_counts: HashMap<Vec<(NodeId, NodeId)>, usize> = HashMap::new();
 
         // Sample-1: randomly select N flows, with the probability of a flow being selected proportional to the number of paths it is on
@@ -1225,20 +1225,18 @@ impl Experiment {
             // Sample-2: randomly select N flows, and then collect the paths they are on
             let flowid_pool= path_to_flows_vec_sorted
                 .iter()
-                .flat_map(|&(_, flows)| flows.iter())
-                .cloned()
-                .collect::<Vec<_>>();
+                .flat_map(|&(_, flows)| flows.iter());
 
             let mut rng = StdRng::seed_from_u64(self.seed);
-            flow_sampled_set=flowid_pool.choose_multiple(&mut rng, NR_PATHS_SAMPLED).cloned().collect();
+            flow_sampled_set=flowid_pool.choose_multiple(&mut rng, NR_PATHS_SAMPLED);
 
             let path_list_ori = flow_sampled_set.iter()
-            .map(|&flow_id| flowid_to_path_map_ordered[&flow_id].clone())
-            .collect::<Vec<_>>();
+            .map(|&flow_id| flowid_to_path_map_ordered[&flow_id].clone());
             
-            path_list=path_list_ori.clone().into_iter().collect::<HashSet<_>>().into_iter().collect::<Vec<_>>();
 
-            path_counts = path_list_ori.iter()
+            path_list=path_list_ori.clone().collect::<HashSet<_>>().into_iter().collect::<Vec<_>>();
+
+            path_counts = path_list_ori
             .fold(HashMap::new(), |mut acc, path| {
                 *acc.entry(path.clone()).or_insert(0) += 1;
                 acc
