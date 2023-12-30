@@ -1155,8 +1155,6 @@ impl Experiment {
             let line = line?;
             let mut tmp = line
                 .split(",");
-                // .map(|x| x.parse::<usize>().unwrap())
-                // .collect::<Vec<_>>();
             let src = tmp.nth(1).and_then(|x| x.parse::<NodeId>().ok());
             let dst = tmp.next().and_then(|x| x.parse::<NodeId>().ok());
             // let tmp_key = (NodeId::new(tmp[1]), NodeId::new(tmp[2]));
@@ -1248,7 +1246,6 @@ impl Experiment {
             let mut rng = StdRng::seed_from_u64(self.seed);
             (0..NR_PATHS_SAMPLED).for_each(|_| {
                 let sampled_index = weighted_index.sample(&mut rng);
-                // let key = path_to_flowid_map.keys().nth(sampled_index).unwrap().clone();
                 let key = path_to_flows_vec_sorted[sampled_index].0.clone();
                 // Update counts
                 *path_counts.entry(key).or_insert(0) += 1;
