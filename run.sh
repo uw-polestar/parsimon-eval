@@ -51,3 +51,4 @@ python gen_opt.py 1 192 100 > gen_opt_1_100.log
 python gen_opt.py 5 192 1 > gen_opt_5_1.log
 python gen_opt.py 5 192 20 > gen_opt_5_20.log
 python gen_opt.py 5 192 50 > gen_opt_5_50.log
+python gen_opt.py 5 192 100 > gen_opt_5_100.log
