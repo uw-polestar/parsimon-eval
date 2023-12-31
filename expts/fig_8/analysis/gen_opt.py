@@ -9,13 +9,12 @@ MTU=1000
 BDP = 15 * MTU
 bin_size_list=[MTU, BDP, 5 * BDP]
 
-NR_PATHS_SAMPLED=1000
 n_size_bucket_list_output=4
 n_percentiles=20
-N = 100
-def main(sample_mode=0,n_mix=192,min_length=10):
+enable_padding=False
+def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
     res=[]
-    print(f"sample_mode: {sample_mode}, n_mix: {n_mix}")
+    print(f"sample_mode: {sample_mode}, n_mix: {n_mix}, min_length: {min_length}, NR_PATHS_SAMPLED: {NR_PATHS_SAMPLED}, N: {N}")
     for mix_id in range(n_mix):
         print(f"mix_id: {mix_id}")
         res_tmp=[]
@@ -51,11 +50,15 @@ def main(sample_mode=0,n_mix=192,min_length=10):
             path_to_flowid=data['path_to_flowid'].item()
                     
         assert n_path_sampled==len(path_to_info)
+        n_flows_total=np.sum([len(path_to_flowid[key]) for key in path_to_flowid])
         
         path_to_flowid = {key: value for key, value in path_to_flowid.items() if len(value) >= min_length}
         
         # n_sampled_paths=np.sum([path_to_info[key][0] for key in path_to_info])
         path_to_n_flows=np.array([len(path_to_flowid[key]) for key in path_to_flowid])
+        flow_ratio=np.sum(path_to_n_flows)/n_flows_total
+        padding_ratio=(1-flow_ratio)/flow_ratio
+        print(f"ratio: {flow_ratio},{padding_ratio}")
         # print(f"n_sampled_paths/total_path: {n_sampled_paths}/{len(path_to_n_flows)},{n_sampled_paths/len(path_to_n_flows)}")
 
         # n_flows_in_sampled_paths=np.sum([path_to_info[key][1] for key in path_to_info])
@@ -183,11 +186,15 @@ def main(sample_mode=0,n_mix=192,min_length=10):
                 sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
                 sizes_mlsys.extend([flowId_to_sldn_size[flowid][1] for flowid in flowid_list])
         sldn_mlsys=np.array(sldn_mlsys)
-        sldn_mlsys_len=len(sldn_mlsys)
+        if enable_padding:
+            sldn_mlsys_cur = np.pad(sldn_mlsys, (0,int(len(sldn_mlsys)*padding_ratio)), constant_values=1.0)
+        else:
+            sldn_mlsys_cur=sldn_mlsys
+        sldn_mlsys_len=len(sldn_mlsys_cur)
 
         sldn_ns3_p99=np.percentile(sldn_ns3,99)
         sldn_pmn_m_p99=np.percentile(sldn_pmn_m,99)
-        sldn_mlsys_p99=np.percentile(sldn_mlsys,99)
+        sldn_mlsys_p99=np.percentile(sldn_mlsys_cur,99)
 
         print("sldn_ns3: ",sldn_ns3_p99," sldn_pmn_m: ", sldn_pmn_m_p99," sldn_mlsys: ", sldn_mlsys_p99)
 
@@ -203,19 +210,19 @@ def main(sample_mode=0,n_mix=192,min_length=10):
             tmp_sldn_ns3 = np.extract(bin_ns3==i, sldn_ns3)
             tmp_sldn_pmn_m = np.extract(bin_pmn==i, sldn_pmn_m)
             tmp_sldn_mlsys=np.extract(bin_mlsys==i, sldn_mlsys)
-            # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_ns3)-len(tmp_sldn_mlsys)), constant_values=1)
-            # tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,len(tmp_sldn_mlsys)), 
+            if enable_padding:
+                tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,int(len(tmp_sldn_mlsys)*padding_ratio)), constant_values=1.0)
             sldn_ns3_p99=np.percentile(tmp_sldn_ns3,99)
             sldn_pmn_m_p99=np.percentile(tmp_sldn_pmn_m,99)
             df_mlsys_p99=np.percentile(tmp_sldn_mlsys,99)
             res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
         res.append(res_tmp)
     res = np.array(res)
-    np.save(f'./gen_opt_{sample_mode}_{min_length}.npy',res)
+    np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}.npy',res)
     print(sample_mode,res.shape)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 6:
         print("Usage: python script.py arg1 arg2 arg3")
         sys.exit(1)
-    main(sample_mode= int(sys.argv[1]),n_mix=int(sys.argv[2]),min_length=int(sys.argv[3]))
+    main(sample_mode= int(sys.argv[1]),n_mix=int(sys.argv[2]),min_length=int(sys.argv[3]),NR_PATHS_SAMPLED=int(sys.argv[4]),N=int(sys.argv[5]))
