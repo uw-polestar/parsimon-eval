@@ -227,4 +227,736 @@ df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
 mix_id: 45
 ratio: 1.0,0.0
 1966
-sldn_ns3:  5.050347606146354  sldn_pmn_m:  5.152605078349315 
+sldn_ns3:  5.050347606146354  sldn_pmn_m:  5.152605078349315  sldn_mlsys:  4.943951911251096
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 46
+ratio: 1.0,0.0
+1980
+sldn_ns3:  6.486020600547662  sldn_pmn_m:  6.806150303404079  sldn_mlsys:  6.222135779542459
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 47
+ratio: 1.0,0.0
+1965
+sldn_ns3:  5.222241631045679  sldn_pmn_m:  6.683945658373296  sldn_mlsys:  5.053021134132712
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 48
+ratio: 1.0,0.0
+1962
+sldn_ns3:  7.653479163952136  sldn_pmn_m:  7.999710234657476  sldn_mlsys:  7.1804460571345015
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 49
+ratio: 1.0,0.0
+1957
+sldn_ns3:  4.457242862131747  sldn_pmn_m:  4.747436436810048  sldn_mlsys:  4.264643134489564
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 50
+ratio: 1.0,0.0
+1951
+sldn_ns3:  8.365157116838471  sldn_pmn_m:  9.255825343246432  sldn_mlsys:  7.9421589655414575
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 51
+ratio: 1.0,0.0
+1953
+sldn_ns3:  4.476613515420493  sldn_pmn_m:  4.8213434816339165  sldn_mlsys:  4.316857927144284
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 52
+ratio: 1.0,0.0
+1638
+sldn_ns3:  10.91451367781155  sldn_pmn_m:  11.326676259092885  sldn_mlsys:  10.989890035724885
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 53
+ratio: 1.0,0.0
+1614
+sldn_ns3:  18.439090293354614  sldn_pmn_m:  20.454060651130114  sldn_mlsys:  18.156774249752527
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 54
+ratio: 1.0,0.0
+1640
+sldn_ns3:  7.479379718261876  sldn_pmn_m:  7.778244439204913  sldn_mlsys:  7.450670791024587
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 55
+ratio: 1.0,0.0
+1957
+sldn_ns3:  4.8582248362843545  sldn_pmn_m:  5.7114607901876555  sldn_mlsys:  4.692139230024641
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 56
+ratio: 1.0,0.0
+1971
+sldn_ns3:  8.153207165687686  sldn_pmn_m:  9.073687995346937  sldn_mlsys:  7.688979524104937
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 57
+ratio: 1.0,0.0
+1965
+sldn_ns3:  7.750830386667124  sldn_pmn_m:  8.270619675610149  sldn_mlsys:  7.395628647494322
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 58
+ratio: 1.0,0.0
+1973
+sldn_ns3:  5.9344604722804  sldn_pmn_m:  6.323943780710665  sldn_mlsys:  5.69493428047713
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 59
+ratio: 1.0,0.0
+1961
+sldn_ns3:  5.148616557820211  sldn_pmn_m:  5.521701565110781  sldn_mlsys:  4.935296135626211
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 60
+ratio: 1.0,0.0
+1964
+sldn_ns3:  6.658745854233384  sldn_pmn_m:  7.2514780421011364  sldn_mlsys:  6.609953214885373
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 61
+ratio: 1.0,0.0
+1964
+sldn_ns3:  7.604771405480438  sldn_pmn_m:  8.393457569022363  sldn_mlsys:  7.290414648228665
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 62
+ratio: 1.0,0.0
+1958
+sldn_ns3:  5.487269792929555  sldn_pmn_m:  5.548351548854241  sldn_mlsys:  5.428292999859935
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 63
+ratio: 1.0,0.0
+1960
+sldn_ns3:  8.852050882847857  sldn_pmn_m:  10.494998549196904  sldn_mlsys:  8.578621591262465
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 64
+ratio: 1.0,0.0
+1961
+sldn_ns3:  6.125960113720336  sldn_pmn_m:  6.589504801239267  sldn_mlsys:  5.962028039308695
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 65
+ratio: 1.0,0.0
+1969
+sldn_ns3:  5.618541250818001  sldn_pmn_m:  5.6340827122136075  sldn_mlsys:  5.446333184577697
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 66
+ratio: 1.0,0.0
+1972
+sldn_ns3:  5.161485235906115  sldn_pmn_m:  5.5304781281303255  sldn_mlsys:  4.994211835461924
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 67
+ratio: 1.0,0.0
+1635
+sldn_ns3:  8.931956674860803  sldn_pmn_m:  9.177037268832253  sldn_mlsys:  9.052453055483074
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 68
+ratio: 1.0,0.0
+1972
+sldn_ns3:  4.337383946749962  sldn_pmn_m:  4.594529174937749  sldn_mlsys:  4.240637315224972
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 69
+ratio: 1.0,0.0
+1626
+sldn_ns3:  8.179730131200776  sldn_pmn_m:  8.508300198566754  sldn_mlsys:  8.191750868332896
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 70
+ratio: 1.0,0.0
+1960
+sldn_ns3:  5.103871281758677  sldn_pmn_m:  5.460373605880177  sldn_mlsys:  4.925746391204604
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 71
+ratio: 1.0,0.0
+1959
+sldn_ns3:  10.176596284565735  sldn_pmn_m:  11.900624038241846  sldn_mlsys:  9.86258673718016
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 72
+ratio: 1.0,0.0
+1964
+sldn_ns3:  6.20253063586662  sldn_pmn_m:  6.45162636135381  sldn_mlsys:  6.1229769465942505
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 73
+ratio: 1.0,0.0
+1971
+sldn_ns3:  11.704913084454036  sldn_pmn_m:  12.51894303706869  sldn_mlsys:  11.073307167109109
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 74
+ratio: 1.0,0.0
+1972
+sldn_ns3:  6.914570217764938  sldn_pmn_m:  7.723638194931929  sldn_mlsys:  6.719006829857822
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 75
+ratio: 1.0,0.0
+1975
+sldn_ns3:  4.970804481322683  sldn_pmn_m:  5.3192353681480515  sldn_mlsys:  4.767316051531101
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 76
+ratio: 1.0,0.0
+1950
+sldn_ns3:  4.522072035213754  sldn_pmn_m:  5.067912509758839  sldn_mlsys:  4.3931944947783315
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 77
+ratio: 1.0,0.0
+1958
+sldn_ns3:  6.403394776715932  sldn_pmn_m:  6.493506831056597  sldn_mlsys:  6.125943008560763
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 78
+ratio: 1.0,0.0
+1962
+sldn_ns3:  5.14973077929673  sldn_pmn_m:  5.520305641246823  sldn_mlsys:  4.97102463541563
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 79
+ratio: 1.0,0.0
+1626
+sldn_ns3:  9.937049112354813  sldn_pmn_m:  10.299846092478047  sldn_mlsys:  10.048721937226809
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 80
+ratio: 1.0,0.0
+1964
+sldn_ns3:  11.06877882704957  sldn_pmn_m:  12.747001150551394  sldn_mlsys:  10.454829496031824
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 81
+ratio: 1.0,0.0
+1621
+sldn_ns3:  11.35510760656112  sldn_pmn_m:  11.966216554054046  sldn_mlsys:  11.396056138282209
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 82
+ratio: 1.0,0.0
+1962
+sldn_ns3:  5.769080397592226  sldn_pmn_m:  5.871379090626466  sldn_mlsys:  5.512792767749722
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 83
+ratio: 1.0,0.0
+1649
+sldn_ns3:  10.618894492408657  sldn_pmn_m:  11.059824772155741  sldn_mlsys:  10.50109696180417
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 84
+ratio: 1.0,0.0
+1970
+sldn_ns3:  5.2058252658555535  sldn_pmn_m:  6.637780110462704  sldn_mlsys:  5.05540284194877
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 85
+ratio: 1.0,0.0
+1964
+sldn_ns3:  9.205880486165439  sldn_pmn_m:  10.233579943288824  sldn_mlsys:  8.818578840642878
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 86
+ratio: 1.0,0.0
+1618
+sldn_ns3:  6.459436126931243  sldn_pmn_m:  6.65570749724833  sldn_mlsys:  6.547216149867561
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 87
+ratio: 1.0,0.0
+1636
+sldn_ns3:  10.832183761997436  sldn_pmn_m:  11.31124673060157  sldn_mlsys:  10.797881389419961
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 88
+ratio: 1.0,0.0
+1646
+sldn_ns3:  9.241298037541902  sldn_pmn_m:  9.8141627543036  sldn_mlsys:  9.302756433010208
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 89
+ratio: 1.0,0.0
+1969
+sldn_ns3:  7.353862135247311  sldn_pmn_m:  7.741199171577915  sldn_mlsys:  7.050159127362563
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 90
+ratio: 1.0,0.0
+1955
+sldn_ns3:  7.540176129274284  sldn_pmn_m:  8.205095428244165  sldn_mlsys:  7.194050280279289
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 91
+ratio: 1.0,0.0
+1632
+sldn_ns3:  7.407468293409117  sldn_pmn_m:  7.692213251991682  sldn_mlsys:  7.414412524453925
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 92
+ratio: 1.0,0.0
+1959
+sldn_ns3:  5.732644956433235  sldn_pmn_m:  5.864394067796607  sldn_mlsys:  5.551692632343421
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 93
+ratio: 1.0,0.0
+1967
+sldn_ns3:  5.364212520352042  sldn_pmn_m:  5.55971083005596  sldn_mlsys:  5.1957416173323665
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 94
+ratio: 1.0,0.0
+1965
+sldn_ns3:  11.481846665882488  sldn_pmn_m:  12.442150151886885  sldn_mlsys:  11.086245567488362
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 95
+ratio: 1.0,0.0
+1619
+sldn_ns3:  6.00097213364679  sldn_pmn_m:  6.038815675123368  sldn_mlsys:  6.081493536464103
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 96
+ratio: 1.0,0.0
+1961
+sldn_ns3:  5.752825035775839  sldn_pmn_m:  5.998561005030574  sldn_mlsys:  5.487262259336416
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 97
+ratio: 1.0,0.0
+1972
+sldn_ns3:  11.140205845202788  sldn_pmn_m:  12.05430356567195  sldn_mlsys:  10.670617082796628
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 98
+ratio: 1.0,0.0
+1968
+sldn_ns3:  5.071728500105364  sldn_pmn_m:  5.203024631952797  sldn_mlsys:  4.836515416089985
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 99
+ratio: 1.0,0.0
+1967
+sldn_ns3:  4.940938258614167  sldn_pmn_m:  5.2933436805147425  sldn_mlsys:  4.693352373701677
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 100
+ratio: 1.0,0.0
+1959
+sldn_ns3:  5.8841270287342455  sldn_pmn_m:  5.98760967853326  sldn_mlsys:  5.767167304081012
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 101
+ratio: 1.0,0.0
+1668
+sldn_ns3:  7.781754988934909  sldn_pmn_m:  8.19756857226634  sldn_mlsys:  7.226662036301451
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 102
+ratio: 1.0,0.0
+1948
+sldn_ns3:  4.69482911804785  sldn_pmn_m:  5.083726340212859  sldn_mlsys:  4.495227990640062
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 103
+ratio: 1.0,0.0
+1640
+sldn_ns3:  7.016140552563567  sldn_pmn_m:  7.201097984689491  sldn_mlsys:  6.9901964528705065
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 104
+ratio: 1.0,0.0
+1960
+sldn_ns3:  12.893270360187168  sldn_pmn_m:  14.573820280536959  sldn_mlsys:  11.98568401735709
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 105
+ratio: 1.0,0.0
+1649
+sldn_ns3:  10.665388421057578  sldn_pmn_m:  11.128988547965532  sldn_mlsys:  10.628065068104043
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 106
+ratio: 1.0,0.0
+1954
+sldn_ns3:  8.504913406383396  sldn_pmn_m:  9.501972233999652  sldn_mlsys:  8.217335315553365
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 107
+ratio: 1.0,0.0
+1952
+sldn_ns3:  4.7269036376811  sldn_pmn_m:  5.074019558918553  sldn_mlsys:  4.664274605788099
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 108
+ratio: 1.0,0.0
+1956
+sldn_ns3:  8.736679068386852  sldn_pmn_m:  9.156487382993621  sldn_mlsys:  8.271897190363859
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 109
+ratio: 1.0,0.0
+1958
+sldn_ns3:  5.967349654172441  sldn_pmn_m:  6.419966064253873  sldn_mlsys:  5.7813441305666515
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 110
+ratio: 1.0,0.0
+1637
+sldn_ns3:  12.372810307504777  sldn_pmn_m:  13.063941931251769  sldn_mlsys:  12.416129573161081
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 111
+ratio: 1.0,0.0
+1964
+sldn_ns3:  5.327878447034785  sldn_pmn_m:  5.76369408782881  sldn_mlsys:  5.269998141117244
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 112
+ratio: 1.0,0.0
+1597
+sldn_ns3:  13.887618459180704  sldn_pmn_m:  15.482486928030397  sldn_mlsys:  14.336271873786444
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 113
+ratio: 1.0,0.0
+1965
+sldn_ns3:  8.50904089905076  sldn_pmn_m:  10.341745087651983  sldn_mlsys:  8.32489812361314
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 114
+ratio: 1.0,0.0
+1959
+sldn_ns3:  4.947778980021537  sldn_pmn_m:  5.216783216783217  sldn_mlsys:  4.716252029726238
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 115
+ratio: 1.0,0.0
+1959
+sldn_ns3:  5.095789210978069  sldn_pmn_m:  6.301293380408013  sldn_mlsys:  4.9148465120875064
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 116
+ratio: 1.0,0.0
+1615
+sldn_ns3:  11.9335112112322  sldn_pmn_m:  12.398685388857077  sldn_mlsys:  11.948515104928882
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 117
+ratio: 1.0,0.0
+1954
+sldn_ns3:  5.4337687881048735  sldn_pmn_m:  5.965725374162748  sldn_mlsys:  5.314082975504755
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 118
+ratio: 1.0,0.0
+1965
+sldn_ns3:  5.639823385212607  sldn_pmn_m:  8.387282464801295  sldn_mlsys:  5.448560503870667
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 119
+ratio: 1.0,0.0
+1647
+sldn_ns3:  9.7781194810225  sldn_pmn_m:  10.044468554743862  sldn_mlsys:  9.848088702354119
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 120
+ratio: 1.0,0.0
+1969
+sldn_ns3:  5.456202835909756  sldn_pmn_m:  5.913252984499994  sldn_mlsys:  5.351370753480429
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 121
+ratio: 1.0,0.0
+1956
+sldn_ns3:  6.2673563803643715  sldn_pmn_m:  6.822985298010873  sldn_mlsys:  6.108784545899669
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 122
+ratio: 1.0,0.0
+1961
+sldn_ns3:  10.939312625336516  sldn_pmn_m:  12.525138601026061  sldn_mlsys:  10.421308099228886
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 123
+ratio: 1.0,0.0
+1960
+sldn_ns3:  11.154010128994551  sldn_pmn_m:  12.74629444192498  sldn_mlsys:  10.699283494932319
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 124
+ratio: 1.0,0.0
+1608
+sldn_ns3:  5.974464201426687  sldn_pmn_m:  5.881171184379725  sldn_mlsys:  6.195582797705182
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 125
+ratio: 1.0,0.0
+1960
+sldn_ns3:  5.249139177352495  sldn_pmn_m:  5.38714661978967  sldn_mlsys:  5.051758167769968
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 126
+ratio: 1.0,0.0
+1646
+sldn_ns3:  9.129808880275458  sldn_pmn_m:  9.372981207422374  sldn_mlsys:  9.114910153417902
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 127
+ratio: 1.0,0.0
+1976
+sldn_ns3:  6.640834352979997  sldn_pmn_m:  6.842027173289709  sldn_mlsys:  6.4298898346134195
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 128
+ratio: 1.0,0.0
+1643
+sldn_ns3:  8.610620023380926  sldn_pmn_m:  9.10157153628836  sldn_mlsys:  8.498480379291058
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 129
+ratio: 1.0,0.0
+1644
+sldn_ns3:  8.814949070537319  sldn_pmn_m:  9.06340341655716  sldn_mlsys:  8.810967663426108
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 130
+ratio: 1.0,0.0
+1972
+sldn_ns3:  8.898673155798052  sldn_pmn_m:  9.36335283900557  sldn_mlsys:  8.652454928651517
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 131
+ratio: 1.0,0.0
+1944
+sldn_ns3:  5.159573759481424  sldn_pmn_m:  5.534650050311067  sldn_mlsys:  5.039384949455579
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 132
+ratio: 1.0,0.0
+1962
+sldn_ns3:  5.519526220983928  sldn_pmn_m:  5.841990092533841  sldn_mlsys:  5.263582266533331
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 133
+ratio: 1.0,0.0
+1960
+sldn_ns3:  5.694877309548687  sldn_pmn_m:  5.772822630268405  sldn_mlsys:  5.439078990818062
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 134
+ratio: 1.0,0.0
+1612
+sldn_ns3:  9.186762579730702  sldn_pmn_m:  9.424462805808068  sldn_mlsys:  9.330089262898179
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 135
+ratio: 1.0,0.0
+1966
+sldn_ns3:  7.569940809911774  sldn_pmn_m:  8.208849287404497  sldn_mlsys:  7.182119221196768
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 136
+ratio: 1.0,0.0
+1965
+sldn_ns3:  6.810021125609595  sldn_pmn_m:  7.334890324407252  sldn_mlsys:  6.5887672468701775
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 137
+ratio: 1.0,0.0
+1638
+sldn_ns3:  7.170640166074174  sldn_pmn_m:  7.430097178626983  sldn_mlsys:  7.174581155368206
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 138
+ratio: 1.0,0.0
+1648
+sldn_ns3:  10.753904173377634  sldn_pmn_m:  11.154028436018958  sldn_mlsys:  10.821520471431128
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 139
+ratio: 1.0,0.0
+1962
+sldn_ns3:  5.717614532074221  sldn_pmn_m:  6.043478066926316  sldn_mlsys:  5.469253748217126
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 140
+ratio: 1.0,0.0
+1633
+sldn_ns3:  6.152213783829124  sldn_pmn_m:  6.116023005924621  sldn_mlsys:  6.382856012072454
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 141
+ratio: 1.0,0.0
+1965
+sldn_ns3:  4.646359432499102  sldn_pmn_m:  4.793783241751085  sldn_mlsys:  4.489808932797105
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 142
+ratio: 1.0,0.0
+1966
+sldn_ns3:  8.70982023461629  sldn_pmn_m:  9.763915856528133  sldn_mlsys:  8.248253896621126
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 143
+ratio: 1.0,0.0
+1961
+sldn_ns3:  8.328910888154903  sldn_pmn_m:  8.68750233693577  sldn_mlsys:  8.006287828211356
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 144
+ratio: 1.0,0.0
+1955
+sldn_ns3:  4.477875751595695  sldn_pmn_m:  4.70485976763398  sldn_mlsys:  4.309488190532503
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 145
+ratio: 1.0,0.0
+1609
+sldn_ns3:  9.989031013672655  sldn_pmn_m:  10.496446359363402  sldn_mlsys:  10.176165175610395
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 146
+ratio: 1.0,0.0
+1959
+sldn_ns3:  6.211820089985093  sldn_pmn_m:  6.644741014806463  sldn_mlsys:  6.0401807117148625
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 147
+ratio: 1.0,0.0
+1964
+sldn_ns3:  5.739016811015435  sldn_pmn_m:  5.858647026757593  sldn_mlsys:  5.5494419476041115
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 148
+ratio: 1.0,0.0
+1957
+sldn_ns3:  5.64252596088789  sldn_pmn_m:  5.7804749640622894  sldn_mlsys:  5.512030570910442
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 149
+ratio: 1.0,0.0
+1957
+sldn_ns3:  6.1572811316502385  sldn_pmn_m:  6.380044340748557  sldn_mlsys:  6.070961957424894
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 150
+ratio: 1.0,0.0
+1653
+sldn_ns3:  13.045074460354352  sldn_pmn_m:  14.003454261288576  sldn_mlsys:  12.825979394128584
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 151
+ratio: 1.0,0.0
+1640
+sldn_ns3:  9.14249238244568  sldn_pmn_m:  9.370570576176485  sldn_mlsys:  9.079512293597844
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 152
+ratio: 1.0,0.0
+1976
+sldn_ns3:  5.234218394043307  sldn_pmn_m:  5.657930901630843  sldn_mlsys:  5.149612517973527
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 153
+ratio: 1.0,0.0
+1960
+sldn_ns3:  4.207672645589153  sldn_pmn_m:  4.467888754040754  sldn_mlsys:  3.9410846696600137
+df_ns3: 9999796, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 154
+ratio: 1.0,0.0
+1968
+sldn_ns3:  8.592201749821175  sldn_pmn_m:  9.116639943604586  sldn_mlsys:  8.038830062815345
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 155
+ratio: 1.0,0.0
+1628
+sldn_ns3:  7.487186899828168  sldn_pmn_m:  7.6900087288903585  sldn_mlsys:  7.6781358856694615
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 156
+ratio: 1.0,0.0
+1630
+sldn_ns3:  12.734230530407611  sldn_pmn_m:  13.907967788493877  sldn_mlsys:  12.760210352702105
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 157
+ratio: 1.0,0.0
+1974
+sldn_ns3:  7.748608542224869  sldn_pmn_m:  8.135846232584703  sldn_mlsys:  7.455883964434229
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 158
+ratio: 1.0,0.0
+1964
+sldn_ns3:  6.032639048516336  sldn_pmn_m:  6.434131920433097  sldn_mlsys:  5.850166390699408
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 159
+ratio: 1.0,0.0
+1963
+sldn_ns3:  5.372270666025112  sldn_pmn_m:  5.6482783794218925  sldn_mlsys:  5.12454310250379
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 160
+ratio: 1.0,0.0
+1626
+sldn_ns3:  8.676525561421665  sldn_pmn_m:  9.18534790303813  sldn_mlsys:  8.748873692951786
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 161
+ratio: 1.0,0.0
+1611
+sldn_ns3:  9.662143510531132  sldn_pmn_m:  9.92218052643164  sldn_mlsys:  9.759923717241698
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 162
+ratio: 1.0,0.0
+1969
+sldn_ns3:  5.174943052391799  sldn_pmn_m:  5.541109674394383  sldn_mlsys:  5.015634969127474
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 163
+ratio: 1.0,0.0
+1976
+sldn_ns3:  4.852758198638079  sldn_pmn_m:  5.022086424140276  sldn_mlsys:  4.613977876954746
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 164
+ratio: 1.0,0.0
+1943
+sldn_ns3:  3.1460443700228002  sldn_pmn_m:  3.423098853034483  sldn_mlsys:  2.9312334755757714
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 165
+ratio: 1.0,0.0
+1620
+sldn_ns3:  9.747864083217872  sldn_pmn_m:  10.01062438676804  sldn_mlsys:  9.923386029546263
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 166
+ratio: 1.0,0.0
+1965
+sldn_ns3:  6.2482999749636  sldn_pmn_m:  6.489110000425643  sldn_mlsys:  6.014867830184157
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 167
+ratio: 1.0,0.0
+1622
+sldn_ns3:  8.682908648439316  sldn_pmn_m:  8.955864080837577  sldn_mlsys:  8.793666208797458
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 168
+ratio: 1.0,0.0
+1964
+sldn_ns3:  5.12995081392208  sldn_pmn_m:  5.508583964972541  sldn_mlsys:  5.027398135615403
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 169
+ratio: 1.0,0.0
+1957
+sldn_ns3:  6.663905396961022  sldn_pmn_m:  6.7774989570825195  sldn_mlsys:  6.533425309223377
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 170
+ratio: 1.0,0.0
+1647
+sldn_ns3:  8.66577514262241  sldn_pmn_m:  9.201790989237455  sldn_mlsys:  8.631501560747642
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 171
+ratio: 1.0,0.0
+1632
+sldn_ns3:  8.05840683814799  sldn_pmn_m:  8.597102603142595  sldn_mlsys:  8.151949716888362
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 172
+ratio: 1.0,0.0
+1972
+sldn_ns3:  7.77702566696472  sldn_pmn_m:  8.94724875384663  sldn_mlsys:  7.312739837144549
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 173
+ratio: 1.0,0.0
+1629
+sldn_ns3:  8.168773648769267  sldn_pmn_m:  8.747376840474281  sldn_mlsys:  8.29146548050914
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 174
+ratio: 1.0,0.0
+1642
+sldn_ns3:  9.569393952746264  sldn_pmn_m:  9.841559618408187  sldn_mlsys:  9.521952327020376
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 175
+ratio: 1.0,0.0
+1969
+sldn_ns3:  6.153008473093902  sldn_pmn_m:  6.55375854214123  sldn_mlsys:  5.994367054347228
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 176
+ratio: 1.0,0.0
+1638
+sldn_ns3:  11.001557068140475  sldn_pmn_m:  11.446023038275122  sldn_mlsys:  10.98959330133174
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 177
+ratio: 1.0,0.0
+1959
+sldn_ns3:  4.801366912708383  sldn_pmn_m:  4.962537835644689  sldn_mlsys:  4.488659454573703
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 178
+ratio: 1.0,0.0
+1949
+sldn_ns3:  5.151532996965816  sldn_pmn_m:  5.492670776364827  sldn_mlsys:  4.986274155511294
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 179
+ratio: 1.0,0.0
+1971
+sldn_ns3:  4.602459207528843  sldn_pmn_m:  4.89266942155861  sldn_mlsys:  4.410082486087135
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 180
+ratio: 1.0,0.0
+1661
+sldn_ns3:  10.737523673747024  sldn_pmn_m:  11.198481081175732  sldn_mlsys:  10.759901382004198
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 181
+ratio: 1.0,0.0
+1962
+sldn_ns3:  4.789814410988768  sldn_pmn_m:  5.152527922206654  sldn_mlsys:  4.67099607354314
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 182
+ratio: 1.0,0.0
+1625
+sldn_ns3:  6.584627406871374  sldn_pmn_m:  6.7882984506790525  sldn_mlsys:  6.714283028300409
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 183
+ratio: 1.0,0.0
+1963
+sldn_ns3:  6.054622947065257  sldn_pmn_m:  6.46448087431694  sldn_mlsys:  5.956015430761562
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 184
+ratio: 1.0,0.0
+1961
+sldn_ns3:  10.825826606332383  sldn_pmn_m:  12.71537534297376  sldn_mlsys:  10.495899959145316
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 185
+ratio: 1.0,0.0
+1962
+sldn_ns3:  5.332687540904917  sldn_pmn_m:  5.7711405271796385  sldn_mlsys:  5.133601506948759
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 186
+ratio: 1.0,0.0
+1657
+sldn_ns3:  8.732755514134846  sldn_pmn_m:  8.993425421238015  sldn_mlsys:  8.606211966011552
+df_ns3: 9999813, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 187
+ratio: 1.0,0.0
+1638
+sldn_ns3:  13.796533783783788  sldn_pmn_m:  15.045748686446641  sldn_mlsys:  13.808208561695265
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 188
+ratio: 1.0,0.0
+1959
+sldn_ns3:  7.778252054248529  sldn_pmn_m:  8.73423126965548  sldn_mlsys:  7.3227344970915444
+df_ns3: 9999633, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 189
+ratio: 1.0,0.0
+1962
+sldn_ns3:  6.55  sldn_pmn_m:  6.884209206579141  sldn_mlsys:  6.386615161152103
+df_ns3: 9999645, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 190
+ratio: 1.0,0.0
+1957
+sldn_ns3:  6.645541954276222  sldn_pmn_m:  7.927376986765791  sldn_mlsys:  6.548234370543933
+df_ns3: 9999815, df_pmn_m: 10000000, df_mlsys: 1000000
+mix_id: 191
+ratio: 1.0,0.0
+1590
+sldn_ns3:  6.1654395338099075  sldn_pmn_m:  6.290524417103361  sldn_mlsys:  6.703959599956388
+df_ns3: 9999790, df_pmn_m: 10000000, df_mlsys: 1000000
+5 (192, 5, 3)

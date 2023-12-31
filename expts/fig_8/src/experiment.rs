@@ -1234,7 +1234,6 @@ impl Experiment {
             let path_list_ori = flow_sampled_set.iter()
             .map(|&flow_id| flowid_to_path_map_ordered[&flow_id].clone());
             
-
             path_list=path_list_ori.clone().collect::<HashSet<_>>().into_iter().collect::<Vec<_>>();
 
             path_counts = path_list_ori
@@ -1258,37 +1257,56 @@ impl Experiment {
                 let mut start_tmp = Instant::now();
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
 
-                let mut flow_to_srcdst_map_in_flowsim: FxHashMap<FlowId, (usize, usize)> = FxHashMap::default();
+                let mut flow_to_srcdst_map_in_flowsim: FxHashMap<FlowId, Vec<(usize, usize)>> = FxHashMap::default();
                 let mut path_length = 1;
-                for src_dst_pair in path.iter() {
+                for src_dst_pair in path.iter().skip(1) {
                     if let Some(flows_on_path) = channel_to_flowid_map.get(src_dst_pair) {
                         flow_ids_in_f_prime.extend(flows_on_path);
                         for &key_flowid in flows_on_path {
                             // println!("flow {} is on path {}", key_flowid, idx);
-                            if let Some(count) = flow_to_srcdst_map_in_flowsim.get_mut(&key_flowid) {
-                                count.1 = path_length;
+                            if let Some(count_vec) = flow_to_srcdst_map_in_flowsim.get_mut(&key_flowid) {
+                                if count_vec.last().unwrap().1 != path_length - 1 {
+                                    count_vec.push((path_length - 1, path_length));
+                                }
+                                else {
+                                    count_vec.last_mut().unwrap().1 = path_length;
+                                }
                             } else {
+                                let tmp=vec![(path_length - 1, path_length)];
                                 flow_to_srcdst_map_in_flowsim
-                                    .insert(key_flowid, (path_length - 1, path_length));
+                                    .insert(key_flowid, tmp);
                             }
                         }
                         path_length += 1;
                     }
                 }
+                assert_eq!(path_length, path.len());
 
                 // get flows for a specific path
                 let mut flows_remaining: Vec<Flow> = flow_ids_in_f_prime
                 .iter()
                 .filter_map(|&flow_id| flowid_to_flow_map.get(&flow_id).cloned())
                 .collect();
-                flows_remaining.sort_by(|a, b| a.id.cmp(&b.id));
+                
+                let mut flow_extra: Vec<Flow>=Vec::new();
 
                 for flow in flows_remaining.iter_mut() {
-                    if let Some(count) = flow_to_srcdst_map_in_flowsim.get(&flow.id) {
-                        flow.src = NodeId::new(count.0);
-                        flow.dst = NodeId::new(count.1);
+                    if let Some(count_vec) = flow_to_srcdst_map_in_flowsim.get(&flow.id) {
+                        flow.src = NodeId::new(count_vec[0].0);
+                        flow.dst = NodeId::new(count_vec[0].1);
+                        for i in 1..count_vec.len() {
+                            let mut tmp=flow.clone();
+                            tmp.src = NodeId::new(count_vec[i].0);
+                            tmp.dst = NodeId::new(count_vec[i].1);
+                            tmp.id=FlowId::new(flow_extra.len()+NR_FLOWS);
+                            flow_extra.push(tmp);
+                        }
                     }
                 }
+                flows_remaining.extend(flow_extra);
+
+                flows_remaining.sort_by(|a, b| a.start.cmp(&b.start));
+
                 let elapsed_secs_preprop = start_tmp.elapsed().as_secs();
                 start_tmp= Instant::now();
                 let mlsys = Mlsys::builder()
