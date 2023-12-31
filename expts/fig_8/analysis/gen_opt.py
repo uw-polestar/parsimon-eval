@@ -12,6 +12,33 @@ bin_size_list=[MTU, BDP, 5 * BDP]
 n_size_bucket_list_output=4
 n_percentiles=20
 enable_padding=False
+padding_str="_padding" if enable_padding else "_"
+PERCENTILE_LIST = np.array(
+    [1, 10, 25, 40, 55, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 99.9, 99.99]
+)
+def recover_data(sampling_percentiles, sampled_data,target_percentiles):
+    recovered_data = []
+
+    for percentile in target_percentiles:
+        # Find the two nearest percentiles in the sampled data
+        lower_percentile = max(filter(lambda x: x <= percentile, sampling_percentiles), default=0)
+        upper_percentile = min(filter(lambda x: x >= percentile, sampling_percentiles), default=100)
+
+        # Retrieve corresponding values from the sampled data
+        lower_index = np.where(sampling_percentiles == lower_percentile)[0][0] if lower_percentile in sampling_percentiles else 0
+        upper_index = np.where(sampling_percentiles == upper_percentile)[0][0] if upper_percentile in sampling_percentiles else -1
+
+        lower_value = sampled_data[lower_index]
+        upper_value = sampled_data[upper_index]
+
+        # Interpolate to recover the original data
+        recovered_value = np.interp(percentile, [lower_percentile, upper_percentile], [lower_value, upper_value])
+
+        # Append the recovered value to the list
+        recovered_data.append(recovered_value)
+
+    return recovered_data
+
 def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
     res=[]
     print(f"sample_mode: {sample_mode}, n_mix: {n_mix}, min_length: {min_length}, NR_PATHS_SAMPLED: {NR_PATHS_SAMPLED}, N: {N}")
@@ -174,10 +201,23 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
                 tmp=np.array([flowId_to_sldn_size[flowid] for flowid in flowid_list])
                 sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
                 tmp=tmp[sorted_indices]
+                n_points=tmp.shape[0]
+                index_list=np.percentile(np.arange(n_points), PERCENTILE_LIST).astype(int)
                 
-                new_indices = np.linspace(0, tmp.shape[0] - 1, N)
-                tmp_sldn = np.interp(new_indices, np.arange(tmp.shape[0]), tmp[:,0])
-                tmp_size = np.interp(new_indices, np.arange(tmp.shape[0]), tmp[:,1])
+                sldn_percentile = np.percentile(tmp[:, 0], PERCENTILE_LIST)
+                
+                size_percentile = np.array([tmp[i, 1] for i in index_list])
+                
+                # n_points=len(PERCENTILE_LIST)
+                # n_points_list=np.arange(n_points)
+                
+                # new_indices = np.linspace(0, n_points - 1, N)
+                # tmp_sldn = np.interp(new_indices, n_points_list, sldn_percentile)
+                # tmp_size = np.interp(new_indices, n_points_list, size_percentile)
+                target_percentiles=np.random.uniform(1.01, 99.95, size=100)
+                tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles)
+                tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles)
+                
                 for _ in range(path_count[path]):
                     sldn_mlsys.extend(tmp_sldn)
                     sizes_mlsys.extend(tmp_size)
@@ -218,7 +258,7 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
             res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
         res.append(res_tmp)
     res = np.array(res)
-    np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}.npy',res)
+    np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{padding_str}.npy',res)
     print(sample_mode,res.shape)
 
 if __name__ == "__main__":
