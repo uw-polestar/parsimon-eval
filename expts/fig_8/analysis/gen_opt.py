@@ -201,8 +201,7 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
                 tmp=np.array([flowId_to_sldn_size[flowid] for flowid in flowid_list])
                 sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
                 tmp=tmp[sorted_indices]
-                n_points=tmp.shape[0]
-                index_list=np.percentile(np.arange(n_points), PERCENTILE_LIST).astype(int)
+                index_list=np.percentile(np.arange(tmp.shape[0]), PERCENTILE_LIST).astype(int)
                 
                 sldn_percentile = np.percentile(tmp[:, 0], PERCENTILE_LIST)
                 
@@ -214,7 +213,8 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
                 # new_indices = np.linspace(0, n_points - 1, N)
                 # tmp_sldn = np.interp(new_indices, n_points_list, sldn_percentile)
                 # tmp_size = np.interp(new_indices, n_points_list, size_percentile)
-                target_percentiles=np.random.uniform(1.01, 99.95, size=100)
+                
+                target_percentiles=np.random.uniform(1.05, 99.95, size=N)
                 tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles)
                 tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles)
                 
