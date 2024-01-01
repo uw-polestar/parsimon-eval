@@ -248,14 +248,13 @@ impl Experiment {
             .max_by_key(|x| x.1.len())
             .unwrap()
             .0;
-        
-        let mut flow_ids_in_f: HashSet<FlowId> = HashSet::new();
-        let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
 
-        flow_ids_in_f = path_to_flowid_map[path]
+        let flow_ids_in_f = path_to_flowid_map[path]
             .iter()
             .map(|x| FlowId::new(*x))
             .collect::<HashSet<_>>();
+
+        let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
         for pair in path {
             if channel_to_flowid_map.contains_key(&pair) {
                 flow_ids_in_f_prime.extend(channel_to_flowid_map[&pair].iter());
