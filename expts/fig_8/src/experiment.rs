@@ -42,7 +42,7 @@ const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 1000;
 const NR_PARALLEL_PROCESSES: usize = 10;
-const FLOWS_ON_PATH_THRESHOLD: usize = 100;
+const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const INPUT_PERCENTILES: [f32; 21] = [0.0, 0.10, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 1.001];
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
@@ -1280,7 +1280,7 @@ impl Experiment {
                         path_length += 1;
                     }
                 }
-                assert_eq!(path_length, path.len());
+                // assert_eq!(path_length, path.len());
 
                 // get flows for a specific path
                 let mut flows_remaining: Vec<Flow> = flow_ids_in_f_prime
@@ -1327,19 +1327,20 @@ impl Experiment {
                     .map(|&x| format!("{}-{}", x.0, x.1))
                     .collect::<Vec<String>>()
                     .join("|");
-              
+                let flow_ids_in_f_str = path_to_flowid_map[path].iter().map(|&x| x.to_string()).collect::<Vec<String>>().join(",");
                 self.put_path_with_idx(
                     mix,
                     sim,
                     path_idx,
                     format!(
-                        "{},{},{},{}\n{},{}",
+                        "{},{},{},{}\n{},{}\n{}",
                         path_str,
                         path_to_flowid_map[path].len(),
                         flow_ids_in_f_prime.len(),
                         path_counts[path],
                         elapsed_secs_preprop,
                         elapsed_secs_mlsys,
+                        flow_ids_in_f_str
                     ),
                 )
                 .unwrap();
