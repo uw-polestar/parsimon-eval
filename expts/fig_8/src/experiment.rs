@@ -80,6 +80,29 @@ impl Experiment {
                 //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
                 // }
             }
+            SimKind::Ns3Path => {
+                mixes.par_iter().try_for_each(|mix| self.run_ns3_path(mix))?;
+
+                // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+
+                // for mix_tmp in &mix_list {
+                //     mix_tmp
+                //         .par_iter()
+                //         .try_for_each(|mix| self.run_ns3_path(mix))?;
+                // }
+            }
+            SimKind::Ns3PathAll => {
+                let mix_list = mixes.chunks(10).collect::<Vec<_>>();
+
+                for mix_tmp in &mix_list {
+                    mix_tmp
+                        .par_iter()
+                        .try_for_each(|mix| self.run_ns3_path_all(mix))?;
+                }
+                // for mix in &mixes {
+                //     self.run_ns3_path_all(mix)?;
+                // }
+            }
             SimKind::Pmn => {
                 for mix in &mixes {
                     self.run_pmn(mix)?;
@@ -94,27 +117,6 @@ impl Experiment {
                 for mix in &mixes {
                     self.run_pmn_mc(mix)?;
                 }
-            }
-            SimKind::Ns3Path => {
-                let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
-
-                for mix_tmp in &mix_list {
-                    mix_tmp
-                        .par_iter()
-                        .try_for_each(|mix| self.run_ns3_path(mix))?;
-                }
-            }
-            SimKind::Ns3PathAll => {
-                let mix_list = mixes.chunks(10).collect::<Vec<_>>();
-
-                for mix_tmp in &mix_list {
-                    mix_tmp
-                        .par_iter()
-                        .try_for_each(|mix| self.run_ns3_path_all(mix))?;
-                }
-                // for mix in &mixes {
-                //     self.run_ns3_path_all(mix)?;
-                // }
             }
             SimKind::PmnMPath => {
                 for mix in &mixes {
