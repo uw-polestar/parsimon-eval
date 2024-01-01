@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30> {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_rev.bin ../data_test/checkpoints/model_mlp_rev.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30> {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
@@ -115,11 +115,11 @@ impl Mlsys {
         let mut result = Vec::with_capacity(input_sets);
         let mut rng = StdRng::seed_from_u64(self.seed);
     
-        let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.001..1.0)).collect();
+        let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.05..0.995)).collect();
         target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
         for set_index in 0..input_sets {
             let mut input_set = input_values[set_index].clone();
-            input_set.insert(0, 1.0);
+            // input_set.insert(0, 1.0);
             let mut set_result = Vec::with_capacity(self.output_length);
     
             for &target_percentile in &target_percentiles {
@@ -168,14 +168,14 @@ impl Mlsys {
         
         let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
         let nr_fields = fields.len();
-        let nr_mlsys_fields=self.nr_size_buckets*(self.input_percentiles.len()-1);
+        let nr_mlsys_fields=self.nr_size_buckets*(self.input_percentiles.len());
         if nr_fields != nr_mlsys_fields {
             return Err(ParseMlsysError::WrongNrFields {
                 expected: nr_mlsys_fields,
                 got: nr_fields,
             });
         }
-        let feat_vecs:Vec<_>=fields.chunks_mut(self.input_percentiles.len()-1).map(|row| row.to_vec()).collect();
+        let feat_vecs:Vec<_>=fields.chunks_mut(self.input_percentiles.len()).map(|row| row.to_vec()).collect();
         let output_feat=self.interpolate_values(feat_vecs);
         Ok(output_feat)
     }
@@ -286,15 +286,15 @@ pub enum CcKind {
     Dcqcn,
 }
 
-impl CcKind {
-    fn as_str(&self) -> &'static str {
-        match self {
-            CcKind::Dctcp => "dctcp",
-            CcKind::Timely => "timely_vwin",
-            CcKind::Dcqcn => "dcqcn_paper_vwin",
-        }
-    }
-}
+// impl CcKind {
+//     fn as_str(&self) -> &'static str {
+//         match self {
+//             CcKind::Dctcp => "dctcp",
+//             CcKind::Timely => "timely_vwin",
+//             CcKind::Dcqcn => "dcqcn_paper_vwin",
+//         }
+//     }
+// }
 
 #[cfg(test)]
 mod tests {
