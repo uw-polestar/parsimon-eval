@@ -110,3 +110,38 @@ def plot_cdf(
     if title:
         plt.title(title, fontsize=_fontsize - 5)
     # plt.savefig(file_name, bbox_inches="tight", pad_inches=0)
+
+def recover_data(sampling_percentiles, sampled_data,target_percentiles):
+    recovered_data = []
+
+    for percentile in target_percentiles:
+        # Find the two nearest percentiles in the sampled data
+        lower_percentile = max(filter(lambda x: x <= percentile, sampling_percentiles), default=0)
+        upper_percentile = min(filter(lambda x: x >= percentile, sampling_percentiles), default=100)
+
+        # Retrieve corresponding values from the sampled data
+        lower_index = np.where(sampling_percentiles == lower_percentile)[0][0] if lower_percentile in sampling_percentiles else 0
+        upper_index = np.where(sampling_percentiles == upper_percentile)[0][0] if upper_percentile in sampling_percentiles else -1
+
+        lower_value = sampled_data[lower_index]
+        upper_value = sampled_data[upper_index]
+
+        # Interpolate to recover the original data
+        recovered_value = np.interp(percentile, [lower_percentile, upper_percentile], [lower_value, upper_value])
+
+        # Append the recovered value to the list
+        recovered_data.append(recovered_value)
+
+    return recovered_data
+
+# Example sampled data as a list of values and sampling percentiles
+sampled_data = np.array([10.0, 20.0, 30.0])
+sampling_percentiles = np.array([10, 50, 90])
+# Define the target percentiles at 1% intervals
+# target_percentiles = np.arange(0.1, 100.1, 0.2)
+target_percentiles = np.arange(1, 101, 1)
+# Recover the original data
+recovered_data = recover_data(sampling_percentiles, sampled_data,target_percentiles)
+
+# Display the recovered data
+print("Recovered Data:", len(recovered_data))
