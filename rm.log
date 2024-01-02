@@ -4222,3 +4222,387 @@ rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/1
 
 rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/191/mlsys
 
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/0/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/0/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/1/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/1/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/2/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/2/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/3/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/3/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/4/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/4/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/5/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/5/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/6/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/6/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/7/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/7/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/8/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/8/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/9/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/9/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/10/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/10/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/11/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/11/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/12/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/12/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/13/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/13/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/14/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/14/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/15/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/15/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/16/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/16/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/17/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/17/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/18/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/18/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/19/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/19/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/20/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/20/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/21/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/21/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/22/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/22/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/23/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/23/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/24/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/24/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/26/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/26/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/27/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/27/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/28/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/28/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/29/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/29/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/30/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/30/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/31/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/31/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/32/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/32/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/33/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/33/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/34/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/34/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/35/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/35/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/36/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/36/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/37/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/37/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/38/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/38/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/39/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/39/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/40/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/40/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/41/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/41/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/42/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/42/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/43/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/43/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/44/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/44/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/45/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/45/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/46/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/46/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/47/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/47/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/48/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/48/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/49/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/49/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/50/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/50/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/51/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/51/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/52/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/52/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/53/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/53/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/54/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/54/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/55/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/55/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/56/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/56/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/57/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/57/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/58/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/58/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/59/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/59/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/60/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/60/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/61/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/61/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/62/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/62/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/63/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/63/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/64/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/64/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/65/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/65/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/66/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/66/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/67/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/67/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/68/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/68/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/69/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/69/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/70/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/70/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/71/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/71/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/72/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/72/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/73/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/73/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/74/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/74/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/75/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/75/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/76/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/76/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/77/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/77/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/78/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/78/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/79/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/79/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/80/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/80/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/81/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/81/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/82/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/82/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/83/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/83/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/84/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/84/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/85/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/85/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/86/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/86/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/87/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/87/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/88/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/88/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/89/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/89/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/90/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/90/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/91/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/91/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/92/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/92/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/93/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/93/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/94/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/94/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/95/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/95/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/96/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/96/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/97/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/97/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/98/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/98/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/99/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/99/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/100/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/100/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/101/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/101/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/102/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/102/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/103/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/103/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/104/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/104/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/105/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/105/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/106/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/106/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/107/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/107/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/108/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/108/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/109/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/109/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/110/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/110/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/111/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/111/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/112/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/112/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/113/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/113/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/114/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/114/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/115/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/115/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/116/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/116/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/117/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/117/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/118/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/118/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/119/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/119/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/120/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/120/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/121/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/121/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/122/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/122/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/123/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/123/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/124/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/124/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/125/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/125/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/126/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/126/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/127/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/127/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/128/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/128/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/129/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/129/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/130/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/130/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/131/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/131/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/132/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/132/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/133/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/133/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/134/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/134/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/135/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/135/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/136/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/136/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/137/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/137/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/138/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/138/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/139/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/139/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/140/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/140/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/141/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/141/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/142/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/142/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/143/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/143/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/144/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/144/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/145/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/145/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/146/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/146/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/147/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/147/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/148/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/148/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/149/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/149/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/150/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/150/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/151/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/151/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/152/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/152/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/153/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/153/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/154/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/154/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/155/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/155/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/156/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/156/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/157/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/157/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/158/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/158/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/159/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/159/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/160/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/160/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/161/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/161/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/162/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/162/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/163/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/163/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/164/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/164/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/165/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/165/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/166/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/166/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/167/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/167/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/168/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/168/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/169/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/169/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/170/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/170/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/171/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/171/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/172/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/172/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/173/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/173/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/174/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/174/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/175/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/175/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/176/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/176/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/177/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/177/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/178/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/178/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/179/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/179/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/180/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/180/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/181/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/181/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/182/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/182/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/183/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/183/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/184/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/184/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/185/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/185/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/186/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/186/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/187/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/187/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/188/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/188/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/189/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/189/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/190/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/190/mlsys_bdp_bt1
+
+mv /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/191/mlsys /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/191/mlsys_bdp_bt1
+
