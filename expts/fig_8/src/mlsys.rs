@@ -114,21 +114,17 @@ impl Mlsys {
         assert!(input_sets == self.nr_size_buckets);
         let mut result = Vec::with_capacity(input_sets);
         let mut rng = StdRng::seed_from_u64(self.seed);
-        // let target_percentiles_extra=vec![0.99, 1.0];
+        let target_percentiles_extra=vec![0.98, 0.99, 1.0];
         // let target_percentiles=(1..=self.output_length).map(|x| x as f32 / self.output_length as f32).collect::<Vec<f32>>();
         for set_index in 0..input_sets {
-            // let mut target_percentiles: Vec<f32> = (0..self.output_length-target_percentiles_extra.len()).map(|_| rng.gen_range(0.01..0.99)).collect();
-            let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.02..1.0)).collect();
-            // target_percentiles.extend(target_percentiles_extra.iter());
-            target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
+            let mut target_percentiles: Vec<f32> = (0..self.output_length-target_percentiles_extra.len()).map(|_| rng.gen_range(0.02..0.98)).collect();
+            // let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.01..1.0)).collect();
+            target_percentiles.extend(target_percentiles_extra.iter());
+            // target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
             let mut input_set = input_values[set_index].clone();
             input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
-            // assert!(input_set[0]>=0.0);
-            // if input_set[0]<1.0{
-            //     input_set=input_set.iter().map(|x| x+1.0-input_set[0]).collect::<Vec<f32>>();
-            // }
 
             let mut set_result = Vec::with_capacity(self.output_length);
     
@@ -143,8 +139,9 @@ impl Mlsys {
                 let t =
                     (target_percentile - self.input_percentiles[lower_index])
                         / (self.input_percentiles[upper_index] - self.input_percentiles[lower_index]);
-    
-                set_result.push((1.0 - t) * lower_value + t * upper_value);
+                let val=(1.0 - t) * lower_value + t * upper_value;
+                set_result.push(val);
+                // println!("{} {} {}", target_percentile, self.input_percentiles[lower_index], self.input_percentiles[upper_index]);
             }
     
             result.push(set_result);
@@ -157,19 +154,14 @@ impl Mlsys {
     fn find_percentile_indices(&self, target_percentile: f32, percentiles: &[f32]) -> (usize, usize) {
         let mut lower_index = 0;
         let mut upper_index = 0;
-        let mut min_diff = f32::MAX;
     
         for (i, &p) in percentiles.iter().enumerate() {
-            let diff = (p - target_percentile).abs();
-            if diff < min_diff {
-                lower_index = i;
-                min_diff = diff;
-            } else {
+            if target_percentile<=p {
+                lower_index = i-1;
                 upper_index = i;
                 break;
             }
         }
-    
         (lower_index, upper_index)
     }
     
@@ -201,6 +193,17 @@ pub enum Error {
     /// IO error.
     #[error(transparent)]
     Io(#[from] std::io::Error),
+}
+
+/// The function used to delete the data direction for storage.
+pub fn ns3_clean(data_dir:PathBuf) -> io::Result<()> {
+    let data_dir = std::fs::canonicalize(data_dir)?;
+    let data_dir = data_dir.display();
+    let _output = Command::new("sh")
+        .arg("-c")
+        .arg(format!("rm -rf {data_dir}"))
+        .output()?;
+    Ok(())
 }
 
 // fn translate_topology(nodes: &[Node], links: &[Link]) -> String {
