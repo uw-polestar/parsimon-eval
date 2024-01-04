@@ -50,7 +50,7 @@ const NR_PARALLEL_PROCESSES: usize = 10;
 const INPUT_PERCENTILES: [f32; 20] = [0.01, 0.1, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0];
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const FLOWS_ON_PATH_THRESHOLD: usize = 10;
+const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
 // const NR_FLOWS: usize = 2_000;
 
