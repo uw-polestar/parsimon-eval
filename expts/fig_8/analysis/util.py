@@ -133,15 +133,3 @@ def recover_data(sampling_percentiles, sampled_data,target_percentiles):
         recovered_data.append(recovered_value)
 
     return recovered_data
-
-# Example sampled data as a list of values and sampling percentiles
-sampled_data = np.array([10.0, 20.0, 30.0])
-sampling_percentiles = np.array([10, 50, 90])
-# Define the target percentiles at 1% intervals
-# target_percentiles = np.arange(0.1, 100.1, 0.2)
-target_percentiles = np.arange(1, 101, 1)
-# Recover the original data
-recovered_data = recover_data(sampling_percentiles, sampled_data,target_percentiles)
-
-# Display the recovered data
-print("Recovered Data:", len(recovered_data))
