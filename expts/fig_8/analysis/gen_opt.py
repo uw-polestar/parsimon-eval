@@ -9,13 +9,6 @@ MTU=1000
 BDP = 15 * MTU
 bin_size_list=[MTU, BDP, 5 * BDP]
 
-n_size_bucket_list_output=4
-n_percentiles=20
-enable_padding=False
-padding_str="_padding" if enable_padding else "_"
-PERCENTILE_LIST = np.array(
-    [1, 10, 25, 40, 55, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 99.9, 99.99]
-)
 def recover_data(sampling_percentiles, sampled_data,target_percentiles):
     recovered_data = []
 
@@ -39,9 +32,21 @@ def recover_data(sampling_percentiles, sampled_data,target_percentiles):
 
     return recovered_data
 
-def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
+def fix_seed(seed):
+    # os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
+    np.random.seed(seed)
+    
+def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N,enable_interp,enable_uniform):
+    interp_str="_interp" if enable_interp else "_"
+    uniform_str="_uniform" if enable_uniform else "_"
+    if not enable_uniform:
+        PERCENTILE_LIST = np.array(
+            [1, 10, 25, 40, 55, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100.0]
+        )
+    else:
+        PERCENTILE_LIST = np.arange(0.0, 101.0, 5.0)
     res=[]
-    print(f"sample_mode: {sample_mode}, n_mix: {n_mix}, min_length: {min_length}, NR_PATHS_SAMPLED: {NR_PATHS_SAMPLED}, N: {N}")
+    print(f"sample_mode: {sample_mode}, n_mix: {n_mix}, min_length: {min_length}, NR_PATHS_SAMPLED: {NR_PATHS_SAMPLED}, N: {N}, enable_interp: {enable_interp}, enable_uniform: {enable_uniform}")
     for mix_id in range(n_mix):
         print(f"mix_id: {mix_id}")
         res_tmp=[]
@@ -78,7 +83,6 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
                     
         # assert n_path_sampled==len(path_to_info)
         path_to_n_flows=np.array([len(path_to_flowid[key]) for key in path_to_flowid])
-        n_flows_total=np.sum(path_to_n_flows)
         
         path_to_flowid = {key: value for key, value in path_to_flowid.items() if len(value) >= min_length}
         
@@ -95,17 +99,17 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
 
         df_ns3 = pd.read_csv(f'{mix_dir}/ns3/records.csv')
         df_pmn_m = pd.read_csv(f'{mix_dir}/pmn-m/records.csv')
-        flowIds=np.array(df_ns3['flow_id'])
         sizes_ns3=np.array(df_ns3['size'])
         sizes_pmn=np.array(df_pmn_m['size'])
-
+        flowIds=np.array(df_ns3['flow_id'])
+        
         sldn_ns3=df_ns3['slowdown']
         sldn_pmn_m=df_pmn_m['slowdown']
 
         flowId_to_sldn_size={}  
         for i in range(df_ns3.shape[0]):
             flowId_to_sldn_size[flowIds[i]]=[sldn_ns3[i],sizes_ns3[i]]
-        
+            
         sldn_mlsys=[]
         sizes_mlsys=[]
         if sample_mode==0:
@@ -123,64 +127,6 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
                 for flowid in path_to_flowid[path]:
                     assert flowid not in flowid_to_path
                     flowid_to_path[flowid]=path
-            # prob=path_to_n_flows/np.sum(path_to_n_flows)
-            # sorted_indices = np.argsort(prob)[::-1]
-            # top_indices = sorted_indices[:NR_PATHS_SAMPLED]
-            # path_sampled_list= np.array(list(path_to_flowid.keys()))[top_indices]
-            
-            flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED, replace=False) 
-            path_sampled_list=[]
-            for flowid in flow_sampled_list:
-                path=flowid_to_path[flowid]
-                path_sampled_list.append(path)
-            path_sampled_list=list(set(path_sampled_list))
-            # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED), replace=False)
-            print(len(path_sampled_list))
-        elif sample_mode==3:
-            flowid_to_path={}
-            for path in path_to_flowid:
-                for flowid in path_to_flowid[path]:
-                    assert flowid not in flowid_to_path
-                    flowid_to_path[flowid]=path
-            # prob=path_to_n_flows/np.sum(path_to_n_flows)
-            # sorted_indices = np.argsort(prob)[::-1]
-            # top_indices = sorted_indices[:NR_PATHS_SAMPLED]
-            # path_sampled_list= np.array(list(path_to_flowid.keys()))[top_indices]
-            
-            flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED*10, replace=False) 
-            path_sampled_list=[]
-            # flowid_blacklist=set([])
-            for flowid in flow_sampled_list:
-                path=flowid_to_path[flowid]
-                path_sampled_list.append(path)
-            path_sampled_list=list(set(path_sampled_list))
-            # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED*10), replace=False)
-            print(len(path_sampled_list))
-        elif sample_mode==4:
-            flowid_to_path={}
-            for path in path_to_flowid:
-                for flowid in path_to_flowid[path]:
-                    assert flowid not in flowid_to_path
-                    flowid_to_path[flowid]=path
-            # prob=path_to_n_flows/np.sum(path_to_n_flows)
-            # sorted_indices = np.argsort(prob)[::-1]
-            # top_indices = sorted_indices[:NR_PATHS_SAMPLED]
-            # path_sampled_list= np.array(list(path_to_flowid.keys()))[top_indices]
-            
-            flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED//2, replace=False) 
-            path_sampled_list=[]
-            for flowid in flow_sampled_list:
-                path=flowid_to_path[flowid]
-                path_sampled_list.append(path)
-            path_sampled_list=list(set(path_sampled_list))
-            # path_sampled_list=np.random.choice(path_sampled_list, min(len(path_sampled_list),NR_PATHS_SAMPLED*100), replace=False)
-            print(len(path_sampled_list))
-        elif sample_mode==5:
-            flowid_to_path={}
-            for path in path_to_flowid:
-                for flowid in path_to_flowid[path]:
-                    assert flowid not in flowid_to_path
-                    flowid_to_path[flowid]=path
            
             flow_sampled_list=np.random.choice(list(flowid_to_path.keys()), NR_PATHS_SAMPLED, replace=False) 
             path_count=defaultdict(lambda:0)
@@ -188,54 +134,59 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
                 path=flowid_to_path[flowid]
                 path_count[path]+=1
             path_sampled_list=list(path_count.keys())
-            print(len(path_sampled_list))
+        print(f"{len(path_sampled_list)}/{NR_PATHS_SAMPLED}")
         for _,path in enumerate(path_sampled_list):
             flowid_list=path_to_flowid[path]
-            if sample_mode>=2 and sample_mode<5:
-                sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list if flowid in flow_sampled_list])
-                sizes_mlsys.extend([flowId_to_sldn_size[flowid][1] for flowid in flowid_list if flowid in flow_sampled_list])
-            elif sample_mode==1 or sample_mode==5:
-                # Generate a random-sized array
-                # tmp_sldn=np.array([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
-                # tmp_size=np.array([flowId_to_sldn_size[flowid][1] for flowid in flowid_list])
+            if sample_mode>0:
+                if enable_interp:
+                    tmp=np.array([flowId_to_sldn_size[flowid] for flowid in flowid_list])
+                    sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
+                    tmp=tmp[sorted_indices]
+                    index_list=np.percentile(np.arange(tmp.shape[0]), PERCENTILE_LIST).astype(int)
+                    
+                    sldn_percentile = np.percentile(tmp[:, 0], PERCENTILE_LIST)
+                    size_percentile = np.array([tmp[i, 1] for i in index_list])
+                    
+                    target_percentiles=np.random.uniform(0, 100.0, size=N)
+                    tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles)
+                    tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles)
+                    
+                    for _ in range(path_count[path]):
+                        sldn_mlsys.extend(tmp_sldn)
+                        sizes_mlsys.extend(tmp_size)
+                else:
+                    if sample_mode==2:
+                        sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list if flowid in flow_sampled_list])
+                        sizes_mlsys.extend([flowId_to_sldn_size[flowid][1] for flowid in flowid_list if flowid in flow_sampled_list])
+                    else:
+                        tmp=np.array([flowId_to_sldn_size[flowid] for flowid in flowid_list])
+                        sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
+                        tmp=tmp[sorted_indices]
+
+                        sldn_percentile = tmp[:, 0]
+                        size_percentile = tmp[:, 1]
                 
-                tmp=np.array([flowId_to_sldn_size[flowid] for flowid in flowid_list])
-                sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
-                tmp=tmp[sorted_indices]
-                index_list=np.percentile(np.arange(tmp.shape[0]), PERCENTILE_LIST).astype(int)
-                
-                sldn_percentile = np.percentile(tmp[:, 0], PERCENTILE_LIST)
-                
-                size_percentile = np.array([tmp[i, 1] for i in index_list])
-                
-                # n_points=len(PERCENTILE_LIST)
-                # n_points_list=np.arange(n_points)
-                
-                # new_indices = np.linspace(0, n_points - 1, N)
-                # tmp_sldn = np.interp(new_indices, n_points_list, sldn_percentile)
-                # tmp_size = np.interp(new_indices, n_points_list, size_percentile)
-                
-                target_percentiles=np.random.uniform(1.05, 99.95, size=N)
-                tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles)
-                tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles)
-                
-                for _ in range(path_count[path]):
-                    sldn_mlsys.extend(tmp_sldn)
-                    sizes_mlsys.extend(tmp_size)
+                        n_points=len(sldn_percentile)
+                        n_points_list=np.arange(n_points)
+                        
+                        new_indices = np.linspace(0, n_points - 1, N)
+                        tmp_sldn = np.interp(new_indices, n_points_list, sldn_percentile)
+                        tmp_size = np.interp(new_indices, n_points_list, size_percentile)
+                            
+                        for _ in range(path_count[path]):
+                            sldn_mlsys.extend(tmp_sldn)
+                            sizes_mlsys.extend(tmp_size)
             else:
                 # for _ in range(path_to_info[key][0]):
                 sldn_mlsys.extend([flowId_to_sldn_size[flowid][0] for flowid in flowid_list])
                 sizes_mlsys.extend([flowId_to_sldn_size[flowid][1] for flowid in flowid_list])
         sldn_mlsys=np.array(sldn_mlsys)
-        if enable_padding:
-            sldn_mlsys_cur = np.pad(sldn_mlsys, (0,int(len(sldn_mlsys)*padding_ratio)), constant_values=1.0)
-        else:
-            sldn_mlsys_cur=sldn_mlsys
-        sldn_mlsys_len=len(sldn_mlsys_cur)
+        
+        sldn_mlsys_len=len(sldn_mlsys)
 
         sldn_ns3_p99=np.percentile(sldn_ns3,99)
         sldn_pmn_m_p99=np.percentile(sldn_pmn_m,99)
-        sldn_mlsys_p99=np.percentile(sldn_mlsys_cur,99)
+        sldn_mlsys_p99=np.percentile(sldn_mlsys,99)
 
         print("sldn_ns3: ",sldn_ns3_p99," sldn_pmn_m: ", sldn_pmn_m_p99," sldn_mlsys: ", sldn_mlsys_p99)
 
@@ -251,19 +202,19 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
             tmp_sldn_ns3 = np.extract(bin_ns3==i, sldn_ns3)
             tmp_sldn_pmn_m = np.extract(bin_pmn==i, sldn_pmn_m)
             tmp_sldn_mlsys=np.extract(bin_mlsys==i, sldn_mlsys)
-            if enable_padding:
-                tmp_sldn_mlsys = np.pad(tmp_sldn_mlsys, (0,int(len(tmp_sldn_mlsys)*padding_ratio)), constant_values=1.0)
+           
             sldn_ns3_p99=np.percentile(tmp_sldn_ns3,99)
             sldn_pmn_m_p99=np.percentile(tmp_sldn_pmn_m,99)
             df_mlsys_p99=np.percentile(tmp_sldn_mlsys,99)
             res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
         res.append(res_tmp)
     res = np.array(res)
-    np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{padding_str}.npy',res)
     print(sample_mode,res.shape)
+    np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{interp_str}{uniform_str}.npy',res)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 6:
+    if len(sys.argv) != 8:
         print("Usage: python script.py arg1 arg2 arg3")
         sys.exit(1)
-    main(sample_mode= int(sys.argv[1]),n_mix=int(sys.argv[2]),min_length=int(sys.argv[3]),NR_PATHS_SAMPLED=int(sys.argv[4]),N=int(sys.argv[5]))
+    fix_seed(0)
+    main(sample_mode= int(sys.argv[1]),n_mix=int(sys.argv[2]),min_length=int(sys.argv[3]),NR_PATHS_SAMPLED=int(sys.argv[4]),N=int(sys.argv[5]),enable_interp=bool(int(sys.argv[6])),enable_uniform=bool(int(sys.argv[7])))
