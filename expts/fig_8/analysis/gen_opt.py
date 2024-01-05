@@ -76,16 +76,17 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N):
             path_to_info=data['path_to_info'].item()
             path_to_flowid=data['path_to_flowid'].item()
                     
-        assert n_path_sampled==len(path_to_info)
-        n_flows_total=np.sum([len(path_to_flowid[key]) for key in path_to_flowid])
+        # assert n_path_sampled==len(path_to_info)
+        path_to_n_flows=np.array([len(path_to_flowid[key]) for key in path_to_flowid])
+        n_flows_total=np.sum(path_to_n_flows)
         
         path_to_flowid = {key: value for key, value in path_to_flowid.items() if len(value) >= min_length}
         
         # n_sampled_paths=np.sum([path_to_info[key][0] for key in path_to_info])
-        path_to_n_flows=np.array([len(path_to_flowid[key]) for key in path_to_flowid])
-        flow_ratio=np.sum(path_to_n_flows)/n_flows_total
-        padding_ratio=(1-flow_ratio)/flow_ratio
-        print(f"ratio: {flow_ratio},{padding_ratio}")
+        
+        # flow_ratio=np.sum(path_to_n_flows)/n_flows_total
+        # padding_ratio=(1-flow_ratio)/flow_ratio
+        # print(f"ratio: {flow_ratio},{padding_ratio}")
         # print(f"n_sampled_paths/total_path: {n_sampled_paths}/{len(path_to_n_flows)},{n_sampled_paths/len(path_to_n_flows)}")
 
         # n_flows_in_sampled_paths=np.sum([path_to_info[key][1] for key in path_to_info])
