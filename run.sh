@@ -43,12 +43,15 @@ https://github.com/kwzhao/High-Precision-Congestion-Control/compare/325635a6baf0
 
 python test.py > gen_mlsys_s2_bt50_dedupe.log
 
-python gen_opt.py 1 192 1 > gen_opt_1_1.log
-python gen_opt.py 1 192 20 > gen_opt_1_20.log
-python gen_opt.py 1 192 50 > gen_opt_1_50.log
-python gen_opt.py 1 192 100 > gen_opt_1_100.log
+python gen_opt.py 1 192 1 1000 100 0 0 > gen_opt_1_1_1000_100_0_0.log
 
-python gen_opt.py 5 192 1 > gen_opt_5_1.log
-python gen_opt.py 5 192 20 > gen_opt_5_20.log
-python gen_opt.py 5 192 50 > gen_opt_5_50.log
-python gen_opt.py 5 192 100 > gen_opt_5_100.log
+python gen_opt.py 1 192 1 1000 100 1 0 > gen_opt_1_1_1000_100_1_0.log
+
+python gen_opt.py 1 192 1 1000 100 1 1 > gen_opt_1_1_1000_100_1_1.log
+
+
+python gen_opt_loop.py 1 192 1 0 0 > gen_opt_1_1_0_0.log
+
+python gen_opt_loop.py 1 192 1 1 0 > gen_opt_1_1_1_0.log
+
+python gen_opt_loop.py 1 192 1 1 1 > gen_opt_1_1_1_1.log
