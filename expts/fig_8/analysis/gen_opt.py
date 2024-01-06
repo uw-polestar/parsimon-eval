@@ -41,7 +41,7 @@ def main(sample_mode,n_mix,min_length,NR_PATHS_SAMPLED,N,enable_interp,enable_un
     uniform_str="_uniform" if enable_uniform else "_"
     if not enable_uniform:
         PERCENTILE_LIST = np.array(
-            [1, 10, 25, 40, 55, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100.0]
+            [1, 10, 25, 40, 55, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
         )
     else:
         PERCENTILE_LIST = np.arange(0.0, 101.0, 5.0)
