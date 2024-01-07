@@ -36,8 +36,11 @@ def fix_seed(seed):
     # os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     np.random.seed(seed)
 
-NR_PATHS_SAMPLED_LIST=[200,1000,10000]
+NR_PATHS_SAMPLED_LIST=[100,1000,10000]
+# NR_PATHS_SAMPLED_LIST=[-1]
 N_LIST=[100, 500, 1000]
+# NR_PATHS_SAMPLED_LIST=[10000]
+# N_LIST=[50, 100, 500, 1000, 5000, 10000]
 def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
     percentile_str="_percentile" if enable_percentile else ""
     uniform_str="_uniform" if enable_uniform else ""
@@ -52,7 +55,8 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
         for N in N_LIST:
             res=[]
             print(f"sample_mode: {sample_mode}, n_mix: {n_mix}, min_length: {min_length}, NR_PATHS_SAMPLED: {NR_PATHS_SAMPLED}, N: {N}, enable_percentile: {enable_percentile}, enable_uniform: {enable_uniform}")
-            for mix_id in range(n_mix):
+            # for mix_id in range(n_mix):
+            for mix_id in [4,7,0]:
                 print(f"mix_id: {mix_id}")
                 res_tmp=[]
                 mix_dir = f'../data/{mix_id}'
@@ -118,7 +122,10 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
                 sldn_mlsys=[]
                 sizes_mlsys=[]
                 if sample_mode==0:
-                    path_sampled_list=np.random.choice(list(path_to_flowid.keys()), NR_PATHS_SAMPLED, replace=False) 
+                    if NR_PATHS_SAMPLED==-1:
+                        path_sampled_list=list(path_to_flowid.keys())
+                    else:
+                        path_sampled_list=np.random.choice(list(path_to_flowid.keys()), NR_PATHS_SAMPLED, replace=False) 
                 elif sample_mode==1:
                     prob=path_to_n_flows/np.sum(path_to_n_flows)
                     path_sampled_list=np.random.choice(list(path_to_flowid.keys()), NR_PATHS_SAMPLED, p=prob, replace=True)
@@ -165,19 +172,22 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
                                 sizes_mlsys.extend([flowId_to_sldn_size[flowid][1] for flowid in flowid_list if flowid in flow_sampled_list])
                             else:
                                 tmp=np.array([flowId_to_sldn_size[flowid] for flowid in flowid_list])
-                                sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
-                                tmp=tmp[sorted_indices]
+                                # sorted_indices = np.lexsort((tmp[:, 1], tmp[:, 0]))
+                                # tmp=tmp[sorted_indices]
 
-                                sldn_percentile = tmp[:, 0]
-                                size_percentile = tmp[:, 1]
+                                # sldn_percentile = tmp[:, 0]
+                                # size_percentile = tmp[:, 1]
                         
-                                n_points=len(sldn_percentile)
-                                n_points_list=np.arange(n_points)
+                                # n_points=len(sldn_percentile)
+                                # n_points_list=np.arange(n_points)
                                 
-                                new_indices = np.linspace(0, n_points - 1, N)
-                                tmp_sldn = np.interp(new_indices, n_points_list, sldn_percentile)
-                                tmp_size = np.interp(new_indices, n_points_list, size_percentile)
-                                    
+                                # new_indices = np.linspace(0, n_points - 1, N)
+                                # tmp_sldn = np.interp(new_indices, n_points_list, sldn_percentile)
+                                # tmp_size = np.interp(new_indices, n_points_list, size_percentile)
+                                
+                                tmp_sampled=np.random.choice(np.arange(tmp.shape[0]), N, replace=True)
+                                tmp_sldn=tmp[tmp_sampled,0]
+                                tmp_size=tmp[tmp_sampled,1]            
                                 for _ in range(path_count[path]):
                                     sldn_mlsys.extend(tmp_sldn)
                                     sizes_mlsys.extend(tmp_size)
