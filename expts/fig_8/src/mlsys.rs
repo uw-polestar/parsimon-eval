@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama_bdp_bt1.bin ../data_test/checkpoints/model_mlp_bdp_bt1.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_pmn_bt10.bin ../data_test/checkpoints/model_mlp_pmn_bt10.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
@@ -118,7 +118,7 @@ impl Mlsys {
         // let target_percentiles=(1..=self.output_length).map(|x| x as f32 / self.output_length as f32).collect::<Vec<f32>>();
         for set_index in 0..input_sets {
             // let mut target_percentiles: Vec<f32> = (0..self.output_length-target_percentiles_extra.len()).map(|_| rng.gen_range(0.02..0.98)).collect();
-            let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.01..1.0)).collect();
+            let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.02..1.0)).collect();
             // target_percentiles.extend(target_percentiles_extra.iter());
             target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
 

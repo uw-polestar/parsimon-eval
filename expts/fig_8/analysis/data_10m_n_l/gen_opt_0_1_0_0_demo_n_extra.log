@@ -1,0 +1,14 @@
+sample_mode: 0, n_mix: 192, min_length: 1, NR_PATHS_SAMPLED: -1, N: 0, enable_percentile: False, enable_uniform: False
+mix_id: 4
+572011/-1
+sldn_ns3:  5.580558836029968  sldn_pmn_m:  5.685178374883054  sldn_mlsys:  5.580558836029968
+df_ns3: 9999824, df_pmn_m: 10000000, df_mlsys: 9999824
+mix_id: 7
+391684/-1
+sldn_ns3:  9.259200546802239  sldn_pmn_m:  10.20505636967799  sldn_mlsys:  9.259200546802239
+df_ns3: 9999842, df_pmn_m: 10000000, df_mlsys: 9999842
+mix_id: 0
+991511/-1
+sldn_ns3:  12.745050599792657  sldn_pmn_m:  13.701653961088784  sldn_mlsys:  12.745050599792657
+df_ns3: 9999636, df_pmn_m: 10000000, df_mlsys: 9999636
+0 (3, 1, 3)
