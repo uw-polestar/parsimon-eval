@@ -36,7 +36,7 @@ CC='gcc-5' CXX='g++-5' ./waf configure --build-profile=debug --out=build/debug
 
 export NS_LOG=PacketPathExample=info
 
-./waf --run 'scratch/third mix_7/config_topology_flows_dctcp.txt'
+./waf --run 'scratch/third mix_7/config_topo-pl-7_flows_dctcp_k30.txt'
 ./waf -d debug -out=debug.txt --run 'scratch/test'
 
 https://github.com/kwzhao/High-Precision-Congestion-Control/compare/325635a6baf0131b8d46b3b4394c0a1d621f4aff...3b7ad3222598937dc0a5b423ba8f360489e24ce4
