@@ -36,9 +36,9 @@ def fix_seed(seed):
     # os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     np.random.seed(seed)
 
-NR_PATHS_SAMPLED_LIST=[100,1000,10000]
+NR_PATHS_SAMPLED_LIST=[100,500,1000,10000]
 # NR_PATHS_SAMPLED_LIST=[-1]
-N_LIST=[100, 500, 1000]
+N_LIST=[100]
 # NR_PATHS_SAMPLED_LIST=[10000]
 # N_LIST=[50, 100, 500, 1000, 5000, 10000]
 def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
@@ -55,8 +55,8 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
         for N in N_LIST:
             res=[]
             print(f"sample_mode: {sample_mode}, n_mix: {n_mix}, min_length: {min_length}, NR_PATHS_SAMPLED: {NR_PATHS_SAMPLED}, N: {N}, enable_percentile: {enable_percentile}, enable_uniform: {enable_uniform}")
-            # for mix_id in range(n_mix):
-            for mix_id in [4,7,0]:
+            for mix_id in range(n_mix):
+            # for mix_id in [4,7,0]:
                 print(f"mix_id: {mix_id}")
                 res_tmp=[]
                 mix_dir = f'../data/{mix_id}'
@@ -225,7 +225,7 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
                 res.append(res_tmp)
             res = np.array(res)
             print(sample_mode,res.shape)
-            np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{percentile_str}{uniform_str}.npy',res)
+            np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{percentile_str}{uniform_str}_n.npy',res)
 
 if __name__ == "__main__":
     if len(sys.argv) != 6:
