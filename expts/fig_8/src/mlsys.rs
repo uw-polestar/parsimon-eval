@@ -114,12 +114,12 @@ impl Mlsys {
         assert!(input_sets == self.nr_size_buckets);
         let mut result = Vec::with_capacity(input_sets);
         let mut rng = StdRng::seed_from_u64(self.seed);
-        let target_percentiles_extra=vec![0.98, 0.99, 1.0];
+        // let target_percentiles_extra=vec![0.98, 0.99, 1.0];
         // let target_percentiles=(1..=self.output_length).map(|x| x as f32 / self.output_length as f32).collect::<Vec<f32>>();
         for set_index in 0..input_sets {
-            let mut target_percentiles: Vec<f32> = (0..self.output_length-target_percentiles_extra.len()).map(|_| rng.gen_range(0.02..0.98)).collect();
-            // let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.02..1.0)).collect();
-            target_percentiles.extend(target_percentiles_extra.iter());
+            // let mut target_percentiles: Vec<f32> = (0..self.output_length-target_percentiles_extra.len()).map(|_| rng.gen_range(0.02..0.98)).collect();
+            let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.02..1.0)).collect();
+            // target_percentiles.extend(target_percentiles_extra.iter());
             target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
             let mut input_set = input_values[set_index].clone();
@@ -129,6 +129,7 @@ impl Mlsys {
                     input_set[i]=input_set[i - 1];
                 }
             }
+            input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
             // input_set.insert(0, 1.0);
 
             let mut set_result = Vec::with_capacity(self.output_length);
@@ -155,17 +156,15 @@ impl Mlsys {
     
     // Function to find the closest lower and upper percentiles
     fn find_percentile_indices(&self, target_percentile: f32, percentiles: &[f32]) -> (usize, usize) {
-        let mut lower_index = 0;
         let mut upper_index = 0;
     
         for (i, &p) in percentiles.iter().enumerate() {
             if target_percentile<=p {
-                lower_index = i-1;
                 upper_index = i;
                 break;
             }
         }
-        (lower_index, upper_index)
+        (upper_index-1, upper_index)
     }
     
     fn parse_mlsys_record(&self, s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
