@@ -36,11 +36,11 @@ def fix_seed(seed):
     # os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     np.random.seed(seed)
 
-NR_PATHS_SAMPLED_LIST=[100,500,1000,10000]
-# NR_PATHS_SAMPLED_LIST=[-1]
-N_LIST=[100]
-# NR_PATHS_SAMPLED_LIST=[10000]
-# N_LIST=[50, 100, 500, 1000, 5000, 10000]
+# NR_PATHS_SAMPLED_LIST=[100,500,1000,10000]
+# # NR_PATHS_SAMPLED_LIST=[-1]
+# N_LIST=[100]
+NR_PATHS_SAMPLED_LIST=[1000]
+N_LIST=[50, 500, 1000]
 def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
     percentile_str="_percentile" if enable_percentile else ""
     uniform_str="_uniform" if enable_uniform else ""
@@ -159,9 +159,11 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
                             sldn_percentile = np.percentile(tmp[:, 0], PERCENTILE_LIST)
                             size_percentile = np.array([tmp[i, 1] for i in index_list])
                             
-                            target_percentiles=np.random.uniform(0, 100.0, size=N)
-                            tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles)
-                            tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles)
+                            # target_percentiles=np.random.uniform(0, 100.0, size=N)
+                            # tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles)
+                            # tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles)
+                            tmp_sldn=np.random.choice(sldn_percentile, N, replace=True)
+                            tmp_size=np.random.choice(size_percentile, N, replace=True)
                             
                             for _ in range(path_count[path]):
                                 sldn_mlsys.extend(tmp_sldn)
@@ -225,7 +227,7 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
                 res.append(res_tmp)
             res = np.array(res)
             print(sample_mode,res.shape)
-            np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{percentile_str}{uniform_str}_n.npy',res)
+            np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{percentile_str}{uniform_str}_l_samp.npy',res)
 
 if __name__ == "__main__":
     if len(sys.argv) != 6:
