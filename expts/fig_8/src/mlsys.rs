@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama_bdp_bt10_p30.bin ../data_test/checkpoints/model_mlp_bdp_bt10_p30.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_final_bt10.bin ../data_test/checkpoints/model_mlp_final_bt10_p30.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
@@ -124,6 +124,7 @@ impl Mlsys {
             target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
             let mut input_set = input_values[set_index].clone();
+            assert_eq!(input_set.len(), self.input_percentiles.len());
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             for i in 1..input_set.len() {
                 if input_set[i] < input_set[i - 1] {
@@ -174,14 +175,14 @@ impl Mlsys {
         
         let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
         let nr_fields = fields.len();
-        let nr_mlsys_fields=self.nr_size_buckets*(self.input_percentiles.len());
+        let nr_mlsys_fields=self.nr_size_buckets*(self.input_percentiles.len()+1);
         if nr_fields != nr_mlsys_fields {
             return Err(ParseMlsysError::WrongNrFields {
                 expected: nr_mlsys_fields,
                 got: nr_fields,
             });
         }
-        let feat_vecs:Vec<_>=fields.chunks_mut(self.input_percentiles.len()).map(|row| row.to_vec()).collect();
+        let feat_vecs:Vec<_>=fields.chunks_mut(self.input_percentiles.len()+1).map(|row| row[1..].to_vec()).collect();
         let output_feat=self.interpolate_values(feat_vecs);
         Ok(output_feat)
     }
