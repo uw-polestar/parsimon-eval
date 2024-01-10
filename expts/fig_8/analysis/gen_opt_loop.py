@@ -49,7 +49,7 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
             [1, 10, 25, 40, 55, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
         )
     else:
-        PERCENTILE_LIST = np.arange(0.0, 101.0, 5.0)
+        PERCENTILE_LIST = np.arange(0.0, 101.0, 1.0)
     
     for NR_PATHS_SAMPLED in NR_PATHS_SAMPLED_LIST:
         for N in N_LIST:
@@ -227,7 +227,7 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
                 res.append(res_tmp)
             res = np.array(res)
             print(sample_mode,res.shape)
-            np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{percentile_str}{uniform_str}_l_samp.npy',res)
+            np.save(f'./gen_opt_{sample_mode}_{min_length}_{NR_PATHS_SAMPLED}_{N}{percentile_str}{uniform_str}_samp.npy',res)
 
 if __name__ == "__main__":
     if len(sys.argv) != 6:
