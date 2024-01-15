@@ -10,17 +10,17 @@ labels = {0: '0<size<=MTU', 1:'MTU<size<=BDP', 2:'BDP<size<=5BDP', 3:'5BDP<size'
 
 n_size_bucket_list_output=len(bin_size_list)+1
 
-# BDP_dict = {
-#     2:5*MTU,
-#     4:10*MTU,
-#     6:15*MTU,
-#     }
-# bin_size_dict={
-#     2:
-#     [MTU, BDP_dict[2], 5 * BDP_dict[2]],
-#     4: [MTU, BDP_dict[4], 5 * BDP_dict[4]],
-#     6: [MTU, BDP_dict[6], 5 * BDP_dict[6]],
-#     }
+BDP_dict = {
+    2:5*MTU,
+    4:10*MTU,
+    6:15*MTU,
+    }
+bin_size_dict={
+    2:
+    [MTU, BDP_dict[2], 5 * BDP_dict[2]],
+    4: [MTU, BDP_dict[4], 5 * BDP_dict[4]],
+    6: [MTU, BDP_dict[6], 5 * BDP_dict[6]],
+    }
 
 N_FLOW_THRESHOLD=10
 NR_PATHS_SAMPLED=500
@@ -28,11 +28,11 @@ NR_INTEPOLATE=100
 N_FLOWS=1000000
 N_FLOWS_PER_PATH=400
 # mlsys_dir_list=["mlsys_bdp_bt10_l30"]
-mlsys_dir_list=["mlsys_bt1_p100"]
+mlsys_dir_list=["mlsys_bt1_p100_bdp"]
 legend_list=['ns3','pmn-m',"mlsys"]
 res=[]
 for mlsys_dir_idx,mlsys_dir in enumerate(mlsys_dir_list):
-    save_file=f'./gen_{mlsys_dir}_{NR_PATHS_SAMPLED}_{NR_INTEPOLATE}_samp.npz'
+    save_file=f'./gen_{mlsys_dir}_{NR_PATHS_SAMPLED}_{NR_INTEPOLATE}.npz'
     # legend_list.append(mlsys_dir)
     if not os.path.exists(save_file):
         res_final=[]
@@ -63,7 +63,8 @@ for mlsys_dir_idx,mlsys_dir in enumerate(mlsys_dir_list):
                     size_list=[sizes[flowid] for flowid in flowid_list]
                     
                     n_links=len(data[0].split("|"))-1
-                    tmp=np.digitize(size_list, bin_size_list)
+                    # tmp=np.digitize(size_list, bin_size_list)
+                    tmp=np.digitize(size_list, bin_size_dict[n_links])
                     # Count occurrences of each bin index
                     bin_counts = np.zeros(n_size_bucket_list_output)
                     for bin_idx in tmp:
@@ -102,14 +103,14 @@ for mlsys_dir_idx,mlsys_dir in enumerate(mlsys_dir_list):
                 assert len(data) == NR_INTEPOLATE
                 n_freq=n_freq_list[line_idx//n_size_bucket_list_output]
                 
-                # prop_tmp=n_flow_list[line_idx//n_size_bucket_list_output]/np.sum(n_flow_list[line_idx//n_size_bucket_list_output])
-                # num_tmp=int(N_FLOWS_PER_PATH*prop_tmp[line_idx%n_size_bucket_list_output])
-                # data_sampled=np.random.choice(data,num_tmp,replace=True)
-                # for _ in range(n_freq):
-                #     df_mlsys[line_idx%n_size_bucket_list_output].extend(data_sampled)
-                if n_flow_list[line_idx//n_size_bucket_list_output][line_idx%n_size_bucket_list_output]>=N_FLOW_THRESHOLD:
-                    for _ in range(n_freq):
-                        df_mlsys[line_idx%n_size_bucket_list_output].extend(data)
+                prop_tmp=n_flow_list[line_idx//n_size_bucket_list_output]/np.sum(n_flow_list[line_idx//n_size_bucket_list_output])
+                num_tmp=int(N_FLOWS_PER_PATH*prop_tmp[line_idx%n_size_bucket_list_output])
+                data_sampled=np.random.choice(data,num_tmp,replace=True)
+                for _ in range(n_freq):
+                    df_mlsys[line_idx%n_size_bucket_list_output].extend(data_sampled)
+                # if n_flow_list[line_idx//n_size_bucket_list_output][line_idx%n_size_bucket_list_output]>=N_FLOW_THRESHOLD:
+                #     for _ in range(n_freq):
+                #         df_mlsys[line_idx%n_size_bucket_list_output].extend(data)
                 
             df_mlsys_shape=[len(df_mlsys[i]) for i in range(len(df_mlsys))]
             print(f"{worst_low_id}: {df_mlsys_shape}, {np.max(n_freq_list)}")
@@ -121,9 +122,9 @@ for mlsys_dir_idx,mlsys_dir in enumerate(mlsys_dir_list):
             df_mlsys_total=[]
             for i in range(len(df_mlsys)):
                 # for _ in range(int(bucket_ratios[i]*100)):
-                # df_mlsys_total.extend(df_mlsys[i])
-                n_tmp=int(N_FLOWS*bucket_ratios_sampled[i])
-                df_mlsys_total.extend(np.random.choice(df_mlsys[i],n_tmp,replace=True))
+                df_mlsys_total.extend(df_mlsys[i])
+                # n_tmp=int(N_FLOWS*bucket_ratios_sampled[i])
+                # df_mlsys_total.extend(np.random.choice(df_mlsys[i],n_tmp,replace=True))
             sldn_mlsys_p99=np.percentile(df_mlsys_total,99)
 
             sldn_ns3=df_ns3['slowdown']
