@@ -111,7 +111,7 @@ def plot_cdf(
         plt.title(title, fontsize=_fontsize - 5)
     # plt.savefig(file_name, bbox_inches="tight", pad_inches=0)
 
-def recover_data(sampling_percentiles, sampled_data,target_percentiles):
+def recover_data(sampling_percentiles, sampled_data,target_percentiles,method='linear'):
     recovered_data = []
 
     for percentile in target_percentiles:
@@ -126,9 +126,13 @@ def recover_data(sampling_percentiles, sampled_data,target_percentiles):
         lower_value = sampled_data[lower_index]
         upper_value = sampled_data[upper_index]
 
-        # Interpolate to recover the original data
-        recovered_value = np.interp(percentile, [lower_percentile, upper_percentile], [lower_value, upper_value])
-
+        if method=='linear':
+            # Interpolate to recover the original data
+            recovered_value = np.interp(percentile, [lower_percentile, upper_percentile], [lower_value, upper_value])
+        elif method=='nearest':
+            recovered_value=lower_value if percentile-lower_percentile<upper_percentile-percentile else upper_value
+        elif method=='higher':
+            recovered_value=upper_value
         # Append the recovered value to the list
         recovered_data.append(recovered_value)
 
