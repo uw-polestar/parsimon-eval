@@ -76,7 +76,8 @@ pub struct Experiment {
 
 impl Experiment {
     pub fn run(&self) -> anyhow::Result<()> {
-        let mixes: Vec<Mix> = serde_json::from_str(&fs::read_to_string(&self.mixes)?)?;
+        let mut mixes: Vec<Mix> = serde_json::from_str(&fs::read_to_string(&self.mixes)?)?;
+        // mixes=mixes.into_iter().rev().collect();
         // All ns3 simulations can run in parallel. Parsimon simulations are already massively
         // parallel, so they'll run one at a time to save memory.
         match self.sim {
@@ -1769,7 +1770,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Flowsim => "flowsim",
             SimKind::FlowsimAll => "flowsim-all",
-            SimKind::Mlsys => "mlsys",
+            SimKind::Mlsys => "mlsys_0114",
         };
         write!(f, "{}", s)
     }
