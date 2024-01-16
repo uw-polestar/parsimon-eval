@@ -55,3 +55,8 @@ python gen_opt_loop.py 1 192 1 0 0 > gen_opt_1_1_0_0.log
 python gen_opt_loop.py 1 192 1 1 0 > gen_opt_1_1_1_0.log
 
 python gen_opt_loop.py 1 192 1 1 1 > gen_opt_1_1_1_1.log
+
+python sensitivity_path_mlsys.py > gen_mlsys_0114_const_p500_l100_tx_samp.log
+
+python sensitivity_path_mlsys.py > gen_mlsys_0114_const_p500_l100_tx_nosamp.log
+
