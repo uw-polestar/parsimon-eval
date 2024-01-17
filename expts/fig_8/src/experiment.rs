@@ -1770,7 +1770,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Flowsim => "flowsim",
             SimKind::FlowsimAll => "flowsim-all",
-            SimKind::Mlsys => "mlsys_0116_const",
+            SimKind::Mlsys => "mlsys_bt10_num",
         };
         write!(f, "{}", s)
     }
