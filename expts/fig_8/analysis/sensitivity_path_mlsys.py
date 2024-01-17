@@ -31,7 +31,8 @@ N_FLOWS_PER_PATH=NR_INTEPOLATE*4
 enable_sample_per_path=False
 sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
 # mlsys_dir_list=["mlsys_bdp_bt10_l30"]
-mlsys_dir_list=["mlsys_0114_const"]
+# mlsys_dir_list=["mlsys_0114_const"]
+mlsys_dir_list=["mlsys_0114"]
 legend_list=['ns3','pmn-m',"mlsys"]
 
 for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
