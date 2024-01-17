@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama_bt1_0116_const.bin ../data_test/checkpoints/model_mlp_bt1_0116_const.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_bt10_num.bin ../data_test/checkpoints/model_mlp_bt10_num.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
         );
         // let c_command = format!(
         //     "run ../data_test/checkpoints/model_llama_bdp_bt10_p30.bin ../data_test/checkpoints/model_mlp_bdp_bt10_p30.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
@@ -129,14 +129,14 @@ impl Mlsys {
             let mut input_set = input_values[set_index].clone();
             assert_eq!(input_set.len(), self.input_percentiles.len());
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
-            for i in 1..input_set.len() {
+            for i in 1..input_set.len()-1 {
                 if input_set[i] < input_set[i - 1] {
                     input_set[i]=input_set[i - 1];
                 }
             }
-            input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
-            let val_comp=(1.0-input_set[0]).max(0.0);
-            input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
+            // input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
+            // let val_comp=(1.0-input_set[0]).max(0.0);
+            // input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
             input_set.pop();
