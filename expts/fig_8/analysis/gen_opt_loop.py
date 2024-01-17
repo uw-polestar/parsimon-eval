@@ -9,7 +9,7 @@ MTU=1000
 BDP = 10 * MTU
 bin_size_list=[MTU, BDP, 5 * BDP]
 
-def recover_data(sampling_percentiles, sampled_data,target_percentiles):
+def recover_data(sampling_percentiles, sampled_data,target_percentiles,method="nearest"):
     recovered_data = []
 
     for percentile in target_percentiles:
@@ -21,11 +21,17 @@ def recover_data(sampling_percentiles, sampled_data,target_percentiles):
         lower_index = np.where(sampling_percentiles == lower_percentile)[0][0] if lower_percentile in sampling_percentiles else 0
         upper_index = np.where(sampling_percentiles == upper_percentile)[0][0] if upper_percentile in sampling_percentiles else -1
 
-        lower_value = sampled_data[lower_index]
-        upper_value = sampled_data[upper_index]
+        if method=="nearest":
+            if percentile-lower_percentile<upper_percentile-percentile:
+                recovered_value=sampled_data[lower_index]
+            else:
+                recovered_value=sampled_data[upper_index]
+        else:
+            lower_value = sampled_data[lower_index]
+            upper_value = sampled_data[upper_index]
 
-        # Interpolate to recover the original data
-        recovered_value = np.interp(percentile, [lower_percentile, upper_percentile], [lower_value, upper_value])
+            # Interpolate to recover the original data
+            recovered_value = np.interp(percentile, [lower_percentile, upper_percentile], [lower_value, upper_value])
 
         # Append the recovered value to the list
         recovered_data.append(recovered_value)
@@ -36,11 +42,11 @@ def fix_seed(seed):
     # os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     np.random.seed(seed)
 
-NR_PATHS_SAMPLED_LIST=[100,500,1000,10000]
-# NR_PATHS_SAMPLED_LIST=[-1]
-N_LIST=[100]
-# NR_PATHS_SAMPLED_LIST=[1000]
-# N_LIST=[50, 500, 1000]
+# NR_PATHS_SAMPLED_LIST=[100,500,1000,10000]
+# # NR_PATHS_SAMPLED_LIST=[-1]
+# N_LIST=[100]
+NR_PATHS_SAMPLED_LIST=[1000]
+N_LIST=[50, 500, 1000]
 PERCENTILE_METHOD='nearest'
 def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
     percentile_str="_percentile" if enable_percentile else ""
@@ -159,11 +165,13 @@ def main(sample_mode,n_mix,min_length,enable_percentile,enable_uniform):
                             sldn_percentile = np.percentile(tmp[:, 0], PERCENTILE_LIST,method=PERCENTILE_METHOD)
                             size_percentile = np.array([tmp[i, 1] for i in index_list])
                             
-                            # target_percentiles=np.random.uniform(0, 100.0, size=N)
-                            # tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles)
-                            # tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles)
-                            tmp_sldn=np.random.choice(sldn_percentile, N, replace=True)
-                            tmp_size=np.random.choice(size_percentile, N, replace=True)
+                            if enable_uniform:
+                                tmp_sldn=np.random.choice(sldn_percentile, N, replace=True)
+                                tmp_size=np.random.choice(size_percentile, N, replace=True)
+                            else:
+                                target_percentiles=np.random.uniform(0, 100.0, size=N)
+                                tmp_sldn=recover_data(PERCENTILE_LIST, sldn_percentile,target_percentiles,method=PERCENTILE_METHOD)
+                                tmp_size=recover_data(PERCENTILE_LIST, size_percentile,target_percentiles,method=PERCENTILE_METHOD)
                             
                             for _ in range(path_count[path]):
                                 sldn_mlsys.extend(tmp_sldn)
