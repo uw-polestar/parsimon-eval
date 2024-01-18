@@ -15,7 +15,7 @@ use parsimon::core::{
     // network::types::{Link, Node},
     // units::{Bytes, Nanosecs},
 };
-// use rand::prelude::*;
+use rand::prelude::*;
 
 /// An ns-3 simulation.
 #[derive(Debug, typed_builder::TypedBuilder)]
@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_final_p30.bin ../data_test/checkpoints/model_mlp_final_p30.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
@@ -113,15 +113,15 @@ impl Mlsys {
         let input_sets = input_values.len();
         assert!(input_sets == self.nr_size_buckets);
         let mut result = Vec::with_capacity(input_sets);
-        // let mut rng = StdRng::seed_from_u64(self.seed);
+        let mut rng = StdRng::seed_from_u64(self.seed);
         // let target_percentiles_extra=vec![0.99, 1.0];
         // let target_percentiles=(1..=self.output_length).map(|x| x as f32 / self.output_length as f32).collect::<Vec<f32>>();
         for set_index in 0..input_sets {
             // let mut target_percentiles: Vec<f32> = (0..self.output_length-target_percentiles_extra.len()).map(|_| rng.gen_range(0.02..0.99)).collect();
 
-            // let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.001..1.0)).collect();
-            // // target_percentiles.extend(target_percentiles_extra.iter());
-            // target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
+            let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.001..1.0)).collect();
+            // target_percentiles.extend(target_percentiles_extra.iter());
+            target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
             let mut input_set = input_values[set_index].clone();
             assert_eq!(input_set.len(), self.input_percentiles.len());
@@ -137,25 +137,25 @@ impl Mlsys {
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
             // input_set.pop();
-            let set_result=input_set;
-            // let mut set_result = Vec::with_capacity(self.output_length);
+            // let set_result=input_set;
+            let mut set_result = Vec::with_capacity(self.output_length);
     
-            // for &target_percentile in &target_percentiles {
-            //     // Find the closest lower and upper percentiles
-            //     let (lower_index, upper_index) = self.find_percentile_indices(target_percentile, &self.input_percentiles);
+            for &target_percentile in &target_percentiles {
+                // Find the closest lower and upper percentiles
+                let (lower_index, upper_index) = self.find_percentile_indices(target_percentile, &self.input_percentiles);
     
-            //     let lower_value = input_set[lower_index];
-            //     let upper_value = input_set[upper_index];
+                let lower_value = input_set[lower_index];
+                let upper_value = input_set[upper_index];
     
-            //     // // Linear interpolation
-            //     // let t =
-            //     //     (target_percentile - self.input_percentiles[lower_index])
-            //     //         / (self.input_percentiles[upper_index] - self.input_percentiles[lower_index]);
-            //     // let val=(1.0 - t) * lower_value + t * upper_value;
-            //     let val=upper_value;
-            //     set_result.push(val);
-            //     // println!("{} {} {}", target_percentile, self.input_percentiles[lower_index], self.input_percentiles[upper_index]);
-            // }
+                // Linear interpolation
+                let t =
+                    (target_percentile - self.input_percentiles[lower_index])
+                        / (self.input_percentiles[upper_index] - self.input_percentiles[lower_index]);
+                let val=(1.0 - t) * lower_value + t * upper_value;
+                // let val=upper_value;
+                set_result.push(val);
+                // println!("{} {} {}", target_percentile, self.input_percentiles[lower_index], self.input_percentiles[upper_index]);
+            }
             result.push(set_result);
         }
         result
