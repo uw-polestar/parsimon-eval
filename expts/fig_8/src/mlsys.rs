@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama_bt10_num.bin ../data_test/checkpoints/model_mlp_bt10_num.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_final_reprod.bin ../data_test/checkpoints/model_mlp_final_reprod.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
         );
         // let c_command = format!(
         //     "run ../data_test/checkpoints/model_llama_bdp_bt10_p30.bin ../data_test/checkpoints/model_mlp_bdp_bt10_p30.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
@@ -135,11 +135,11 @@ impl Mlsys {
                 }
             }
             // input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
-            // let val_comp=(1.0-input_set[0]).max(0.0);
-            // input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
+            let val_comp=(1.0-input_set[0]).max(0.0);
+            input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
-            input_set.pop();
+            // input_set.pop();
             let set_result=input_set;
             // let mut set_result = Vec::with_capacity(self.output_length);
     
