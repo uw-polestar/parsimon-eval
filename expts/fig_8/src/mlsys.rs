@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama_final_reprod.bin ../data_test/checkpoints/model_mlp_final_reprod.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_final_num.bin ../data_test/checkpoints/model_mlp_final_num.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
         );
         // let c_command = format!(
         //     "run ../data_test/checkpoints/model_llama_bdp_bt10_p30.bin ../data_test/checkpoints/model_mlp_bdp_bt10_p30.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 10 > {data_dir}/output.txt 2>&1"
@@ -129,7 +129,7 @@ impl Mlsys {
             let mut input_set = input_values[set_index].clone();
             assert_eq!(input_set.len(), self.input_percentiles.len());
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
-            for i in 1..input_set.len() {
+            for i in 1..input_set.len()-1 {
                 if input_set[i] < input_set[i - 1] {
                     input_set[i]=input_set[i - 1];
                 }
@@ -139,7 +139,7 @@ impl Mlsys {
             input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
-            // input_set.pop();
+            input_set.pop();
             let set_result=input_set;
             // let mut set_result = Vec::with_capacity(self.output_length);
     
