@@ -48,7 +48,7 @@ const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 20;
 const NR_PARALLEL_PROCESSES: usize = 10;
 // const INPUT_PERCENTILES: [f32; 20] = [0.01, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.0];
-const INPUT_PERCENTILES: [f32; 30] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98,0.982,0.984,0.986,0.988, 0.99,0.992,0.994,0.996,0.998, 1.0, 1.0];
+// const INPUT_PERCENTILES: [f32; 30] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98,0.982,0.984,0.986,0.988, 0.99,0.992,0.994,0.996,0.998, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 29] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 30] = [0.01, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 0.999, 1.0, 1.0];
 const NR_SIZE_BUCKETS: usize = 4;
@@ -1381,8 +1381,8 @@ impl Experiment {
                     .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
                     .flows(flows_remaining)
                     .seed(self.seed)
-                    .input_percentiles(INPUT_PERCENTILES.to_vec())
-                    // .input_percentiles((1..=100).map(|x| x as f32 / 100.0).collect())
+                    // .input_percentiles(INPUT_PERCENTILES.to_vec())
+                    .input_percentiles((1..=100).map(|x| x as f32 / 100.0).collect())
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
                     .build();
@@ -1770,7 +1770,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Flowsim => "flowsim",
             SimKind::FlowsimAll => "flowsim-all",
-            SimKind::Mlsys => "mlsys_final_p30",
+            SimKind::Mlsys => "mlsys",
         };
         write!(f, "{}", s)
     }
