@@ -129,7 +129,7 @@ impl Mlsys {
             let mut input_set = input_values[set_index].clone();
             assert_eq!(input_set.len(), self.input_percentiles.len());
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
-            for i in 1..input_set.len()-1 {
+            for i in 1..input_set.len() {
                 if input_set[i] < input_set[i - 1] {
                     input_set[i]=input_set[i - 1];
                 }
