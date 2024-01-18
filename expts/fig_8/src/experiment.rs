@@ -1382,7 +1382,7 @@ impl Experiment {
                     .flows(flows_remaining)
                     .seed(self.seed)
                     // .input_percentiles(INPUT_PERCENTILES.to_vec())
-                    .input_percentiles((1..=101).map(|x| x as f32 / 100.0).collect())
+                    .input_percentiles((1..=100).map(|x| x as f32 / 100.0).collect())
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
                     .build();
@@ -1770,7 +1770,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Flowsim => "flowsim",
             SimKind::FlowsimAll => "flowsim-all",
-            SimKind::Mlsys => "mlsys_final_num",
+            SimKind::Mlsys => "mlsys_final_reprod_v1",
         };
         write!(f, "{}", s)
     }
