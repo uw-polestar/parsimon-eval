@@ -147,13 +147,18 @@ impl Mlsys {
                 let lower_value = input_set[lower_index];
                 let upper_value = input_set[upper_index];
     
-                // Linear interpolation
-                let t =
-                    (target_percentile - self.input_percentiles[lower_index])
-                        / (self.input_percentiles[upper_index] - self.input_percentiles[lower_index]);
-                let val=(1.0 - t) * lower_value + t * upper_value;
+                // // Linear interpolation
+                // let t =
+                //     (target_percentile - self.input_percentiles[lower_index])
+                //         / (self.input_percentiles[upper_index] - self.input_percentiles[lower_index]);
+                // let val=(1.0 - t) * lower_value + t * upper_value;
+                if target_percentile- self.input_percentiles[lower_index] < self.input_percentiles[upper_index] - target_percentile {
+                    set_result.push(lower_value);
+                } else {
+                    set_result.push(upper_value);
+                }
                 // let val=upper_value;
-                set_result.push(val);
+                // set_result.push(val);
                 // println!("{} {} {}", target_percentile, self.input_percentiles[lower_index], self.input_percentiles[upper_index]);
             }
             result.push(set_result);
