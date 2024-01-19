@@ -4,17 +4,17 @@ import numpy as np
 
 color_list = [
     "cornflowerblue",
+    "orange",
     "gold",
     "deeppink",
-    "orange",
+    "black",
     "blueviolet",
     "seagreen",
-    "black",
 ]
 hatch_list = ["o", "x", "/", ".", "*", "-", "\\"]
+linestyle_list = ["-", "-.", ":","--"]
+markertype_list = ["o", "^","x", "x","|"]
 
-linestyle_list = ["solid", "dashed", "dashdot", "dotted"]
-markertype_list = ["o", "^", "x", "x", "|"]
 def plot_cdf(
     raw_data,
     file_name,
@@ -34,7 +34,7 @@ def plot_cdf(
     group_size=1,
 ):
     _fontsize = fontsize
-    fig = plt.figure(figsize=(6, 4))  # 2.5 inch for 1/3 double column width
+    fig = plt.figure(figsize=(5.2, 4))  # 2.5 inch for 1/3 double column width
     ax = fig.add_subplot(111)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -110,7 +110,63 @@ def plot_cdf(
     if title:
         plt.title(title, fontsize=_fontsize - 5)
     # plt.savefig(file_name, bbox_inches="tight", pad_inches=0)
+def plot_bar(
+    datas,
+    xs,
+    linelabels=None,
+    label=None,
+    y_label="CDF",
+    name="ss",
+    log_switch=False,
+    fontsize=15,
+    ylim=None,
+    ylim_bottom=None,
+    title=None,
+    rotate_xaxis=False,
+):
+    _fontsize = fontsize
+    fig = plt.figure(figsize=(5.2, 4))  # 2.5 inch for 1/3 double column width
+    ax = fig.add_subplot(111)
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    
+    ax.tick_params(axis="y", direction="in")
+    ax.tick_params(axis="x", direction="in")
+    
+    plt.ylabel(y_label, fontsize=_fontsize)
+    plt.xlabel(label, fontsize=_fontsize)
 
+    for i in range(len(datas)):
+        tmp_data = datas[i]
+        X = np.arange(0, 1, 1 / len(tmp_data))
+        width = 0.5 / len(tmp_data)
+        ax.bar(X + 0.2, tmp_data, color=color_list, width=width, label=linelabels)
+
+    legend_properties = {"size": 15}
+    handles = [
+        plt.Rectangle((0, 0), 1, 1, color=color_list[ii]) for ii in range(len(linelabels))
+    ]
+    plt.legend(handles, linelabels, ncol=1, prop=legend_properties, frameon=False)
+
+    if ylim_bottom:
+        plt.ylim(left=ylim_bottom)
+    if ylim:
+        plt.ylim(right=ylim)
+        
+    if log_switch:
+        ax.set_yscale("log")
+
+    plt.tight_layout()
+
+    plt.tight_layout(pad=0.5, w_pad=0.01, h_pad=0.01)
+    plt.yticks(fontsize=_fontsize)
+    plt.xticks(fontsize=_fontsize)
+    if rotate_xaxis:
+        plt.setp(ax.get_xticklabels(), rotation=30, horizontalalignment="right")
+    if title:
+        plt.title(title, fontsize=_fontsize - 5)
+    # plt.savefig(name, bbox_inches="tight", pad_inches=0)
+    
 def recover_data(sampling_percentiles, sampled_data,target_percentiles,method='linear'):
     recovered_data = []
 
