@@ -27,16 +27,15 @@ use workload::{
     spatial::SpatialData,
 };
 
-use crate::flowsim::Flowsim;
-use crate::mlsys::{
-    Mlsys,
-    ns3_clean
-};
-
 use crate::mix::{Mix, MixId};
 
 use rand::distributions::WeightedIndex;
 use rustc_hash::FxHashMap;
+use crate::mlsys::{
+    Mlsys,
+    ns3_clean
+};
+use crate::flowsim::Flowsim;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
@@ -1556,6 +1555,7 @@ impl Experiment {
         fs::write(self.path_file(mix, sim)?, path_str)?;
         Ok(())
     }
+    
     fn put_path_with_idx(
         &self,
         mix: &Mix,
@@ -1662,6 +1662,28 @@ impl Experiment {
         Ok(file)
     }
 
+    fn path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), "path.txt".as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
+    fn path_file_with_idx(
+        &self,
+        mix: &Mix,
+        sim: SimKind,
+        path_idx: usize,
+    ) -> anyhow::Result<PathBuf> {
+        let file = [
+            self.sim_dir(mix, sim)?.as_path(),
+            format!("path_{}.txt", path_idx).as_ref(),
+        ]
+        .into_iter()
+        .collect();
+        Ok(file)
+    }
+
     fn record_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "records.csv".as_ref()]
             .into_iter()
@@ -1687,28 +1709,6 @@ impl Experiment {
         let file = [self.sim_dir(mix, sim)?.as_path(), "elapsed.txt".as_ref()]
             .into_iter()
             .collect();
-        Ok(file)
-    }
-
-    fn path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
-        let file = [self.sim_dir(mix, sim)?.as_path(), "path.txt".as_ref()]
-            .into_iter()
-            .collect();
-        Ok(file)
-    }
-
-    fn path_file_with_idx(
-        &self,
-        mix: &Mix,
-        sim: SimKind,
-        path_idx: usize,
-    ) -> anyhow::Result<PathBuf> {
-        let file = [
-            self.sim_dir(mix, sim)?.as_path(),
-            format!("path_{}.txt", path_idx).as_ref(),
-        ]
-        .into_iter()
-        .collect();
         Ok(file)
     }
 
