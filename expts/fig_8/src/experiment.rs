@@ -43,7 +43,7 @@ const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 500;
-const NR_PATHS_SAMPLED_NS3: usize = 20;
+const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_PARALLEL_PROCESSES: usize = 10;
 // const INPUT_PERCENTILES: [f32; 20] = [0.01, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 30] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98,0.982,0.984,0.986,0.988, 0.99,0.992,0.994,0.996,0.998, 1.0, 1.0];
@@ -55,7 +55,6 @@ const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
 // const NR_FLOWS: usize = 2_000;
 
-const PYTHON_PATH: &str = "/data1/lichenni/software/anaconda3/envs/py39/bin";
 const MLSYS_PATH: &str = "/data1/lichenni/projects/flow_simulation/fast-mmf-fattree";
 
 
@@ -86,15 +85,15 @@ impl Experiment {
                 //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
                 // }
             }
-            SimKind::Ns3Path => {
-                mixes.par_iter().try_for_each(|mix| self.run_ns3_path(mix))?;
+            SimKind::Ns3PathOne => {
+                mixes.par_iter().try_for_each(|mix| self.run_ns3_path_one(mix))?;
 
                 // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
                 // for mix_tmp in &mix_list {
                 //     mix_tmp
                 //         .par_iter()
-                //         .try_for_each(|mix| self.run_ns3_path(mix))?;
+                //         .try_for_each(|mix| self.run_ns3_path_one(mix))?;
                 // }
             }
             SimKind::Ns3PathAll => {
@@ -169,8 +168,8 @@ impl Experiment {
         Ok(())
     }
 
-    fn run_ns3_path(&self, mix: &Mix) -> anyhow::Result<()> {
-        let sim = SimKind::Ns3Path;
+    fn run_ns3_path_one(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Ns3PathOne;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
 
@@ -315,12 +314,11 @@ impl Experiment {
         let sim = SimKind::Ns3PathAll;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
-
         // read flows associated with a path
-        let mut channel_to_flowid_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
-        let mut flowid_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
+        let mut channel_to_flowid_map: FxHashMap<(NodeId, NodeId), HashSet<FlowId>> = FxHashMap::default();
+        let mut flowid_to_path_map: FxHashMap<usize, HashSet<(NodeId, NodeId)>> = FxHashMap::default();
         let mut flowid_to_path_map_ordered: FxHashMap<usize, Vec<(NodeId, NodeId)>> = FxHashMap::default();
-        let mut path_to_flowid_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
+        let mut path_to_flowid_map: FxHashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = FxHashMap::default();
         let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
             .iter()
             .map(|flow| (flow.id, flow.clone()))
@@ -379,7 +377,7 @@ impl Experiment {
 
         let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
-            .filter(|(_, value)| value.len() >= 20)
+            .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
         // path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
         // let path_list = path_to_flows_vec_sorted
@@ -1305,7 +1303,7 @@ pub enum SimKind {
     Pmn,
     PmnM,
     PmnMC,
-    Ns3Path,
+    Ns3PathOne,
     Ns3PathAll,
     PmnMPath,
     Mlsys,
@@ -1318,7 +1316,7 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::Ns3Path => "ns3-path",
+            SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Mlsys => "mlsys",
