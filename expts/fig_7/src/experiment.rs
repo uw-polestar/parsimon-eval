@@ -3,9 +3,10 @@ use std::{
     net::{IpAddr, Ipv4Addr, SocketAddr},
     io::{self, BufRead},
     path::{Path, PathBuf},
-    time::Instant, collections::HashSet, collections::HashMap,
+    time::Instant, collections::HashSet, collections::HashMap, process::exit,
 };
 
+use anyhow::Ok;
 use ns3_frontend::Ns3Simulation;
 use parsimon::core::{
     network::{Flow, FlowId, Network, NodeId},
@@ -41,7 +42,7 @@ const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 11_351_649;
-const NR_PATHS_SAMPLED: usize = 500;
+const NR_PATHS_SAMPLED: usize = 1;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
@@ -106,6 +107,7 @@ impl Experiment {
         self.put_records(mix, sim, &records)?;
         Ok(())
     }
+
     fn run_mlsys(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::Mlsys;
         let flows = self.flows(mix)?;
@@ -146,6 +148,7 @@ impl Experiment {
         }
 
         let start_extra = Instant::now(); // timer start
+
         for (flow_id, path) in flowid_to_path_map {
             let mut pairs = path.into_iter().collect::<Vec<_>>();
             pairs.sort();
@@ -171,12 +174,21 @@ impl Experiment {
                 .insert(flow_id);
             flowid_to_path_map_ordered.insert(flow_id, path_ordered.clone());
         }
+
         let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
 
         let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
+        // let mut length_counts: HashMap<usize, usize> = HashMap::new();
+        // for (path, _) in path_to_flows_vec_sorted.iter() {
+        //     *length_counts.entry(path.len()).or_insert(0) += 1;
+        // }
+        // for (length, count) in length_counts {
+        //     println!("Key length: {}, Occurrences: {}. Time: {}", length, count, elapsed_secs_extra);
+        // }
+
         // path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
         // let path_to_flows_vec_sorted: Vec<(&Vec<(NodeId, NodeId)>, &HashSet<usize>)> = {
         //     let mut temp_vec: Vec<_> = path_to_flowid_map
@@ -364,6 +376,17 @@ impl Experiment {
         let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
         self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1, elapsed_secs_2,elapsed_secs_extra))?;
+
+        let mut path_to_flows_map_str = String::new();
+        for (key, value) in &path_to_flowid_map {
+            path_to_flows_map_str.push_str(&format!("{}:{}\n", key.iter()
+            .map(|&x| format!("{}-{}", x.0, x.1))
+            .collect::<Vec<String>>()
+            .join("|"), value.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",")));
+        }
+        
+        self.put_path2flows(mix, sim, path_to_flows_map_str)?;
+
         Ok(())
     }
 
@@ -617,6 +640,13 @@ impl Experiment {
         Ok(())
     }
 
+    fn put_path2flows(&self, mix: &Mix, sim: SimKind, path_str: String) -> anyhow::Result<()> {
+        if !self.path2flows_file(mix, sim)?.exists(){
+            fs::write(self.path2flows_file(mix, sim)?, path_str)?;
+        } 
+        Ok(())
+    }
+
     fn put_path_with_idx(
         &self,
         mix: &Mix,
@@ -656,6 +686,23 @@ impl Experiment {
         Ok(dir)
     }
 
+    fn sim_dir_with_idx(
+        &self,
+        mix: &Mix,
+        sim: SimKind,
+        path_idx: usize,
+    ) -> anyhow::Result<PathBuf> {
+        let dir = [
+            self.mix_dir(mix)?.as_path(),
+            sim.to_string().as_ref(),
+            path_idx.to_string().as_ref(),
+        ]
+        .into_iter()
+        .collect();
+        fs::create_dir_all(&dir)?;
+        Ok(dir)
+    }
+
     fn flow_file(&self, mix: &Mix) -> anyhow::Result<PathBuf> {
         let file = [self.mix_dir(mix)?.as_path(), "flows.json".as_ref()]
             .into_iter()
@@ -675,6 +722,13 @@ impl Experiment {
 
     fn path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "path.txt".as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
+    fn path2flows_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), "path_to_flows.txt".as_ref()]
             .into_iter()
             .collect();
         Ok(file)

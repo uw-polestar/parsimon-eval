@@ -1593,6 +1593,7 @@ impl Experiment {
         fs::create_dir_all(&dir)?;
         Ok(dir)
     }
+    
     fn sim_dir_with_idx(
         &self,
         mix: &Mix,
