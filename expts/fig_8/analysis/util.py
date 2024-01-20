@@ -109,7 +109,8 @@ def plot_cdf(
         plt.setp(ax.get_xticklabels(), rotation=30, horizontalalignment="right")
     if title:
         plt.title(title, fontsize=_fontsize - 5)
-    # plt.savefig(file_name, bbox_inches="tight", pad_inches=0)
+    if file_name:
+        plt.savefig(file_name, bbox_inches="tight", pad_inches=0)
 def plot_bar(
     datas,
     xs,

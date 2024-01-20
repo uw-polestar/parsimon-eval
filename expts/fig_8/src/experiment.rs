@@ -77,85 +77,81 @@ impl Experiment {
     pub fn run(&self) -> anyhow::Result<()> {
         let mut mixes: Vec<Mix> = serde_json::from_str(&fs::read_to_string(&self.mixes)?)?;
         // mixes=mixes.into_iter().rev().collect();
+        
+        // All ns3 simulations can run in parallel. Parsimon simulations are already massively
+        // parallel, so they'll run one at a time to save memory.
+        match self.sim {
+            SimKind::Ns3 => {
+                mixes.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
-        if self.enable_params {
-            let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/all_param.mix.json")?)?;
-            // mixes=mixes.into_iter().rev().collect();
-            let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
+                // for mix_tmp in &mix_list {
+                //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                // }
+            }
+            SimKind::Ns3Param => {
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/all_param.mix.json")?)?;
+                // mixes=mixes.into_iter().rev().collect();
+                let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
 
-            match self.sim {
-                SimKind::Ns3 => {
-                    mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
-                }
-                SimKind::Mlsys => {
-                    for (mix,mix_param) in &mixed_combined {
-                        self.run_mlsys_param(mix,mix_param)?;
-                    }
-                }
-                _ => {
-                    panic!("invalid sim kind");
+                mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+            }
+            SimKind::MlsysParam => {
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/all_param.mix.json")?)?;
+                // mixes=mixes.into_iter().rev().collect();
+                let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
+
+                for (mix,mix_param) in &mixed_combined {
+                    self.run_mlsys_param(mix,mix_param)?;
                 }
             }
-        } else {
-        
-            // All ns3 simulations can run in parallel. Parsimon simulations are already massively
-            // parallel, so they'll run one at a time to save memory.
-            match self.sim {
-                SimKind::Ns3 => {
-                    mixes.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
-                    // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+            
+            SimKind::Ns3PathOne => {
+                mixes.par_iter().try_for_each(|mix| self.run_ns3_path_one(mix))?;
 
-                    // for mix_tmp in &mix_list {
-                    //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
-                    // }
-                }
-                SimKind::Ns3PathOne => {
-                    mixes.par_iter().try_for_each(|mix| self.run_ns3_path_one(mix))?;
+                // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
-                    // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+                // for mix_tmp in &mix_list {
+                //     mix_tmp
+                //         .par_iter()
+                //         .try_for_each(|mix| self.run_ns3_path_one(mix))?;
+                // }
+            }
+            SimKind::Ns3PathAll => {
+                // let mix_list = mixes.chunks(10).collect::<Vec<_>>();
 
-                    // for mix_tmp in &mix_list {
-                    //     mix_tmp
-                    //         .par_iter()
-                    //         .try_for_each(|mix| self.run_ns3_path_one(mix))?;
-                    // }
+                // for mix_tmp in &mix_list {
+                //     mix_tmp
+                //         .par_iter()
+                //         .try_for_each(|mix| self.run_ns3_path_all(mix))?;
+                // }
+                for mix in &mixes {
+                    self.run_ns3_path_all(mix)?;
                 }
-                SimKind::Ns3PathAll => {
-                    // let mix_list = mixes.chunks(10).collect::<Vec<_>>();
-
-                    // for mix_tmp in &mix_list {
-                    //     mix_tmp
-                    //         .par_iter()
-                    //         .try_for_each(|mix| self.run_ns3_path_all(mix))?;
-                    // }
-                    for mix in &mixes {
-                        self.run_ns3_path_all(mix)?;
-                    }
+            }
+            SimKind::Pmn => {
+                for mix in &mixes {
+                    self.run_pmn(mix)?;
                 }
-                SimKind::Pmn => {
-                    for mix in &mixes {
-                        self.run_pmn(mix)?;
-                    }
+            }
+            SimKind::PmnM => {
+                for mix in &mixes {
+                    self.run_pmn_m(mix)?;
                 }
-                SimKind::PmnM => {
-                    for mix in &mixes {
-                        self.run_pmn_m(mix)?;
-                    }
+            }
+            SimKind::PmnMC => {
+                for mix in &mixes {
+                    self.run_pmn_mc(mix)?;
                 }
-                SimKind::PmnMC => {
-                    for mix in &mixes {
-                        self.run_pmn_mc(mix)?;
-                    }
+            }
+            SimKind::PmnMPath => {
+                for mix in &mixes {
+                    self.run_pmn_m_path(mix)?;
                 }
-                SimKind::PmnMPath => {
-                    for mix in &mixes {
-                        self.run_pmn_m_path(mix)?;
-                    }
-                }
-                SimKind::Mlsys => {
-                    for mix in &mixes {
-                        self.run_mlsys(mix)?;
-                    }
+            }
+            SimKind::Mlsys => {
+                for mix in &mixes {
+                    self.run_mlsys(mix)?;
                 }
             }
         }
@@ -1625,6 +1621,7 @@ fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
 #[derive(Debug, Clone, Copy, clap::Subcommand, serde::Serialize, serde::Deserialize)]
 pub enum SimKind {
     Ns3,
+    Ns3Param,
     Pmn,
     PmnM,
     PmnMC,
@@ -1632,12 +1629,14 @@ pub enum SimKind {
     Ns3PathAll,
     PmnMPath,
     Mlsys,
+    MlsysParam
 }
 
 impl fmt::Display for SimKind {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let s = match self {
             SimKind::Ns3 => "ns3",
+            SimKind::Ns3Param => "ns3-param",
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
@@ -1645,6 +1644,7 @@ impl fmt::Display for SimKind {
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Mlsys => "mlsys",
+            SimKind::MlsysParam => "mlsys-param",
         };
         write!(f, "{}", s)
     }
