@@ -2,6 +2,7 @@ use std::path::PathBuf;
 
 use rand::{prelude::SliceRandom, Rng};
 
+use crate::ns3::CcKind;
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct MixSpace {
     pub spatials: Vec<PathBuf>,
@@ -42,4 +43,10 @@ pub struct Mix {
     pub lognorm_sigma: f64,
     pub max_load: f64,
     pub cluster: PathBuf,
+}
+
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+pub struct MixParam {
+    pub cc: CcKind,
+    pub dctcp_k: u32,
 }

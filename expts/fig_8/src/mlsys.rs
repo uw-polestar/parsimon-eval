@@ -87,12 +87,13 @@ impl Mlsys {
         let script_path = script_path.display();
         let n_hosts = n_hosts.to_string();
         // let cc = self.cc_kind.as_str();
+        let cc = self.cc_kind.get_int_value().to_string();
         // Build the command that runs the Python script.
         // let python_command = format!(
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
@@ -313,15 +314,27 @@ pub enum CcKind {
     Dcqcn,
 }
 
-// impl CcKind {
-//     fn as_str(&self) -> &'static str {
-//         match self {
-//             CcKind::Dctcp => "dctcp",
-//             CcKind::Timely => "timely_vwin",
-//             CcKind::Dcqcn => "dcqcn_paper_vwin",
-//         }
-//     }
-// }
+impl CcKind {
+    fn as_str(&self) -> &'static str {
+        match self {
+            CcKind::Dctcp => "dctcp",
+            CcKind::Timely => "timely_vwin",
+            CcKind::Dcqcn => "dcqcn_paper_vwin",
+        }
+    }
+
+    const DCTCP_VALUE: i32 = 1;
+    const TIMELY_VALUE: i32 = 2;
+    const DCQCN_VALUE: i32 = 3;
+
+    fn get_int_value(&self) -> i32 {
+        match self {
+            CcKind::Dctcp => Self::DCTCP_VALUE,
+            CcKind::Timely => Self::TIMELY_VALUE,
+            CcKind::Dcqcn => Self::DCQCN_VALUE,
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
