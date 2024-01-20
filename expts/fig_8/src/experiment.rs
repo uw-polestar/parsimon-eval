@@ -97,16 +97,16 @@ impl Experiment {
                 // }
             }
             SimKind::Ns3PathAll => {
-                let mix_list = mixes.chunks(10).collect::<Vec<_>>();
+                // let mix_list = mixes.chunks(10).collect::<Vec<_>>();
 
-                for mix_tmp in &mix_list {
-                    mix_tmp
-                        .par_iter()
-                        .try_for_each(|mix| self.run_ns3_path_all(mix))?;
-                }
-                // for mix in &mixes {
-                //     self.run_ns3_path_all(mix)?;
+                // for mix_tmp in &mix_list {
+                //     mix_tmp
+                //         .par_iter()
+                //         .try_for_each(|mix| self.run_ns3_path_all(mix))?;
                 // }
+                for mix in &mixes {
+                    self.run_ns3_path_all(mix)?;
+                }
             }
             SimKind::Pmn => {
                 for mix in &mixes {
@@ -444,7 +444,10 @@ impl Experiment {
             .par_iter()
             .enumerate()
             .for_each(|(path_idx, path)| {
-                let flow_ids_in_f=path_to_flowid_map[path].iter().map(|&x| FlowId::new(x)).collect::<HashSet<_>>();
+                let flow_ids_in_f = path_to_flowid_map[path]
+                    .iter()
+                    .map(|x| FlowId::new(*x))
+                    .collect::<HashSet<_>>();
                 let mut flow_ids_in_f_prime: HashSet<FlowId> = HashSet::new();
                 for pair in path {
                     if channel_to_flowid_map.contains_key(&pair) {
