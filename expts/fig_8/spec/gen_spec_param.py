@@ -3,7 +3,7 @@ import numpy as np
 
 np.random.seed(0)
 
-cc_list=['dctcp','timely_vwin','dcqcn_paper_vwin']
+cc_list=['dctcp','timely','dcqcn']
 dctcp_k_list=[7, 13, 21, 29, 37, 45, 54, 60, 66, 70]
 
 def add_param_json(json_file, output_file):

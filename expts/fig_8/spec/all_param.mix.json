@@ -4,7 +4,7 @@
     "dctcp_k": 54
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -12,15 +12,15 @@
     "dctcp_k": 13
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -28,7 +28,7 @@
     "dctcp_k": 29
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -44,19 +44,19 @@
     "dctcp_k": 29
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -64,19 +64,19 @@
     "dctcp_k": 66
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -84,7 +84,7 @@
     "dctcp_k": 21
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -96,11 +96,11 @@
     "dctcp_k": 60
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -108,7 +108,7 @@
     "dctcp_k": 37
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -116,15 +116,15 @@
     "dctcp_k": 29
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -132,15 +132,15 @@
     "dctcp_k": 70
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -148,7 +148,7 @@
     "dctcp_k": 21
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -156,11 +156,11 @@
     "dctcp_k": 70
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -168,7 +168,7 @@
     "dctcp_k": 45
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -184,15 +184,15 @@
     "dctcp_k": 66
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -204,7 +204,7 @@
     "dctcp_k": 7
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -212,15 +212,15 @@
     "dctcp_k": 45
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -228,31 +228,31 @@
     "dctcp_k": 13
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -260,11 +260,11 @@
     "dctcp_k": 7
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -272,11 +272,11 @@
     "dctcp_k": 60
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -288,7 +288,7 @@
     "dctcp_k": 13
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -316,7 +316,7 @@
     "dctcp_k": 45
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -324,19 +324,19 @@
     "dctcp_k": 45
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -344,15 +344,15 @@
     "dctcp_k": 54
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -360,11 +360,11 @@
     "dctcp_k": 13
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -372,11 +372,11 @@
     "dctcp_k": 70
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -384,7 +384,7 @@
     "dctcp_k": 7
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -392,19 +392,19 @@
     "dctcp_k": 13
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -412,11 +412,11 @@
     "dctcp_k": 37
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -424,43 +424,43 @@
     "dctcp_k": 29
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -468,27 +468,27 @@
     "dctcp_k": 66
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -496,11 +496,11 @@
     "dctcp_k": 54
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -508,7 +508,7 @@
     "dctcp_k": 37
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -520,7 +520,7 @@
     "dctcp_k": 29
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -528,15 +528,15 @@
     "dctcp_k": 66
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -552,11 +552,11 @@
     "dctcp_k": 60
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -564,23 +564,23 @@
     "dctcp_k": 29
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -600,11 +600,11 @@
     "dctcp_k": 21
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -620,11 +620,11 @@
     "dctcp_k": 7
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -636,7 +636,7 @@
     "dctcp_k": 70
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -644,19 +644,19 @@
     "dctcp_k": 54
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -672,19 +672,19 @@
     "dctcp_k": 66
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -696,23 +696,23 @@
     "dctcp_k": 54
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -728,19 +728,19 @@
     "dctcp_k": 21
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -752,11 +752,11 @@
     "dctcp_k": 60
   },
   {
-    "cc": "timely_vwin",
+    "cc": "timely",
     "dctcp_k": 30
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   },
   {
@@ -764,7 +764,7 @@
     "dctcp_k": 37
   },
   {
-    "cc": "dcqcn_paper_vwin",
+    "cc": "dcqcn",
     "dctcp_k": 30
   }
 ]
