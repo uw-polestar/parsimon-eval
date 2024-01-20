@@ -67,8 +67,6 @@ pub struct Experiment {
     mixes: PathBuf,
     #[clap(long, default_value_t = 0)]
     seed: u64,
-    #[clap(long, default_value = "false")]
-    enable_params: bool,
     #[clap(subcommand)]
     sim: SimKind
 }

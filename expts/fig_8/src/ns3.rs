@@ -93,7 +93,7 @@ impl Ns3Simulation {
         let window = self.window.into_u64();
         let base_rtt = self.base_rtt.into_u64();
         let cc = self.cc_kind.as_str();
-        let dctcp_k = self.dctcp_k;
+        let dctcp_k = self.dctcp_k.to_string();
         let python_command = format!(
             "python2 run.py --root {data_dir} --fwin {window} --base_rtt {base_rtt} \
             --topo topology --trace flows --bw 10 --cc {cc} --dctcp_k {dctcp_k} \
