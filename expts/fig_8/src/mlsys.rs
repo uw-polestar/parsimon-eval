@@ -9,14 +9,13 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::io;
 
-use derivative::Derivative;
 use parsimon::core::{
     network::Flow,
     // network::types::{Link, Node},
     // units::{Bytes, Nanosecs},
 };
 // use rand::prelude::*;
-
+use crate::ns3::CcKind;
 /// An ns-3 simulation.
 #[derive(Debug, typed_builder::TypedBuilder)]
 pub struct Mlsys {
@@ -29,6 +28,9 @@ pub struct Mlsys {
     /// The congestion control protocol.
     #[builder(default)]
     pub cc_kind: CcKind,
+    /// The parameter for DCTCP.
+    #[builder(default = 30)]
+    pub dctcp_k: u32,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
@@ -40,6 +42,7 @@ pub struct Mlsys {
     pub nr_size_buckets: usize,
     /// The number of output percentiles.
     pub output_length: usize,
+    
 }
 
 impl Mlsys {
@@ -88,12 +91,13 @@ impl Mlsys {
         let n_hosts = n_hosts.to_string();
         // let cc = self.cc_kind.as_str();
         let cc = self.cc_kind.get_int_value().to_string();
+        let dctcp_k = self.dctcp_k.to_string();
         // Build the command that runs the Python script.
         // let python_command = format!(
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p {dctcp_k} -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
@@ -300,41 +304,6 @@ pub enum ParseMlsysError {
     ParseInt(#[from] std::num::ParseIntError),
 }
 
-/// Congestion control protocol.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Derivative, serde::Serialize, serde::Deserialize)]
-#[derivative(Default)]
-#[serde(rename_all = "lowercase")]
-pub enum CcKind {
-    /// DCTCP.
-    #[derivative(Default)]
-    Dctcp,
-    /// TIMELY.
-    Timely,
-    /// DCQCN.
-    Dcqcn,
-}
-
-impl CcKind {
-    fn as_str(&self) -> &'static str {
-        match self {
-            CcKind::Dctcp => "dctcp",
-            CcKind::Timely => "timely_vwin",
-            CcKind::Dcqcn => "dcqcn_paper_vwin",
-        }
-    }
-
-    const DCTCP_VALUE: i32 = 1;
-    const TIMELY_VALUE: i32 = 2;
-    const DCQCN_VALUE: i32 = 3;
-
-    fn get_int_value(&self) -> i32 {
-        match self {
-            CcKind::Dctcp => Self::DCTCP_VALUE,
-            CcKind::Timely => Self::TIMELY_VALUE,
-            CcKind::Dcqcn => Self::DCQCN_VALUE,
-        }
-    }
-}
 
 #[cfg(test)]
 mod tests {

@@ -42,8 +42,9 @@ pub struct Ns3Simulation {
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
+    /// The parameter for DCTCP.
     #[builder(default = 30)]
-    pub dctcp: u32,
+    pub dctcp_k: u32,
 }
 
 impl Ns3Simulation {
@@ -92,7 +93,7 @@ impl Ns3Simulation {
         let window = self.window.into_u64();
         let base_rtt = self.base_rtt.into_u64();
         let cc = self.cc_kind.as_str();
-        let dctcp_k = self.dctcp;
+        let dctcp_k = self.dctcp_k;
         let python_command = format!(
             "python2 run.py --root {data_dir} --fwin {window} --base_rtt {base_rtt} \
             --topo topology --trace flows --bw 10 --cc {cc} --dctcp_k {dctcp_k} \
@@ -229,6 +230,19 @@ impl CcKind {
             CcKind::Dctcp => "dctcp",
             CcKind::Timely => "timely_vwin",
             CcKind::Dcqcn => "dcqcn_paper_vwin",
+        }
+    }
+
+    const DCTCP_VALUE: i32 = 1;
+    const TIMELY_VALUE: i32 = 2;
+    const DCQCN_VALUE: i32 = 3;
+
+    /// Get the integer value of the cc protocol.
+    pub fn get_int_value(&self) -> i32 {
+        match self {
+            CcKind::Dctcp => Self::DCTCP_VALUE,
+            CcKind::Timely => Self::TIMELY_VALUE,
+            CcKind::Dcqcn => Self::DCQCN_VALUE,
         }
     }
 }

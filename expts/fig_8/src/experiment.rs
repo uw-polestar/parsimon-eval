@@ -200,7 +200,6 @@ impl Experiment {
 
     fn run_ns3_param(&self, mix: &Mix, mix_param: &MixParam) -> anyhow::Result<()> {
         let sim = SimKind::Ns3;
-        let cc_kind=mix_param.cc;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         let start = Instant::now(); // timer start
@@ -211,9 +210,11 @@ impl Experiment {
             .links(cluster.links().cloned().collect::<Vec<_>>())
             .window(WINDOW)
             .base_rtt(BASE_RTT)
-            .cc_kind(cc_kind)
+            .cc_kind(mix_param.cc)
+            .dctcp_k(mix_param.dctcp_k)
             .flows(flows)
             .build();
+
         let records = ns3
             .run()?
             .into_iter()
@@ -1302,6 +1303,8 @@ impl Experiment {
                     .input_percentiles((1..=100).map(|x| x as f32 / 100.0).collect())
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
+                    .cc_kind(mix_param.cc)
+                    .dctcp_k(mix_param.dctcp_k)
                     .build();
                 let result = mlsys.run(path_length);
 
