@@ -76,7 +76,7 @@ impl Ns3Simulation {
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
+            format!("fct_topology_flows_{}_k{}.txt", self.cc_kind.as_str(),self.dctcp_k).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
         Ok(records)
