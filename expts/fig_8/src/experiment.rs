@@ -45,7 +45,7 @@ const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
-// const NR_PARALLEL_PROCESSES: usize = 10;
+const NR_PARALLEL_PROCESSES: usize = 100;
 // const INPUT_PERCENTILES: [f32; 20] = [0.01, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 30] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98,0.982,0.984,0.986,0.988, 0.99,0.992,0.994,0.996,0.998, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 29] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 1.0, 1.0];
@@ -91,8 +91,14 @@ impl Experiment {
                 let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/all_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
+                
+                let mix_list = mixed_combined.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
-                mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                for mix_tmp in &mix_list {
+                    mix_tmp.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                }
+
+                // mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
             }
             SimKind::MlsysParam => {
                 let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/all_param.mix.json")?)?;
@@ -188,7 +194,7 @@ impl Experiment {
     }
 
     fn run_ns3_param(&self, mix: &Mix, mix_param: &MixParam) -> anyhow::Result<()> {
-        let sim = SimKind::Ns3;
+        let sim = SimKind::Ns3Param;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         let start = Instant::now(); // timer start
@@ -1052,7 +1058,7 @@ impl Experiment {
     }
 
     fn run_mlsys_param(&self, mix: &Mix, mix_param: &MixParam) -> anyhow::Result<()> {
-        let sim = SimKind::Mlsys;
+        let sim = SimKind::MlsysParam;
         let flows = self.flows(mix)?;
         // read flows associated with a path
         let mut channel_to_flowid_map: FxHashMap<(NodeId, NodeId), HashSet<FlowId>> = FxHashMap::default();
