@@ -382,3 +382,387 @@ rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/1
 
 rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/191/ns3-param
 
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/0/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/1/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/2/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/3/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/4/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/5/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/6/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/7/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/8/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/9/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/10/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/11/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/12/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/13/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/14/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/15/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/16/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/17/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/18/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/19/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/20/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/21/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/22/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/23/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/24/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/26/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/27/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/28/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/29/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/30/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/31/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/32/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/33/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/34/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/35/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/36/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/37/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/38/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/39/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/40/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/41/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/42/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/43/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/44/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/45/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/46/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/47/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/48/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/49/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/50/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/51/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/52/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/53/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/54/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/55/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/56/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/57/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/58/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/59/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/60/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/61/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/62/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/63/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/64/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/65/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/66/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/67/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/68/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/69/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/70/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/71/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/72/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/73/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/74/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/75/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/76/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/77/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/78/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/79/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/80/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/81/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/82/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/83/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/84/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/85/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/86/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/87/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/88/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/89/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/90/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/91/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/92/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/93/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/94/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/95/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/96/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/97/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/98/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/99/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/100/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/101/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/102/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/103/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/104/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/105/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/106/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/107/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/108/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/109/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/110/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/111/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/112/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/113/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/114/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/115/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/116/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/117/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/118/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/119/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/120/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/121/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/122/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/123/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/124/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/125/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/126/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/127/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/128/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/129/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/130/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/131/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/132/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/133/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/134/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/135/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/136/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/137/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/138/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/139/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/140/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/141/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/142/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/143/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/144/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/145/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/146/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/147/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/148/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/149/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/150/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/151/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/152/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/153/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/154/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/155/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/156/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/157/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/158/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/159/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/160/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/161/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/162/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/163/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/164/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/165/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/166/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/167/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/168/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/169/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/170/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/171/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/172/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/173/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/174/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/175/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/176/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/177/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/178/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/179/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/180/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/181/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/182/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/183/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/184/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/185/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/186/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/187/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/188/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/189/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/190/ns3/flows.txt
+
+rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/191/ns3/flows.txt
+
