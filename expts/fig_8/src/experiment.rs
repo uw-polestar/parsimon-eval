@@ -56,7 +56,7 @@ const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
 // const NR_FLOWS: usize = 2_000;
 
-const MLSYS_PATH: &str = "/data1/lichenni/projects/flow_simulation/fast-mmf-fattree";
+const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
 
 
 #[derive(Debug, clap::Parser)]

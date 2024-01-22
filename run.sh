@@ -5,6 +5,7 @@ cargo run --release -- --mix spec/1.mix.json ns3
 cargo run --release -- --mix spec/1.mix.json pmn-m
 cargo run --release -- --mix spec/1.mix.json pmn-mc
 cargo run --release -- --mix spec/1.mix.json pmn-path
+cargo run --release -- --mix spec/2.mix.json mlsys
 
 
 cargo run --release -- --mixes spec/25.mix.json ns3
