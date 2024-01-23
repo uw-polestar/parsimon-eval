@@ -92,7 +92,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
+            "./run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
         );
         // println!("{}", python_command);
         // Execute the command in a child process.
@@ -131,7 +131,7 @@ impl Mlsys {
                     input_set[i]=input_set[i - 1];
                 }
             }
-            // input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
+            input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
             let val_comp=(1.0-input_set[0]).max(0.0);
             input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());

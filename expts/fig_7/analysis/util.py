@@ -110,6 +110,7 @@ def plot_cdf(
     if title:
         plt.title(title, fontsize=_fontsize - 5)
     # plt.savefig(file_name, bbox_inches="tight", pad_inches=0)
+
 def plot_bar(
     datas,
     xs,
