@@ -88,21 +88,21 @@ impl Experiment {
                 // }
             }
             SimKind::Ns3Param => {
-                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/all_param.mix.json")?)?;
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
                 
-                let mix_list = mixed_combined.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+                // let mix_list = mixed_combined.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
                 // for mix_tmp in &mix_list {
                 //     mix_tmp.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
                 // }
-                mix_list[1].par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                // mix_list[1].par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
 
-                // mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
             }
             SimKind::MlsysParam => {
-                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/all_param.mix.json")?)?;
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
 
