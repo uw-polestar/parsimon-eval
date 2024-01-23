@@ -42,7 +42,7 @@ const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 31_647_250; //11_351_649, 31_647_250;
-const NR_PATHS_SAMPLED: usize = 1;
+const NR_PATHS_SAMPLED: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
@@ -124,7 +124,6 @@ impl Experiment {
         let file = fs::File::open(flow_path_map_file)?;
 
         let start_1 = Instant::now(); // timer start
-        let start_extra = Instant::now(); // timer start
         
         // Create a buffered reader to efficiently read lines
         let reader = io::BufReader::new(file);
@@ -149,7 +148,7 @@ impl Experiment {
             }
         }
 
-        // let start_extra = Instant::now(); // timer start
+        let start_extra = Instant::now(); // timer start
 
         for (flow_id, path) in flowid_to_path_map {
             let mut pairs = path.into_iter().collect::<Vec<_>>();
@@ -493,9 +492,10 @@ impl Experiment {
         let sim = SimKind::PmnM;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+
+        let start = Instant::now(); // timer start
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
-        let start = Instant::now(); // timer start
         let a = Instant::now();
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
@@ -534,9 +534,11 @@ impl Experiment {
             .collect();
         let b = a.elapsed().as_secs();
         println!("Sampling took {b} seconds");
+        self.put_records(mix, sim, &records)?;
+        
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
-        self.put_records(mix, sim, &records)?;
+        
         Ok(())
     }
 
