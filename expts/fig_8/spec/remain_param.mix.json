@@ -84,10 +84,6 @@
     "dctcp_k": 30
   },
   {
-    "cc": "timely",
-    "dctcp_k": 30
-  },
-  {
     "cc": "dctcp",
     "dctcp_k": 29
   },
@@ -132,10 +128,6 @@
     "dctcp_k": 30
   },
   {
-    "cc": "dctcp",
-    "dctcp_k": 66
-  },
-  {
     "cc": "timely",
     "dctcp_k": 30
   },
@@ -145,10 +137,6 @@
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
-  },
-  {
-    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -216,14 +204,6 @@
     "dctcp_k": 37
   },
   {
-    "cc": "dctcp",
-    "dctcp_k": 60
-  },
-  {
-    "cc": "timely",
-    "dctcp_k": 30
-  },
-  {
     "cc": "dcqcn",
     "dctcp_k": 30
   },
@@ -245,10 +225,6 @@
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
-  },
-  {
-    "cc": "timely",
     "dctcp_k": 30
   },
   {
@@ -274,14 +250,6 @@
   {
     "cc": "dcqcn",
     "dctcp_k": 30
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 54
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 45
   },
   {
     "cc": "dctcp",
@@ -308,10 +276,6 @@
     "dctcp_k": 30
   },
   {
-    "cc": "dctcp",
-    "dctcp_k": 54
-  },
-  {
     "cc": "dcqcn",
     "dctcp_k": 30
   },
@@ -338,10 +302,6 @@
   {
     "cc": "dctcp",
     "dctcp_k": 66
-  },
-  {
-    "cc": "timely",
-    "dctcp_k": 30
   },
   {
     "cc": "timely",
@@ -378,22 +338,6 @@
   {
     "cc": "timely",
     "dctcp_k": 30
-  },
-  {
-    "cc": "timely",
-    "dctcp_k": 30
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 7
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 66
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 21
   },
   {
     "cc": "timely",
