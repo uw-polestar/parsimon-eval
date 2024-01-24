@@ -30,9 +30,10 @@ def sub_json(json_file, json_file_sub, output_file):
         json.dump(filtered_data, f, indent=2)
     
 # Example usage
-json_file_path = 'all_param.mix.json'  # Replace with your JSON file path
-
-output_file_path = 'remain_param.mix.json'  # Replace with the desired output file path
-
+json_file_path = 'all.mix.json'  # Replace with your JSON file path
+output_file_path = 'remain.mix.json'  # Replace with the desired output file path
 filter_json(json_file_path, output_file_path)
-# sub_json(json_file_path, json_file_path_sub,output_file_path)
+
+json_file_path = 'all_param.mix.json'  # Replace with your JSON file path
+output_file_path = 'remain_param.mix.json'  # Replace with the desired output file path
+filter_json(json_file_path, output_file_path)
