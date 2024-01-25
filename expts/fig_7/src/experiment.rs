@@ -7,7 +7,7 @@ use std::{
 };
 
 use anyhow::Ok;
-use ns3_frontend::Ns3Simulation;
+// use ns3_frontend::Ns3Simulation;
 use parsimon::core::{
     network::{Flow, FlowId, Network, NodeId},
     opts::SimOpts,
@@ -35,6 +35,7 @@ use crate::mlsys::{
     Mlsys,
     ns3_clean
 };
+use crate::ns3::Ns3Simulation;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
