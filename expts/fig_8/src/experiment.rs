@@ -92,14 +92,14 @@ impl Experiment {
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
                 
-                let mix_list = mixed_combined.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+                // let mix_list = mixed_combined.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
-                for mix_tmp in &mix_list {
-                    mix_tmp.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
-                }
+                // for mix_tmp in &mix_list {
+                //     mix_tmp.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                // }
                 // mix_list[1].par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
 
-                // mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
             }
             SimKind::MlsysParam => {
                 let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
@@ -630,9 +630,10 @@ impl Experiment {
         let sim = SimKind::PmnM;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+        let start = Instant::now(); // timer start
+
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
-        let start = Instant::now(); // timer start
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
@@ -1029,7 +1030,9 @@ impl Experiment {
                 result
             }).collect();
         println!("{}: {}", mix.id,results.len());
-
+        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
+        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
+        
         let mut results_str = String::new();
         for result in results {
             let tmp=result.unwrap();
@@ -1051,8 +1054,6 @@ impl Experiment {
             panic!("invalid sample mode");
         }
 
-        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
-        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
         self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1, elapsed_secs_2,elapsed_secs_extra))?;
         Ok(())
