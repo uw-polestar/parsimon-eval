@@ -1,18 +1,1 @@
-[
-  {
-    "cc": "timely",
-    "dctcp_k": 30
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 60
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 66
-  },
-  {
-    "cc": "dctcp",
-    "dctcp_k": 13
-  }
-]
+[]

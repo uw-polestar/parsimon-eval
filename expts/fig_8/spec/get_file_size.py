@@ -17,8 +17,11 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
     file_list=[]
     
     for item_idx, item in enumerate(data):
+        
         item_param=data_param[item_idx]
-        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/fct_topology_flows_{cc_dict[item_param['cc']]}_k{item_param['dctcp_k']}.txt"
+        cc=item_param['cc']
+        # file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/fct_topology_flows_{cc_dict[cc]}_k{item_param['dctcp_k']}.txt"
+        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/fct_topology_flows_{cc_dict[cc]}_k30.txt"
         file_list.append(file_name)
     new_json=[]
     new_json_param=[]
@@ -26,9 +29,12 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
     new_json_param_mlsys=[]
     cc_cnt_dict=defaultdict(lambda:0)
     dctcp_k_dict=defaultdict(lambda:0)
+    cnt_running=0
     for item_idx, file_path in enumerate(file_list):
         # print(file_path)
         try:
+            cc=data_param[item_idx]['cc']
+            if cc=="dctcp": continue
             # Get the size of the file in bytes
             file_size = os.path.getsize(file_path)
             
@@ -37,17 +43,20 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
 
             if file_size_in_mb > size_limit:
                 large_files.append((file_path, file_size_in_mb))
-                cc=data_param[item_idx]['cc']
                 cc_cnt_dict[cc]+=1
                 if cc=="dctcp":
                     dctcp_k_dict[data_param[item_idx]['dctcp_k']]+=1
+                    continue
                 if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/records.csv"):
                     new_json.append(data[item_idx])
                     new_json_param.append(data_param[item_idx])
                 else:
-                    if cc!="dctcp":
-                        new_json_mlsys.append(data[item_idx])
-                        new_json_param_mlsys.append(data_param[item_idx])
+                    new_json_mlsys.append(data[item_idx])
+                    new_json_param_mlsys.append(data_param[item_idx])
+            else:
+                
+                print(f"{cnt_running}-{item_idx}: File size: {file_size_in_mb} MB")
+                cnt_running+=1
         
         except FileNotFoundError:
             print(f"File not found: {file_path}")
@@ -73,7 +82,7 @@ if __name__ == "__main__":
     size_limit_mb = 600
 
     json_file = 'all.mix.json'  # Replace with your JSON file path
-    json_file_param = 'all_param.mix.json'  # Replace with your JSON file path
+    json_file_param = 'all_param_window.mix.json'  # Replace with your JSON file path
     save_file = 'test'  # Replace with your JSON file path
     
     # Find large files
