@@ -1,278 +1,282 @@
 [
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
-  },
-  {
-    "cc": "dcqcn",
-    "dctcp_k": 30
-  },
-  {
-    "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "timely",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
   },
   {
     "cc": "dcqcn",
-    "dctcp_k": 30
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
   }
 ]
