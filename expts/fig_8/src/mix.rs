@@ -48,23 +48,23 @@ pub struct Mix {
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct MixParam {
     pub cc: CcKind,
-    pub dctcp_k: u32,
+    pub window: u64,
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn mix_param_serde() {
-        let data= r#"{"cc":"dctcp","dctcp_k":42}"#;
+        let data= r#"{"cc":"dctcp","window":42000}"#;
         let mix_param = serde_json::from_str::<super::MixParam>(data).unwrap();
         assert_eq!(mix_param.cc, super::CcKind::Dctcp);
-        assert_eq!(mix_param.dctcp_k, 42);
+        assert_eq!(mix_param.window, 42000);
         assert_eq!(mix_param.cc.get_int_value(), 1);
 
-        let data= r#"{"cc":"dcqcn","dctcp_k":30}"#;
+        let data= r#"{"cc":"dcqcn","window":18000}"#;
         let mix_param = serde_json::from_str::<super::MixParam>(data).unwrap();
         assert_eq!(mix_param.cc, super::CcKind::Dcqcn);
-        assert_eq!(mix_param.dctcp_k, 30);
+        assert_eq!(mix_param.window, 18000);
         assert_eq!(mix_param.cc.get_int_value(), 3);
     }
 }

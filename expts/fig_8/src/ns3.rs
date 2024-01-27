@@ -54,29 +54,33 @@ impl Ns3Simulation {
     pub fn run(&self) -> Result<Vec<FctRecord>, Error> {
         // Set up directory
         let mk_path = |dir, file| [dir, file].into_iter().collect::<PathBuf>();
-        fs::create_dir_all(&self.data_dir)?;
+        // fs::create_dir_all(&self.data_dir)?;
 
-        // Set up the topology
-        let topology = translate_topology(&self.nodes, &self.links);
-        fs::write(
-            mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
-            topology,
-        )?;
+        // // Set up the topology
+        // let topology = translate_topology(&self.nodes, &self.links);
+        // fs::write(
+        //     mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
+        //     topology,
+        // )?;
 
-        // Set up the flows
-        let flows = translate_flows(&self.flows);
-        fs::write(
-            mk_path(self.data_dir.as_path(), "flows.txt".as_ref()),
-            flows,
-        )?;
+        // // Set up the flows
+        // let flows = translate_flows(&self.flows);
+        // fs::write(
+        //     mk_path(self.data_dir.as_path(), "flows.txt".as_ref()),
+        //     flows,
+        // )?;
 
-        // Run ns-3
-        self.invoke_ns3()?;
+        // // Run ns-3
+        // self.invoke_ns3()?;
 
         // Parse and return results
+        // let s = fs::read_to_string(mk_path(
+        //     self.data_dir.as_path(),
+        //     format!("fct_topology_flows_{}_k{}.txt", self.cc_kind.as_str(),self.window).as_ref(),
+        // ))?;
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}_k{}.txt", self.cc_kind.as_str(),self.dctcp_k).as_ref(),
+            format!("fct_topology_flows_{}_k30.txt", self.cc_kind.as_str()).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
         Ok(records)
@@ -93,10 +97,9 @@ impl Ns3Simulation {
         let window = self.window.into_u64();
         let base_rtt = self.base_rtt.into_u64();
         let cc = self.cc_kind.as_str();
-        let dctcp_k = self.dctcp_k.to_string();
         let python_command = format!(
             "python2 run.py --root {data_dir} --fwin {window} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --cc {cc} --dctcp_k {dctcp_k} \
+            --topo topology --trace flows --bw 10 --cc {cc} \
             > {data_dir}/output.txt 2>&1"
         );
         // Execute the command in a child process.
