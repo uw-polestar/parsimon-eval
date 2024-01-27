@@ -4,7 +4,7 @@ import numpy as np
 np.random.seed(0)
 
 cc_list=['dctcp','timely','dcqcn']
-dctcp_k_list=[7, 13, 21, 29, 37, 45, 54, 60, 66, 70]
+window_list=[7000, 13000, 21000, 29000, 37000, 48000]
 
 def add_param_json(json_file, output_file):
     # Read the JSON file
@@ -13,16 +13,16 @@ def add_param_json(json_file, output_file):
     n_mixes=len(data)
     
     cc_candidates=np.random.choice(cc_list, n_mixes, replace=True)
-    dctcp_k_candidates=np.random.choice(dctcp_k_list, n_mixes, replace=True)
+    window_candidates=np.random.choice(window_list, n_mixes, replace=True)
     
     data_new=[]
     for i in range(n_mixes):
         data_tmp={
             'cc': cc_candidates[i],
-            'dctcp_k': int(dctcp_k_candidates[i]),
+            'window': int(window_candidates[i]),
         }
         if cc_candidates[i]!='dctcp':
-            data_tmp['dctcp_k']=30
+            data_tmp['window']=18000
         data_new.append(data_tmp)
     with open(output_file, 'w') as f:
         json.dump(data_new, f, indent=2)
