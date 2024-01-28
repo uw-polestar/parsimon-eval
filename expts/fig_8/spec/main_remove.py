@@ -1,6 +1,6 @@
 import shutil
 import json
-json_file='./test_mlsys.mix.json'
+json_file='./remain.mix.json'
 with open(json_file, 'r') as f:
     data = json.load(f)
 

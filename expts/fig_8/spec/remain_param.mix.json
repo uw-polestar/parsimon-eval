@@ -1,7 +1,11 @@
 [
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
   },
   {
     "cc": "dctcp",
@@ -9,11 +13,23 @@
   },
   {
     "cc": "dctcp",
-    "window": 48000
+    "window": 23000
   },
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 16000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
+  },
+  {
+    "cc": "dctcp",
+    "window": 16000
   },
   {
     "cc": "dctcp",
@@ -21,47 +37,27 @@
   },
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 16000
   },
   {
     "cc": "dctcp",
-    "window": 48000
+    "window": 16000
   },
   {
     "cc": "dctcp",
-    "window": 37000
+    "window": 26000
   },
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 16000
   },
   {
     "cc": "dctcp",
-    "window": 48000
-  },
-  {
-    "cc": "dctcp",
-    "window": 7000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
+    "window": 11000
   },
   {
     "cc": "dctcp",
     "window": 13000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
   },
   {
     "cc": "dctcp",
@@ -69,31 +65,7 @@
   },
   {
     "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 48000
-  },
-  {
-    "cc": "dctcp",
-    "window": 48000
-  },
-  {
-    "cc": "dctcp",
-    "window": 13000
-  },
-  {
-    "cc": "dctcp",
-    "window": 7000
-  },
-  {
-    "cc": "dctcp",
-    "window": 48000
+    "window": 19000
   },
   {
     "cc": "dctcp",
@@ -105,7 +77,11 @@
   },
   {
     "cc": "dctcp",
-    "window": 7000
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
   },
   {
     "cc": "dctcp",
@@ -113,35 +89,15 @@
   },
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 19000
   },
   {
     "cc": "dctcp",
-    "window": 7000
+    "window": 11000
   },
   {
     "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 7000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 13000
-  },
-  {
-    "cc": "dctcp",
-    "window": 48000
+    "window": 19000
   },
   {
     "cc": "dctcp",
@@ -149,55 +105,7 @@
   },
   {
     "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 48000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 7000
-  },
-  {
-    "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 7000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
-    "window": 7000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
+    "window": 21000
   },
   {
     "cc": "dctcp",
@@ -205,11 +113,23 @@
   },
   {
     "cc": "dctcp",
-    "window": 37000
+    "window": 26000
   },
   {
     "cc": "dctcp",
-    "window": 37000
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
   },
   {
     "cc": "dctcp",
@@ -221,39 +141,43 @@
   },
   {
     "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 21000
-  },
-  {
-    "cc": "dctcp",
-    "window": 37000
-  },
-  {
-    "cc": "dctcp",
-    "window": 29000
-  },
-  {
-    "cc": "dctcp",
     "window": 7000
   },
   {
     "cc": "dctcp",
-    "window": 48000
+    "window": 19000
   },
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 28000
   },
   {
     "cc": "dctcp",
-    "window": 37000
+    "window": 26000
   },
   {
     "cc": "dctcp",
-    "window": 37000
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
+  },
+  {
+    "cc": "dctcp",
+    "window": 16000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
+  },
+  {
+    "cc": "dctcp",
+    "window": 16000
   },
   {
     "cc": "dctcp",
@@ -261,7 +185,79 @@
   },
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 13000
+  },
+  {
+    "cc": "dctcp",
+    "window": 13000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
+  },
+  {
+    "cc": "dctcp",
+    "window": 7000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 13000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
   },
   {
     "cc": "dctcp",
@@ -269,22 +265,26 @@
   },
   {
     "cc": "dctcp",
-    "window": 29000
+    "window": 16000
   },
   {
     "cc": "dctcp",
-    "window": 48000
+    "window": 23000
   },
   {
     "cc": "dctcp",
-    "window": 21000
+    "window": 23000
   },
   {
     "cc": "dctcp",
-    "window": 48000
+    "window": 16000
   },
   {
     "cc": "dctcp",
-    "window": 48000
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
   }
 ]

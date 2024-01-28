@@ -88,8 +88,8 @@ impl Experiment {
                 // }
             }
             SimKind::Ns3Param => {
-                // let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
-                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/test_param.mix.json")?)?;
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
+                // let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/test_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
                 
