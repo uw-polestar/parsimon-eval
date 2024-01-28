@@ -20,21 +20,20 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
         
         item_param=data_param[item_idx]
         cc=item_param['cc']
-        # file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/fct_topology_flows_{cc_dict[cc]}_k{item_param['dctcp_k']}.txt"
-        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/fct_topology_flows_{cc_dict[cc]}_k30.txt"
+        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/fct_topology_flows_{cc_dict[cc]}_k{item_param['window']}.txt"
         file_list.append(file_name)
     new_json=[]
     new_json_param=[]
     new_json_mlsys=[]
     new_json_param_mlsys=[]
     cc_cnt_dict=defaultdict(lambda:0)
-    dctcp_k_dict=defaultdict(lambda:0)
+    window_dict=defaultdict(lambda:0)
     cnt_running=0
     for item_idx, file_path in enumerate(file_list):
         # print(file_path)
         try:
             cc=data_param[item_idx]['cc']
-            if cc=="dctcp": continue
+            # if cc=="dctcp": continue
             # Get the size of the file in bytes
             file_size = os.path.getsize(file_path)
             
@@ -45,8 +44,7 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
                 large_files.append((file_path, file_size_in_mb))
                 cc_cnt_dict[cc]+=1
                 if cc=="dctcp":
-                    dctcp_k_dict[data_param[item_idx]['dctcp_k']]+=1
-                    continue
+                    window_dict[data_param[item_idx]['window']]+=1
                 if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/records.csv"):
                     new_json.append(data[item_idx])
                     new_json_param.append(data_param[item_idx])
@@ -54,18 +52,18 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
                     new_json_mlsys.append(data[item_idx])
                     new_json_param_mlsys.append(data_param[item_idx])
             else:
-                
-                print(f"{cnt_running}-{item_idx}: File size: {file_size_in_mb} MB")
-                cnt_running+=1
+                if cc=="dctcp":
+                    print(f"{cnt_running}-{item_idx}: File size: {file_size_in_mb} MB")
+                    cnt_running+=1
         
         except FileNotFoundError:
             print(f"File not found: {file_path}")
         except Exception as e:
             print(f"Error processing file {file_path}: {str(e)}")
     print("large_files: ", len(large_files))
-    print("new_json: ", len(new_json))
+    print("new_json: ", len(new_json),len(new_json_mlsys))
     print(cc_cnt_dict)
-    print(dctcp_k_dict)
+    print(window_dict)
     
     with open(f"{save_file}.mix.json", 'w') as f:
         json.dump(new_json, f, indent=2)

@@ -12,35 +12,11 @@
     "window": 18000
   },
   {
-    "cc": "dcqcn",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
+    "cc": "dctcp",
+    "window": 13000
   },
   {
     "cc": "dcqcn",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
     "window": 18000
   },
   {
@@ -52,16 +28,8 @@
     "window": 18000
   },
   {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "dcqcn",
-    "window": 18000
+    "cc": "dctcp",
+    "window": 19000
   },
   {
     "cc": "timely",
@@ -76,7 +44,19 @@
     "window": 18000
   },
   {
-    "cc": "dcqcn",
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 21000
+  },
+  {
+    "cc": "timely",
     "window": 18000
   },
   {
@@ -89,18 +69,6 @@
   },
   {
     "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "dcqcn",
     "window": 18000
   },
   {
@@ -120,12 +88,36 @@
     "window": 18000
   },
   {
-    "cc": "timely",
-    "window": 18000
+    "cc": "dctcp",
+    "window": 11000
   },
   {
     "cc": "dcqcn",
     "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 21000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
   },
   {
     "cc": "timely",
@@ -160,6 +152,58 @@
     "window": 18000
   },
   {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
     "cc": "timely",
     "window": 18000
   },
@@ -216,12 +260,8 @@
     "window": 18000
   },
   {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "dcqcn",
-    "window": 18000
+    "cc": "dctcp",
+    "window": 16000
   },
   {
     "cc": "timely",
@@ -229,30 +269,6 @@
   },
   {
     "cc": "dcqcn",
-    "window": 18000
-  },
-  {
-    "cc": "dcqcn",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "dcqcn",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
-    "window": 18000
-  },
-  {
-    "cc": "timely",
     "window": 18000
   },
   {
@@ -268,12 +284,100 @@
     "window": 18000
   },
   {
+    "cc": "dctcp",
+    "window": 11000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 13000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
     "cc": "timely",
     "window": 18000
   },
   {
     "cc": "dcqcn",
     "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 11000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 16000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "timely",
+    "window": 18000
+  },
+  {
+    "cc": "dcqcn",
+    "window": 18000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
   },
   {
     "cc": "dcqcn",

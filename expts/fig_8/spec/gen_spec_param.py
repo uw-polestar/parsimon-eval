@@ -4,7 +4,7 @@ import numpy as np
 np.random.seed(0)
 
 cc_list=['dctcp','timely','dcqcn']
-window_list=[7000, 13000, 21000, 29000, 37000, 48000]
+window_list=[7000, 11000, 13000, 16000, 19000, 21000, 23000, 26000, 28000]
 
 def add_param_json(json_file, output_file):
     # Read the JSON file
