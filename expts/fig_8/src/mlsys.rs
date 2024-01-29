@@ -138,8 +138,10 @@ impl Mlsys {
                 }
             }
             // input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
-            let val_comp=(1.0-input_set[0]).max(0.0);
-            input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
+
+            // let val_comp=(1.0-input_set[0]).max(0.0);
+            // input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
+
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
             // input_set.pop();
