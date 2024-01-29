@@ -1,34 +1,42 @@
 [
   {
-    "id": 10,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.2919822652843035,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 95,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
+    "id": 20,
+    "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
-    "max_load": 0.29252399644765925,
-    "cluster": "spec/cluster_2_to_1.json"
+    "max_load": 0.42465960069254305,
+    "cluster": "spec/cluster_4_to_1.json"
   },
   {
-    "id": 165,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
+    "id": 44,
+    "spatial": "../../workload/spatials/cluster_b_2_16.json",
+    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
+    "lognorm_sigma": 2.0,
+    "max_load": 0.2935749864576772,
+    "cluster": "spec/cluster_4_to_1.json"
+  },
+  {
+    "id": 70,
+    "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.4976038462949421,
-    "cluster": "spec/cluster_1_to_1.json"
+    "lognorm_sigma": 2.0,
+    "max_load": 0.5069716246400675,
+    "cluster": "spec/cluster_4_to_1.json"
   },
   {
-    "id": 173,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
+    "id": 78,
+    "spatial": "../../workload/spatials/cluster_a_2_16.json",
+    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
     "lognorm_sigma": 2.0,
-    "max_load": 0.3960337478872348,
+    "max_load": 0.5159723315456286,
+    "cluster": "spec/cluster_4_to_1.json"
+  },
+  {
+    "id": 131,
+    "spatial": "../../workload/spatials/cluster_a_2_16.json",
+    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
+    "lognorm_sigma": 2.0,
+    "max_load": 0.5180003868085181,
     "cluster": "spec/cluster_4_to_1.json"
   }
 ]

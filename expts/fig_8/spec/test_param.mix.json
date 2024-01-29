@@ -1,18 +1,22 @@
 [
   {
     "cc": "dctcp",
-    "window": 23000
+    "window": 16000
   },
   {
     "cc": "dctcp",
-    "window": 28000
-  },
-  {
-    "cc": "dctcp",
-    "window": 28000
+    "window": 7000
   },
   {
     "cc": "dctcp",
     "window": 21000
+  },
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 13000
   }
 ]
