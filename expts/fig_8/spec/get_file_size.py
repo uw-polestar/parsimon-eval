@@ -49,8 +49,9 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
                     new_json.append(data[item_idx])
                     new_json_param.append(data_param[item_idx])
                 else:
-                    new_json_mlsys.append(data[item_idx])
-                    new_json_param_mlsys.append(data_param[item_idx])
+                    if cc!="dctcp":
+                        new_json_mlsys.append(data[item_idx])
+                        new_json_param_mlsys.append(data_param[item_idx])
             else:
                 if cc=="dctcp":
                     print(f"{cnt_running}-{item_idx}: File size: {file_size_in_mb} MB")

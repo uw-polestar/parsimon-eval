@@ -660,10 +660,10 @@ impl Experiment {
                     })
             })
             .collect();
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_loads(mix, sim, &loads)?;
-        self.put_elapsed(mix, sim, elapsed_secs)?;
         self.put_records(mix, sim, &records)?;
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
     }
 
@@ -1031,8 +1031,6 @@ impl Experiment {
                 result
             }).collect();
         println!("{}: {}", mix.id,results.len());
-        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
-        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
         let mut results_str = String::new();
         for result in results {
@@ -1054,7 +1052,9 @@ impl Experiment {
         else{
             panic!("invalid sample mode");
         }
-
+        
+        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
+        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
         self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1, elapsed_secs_2,elapsed_secs_extra))?;
         Ok(())
@@ -1359,11 +1359,11 @@ impl Experiment {
                     })
             })
             .collect();
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_loads(mix, sim, &loads)?;
         self.put_clustering(mix, sim, frac)?;
-        self.put_elapsed(mix, sim, elapsed_secs)?;
         self.put_records(mix, sim, &records)?;
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
     }
 

@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "cc": "dctcp",
+    "window": 23000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 28000
+  },
+  {
+    "cc": "dctcp",
+    "window": 21000
+  }
+]

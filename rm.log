@@ -766,3 +766,387 @@ rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/190/n
 
 rm /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/191/ns3/flows.txt
 
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/0/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/1/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/2/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/3/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/4/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/5/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/6/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/7/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/8/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/9/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/10/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/11/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/12/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/13/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/14/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/15/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/16/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/17/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/18/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/19/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/20/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/21/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/22/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/23/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/24/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/26/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/27/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/28/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/29/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/30/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/31/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/32/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/33/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/34/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/35/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/36/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/37/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/38/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/39/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/40/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/41/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/42/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/43/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/44/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/45/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/46/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/47/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/48/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/49/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/50/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/51/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/52/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/53/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/54/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/55/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/56/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/57/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/58/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/59/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/60/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/61/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/62/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/63/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/64/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/65/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/66/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/67/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/68/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/69/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/70/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/71/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/72/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/73/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/74/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/75/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/76/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/77/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/78/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/79/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/80/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/81/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/82/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/83/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/84/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/85/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/86/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/87/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/88/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/89/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/90/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/91/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/92/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/93/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/94/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/95/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/96/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/97/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/98/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/99/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/100/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/101/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/102/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/103/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/104/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/105/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/106/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/107/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/108/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/109/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/110/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/111/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/112/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/113/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/114/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/115/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/116/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/117/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/118/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/119/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/120/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/121/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/122/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/123/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/124/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/125/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/126/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/127/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/128/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/129/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/130/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/131/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/132/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/133/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/134/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/135/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/136/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/137/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/138/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/139/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/140/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/141/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/142/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/143/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/144/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/145/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/146/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/147/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/148/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/149/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/150/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/151/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/152/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/153/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/154/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/155/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/156/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/157/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/158/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/159/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/160/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/161/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/162/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/163/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/164/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/165/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/166/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/167/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/168/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/169/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/170/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/171/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/172/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/173/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/174/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/175/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/176/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/177/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/178/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/179/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/180/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/181/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/182/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/183/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/184/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/185/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/186/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/187/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/188/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/189/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/190/mlsys-param
+
+rm -rf /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/191/mlsys-param
+
