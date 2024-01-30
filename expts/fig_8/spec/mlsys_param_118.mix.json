@@ -213,10 +213,6 @@
   },
   {
     "cc": "dctcp",
-    "window": 21000
-  },
-  {
-    "cc": "dctcp",
     "window": 26000
   },
   {

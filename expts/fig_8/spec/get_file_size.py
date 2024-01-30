@@ -49,18 +49,24 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
             if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/mlsys-param/elapsed.txt"):
                 new_json_mlsys_done.append(data[item_idx])
                 new_json_param_mlsys_done.append(data_param[item_idx])
+                cc_cnt_dict[cc]+=1
             else:
                 if file_size_in_mb > size_limit:
                     large_files.append((file_path, file_size_in_mb))
-                    cc_cnt_dict[cc]+=1
-                    if cc=="dctcp":
-                        window_dict[data_param[item_idx]['window']]+=1
+                    
                     if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/records.csv"):
                         new_json.append(data[item_idx])
                         new_json_param.append(data_param[item_idx])
                     else:
+                        cc_cnt_dict[cc]+=1
+                        if cc=="dctcp":
+                            window_dict[data_param[item_idx]['window']]+=1
+                        
                         new_json_mlsys.append(data[item_idx])
                         new_json_param_mlsys.append(data_param[item_idx])
+                        
+                        new_json_mlsys_done.append(data[item_idx])
+                        new_json_param_mlsys_done.append(data_param[item_idx])
                 else:
                     if cc=="dctcp":
                         print(f"{cnt_running}-{item_idx}: File size: {file_size_in_mb} MB")

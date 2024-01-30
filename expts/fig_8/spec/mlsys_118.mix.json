@@ -424,14 +424,6 @@
     "cluster": "spec/cluster_1_to_1.json"
   },
   {
-    "id": 73,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.7496522051820941,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
     "id": 74,
     "spatial": "../../workload/spatials/cluster_b_2_16.json",
     "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
