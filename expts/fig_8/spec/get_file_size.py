@@ -22,10 +22,16 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
         cc=item_param['cc']
         file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/fct_topology_flows_{cc_dict[cc]}_k{item_param['window']}.txt"
         file_list.append(file_name)
+    
     new_json=[]
     new_json_param=[]
+    
     new_json_mlsys=[]
     new_json_param_mlsys=[]
+    
+    new_json_mlsys_done=[]
+    new_json_param_mlsys_done=[]
+    
     cc_cnt_dict=defaultdict(lambda:0)
     window_dict=defaultdict(lambda:0)
     cnt_running=0
@@ -40,29 +46,31 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
             # Convert bytes to megabytes
             file_size_in_mb = file_size / (1024 * 1024)
 
-            if file_size_in_mb > size_limit:
-                large_files.append((file_path, file_size_in_mb))
-                cc_cnt_dict[cc]+=1
-                if cc=="dctcp":
-                    window_dict[data_param[item_idx]['window']]+=1
-                if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/records.csv"):
-                    new_json.append(data[item_idx])
-                    new_json_param.append(data_param[item_idx])
-                else:
-                    if cc!="dctcp":
+            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/mlsys-param/elapsed.txt"):
+                new_json_mlsys_done.append(data[item_idx])
+                new_json_param_mlsys_done.append(data_param[item_idx])
+            else:
+                if file_size_in_mb > size_limit:
+                    large_files.append((file_path, file_size_in_mb))
+                    cc_cnt_dict[cc]+=1
+                    if cc=="dctcp":
+                        window_dict[data_param[item_idx]['window']]+=1
+                    if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-param/records.csv"):
+                        new_json.append(data[item_idx])
+                        new_json_param.append(data_param[item_idx])
+                    else:
                         new_json_mlsys.append(data[item_idx])
                         new_json_param_mlsys.append(data_param[item_idx])
-            else:
-                if cc=="dctcp":
-                    print(f"{cnt_running}-{item_idx}: File size: {file_size_in_mb} MB")
-                    cnt_running+=1
+                else:
+                    if cc=="dctcp":
+                        print(f"{cnt_running}-{item_idx}: File size: {file_size_in_mb} MB")
+                        cnt_running+=1
         
         except FileNotFoundError:
             print(f"File not found: {file_path}")
         except Exception as e:
             print(f"Error processing file {file_path}: {str(e)}")
-    print("large_files: ", len(large_files))
-    print("new_json: ", len(new_json),len(new_json_mlsys))
+    print(f"ns3-param-running: {cnt_running}, ns3-param: {len(new_json)}, mlsys: {len(new_json_mlsys)}, mlsys-done: {len(new_json_mlsys_done)}")
     print(cc_cnt_dict)
     print(window_dict)
     
@@ -75,6 +83,12 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
         json.dump(new_json_mlsys, f, indent=2)
     with open(f"{save_file}_mlsys_param.mix.json", 'w') as f:
         json.dump(new_json_param_mlsys, f, indent=2)
+    
+    with open(f"mlsys.mix.json", 'w') as f:
+        json.dump(new_json_mlsys_done, f, indent=2)
+    with open(f"mlsys_param.mix.json", 'w') as f:
+        json.dump(new_json_param_mlsys_done, f, indent=2)
+    
     return large_files
 
 if __name__ == "__main__":
