@@ -8,17 +8,18 @@ bin_size_list=[MTU, BDP, 5 * BDP]
 
 n_size_bucket_list_output=len(bin_size_list)+1
 
-N_FLOW_THRESHOLD_LIST=[0, 1, 10, 20]
+# N_FLOW_THRESHOLD_LIST=[0, 1, 10, 20]
+N_FLOW_THRESHOLD_LIST=[10, 20]
 NR_PATHS_SAMPLED=500
 NR_INTEPOLATE=100
 N_FLOWS=NR_PATHS_SAMPLED*NR_INTEPOLATE*4
 N_FLOWS_PER_PATH=NR_INTEPOLATE*4
-enable_sample_per_path=False
+enable_sample_per_path=True
 sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
 # mlsys_dir_list=["mlsys_bdp_bt10_l30"]
 # mlsys_dir_list=["mlsys_0114_const_bt10"]
 # mlsys_dir_list=["mlsys_final_reprod_v1"]
-mlsys_dir_list=["mlsys_all_final"]
+mlsys_dir_list=["mlsys_e267"]
 # mlsys_dir_list=["mlsys_bt1_p100"]
 legend_list=['ns3','pmn-m',"mlsys"]
 

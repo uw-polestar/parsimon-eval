@@ -45,6 +45,14 @@
   },
   {
     "cc": "dctcp",
+    "window": 13000
+  },
+  {
+    "cc": "dctcp",
+    "window": 7000
+  },
+  {
+    "cc": "dctcp",
     "window": 7000
   },
   {
@@ -58,6 +66,10 @@
   {
     "cc": "dctcp",
     "window": 26000
+  },
+  {
+    "cc": "dctcp",
+    "window": 19000
   },
   {
     "cc": "dctcp",
