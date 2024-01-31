@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import numpy as np
+import json
 
 MTU=1000
 BDP = 10 * MTU
@@ -9,7 +10,7 @@ bin_size_list=[MTU, BDP, 5 * BDP]
 n_size_bucket_list_output=len(bin_size_list)+1
 
 # N_FLOW_THRESHOLD_LIST=[0, 1, 10, 20]
-N_FLOW_THRESHOLD_LIST=[10,20]
+N_FLOW_THRESHOLD_LIST=[1,5,10,20]
 NR_PATHS_SAMPLED=500
 NR_INTEPOLATE=100
 N_FLOWS=NR_PATHS_SAMPLED*NR_INTEPOLATE*4
@@ -19,20 +20,25 @@ sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
 # mlsys_dir_list=["mlsys_bdp_bt10_l30"]
 # mlsys_dir_list=["mlsys_0114_const_bt10"]
 # mlsys_dir_list=["mlsys_final_reprod_v1"]
-mlsys_dir_list=["mlsys_e267_final"]
+mlsys_dir_list=["mlsys-param_e267_final"]
 # mlsys_dir_list=["mlsys_bt1_p100"]
-legend_list=['ns3','pmn-m',"mlsys"]
+legend_list=['ns3-param','pmn-m-param',"mlsys"]
+
+with open(f"../spec/pmn_m.mix.json", 'r') as f:
+    mixes=json.load(f)
 
 for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
     print("N_FLOW_THRESHOLD: ",N_FLOW_THRESHOLD)
     res=[]
     for mlsys_dir_idx,mlsys_dir in enumerate(mlsys_dir_list):
-        save_file=f'./gen_{mlsys_dir}_p{NR_PATHS_SAMPLED}_l{NR_INTEPOLATE}_t{N_FLOW_THRESHOLD}{sample_per_path_str}.npz'
+        save_file=f'./gen_k_{mlsys_dir}_p{NR_PATHS_SAMPLED}_l{NR_INTEPOLATE}_t{N_FLOW_THRESHOLD}{sample_per_path_str}.npz'
         if not os.path.exists(save_file):
             res_final=[]
             n_flows_in_f_list_final=[]
             # for worst_low_id in np.random.choice(66,50,replace=False):
-            for worst_low_id in range(192):
+            # for worst_low_id in range(192):
+            for mix in mixes:
+                worst_low_id=mix['id']
                 res_tmp=[]
                 mix_dir = f'../data/{worst_low_id}'
                 df_pmn_m = pd.read_csv(f'{mix_dir}/{legend_list[1]}/records.csv')

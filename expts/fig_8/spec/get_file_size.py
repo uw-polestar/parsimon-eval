@@ -32,6 +32,9 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
     new_json_mlsys_done=[]
     new_json_param_mlsys_done=[]
     
+    new_json_pmn_m=[]
+    new_json_param_pmn_m=[]
+    
     cc_cnt_dict=defaultdict(lambda:0)
     window_dict=defaultdict(lambda:0)
     cnt_running=0
@@ -50,6 +53,10 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
                 new_json_mlsys_done.append(data[item_idx])
                 new_json_param_mlsys_done.append(data_param[item_idx])
                 cc_cnt_dict[cc]+=1
+                
+                if cc=="dctcp":
+                    new_json_pmn_m.append(data[item_idx])
+                    new_json_param_pmn_m.append(data_param[item_idx])
             else:
                 if file_size_in_mb > size_limit:
                     large_files.append((file_path, file_size_in_mb))
@@ -61,7 +68,10 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
                         cc_cnt_dict[cc]+=1
                         if cc=="dctcp":
                             window_dict[data_param[item_idx]['window']]+=1
-                        
+
+                            if cc=="dctcp":
+                                new_json_pmn_m.append(data[item_idx])
+                                new_json_param_pmn_m.append(data_param[item_idx])
                         new_json_mlsys.append(data[item_idx])
                         new_json_param_mlsys.append(data_param[item_idx])
                         
@@ -94,6 +104,11 @@ def find_large_files(json_file, json_file_param, size_limit,save_file):
         json.dump(new_json_mlsys_done, f, indent=2)
     with open(f"mlsys_param.mix.json", 'w') as f:
         json.dump(new_json_param_mlsys_done, f, indent=2)
+    
+    with open(f"pmn_m.mix.json", 'w') as f:
+        json.dump(new_json_pmn_m, f, indent=2)
+    with open(f"pmn_m_param.mix.json", 'w') as f:
+        json.dump(new_json_param_pmn_m, f, indent=2)
     
     return large_files
 
