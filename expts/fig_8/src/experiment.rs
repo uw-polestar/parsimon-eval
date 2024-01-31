@@ -146,7 +146,7 @@ impl Experiment {
                 }
             }
             SimKind::PmnMParam => {
-                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/test_pmn_m_param.mix.json")?)?;
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/pmn_m_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
 
@@ -677,6 +677,7 @@ impl Experiment {
     }
 
     fn run_pmn_m_param(&self, mix: &Mix, mix_param: &MixParam) -> anyhow::Result<()> {
+        println!("{}: {}", mix.id,mix_param.window);
         let sim = SimKind::PmnMParam;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
@@ -1080,6 +1081,8 @@ impl Experiment {
                 result
             }).collect();
         println!("{}: {}", mix.id,results.len());
+        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
+        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
         let mut results_str = String::new();
         for result in results {
@@ -1101,9 +1104,6 @@ impl Experiment {
         else{
             panic!("invalid sample mode");
         }
-        
-        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
-        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
         self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1, elapsed_secs_2,elapsed_secs_extra))?;
         Ok(())
