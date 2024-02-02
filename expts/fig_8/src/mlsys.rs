@@ -97,7 +97,7 @@ impl Mlsys {
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama_all_e493.bin ../data_test/checkpoints/model_mlp_all_e493.bin {data_dir} -b 10 -e 576 -n {n_hosts} -p {window} -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_all_e240.bin ../data_test/checkpoints/model_mlp_all_e240.bin {data_dir} -b 10 -e 576 -n {n_hosts} -p {window} -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
         );
        
         // println!("{}", c_command);
