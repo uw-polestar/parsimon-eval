@@ -12,7 +12,7 @@ use std::io;
 use parsimon::core::{
     network::Flow,
     // network::types::{Link, Node},
-    // units::{Bytes, Nanosecs},
+    units::Bytes,
 };
 // use rand::prelude::*;
 use crate::ns3::CcKind;
@@ -29,8 +29,8 @@ pub struct Mlsys {
     #[builder(default)]
     pub cc_kind: CcKind,
     /// The parameter for DCTCP.
-    #[builder(default = 30)]
-    pub dctcp_k: u32,
+    #[builder(default = Bytes::new(18000))]
+    pub window: Bytes,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
@@ -91,15 +91,16 @@ impl Mlsys {
         let n_hosts = n_hosts.to_string();
         // let cc = self.cc_kind.as_str();
         let cc = self.cc_kind.get_int_value().to_string();
-        let dctcp_k = self.dctcp_k.to_string();
+        let window = self.window.into_u64();
         // Build the command that runs the Python script.
         // let python_command = format!(
         //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
         // );
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p {dctcp_k} -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama_all_e493.bin ../data_test/checkpoints/model_mlp_all_e493.bin {data_dir} -b 10 -e 576 -n {n_hosts} -p {window} -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
         );
-        // println!("{}", python_command);
+       
+        // println!("{}", c_command);
         // Execute the command in a child process.
         // let _output = Command::new("sh")
         //     .arg("-c")
@@ -137,8 +138,10 @@ impl Mlsys {
                 }
             }
             // input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
+
             let val_comp=(1.0-input_set[0]).max(0.0);
             input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
+
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
             // input_set.pop();

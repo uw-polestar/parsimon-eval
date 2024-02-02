@@ -88,21 +88,22 @@ impl Experiment {
                 // }
             }
             SimKind::Ns3Param => {
-                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
+                // let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/test_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
                 
-                let mix_list = mixed_combined.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+                // let mix_list = mixed_combined.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
 
-                for mix_tmp in &mix_list {
-                    mix_tmp.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
-                }
+                // for mix_tmp in &mix_list {
+                //     mix_tmp.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                // }
                 // mix_list[1].par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
 
-                // mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
+                mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
             }
             SimKind::MlsysParam => {
-                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/remain_param.mix.json")?)?;
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/test_mlsys_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
                 let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
 
@@ -142,6 +143,15 @@ impl Experiment {
             SimKind::PmnM => {
                 for mix in &mixes {
                     self.run_pmn_m(mix)?;
+                }
+            }
+            SimKind::PmnMParam => {
+                let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/pmn_m_param.mix.json")?)?;
+                // mixes=mixes.into_iter().rev().collect();
+                let mixed_combined:Vec<(Mix,MixParam)>=mixes.into_iter().zip(mixes_param.into_iter()).collect();
+
+                for (mix,mix_param) in &mixed_combined {
+                    self.run_pmn_m_param(mix,mix_param)?;
                 }
             }
             SimKind::PmnMC => {
@@ -204,10 +214,10 @@ impl Experiment {
             .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
-            .window(WINDOW)
+            // .window(WINDOW)
             .base_rtt(BASE_RTT)
             .cc_kind(mix_param.cc)
-            .dctcp_k(mix_param.dctcp_k)
+            .window(Bytes::new(mix_param.window))
             .flows(flows)
             .build();
 
@@ -630,9 +640,10 @@ impl Experiment {
         let sim = SimKind::PmnM;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+        let start = Instant::now(); // timer start
+
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
-        let start = Instant::now(); // timer start
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
@@ -658,10 +669,51 @@ impl Experiment {
                     })
             })
             .collect();
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_loads(mix, sim, &loads)?;
-        self.put_elapsed(mix, sim, elapsed_secs)?;
         self.put_records(mix, sim, &records)?;
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
+        Ok(())
+    }
+
+    fn run_pmn_m_param(&self, mix: &Mix, mix_param: &MixParam) -> anyhow::Result<()> {
+        println!("{}: {}", mix.id,mix_param.window);
+        let sim = SimKind::PmnMParam;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+        let start = Instant::now(); // timer start
+
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations(flows.clone());
+        let loads = network.link_loads().collect::<Vec<_>>();
+        let linksim = MinimLink::builder()
+            .window(Bytes::new(mix_param.window))
+            .dctcp_gain(DCTCP_GAIN)
+            .dctcp_ai(DCTCP_AI)
+            .build();
+        let sim_opts = SimOpts::builder().link_sim(linksim).build();
+        let network = network.into_delays(sim_opts)?;
+        let mut rng = StdRng::seed_from_u64(self.seed);
+        let records: Vec<_> = flows
+            .iter()
+            .filter_map(|f| {
+                network
+                    .slowdown(f.size, (f.src, f.dst), &mut rng)
+                    .map(|slowdown| Record {
+                        mix_id: mix.id,
+                        flow_id: f.id,
+                        size: f.size,
+                        slowdown,
+                        sim,
+                    })
+            })
+            .collect();
+        self.put_loads(mix, sim, &loads)?;
+        self.put_records(mix, sim, &records)?;
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
     }
 
@@ -1029,7 +1081,9 @@ impl Experiment {
                 result
             }).collect();
         println!("{}: {}", mix.id,results.len());
-
+        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
+        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
+        
         let mut results_str = String::new();
         for result in results {
             let tmp=result.unwrap();
@@ -1050,9 +1104,6 @@ impl Experiment {
         else{
             panic!("invalid sample mode");
         }
-
-        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
-        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
         
         self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1, elapsed_secs_2,elapsed_secs_extra))?;
         Ok(())
@@ -1261,7 +1312,7 @@ impl Experiment {
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
                     .cc_kind(mix_param.cc)
-                    .dctcp_k(mix_param.dctcp_k)
+                    .window(Bytes::new(mix_param.window))
                     .build();
                 let result = mlsys.run(path_length);
 
@@ -1357,11 +1408,11 @@ impl Experiment {
                     })
             })
             .collect();
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_loads(mix, sim, &loads)?;
         self.put_clustering(mix, sim, frac)?;
-        self.put_elapsed(mix, sim, elapsed_secs)?;
         self.put_records(mix, sim, &records)?;
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
     }
 
@@ -1629,6 +1680,7 @@ pub enum SimKind {
     Ns3Param,
     Pmn,
     PmnM,
+    PmnMParam,
     PmnMC,
     Ns3PathOne,
     Ns3PathAll,
@@ -1644,6 +1696,7 @@ impl fmt::Display for SimKind {
             SimKind::Ns3Param => "ns3-param",
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
+            SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",

@@ -24,7 +24,9 @@ cargo run --release -- --mixes spec/all.mix.json pmn-m
 cargo run --release -- --mixes spec/all.mix.json pmn-mc
 cargo run --release -- --mixes spec/all.mix.json mlsys
 
-cargo run --release -- --mixes spec/remain.mix.json ns3-param
+cargo run --release -- --mixes spec/test_mlsys.mix.json mlsys-param
+
+cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 
 python run.py --root /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/ns3 --cc dctcp --trace flows --bw 10 --topo topology --fwin 18000 --base_rtt 14400
 
@@ -59,7 +61,9 @@ python gen_opt_loop.py 1 192 1 1 0 > gen_opt_1_1_1_0.log
 
 python gen_opt_loop.py 1 192 1 1 1 > gen_opt_1_1_1_1.log
 
-python sensitivity_path_mlsys.py > gen_mlsys_0114_const_p500_l100_tx_samp.log
+python gen_sensitivity_path_param_k.py > gen_k_mlsys-param_e267_p500_l100_tx_nosamp.log
 
-python sensitivity_path_mlsys.py > gen_mlsys_0114_const_p500_l100_tx_nosamp.log
+python gen_sensitivity_path_param.py > gen_mlsys-param_e267_p500_l100_tx_nosamp_1.log
+
+python gen_sensitivity_path.py > gen_mlsys_e365_p500_l100_tx_nosamp_1.log
 

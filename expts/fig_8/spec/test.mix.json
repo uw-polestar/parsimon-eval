@@ -1,51 +1,11 @@
 [
   {
-    "id": 14,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
+    "id": 9,
+    "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
-    "max_load": 0.2671581429794989,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 15,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6213051726408152,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 16,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.409306522776384,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 17,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2590273444600284,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 18,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.27197601043687214,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 19,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.46548395995167463,
-    "cluster": "spec/cluster_1_to_1.json"
+    "max_load": 0.5568846038892901,
+    "cluster": "spec/cluster_4_to_1.json"
   },
   {
     "id": 20,
@@ -56,91 +16,11 @@
     "cluster": "spec/cluster_4_to_1.json"
   },
   {
-    "id": 21,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.2616492152306864,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 22,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.30340988002115266,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 23,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2719164250616908,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 24,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.349409375763963,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 25,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6068434737969903,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
     "id": 26,
     "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 1.0,
     "max_load": 0.30974796746406696,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 27,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.32663654142670284,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 28,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3895119590853292,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 29,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.518351058647661,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 30,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2625526151749801,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 31,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.47527916957783684,
     "cluster": "spec/cluster_1_to_1.json"
   },
   {
@@ -152,140 +32,12 @@
     "cluster": "spec/cluster_2_to_1.json"
   },
   {
-    "id": 33,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.2777842232339133,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 34,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3857303263943396,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 35,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2630220239195611,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 36,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.4189518845598552,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 37,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6046028883056305,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 38,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6834829684595175,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 39,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2696321481117253,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 40,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5152928979574745,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 41,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3266624065232707,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 42,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5569544659977093,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 43,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.4920141804432579,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
     "id": 44,
     "spatial": "../../workload/spatials/cluster_b_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.2935749864576772,
     "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 45,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.31627027149863873,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 46,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.47397038559206334,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 47,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6494533494271933,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 48,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5399094882804178,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 49,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2777694326655076,
-    "cluster": "spec/cluster_2_to_1.json"
   },
   {
     "id": 50,
@@ -296,155 +48,11 @@
     "cluster": "spec/cluster_1_to_1.json"
   },
   {
-    "id": 51,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.4556169864961452,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 52,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6112845687720734,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 53,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.7390207853323516,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 54,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3997012306279446,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 55,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5696093428489593,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
     "id": 56,
     "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.5593355068507759,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 57,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6056914918947001,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 58,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.46186434056093467,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 59,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.36963396623102673,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 60,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5831753530088837,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 61,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5655960123381027,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 62,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3755568458443934,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 63,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.7311332739938902,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 64,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.4843775243854434,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 65,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3469791436046634,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 66,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.35548132138250854,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 67,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.39717170709244765,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 68,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2557384943449943,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 69,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3390592231106748,
     "cluster": "spec/cluster_1_to_1.json"
   },
   {
@@ -464,46 +72,6 @@
     "cluster": "spec/cluster_2_to_1.json"
   },
   {
-    "id": 72,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5003988892645248,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 73,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.7496522051820941,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 74,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5909489223635469,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 75,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.34691401838273683,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 76,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5090416360434802,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
     "id": 77,
     "spatial": "../../workload/spatials/cluster_b_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
@@ -520,52 +88,12 @@
     "cluster": "spec/cluster_4_to_1.json"
   },
   {
-    "id": 79,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5450266051642836,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
     "id": 80,
     "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.7350793657763435,
     "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 81,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6029843876836714,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 82,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.37647944685565304,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 83,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5614672863273176,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 84,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6463781020757684,
-    "cluster": "spec/cluster_4_to_1.json"
   },
   {
     "id": 85,
@@ -576,52 +104,12 @@
     "cluster": "spec/cluster_1_to_1.json"
   },
   {
-    "id": 86,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.308329956610627,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 87,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5750752053631623,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 88,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.4886233680157534,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
     "id": 89,
     "spatial": "../../workload/spatials/cluster_b_2_16.json",
     "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
     "lognorm_sigma": 1.0,
     "max_load": 0.5817947562675669,
     "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 90,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5611895251834542,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 91,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.36708612320760126,
-    "cluster": "spec/cluster_2_to_1.json"
   },
   {
     "id": 92,
@@ -632,75 +120,11 @@
     "cluster": "spec/cluster_2_to_1.json"
   },
   {
-    "id": 93,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.36343669711607274,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 94,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.7217600124331737,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 95,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.29252399644765925,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 96,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3928900746943492,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
     "id": 97,
     "spatial": "../../workload/spatials/cluster_b_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.7116169967606567,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 98,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.2909727515998869,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 99,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3360553892659176,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 100,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.373830321652044,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 101,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.41476002394153044,
     "cluster": "spec/cluster_2_to_1.json"
   },
   {
@@ -712,166 +136,6 @@
     "cluster": "spec/cluster_4_to_1.json"
   },
   {
-    "id": 103,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3493656036161469,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 104,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.7313691177103281,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 105,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5642609863149368,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 106,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6016512914975161,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 107,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.34208557771505443,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 108,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6422320509290859,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 109,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.4584110642684848,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 110,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6698157913107089,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 111,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.4433183807243915,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 112,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.737859350819907,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 113,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6796948012432781,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 114,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3101633401350973,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 115,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6349799138648079,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 116,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6780269746651542,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 117,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.582595013654567,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 118,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.7472724190064007,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 119,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.49326275395570457,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 120,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.461828272407843,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 121,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.49493995903119375,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 122,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6731542124437904,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
     "id": 123,
     "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
@@ -880,91 +144,11 @@
     "cluster": "spec/cluster_2_to_1.json"
   },
   {
-    "id": 124,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3308091745833327,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 125,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.30602592697297515,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 126,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.4185834677713861,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 127,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.49824011701615384,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 128,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.45664101386204586,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 129,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.39190538186072243,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 130,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6503440744522004,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
     "id": 131,
     "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.5180003868085181,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 132,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3419344937812453,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 133,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3914071175035624,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 134,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.4241574152059473,
     "cluster": "spec/cluster_4_to_1.json"
   },
   {
@@ -984,86 +168,6 @@
     "cluster": "spec/cluster_2_to_1.json"
   },
   {
-    "id": 137,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3516087802067719,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 138,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6056627327176369,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 139,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.36169084657817685,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 140,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.26457544482013917,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 141,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3146075118311099,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 142,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6382770065410617,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 143,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6195808254213897,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 144,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3881829176457554,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 145,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5497249697782385,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 146,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.4873949190368663,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
     "id": 147,
     "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
@@ -1080,68 +184,12 @@
     "cluster": "spec/cluster_4_to_1.json"
   },
   {
-    "id": 149,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.492439325719155,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 150,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.7165477704140878,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 151,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.42582408589101306,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 152,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.43017195695609256,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 153,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.25206033685414797,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
     "id": 154,
     "spatial": "../../workload/spatials/cluster_b_2_16.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.6012296386065648,
     "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 155,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3144567544030674,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 156,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.710536714562492,
-    "cluster": "spec/cluster_2_to_1.json"
   },
   {
     "id": 157,
@@ -1152,275 +200,11 @@
     "cluster": "spec/cluster_2_to_1.json"
   },
   {
-    "id": 158,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.46445782633635463,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 159,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.35483917027680567,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 160,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.46012220978164114,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 161,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.4869788383872355,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 162,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.35743736808149074,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 163,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.2607629057674832,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 164,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.2862987474854347,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 165,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.4976038462949421,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
     "id": 166,
     "spatial": "../../workload/spatials/cluster_a_2_16.json",
     "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.4377477482944125,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 167,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3739547223548296,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 168,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.35186803852402815,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 169,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.49779345206767084,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 170,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.45969779337288225,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 171,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3899553900952213,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 172,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6690420765770847,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 173,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3960337478872348,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 174,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.46849940132410967,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 175,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.491735519764727,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 176,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6155246951323434,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 177,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.25428706454458816,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 178,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5249442952927075,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 179,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.28461777988293036,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 180,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5959382679039567,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 181,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.3510081172036781,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 182,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.31519777454448783,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 183,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.46696641106108877,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 184,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.729101716771376,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 185,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.5614998547214793,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 186,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.37802752671672857,
-    "cluster": "spec/cluster_1_to_1.json"
-  },
-  {
-    "id": 187,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6803397105255539,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 188,
-    "spatial": "../../workload/spatials/cluster_a_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.5369251655038476,
-    "cluster": "spec/cluster_2_to_1.json"
-  },
-  {
-    "id": 189,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.555442435921554,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 190,
-    "spatial": "../../workload/spatials/cluster_b_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.6224102471231658,
-    "cluster": "spec/cluster_4_to_1.json"
-  },
-  {
-    "id": 191,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.3017955243982935,
     "cluster": "spec/cluster_1_to_1.json"
   }
 ]

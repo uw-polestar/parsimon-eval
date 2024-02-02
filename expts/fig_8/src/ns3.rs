@@ -33,6 +33,7 @@ pub struct Ns3Simulation {
     /// The topology links.
     pub links: Vec<Link>,
     /// The sencing window.
+    #[builder(default = Bytes::new(18000))]
     pub window: Bytes,
     /// The base RTT.
     pub base_rtt: Nanosecs,
@@ -41,10 +42,7 @@ pub struct Ns3Simulation {
     pub cc_kind: CcKind,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
-    pub flows: Vec<Flow>,
-    /// The parameter for DCTCP.
-    #[builder(default = 30)]
-    pub dctcp_k: u32,
+    pub flows: Vec<Flow>
 }
 
 impl Ns3Simulation {
@@ -76,7 +74,7 @@ impl Ns3Simulation {
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}_k{}.txt", self.cc_kind.as_str(),self.dctcp_k).as_ref(),
+            format!("fct_topology_flows_{}_k{}.txt", self.cc_kind.as_str(),self.window.into_u64()).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
         Ok(records)
@@ -93,10 +91,9 @@ impl Ns3Simulation {
         let window = self.window.into_u64();
         let base_rtt = self.base_rtt.into_u64();
         let cc = self.cc_kind.as_str();
-        let dctcp_k = self.dctcp_k.to_string();
         let python_command = format!(
             "python2 run.py --root {data_dir} --fwin {window} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --cc {cc} --dctcp_k {dctcp_k} \
+            --topo topology --trace flows --bw 10 --cc {cc} \
             > {data_dir}/output.txt 2>&1"
         );
         // Execute the command in a child process.
