@@ -94,6 +94,9 @@ impl Mlsys {
         let c_command = format!(
             "./run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
         );
+        // let c_command = format!(
+        //     "./run ../data_test/checkpoints/model_llama_all_e267.bin ../data_test/checkpoints/model_mlp_all_e267.bin {data_dir} -b 10 -e 576 -n {n_hosts} -p 18 -t 1 -c 1 > {data_dir}/output.txt 2>&1"
+        // );
         // println!("{}", python_command);
         // Execute the command in a child process.
         // let _output = Command::new("sh")
