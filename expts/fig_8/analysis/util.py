@@ -5,12 +5,20 @@ import numpy as np
 color_list = [
     "cornflowerblue",
     "orange",
-    "gold",
     "deeppink",
     "black",
     "blueviolet",
     "seagreen",
 ]
+# color_list = [
+#     "C1",
+#     "C2",
+#     "C3",
+#     "C4",
+#     "C5",
+#     "C6",
+#     "C7",
+# ]
 hatch_list = ["o", "x", "/", ".", "*", "-", "\\"]
 linestyle_list = ["-", "-.", ":","--"]
 markertype_list = ["o", "^","x", "x","|"]
