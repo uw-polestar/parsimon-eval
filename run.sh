@@ -28,23 +28,7 @@ cargo run --release -- --mixes spec/test_mlsys.mix.json mlsys-param
 
 cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 
-python run.py --root /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/25/ns3 --cc dctcp --trace flows --bw 10 --topo topology --fwin 18000 --base_rtt 14400
-
-python2 run.py --root mix --cc dctcp --trace flow_parsimon --bw 10 --topo fat_parsimon
-
 PATH=$PATH:/data1/lichenni/software/anaconda3/envs/py27/bin
-
-
-CC='gcc-5' CXX='g++-5' ./waf configure --build-profile=optimized
-
-CC='gcc-5' CXX='g++-5' ./waf configure --build-profile=debug --out=build/debug
-
-export NS_LOG=PacketPathExample=info
-
-./waf --run 'scratch/third mix_7/config_topo-pl-7_flows_dctcp_k30.txt'
-./waf -d debug -out=debug.txt --run 'scratch/test'
-
-https://github.com/kwzhao/High-Precision-Congestion-Control/compare/325635a6baf0131b8d46b3b4394c0a1d621f4aff...3b7ad3222598937dc0a5b423ba8f360489e24ce4
 
 python test.py > gen_mlsys_s2_bt50_dedupe.log
 
@@ -53,7 +37,6 @@ python gen_opt.py 1 192 1 1000 100 0 0 > gen_opt_1_1_1000_100_0_0.log
 python gen_opt.py 1 192 1 1000 100 1 0 > gen_opt_1_1_1000_100_1_0.log
 
 python gen_opt.py 1 192 1 1000 100 1 1 > gen_opt_1_1_1000_100_1_1.log
-
 
 python gen_opt_loop.py 1 192 1 0 0 > gen_opt_1_1_0_0.log
 
