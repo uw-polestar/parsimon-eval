@@ -42,7 +42,10 @@ pub struct Ns3Simulation {
     pub cc_kind: CcKind,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
-    pub flows: Vec<Flow>
+    pub flows: Vec<Flow>,
+    /// The congestion control parameter.
+    #[builder(default = 1.0)]
+    pub param_cc: f64,
 }
 
 impl Ns3Simulation {

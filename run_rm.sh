@@ -13,7 +13,7 @@ do
     # COMMAND="mv ${OUTPUT_PATH}/${shard}/mlsys_final_reprod_v0 /data2/lichenni/data_10m/${shard}/"
     # COMMAND="mv /data2/lichenni/data_10m_/${shard}/* /data2/lichenni/data_10m/${shard}/mlsys_s2_bt100"
     # COMMAND="mkdir /data2/lichenni/data_10m/${shard}"
-    # COMMAND="rm ${OUTPUT_PATH}/${shard}/ns3/flows.txt"
+    COMMAND="rm ${OUTPUT_PATH}/${shard}/ns3-param/flows.txt"
     echo "$COMMAND">>"$cur_dir/rm.log"
     ${COMMAND}>>"$cur_dir/rm.log"
     echo "">>"$cur_dir/rm.log"

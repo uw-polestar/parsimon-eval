@@ -102,6 +102,21 @@ impl Experiment {
 
                 mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
             }
+            SimKind::Ns3Config => {
+                mixes.par_iter().try_for_each(|mix| self.run_ns3_config(mix))?;
+                // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+
+                // for mix_tmp in &mix_list {
+                //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                // }
+            }
+
+            SimKind::Mlsys => {
+                for mix in &mixes {
+                    self.run_mlsys(mix)?;
+                }
+            }
+
             SimKind::MlsysParam => {
                 let mixes_param: Vec<MixParam> = serde_json::from_str(&fs::read_to_string("spec/test_mlsys_param.mix.json")?)?;
                 // mixes=mixes.into_iter().rev().collect();
@@ -141,6 +156,9 @@ impl Experiment {
                 }
             }
             SimKind::PmnM => {
+                let mut mixes: Vec<Mix> = serde_json::from_str(&fs::read_to_string(&self.mixes)?)?;
+                // mixes=mixes.into_iter().rev().collect();
+
                 for mix in &mixes {
                     self.run_pmn_m(mix)?;
                 }
@@ -164,11 +182,7 @@ impl Experiment {
                     self.run_pmn_m_path(mix)?;
                 }
             }
-            SimKind::Mlsys => {
-                for mix in &mixes {
-                    self.run_mlsys(mix)?;
-                }
-            }
+            
         }
         Ok(())
     }
@@ -177,6 +191,7 @@ impl Experiment {
         let sim = SimKind::Ns3;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+
         let start = Instant::now(); // timer start
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
@@ -198,9 +213,10 @@ impl Experiment {
                 sim,
             })
             .collect::<Vec<_>>();
+        self.put_records(mix, sim, &records)?;
+
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
-        self.put_records(mix, sim, &records)?;
         Ok(())
     }
 
@@ -208,6 +224,7 @@ impl Experiment {
         let sim = SimKind::Ns3Param;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+
         let start = Instant::now(); // timer start
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
@@ -232,9 +249,47 @@ impl Experiment {
                 sim,
             })
             .collect::<Vec<_>>();
+        self.put_records(mix, sim, &records)?;
+
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
+        Ok(())
+    }
+
+    fn run_ns3_config(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Ns3Config;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+
+        let start = Instant::now(); // timer start
+        let ns3 = Ns3Simulation::builder()
+            .ns3_dir(NS3_DIR)
+            .data_dir(self.sim_dir(mix, sim)?)
+            .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
+            .links(cluster.links().cloned().collect::<Vec<_>>())
+            // .window(WINDOW)
+            .base_rtt(BASE_RTT)
+            .cc_kind(mix.cc)
+            .param_cc(mix.param_cc)
+            .window(Bytes::new(mix.window))
+            .flows(flows)
+            .build();
+
+        let records = ns3
+            .run()?
+            .into_iter()
+            .map(|rec| Record {
+                mix_id: mix.id,
+                flow_id: rec.id,
+                size: rec.size,
+                slowdown: rec.slowdown(),
+                sim,
+            })
+            .collect::<Vec<_>>();
         self.put_records(mix, sim, &records)?;
+        
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
     }
 
@@ -244,60 +299,14 @@ impl Experiment {
         let flows = self.flows(mix)?;
 
         // read flows associated with a path
-        let mut channel_to_flowid_map: HashMap<(NodeId, NodeId), HashSet<FlowId>> = HashMap::new();
-        let mut flowid_to_path_map: HashMap<usize, HashSet<(NodeId, NodeId)>> = HashMap::new();
-        let mut path_to_flowid_map: HashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = HashMap::new();
-
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
-        let file = fs::File::open(flow_path_map_file)?;
 
+        let start = Instant::now(); // timer start
         // Create a buffered reader to efficiently read lines
-        let reader = io::BufReader::new(file);
-        for line in reader.lines() {
-            let line = line?;
-            let mut tmp = line
-                .split(",");
-            let src = tmp.nth(1).and_then(|x| x.parse::<NodeId>().ok());
-            let dst = tmp.next().and_then(|x| x.parse::<NodeId>().ok());
-            if let (Some(src), Some(dst)) = (src, dst) {
-                let tmp_key = (src, dst);
-                for val in tmp.skip(1).filter_map(|x| x.parse::<usize>().ok()) {
-                    flowid_to_path_map
-                        .entry(val)
-                        .or_insert_with(HashSet::new)
-                        .insert(tmp_key);
-                    channel_to_flowid_map
-                        .entry(tmp_key)
-                        .or_insert_with(HashSet::new)
-                        .insert(FlowId::new(val));
-                }
-            }
-        }
 
-        for (flow_id, path) in flowid_to_path_map {
-            let mut pairs = path.into_iter().collect::<Vec<_>>();
-            pairs.sort();
-            let mut path_ordered = Vec::<(NodeId, NodeId)>::with_capacity(pairs.len() + 1);
-            path_ordered.push((flows[flow_id].src, flows[flow_id].dst));
+        let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
 
-            if let Some(first_pair) = pairs.first() {
-                path_ordered.push(*first_pair);
-
-                // Iterate over the remaining pairs
-                while path_ordered.len() != pairs.len()+1 {
-                    for pair in pairs.iter().skip(1) {
-                        // If the source of the current pair equals the destination of the last pair in the ordered list
-                        if pair.0 == path_ordered.last().unwrap().1 {
-                            path_ordered.push(*pair);
-                        }
-                    }
-                }
-            }
-            path_to_flowid_map
-                .entry(path_ordered.clone())
-                .or_insert_with(HashSet::new)
-                .insert(flow_id);
-        }
+        let (path_to_flowid_map, _)= self.get_routes(flowid_to_path_map, &flows);
 
         let path = path_to_flowid_map
             .iter()
@@ -352,7 +361,7 @@ impl Experiment {
             .filter(|flow| flow_ids_in_f_prime.contains(&flow.id))
             .collect::<Vec<_>>();
 
-        let start = Instant::now(); // timer start
+        
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
             .data_dir(self.sim_dir(mix, sim)?)
@@ -385,65 +394,15 @@ impl Experiment {
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         // read flows associated with a path
-        let mut channel_to_flowid_map: FxHashMap<(NodeId, NodeId), HashSet<FlowId>> = FxHashMap::default();
-        let mut flowid_to_path_map: FxHashMap<usize, HashSet<(NodeId, NodeId)>> = FxHashMap::default();
-        let mut flowid_to_path_map_ordered: FxHashMap<usize, Vec<(NodeId, NodeId)>> = FxHashMap::default();
-        let mut path_to_flowid_map: FxHashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = FxHashMap::default();
         let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
             .iter()
             .map(|flow| (flow.id, flow.clone()))
             .collect::<FxHashMap<_, _>>();
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
-        let file = fs::File::open(flow_path_map_file)?;
 
-        // Create a buffered reader to efficiently read lines
-        let reader = io::BufReader::new(file);
-        for line in reader.lines() {
-            let line = line?;
-            let mut tmp = line
-                .split(",");
-            let src = tmp.nth(1).and_then(|x| x.parse::<NodeId>().ok());
-            let dst = tmp.next().and_then(|x| x.parse::<NodeId>().ok());
-            if let (Some(src), Some(dst)) = (src, dst) {
-                let tmp_key = (src, dst);
-                for val in tmp.skip(1).filter_map(|x| x.parse::<usize>().ok()) {
-                    flowid_to_path_map
-                        .entry(val)
-                        .or_insert_with(HashSet::new)
-                        .insert(tmp_key);
-                    channel_to_flowid_map
-                        .entry(tmp_key)
-                        .or_insert_with(HashSet::new)
-                        .insert(FlowId::new(val));
-                }
-            }
-        }
+        let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
 
-        for (flow_id, path) in flowid_to_path_map {
-            let mut pairs = path.into_iter().collect::<Vec<_>>();
-            pairs.sort();
-            let mut path_ordered = Vec::<(NodeId, NodeId)>::with_capacity(pairs.len() + 1);
-            path_ordered.push((flows[flow_id].src, flows[flow_id].dst));
-
-            if let Some(first_pair) = pairs.first() {
-                path_ordered.push(*first_pair);
-
-                // Iterate over the remaining pairs
-                while path_ordered.len() != pairs.len()+1 {
-                    for pair in pairs.iter().skip(1) {
-                        // If the source of the current pair equals the destination of the last pair in the ordered list
-                        if pair.0 == path_ordered.last().unwrap().1 {
-                            path_ordered.push(*pair);
-                        }
-                    }
-                }
-            }
-            path_to_flowid_map
-                .entry(path_ordered.clone())
-                .or_insert_with(HashSet::new)
-                .insert(flow_id);
-            flowid_to_path_map_ordered.insert(flow_id, path_ordered.clone());
-        }
+        let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
 
         let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
@@ -853,67 +812,18 @@ impl Experiment {
         let sim = SimKind::Mlsys;
         let flows = self.flows(mix)?;
         // read flows associated with a path
-        let mut channel_to_flowid_map: FxHashMap<(NodeId, NodeId), HashSet<FlowId>> = FxHashMap::default();
-        let mut flowid_to_path_map: FxHashMap<usize, HashSet<(NodeId, NodeId)>> = FxHashMap::default();
-        let mut flowid_to_path_map_ordered: FxHashMap<usize, Vec<(NodeId, NodeId)>> = FxHashMap::default();
-        let mut path_to_flowid_map: FxHashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = FxHashMap::default();
         let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
             .iter()
             .map(|flow| (flow.id, flow.clone()))
             .collect::<FxHashMap<_, _>>();
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
-        let file = fs::File::open(flow_path_map_file)?;
 
         let start_1 = Instant::now(); // timer start
         // Create a buffered reader to efficiently read lines
-        let reader = io::BufReader::new(file);
-        for line in reader.lines() {
-            let line = line?;
-            let mut tmp = line
-                .split(",");
-            let src = tmp.nth(1).and_then(|x| x.parse::<NodeId>().ok());
-            let dst = tmp.next().and_then(|x| x.parse::<NodeId>().ok());
-            if let (Some(src), Some(dst)) = (src, dst) {
-                let tmp_key = (src, dst);
-                for val in tmp.skip(1).filter_map(|x| x.parse::<usize>().ok()) {
-                    flowid_to_path_map
-                        .entry(val)
-                        .or_insert_with(HashSet::new)
-                        .insert(tmp_key);
-                    channel_to_flowid_map
-                        .entry(tmp_key)
-                        .or_insert_with(HashSet::new)
-                        .insert(FlowId::new(val));
-                }
-            }
-        }
+        let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
 
         let start_extra = Instant::now(); // timer start
-        for (flow_id, path) in flowid_to_path_map {
-            let mut pairs = path.into_iter().collect::<Vec<_>>();
-            pairs.sort();
-            let mut path_ordered = Vec::<(NodeId, NodeId)>::with_capacity(pairs.len() + 1);
-            path_ordered.push((flows[flow_id].src, flows[flow_id].dst));
-
-            if let Some(first_pair) = pairs.first() {
-                path_ordered.push(*first_pair);
-
-                // Iterate over the remaining pairs
-                while path_ordered.len() != pairs.len()+1 {
-                    for pair in pairs.iter().skip(1) {
-                        // If the source of the current pair equals the destination of the last pair in the ordered list
-                        if pair.0 == path_ordered.last().unwrap().1 {
-                            path_ordered.push(*pair);
-                        }
-                    }
-                }
-            }
-            path_to_flowid_map
-                .entry(path_ordered.clone())
-                .or_insert_with(HashSet::new)
-                .insert(flow_id);
-            flowid_to_path_map_ordered.insert(flow_id, path_ordered.clone());
-        }
+        let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
         let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
 
         let path_to_flows_vec_sorted = path_to_flowid_map
@@ -1113,67 +1023,18 @@ impl Experiment {
         let sim = SimKind::MlsysParam;
         let flows = self.flows(mix)?;
         // read flows associated with a path
-        let mut channel_to_flowid_map: FxHashMap<(NodeId, NodeId), HashSet<FlowId>> = FxHashMap::default();
-        let mut flowid_to_path_map: FxHashMap<usize, HashSet<(NodeId, NodeId)>> = FxHashMap::default();
-        let mut flowid_to_path_map_ordered: FxHashMap<usize, Vec<(NodeId, NodeId)>> = FxHashMap::default();
-        let mut path_to_flowid_map: FxHashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = FxHashMap::default();
         let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
             .iter()
             .map(|flow| (flow.id, flow.clone()))
             .collect::<FxHashMap<_, _>>();
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
-        let file = fs::File::open(flow_path_map_file)?;
 
         let start_1 = Instant::now(); // timer start
         // Create a buffered reader to efficiently read lines
-        let reader = io::BufReader::new(file);
-        for line in reader.lines() {
-            let line = line?;
-            let mut tmp = line
-                .split(",");
-            let src = tmp.nth(1).and_then(|x| x.parse::<NodeId>().ok());
-            let dst = tmp.next().and_then(|x| x.parse::<NodeId>().ok());
-            if let (Some(src), Some(dst)) = (src, dst) {
-                let tmp_key = (src, dst);
-                for val in tmp.skip(1).filter_map(|x| x.parse::<usize>().ok()) {
-                    flowid_to_path_map
-                        .entry(val)
-                        .or_insert_with(HashSet::new)
-                        .insert(tmp_key);
-                    channel_to_flowid_map
-                        .entry(tmp_key)
-                        .or_insert_with(HashSet::new)
-                        .insert(FlowId::new(val));
-                }
-            }
-        }
+        let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
 
         let start_extra = Instant::now(); // timer start
-        for (flow_id, path) in flowid_to_path_map {
-            let mut pairs = path.into_iter().collect::<Vec<_>>();
-            pairs.sort();
-            let mut path_ordered = Vec::<(NodeId, NodeId)>::with_capacity(pairs.len() + 1);
-            path_ordered.push((flows[flow_id].src, flows[flow_id].dst));
-
-            if let Some(first_pair) = pairs.first() {
-                path_ordered.push(*first_pair);
-
-                // Iterate over the remaining pairs
-                while path_ordered.len() != pairs.len()+1 {
-                    for pair in pairs.iter().skip(1) {
-                        // If the source of the current pair equals the destination of the last pair in the ordered list
-                        if pair.0 == path_ordered.last().unwrap().1 {
-                            path_ordered.push(*pair);
-                        }
-                    }
-                }
-            }
-            path_to_flowid_map
-                .entry(path_ordered.clone())
-                .or_insert_with(HashSet::new)
-                .insert(flow_id);
-            flowid_to_path_map_ordered.insert(flow_id, path_ordered.clone());
-        }
+        let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
         let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
 
         let path_to_flows_vec_sorted = path_to_flowid_map
@@ -1655,6 +1516,72 @@ impl Experiment {
             .collect();
         Ok(file)
     }
+
+    fn get_input_from_file(&self,file_path: PathBuf) -> io::Result<(FxHashMap<(NodeId, NodeId), HashSet<FlowId>>, FxHashMap<usize, HashSet<(NodeId, NodeId)>>)> {
+        let mut channel_to_flowid_map: FxHashMap<(NodeId, NodeId), HashSet<FlowId>> = FxHashMap::default();
+        let mut flowid_to_path_map: FxHashMap<usize, HashSet<(NodeId, NodeId)>> = FxHashMap::default();
+
+        let file = fs::File::open(file_path)?;
+        let reader = io::BufReader::new(file);
+        for line in reader.lines() {
+            let line = line?;
+            let mut tmp = line.split(",");
+            let src = tmp.nth(1).and_then(|x| x.parse::<NodeId>().ok());
+            let dst = tmp.next().and_then(|x| x.parse::<NodeId>().ok());
+            if let (Some(src), Some(dst)) = (src, dst) {
+                let tmp_key = (src, dst);
+                for val in tmp.skip(1).filter_map(|x| x.parse::<usize>().ok()) {
+                    flowid_to_path_map
+                        .entry(val)
+                        .or_insert_with(HashSet::new)
+                        .insert(tmp_key);
+                    channel_to_flowid_map
+                        .entry(tmp_key)
+                        .or_insert_with(HashSet::new)
+                        .insert(FlowId::new(val));
+                }
+            }
+        }
+        Ok((channel_to_flowid_map, flowid_to_path_map))
+    }
+
+    fn get_routes(
+        &self,
+        flowid_to_path_map: FxHashMap<usize, HashSet<(NodeId, NodeId)>>,
+        flows: &Vec<Flow>, // Assuming flows is a vector of Flow objects
+    ) -> (FxHashMap<Vec<(NodeId, NodeId)>, HashSet<usize>>, FxHashMap<usize, Vec<(NodeId, NodeId)>>) {
+        let mut path_to_flowid_map: FxHashMap<Vec<(NodeId, NodeId)>, HashSet<usize>> = FxHashMap::default();
+        let mut flowid_to_path_map_ordered: FxHashMap<usize, Vec<(NodeId, NodeId)>> = FxHashMap::default();
+
+        for (flow_id, path) in flowid_to_path_map {
+            let mut pairs = path.into_iter().collect::<Vec<_>>();
+            pairs.sort();
+            let mut path_ordered = Vec::<(NodeId, NodeId)>::with_capacity(pairs.len() + 1);
+            path_ordered.push((flows[flow_id].src, flows[flow_id].dst));
+
+            if let Some(first_pair) = pairs.first() {
+                path_ordered.push(*first_pair);
+
+                // Iterate over the remaining pairs
+                while path_ordered.len() != pairs.len() + 1 {
+                    for pair in pairs.iter().skip(1) {
+                        // If the source of the current pair equals the destination of the last pair in the ordered list
+                        if pair.0 == path_ordered.last().unwrap().1 {
+                            path_ordered.push(*pair);
+                        }
+                    }
+                }
+            }
+            path_to_flowid_map
+                .entry(path_ordered.clone())
+                .or_insert_with(HashSet::new)
+                .insert(flow_id);
+            flowid_to_path_map_ordered.insert(flow_id, path_ordered.clone());
+        }
+
+        (path_to_flowid_map, flowid_to_path_map_ordered)
+    }
+
 }
 
 fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
@@ -1678,6 +1605,7 @@ fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
 pub enum SimKind {
     Ns3,
     Ns3Param,
+    Ns3Config,
     Pmn,
     PmnM,
     PmnMParam,
@@ -1694,6 +1622,7 @@ impl fmt::Display for SimKind {
         let s = match self {
             SimKind::Ns3 => "ns3",
             SimKind::Ns3Param => "ns3-param",
+            SimKind::Ns3Config => "ns3-config",
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMParam => "pmn-m-param",
