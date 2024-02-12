@@ -156,9 +156,6 @@ impl Experiment {
                 }
             }
             SimKind::PmnM => {
-                let mut mixes: Vec<Mix> = serde_json::from_str(&fs::read_to_string(&self.mixes)?)?;
-                // mixes=mixes.into_iter().rev().collect();
-
                 for mix in &mixes {
                     self.run_pmn_m(mix)?;
                 }
@@ -302,8 +299,6 @@ impl Experiment {
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
 
         let start = Instant::now(); // timer start
-        // Create a buffered reader to efficiently read lines
-
         let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
 
         let (path_to_flowid_map, _)= self.get_routes(flowid_to_path_map, &flows);
@@ -361,7 +356,6 @@ impl Experiment {
             .filter(|flow| flow_ids_in_f_prime.contains(&flow.id))
             .collect::<Vec<_>>();
 
-        
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
             .data_dir(self.sim_dir(mix, sim)?)
@@ -400,8 +394,8 @@ impl Experiment {
             .collect::<FxHashMap<_, _>>();
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
 
+        let start = Instant::now(); // timer start
         let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
-
         let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
 
         let path_to_flows_vec_sorted = path_to_flowid_map
@@ -468,7 +462,6 @@ impl Experiment {
         }
         path_list.sort_by(|x, y| y.len().cmp(&x.len()).then(path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len())));
 
-        let start = Instant::now(); // timer start
         path_list
             .par_iter()
             .enumerate()
@@ -588,10 +581,10 @@ impl Experiment {
                     })
             })
             .collect();
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
-        self.put_loads(mix, sim, &loads)?;
-        self.put_elapsed(mix, sim, elapsed_secs)?;
         self.put_records(mix, sim, &records)?;
+        self.put_loads(mix, sim, &loads)?;
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
     }
 
@@ -599,8 +592,8 @@ impl Experiment {
         let sim = SimKind::PmnM;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
-        let start = Instant::now(); // timer start
 
+        let start = Instant::now(); // timer start
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let network = Network::new(&nodes, &links)?;
@@ -640,8 +633,8 @@ impl Experiment {
         let sim = SimKind::PmnMParam;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
-        let start = Instant::now(); // timer start
 
+        let start = Instant::now(); // timer start
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let network = Network::new(&nodes, &links)?;
@@ -680,6 +673,8 @@ impl Experiment {
         let sim = SimKind::PmnMPath;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+
+        let start = Instant::now(); // timer start
         // construct SimNetwork
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
@@ -690,7 +685,6 @@ impl Experiment {
         let path_file = self.path_one_file(mix, sim)?;
         let file = fs::File::open(path_file)?;
 
-        // Create a buffered reader to efficiently read lines
         let reader = io::BufReader::new(file);
         let mut path: Vec<(NodeId, NodeId)> = Vec::new();
         if let Some(Ok(first_line)) = reader.lines().next() {
@@ -774,7 +768,6 @@ impl Experiment {
         )?;
         // println!("The selected path is ({:?}, {:?})", max_row,max_col);
 
-        let start = Instant::now(); // timer start
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows_remaining.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
@@ -819,7 +812,6 @@ impl Experiment {
         let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
 
         let start_1 = Instant::now(); // timer start
-        // Create a buffered reader to efficiently read lines
         let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
 
         let start_extra = Instant::now(); // timer start
@@ -1032,7 +1024,6 @@ impl Experiment {
         let start_1 = Instant::now(); // timer start
         // Create a buffered reader to efficiently read lines
         let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
-
         let start_extra = Instant::now(); // timer start
         let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
         let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
