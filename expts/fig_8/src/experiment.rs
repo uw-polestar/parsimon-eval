@@ -1,5 +1,4 @@
 use std::{
-    collections::HashMap,
     collections::HashSet,
     fmt::{self}, fs,
     io::{self, BufRead},
@@ -58,7 +57,6 @@ const SAMPLE_MODE: usize = 1;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
 
-
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
     #[clap(long, default_value = "./data")]
@@ -82,7 +80,6 @@ impl Experiment {
             SimKind::Ns3 => {
                 mixes.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
                 // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
-
                 // for mix_tmp in &mix_list {
                 //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
                 // }
@@ -267,7 +264,7 @@ impl Experiment {
             // .window(WINDOW)
             .base_rtt(BASE_RTT)
             .cc_kind(mix.cc)
-            .param_cc(mix.param_cc)
+            .param_cc_factor(mix.param_cc)
             .window(Bytes::new(mix.window))
             .flows(flows)
             .build();
