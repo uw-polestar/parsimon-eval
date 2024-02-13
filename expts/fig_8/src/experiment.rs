@@ -52,8 +52,8 @@ const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
-const NR_FLOWS: usize = 10;
-// const NR_FLOWS: usize = 10_000_000;
+// const NR_FLOWS: usize = 10;
+const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
 

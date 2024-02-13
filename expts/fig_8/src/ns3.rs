@@ -107,7 +107,7 @@ impl Ns3Simulation {
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
-            .arg(format!("cd {ns3_dir}; {python_command}"))
+            .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
             .output()?;
         Ok(())
     }
