@@ -19,8 +19,9 @@ struct Opt {
 fn main() -> anyhow::Result<()> {
     let opt = Opt::parse();
     let mut rng = StdRng::seed_from_u64(opt.seed);
+    let mut rng_2 = StdRng::seed_from_u64(opt.seed);
     let mix_space: MixSpace = serde_json::from_str(&fs::read_to_string(&opt.input)?)?;
-    let mixes = mix_space.to_mixes(opt.count, &mut rng);
+    let mixes = mix_space.to_mixes(opt.count, &mut rng, &mut rng_2);
     fs::write(&opt.output, serde_json::to_string_pretty(&mixes)?)?;
     Ok(())
 }

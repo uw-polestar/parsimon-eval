@@ -222,6 +222,8 @@ pub enum CcKind {
     Timely,
     /// DCQCN.
     Dcqcn,
+    /// HP
+    Hp
 }
 
 impl CcKind {
@@ -230,12 +232,14 @@ impl CcKind {
             CcKind::Dctcp => "dctcp",
             CcKind::Timely => "timely_vwin",
             CcKind::Dcqcn => "dcqcn_paper_vwin",
+            CcKind::Hp => "hp",
         }
     }
 
     const DCTCP_VALUE: i32 = 1;
     const TIMELY_VALUE: i32 = 2;
     const DCQCN_VALUE: i32 = 3;
+    const HP_VALUE: i32 = 4;
 
     /// Get the integer value of the cc protocol.
     pub fn get_int_value(&self) -> i32 {
@@ -243,6 +247,7 @@ impl CcKind {
             CcKind::Dctcp => Self::DCTCP_VALUE,
             CcKind::Timely => Self::TIMELY_VALUE,
             CcKind::Dcqcn => Self::DCQCN_VALUE,
+            CcKind::Hp => Self::HP_VALUE,
         }
     }
 }
