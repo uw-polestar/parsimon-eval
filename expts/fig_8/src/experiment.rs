@@ -41,7 +41,6 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 10_000_000;
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_PARALLEL_PROCESSES: usize = 50;
@@ -53,7 +52,8 @@ const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
-// const NR_FLOWS: usize = 2_000;
+const NR_FLOWS: usize = 10;
+// const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
 
