@@ -10,10 +10,13 @@ pub struct MixSpace {
     pub lognorm_sigmas: Vec<f64>,
     pub max_loads: LoadRange,
     pub clusters: Vec<PathBuf>,
+    pub ccs: Vec<CcKind>,
+    pub params_cc: ParamRange,
+    pub windows: Vec<u64>,
 }
 
 impl MixSpace {
-    pub fn to_mixes(&self, count: usize, mut rng: impl Rng) -> Vec<Mix> {
+    pub fn to_mixes(&self, count: usize, mut rng: impl Rng, mut rng_2: impl Rng) -> Vec<Mix> {
         (0..count)
             .map(|i| Mix {
                 id: i,
@@ -22,9 +25,9 @@ impl MixSpace {
                 lognorm_sigma: *self.lognorm_sigmas.choose(&mut rng).unwrap(),
                 max_load: rng.gen_range(self.max_loads.low..=self.max_loads.high),
                 cluster: self.clusters.choose(&mut rng).unwrap().clone(),
-                cc: CcKind::Dctcp,
-                param_cc: 1.0,
-                window: 18000,
+                cc: *self.ccs.choose(&mut rng_2).unwrap(),
+                param_cc: rng_2.gen_range(self.params_cc.low..=self.params_cc.high),
+                window: *self.windows.choose(&mut rng_2).unwrap(),
             })
             .collect()
     }
@@ -32,6 +35,11 @@ impl MixSpace {
 
 #[derive(Debug, Clone, Copy, serde::Serialize, serde::Deserialize)]
 pub struct LoadRange {
+    low: f64,
+    high: f64,
+}
+#[derive(Debug, Clone, Copy, serde::Serialize, serde::Deserialize)]
+pub struct ParamRange {
     low: f64,
     high: f64,
 }
