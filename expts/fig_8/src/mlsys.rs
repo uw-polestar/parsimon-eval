@@ -25,12 +25,6 @@ pub struct Mlsys {
     /// The directory in which to write simulation configs and data.
     #[builder(setter(into))]
     pub data_dir: PathBuf,
-    /// The congestion control protocol.
-    #[builder(default)]
-    pub cc_kind: CcKind,
-    /// The parameter for DCTCP.
-    #[builder(default = Bytes::new(18000))]
-    pub window: Bytes,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
@@ -42,7 +36,21 @@ pub struct Mlsys {
     pub nr_size_buckets: usize,
     /// The number of output percentiles.
     pub output_length: usize,
-    
+    /// The parameter for DCTCP.
+    #[builder(default = Bytes::new(18000))]
+    pub window: Bytes,
+    /// The buffer size factor.
+    #[builder(default = 1.0)]
+    pub bfsz_factor: f64,
+    /// The congestion control parameter.
+    #[builder(default = 1.0)]
+    pub param_cc_factor: f64,
+    /// The congestion control protocol.
+    #[builder(default)]
+    pub cc_kind: CcKind,
+    /// ML model ID
+    #[builder(default="".to_string())]
+    pub model_suffix: String,
 }
 
 impl Mlsys {
@@ -89,15 +97,16 @@ impl Mlsys {
         let script_path = std::fs::canonicalize(&self.script_path)?;
         let script_path = script_path.display();
         let n_hosts = n_hosts.to_string();
+
+        // Build the command that runs the C script.
         // let cc = self.cc_kind.as_str();
-        let cc = self.cc_kind.get_int_value().to_string();
+        let model_suffix = self.model_suffix.clone();
         let window = self.window.into_u64();
-        // Build the command that runs the Python script.
-        // let python_command = format!(
-        //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
-        // );
+        let bfsz_factor = self.bfsz_factor;
+        let cc_param_factor = self.param_cc_factor;
+        let cc = self.cc_kind.get_int_value().to_string();
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama_all_e240.bin ../data_test/checkpoints/model_mlp_all_e240.bin {data_dir} -b 10 -e 576 -n {n_hosts} -p {window} -t 1 -c {cc} > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama{model_suffix}.bin ../data_test/checkpoints/model_mlp{model_suffix}.bin {data_dir} -b 10 -e 576 -n {n_hosts} -t 1 -k {window} -f {bfsz_factor} -p {cc_param_factor} -c {cc} > {data_dir}/output.txt 2>&1"
         );
        
         // println!("{}", c_command);
