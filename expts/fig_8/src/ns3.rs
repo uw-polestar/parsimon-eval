@@ -32,23 +32,23 @@ pub struct Ns3Simulation {
     pub nodes: Vec<Node>,
     /// The topology links.
     pub links: Vec<Link>,
-    /// The sencing window.
-    #[builder(default = Bytes::new(18000))]
-    pub window: Bytes,
     /// The base RTT.
     pub base_rtt: Nanosecs,
-    /// The congestion control protocol.
-    #[builder(default)]
-    pub cc_kind: CcKind,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
-    /// The congestion control parameter.
-    #[builder(default = 1.0)]
-    pub param_cc_factor: f64,
+    /// The sencing window.
+    #[builder(default = Bytes::new(18000))]
+    pub window: Bytes,
     /// The buffer size factor.
     #[builder(default = 1.0)]
     pub bfsz_factor: f64,
+    /// The congestion control parameter.
+    #[builder(default = 1.0)]
+    pub param_cc_factor: f64,
+    /// The congestion control protocol.
+    #[builder(default)]
+    pub cc_kind: CcKind,
 }
 
 impl Ns3Simulation {
@@ -94,11 +94,12 @@ impl Ns3Simulation {
         let ns3_dir = ns3_dir.display();
 
         // Build the command that runs the Python script.
-        let window = self.window.into_u64();
         let base_rtt = self.base_rtt.into_u64();
-        let cc = self.cc_kind.as_str();
-        let cc_param_factor = self.param_cc_factor;
+        let window = self.window.into_u64();
         let bfsz_factor = self.bfsz_factor;
+        let cc_param_factor = self.param_cc_factor;
+        let cc = self.cc_kind.as_str();
+        
         let python_command = format!(
             "python2 run.py --root {data_dir} --fwin {window} --base_rtt {base_rtt} \
             --topo topology --trace flows --bw 10 --cc {cc} --bfsz_factor {bfsz_factor} --cc_param_factor {cc_param_factor} \

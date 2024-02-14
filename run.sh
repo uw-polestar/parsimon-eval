@@ -1,13 +1,14 @@
 cargo run --release -- help
 cargo clean
 
+# fig-7
 cargo run --release -- --mix spec/1.mix.json ns3
 cargo run --release -- --mix spec/1.mix.json pmn-m
 cargo run --release -- --mix spec/1.mix.json pmn-mc
 cargo run --release -- --mix spec/1.mix.json pmn-path
 cargo run --release -- --mix spec/3.mix.json ns3
 
-
+# fig-8
 cargo run --release -- --mixes spec/164.mix.json ns3
 cargo run --release -- --root=./data_test --mixes spec/4.mix.json mlsys
 cargo run --release -- --mixes spec/25.mix.json pmn
@@ -28,9 +29,13 @@ cargo run --release -- --mixes spec/test_mlsys.mix.json mlsys-param
 
 cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 
-PATH=$PATH:/data1/lichenni/software/anaconda3/envs/py27/bin
+cargo run --release -- --root=./data_test --mixes spec/test.mix.json ns3-config
+cargo run --release -- --mixes spec/all_config.mix.json ns3-config
 
-python test.py > gen_mlsys_s2_bt50_dedupe.log
+# fig-8 gen specs
+cargo run --bin gen_mixes -- --input spec/all_config.mixspace.json --count 192 --output spec/all_config.mix.json
+
+PATH=$PATH:/data1/lichenni/software/anaconda3/envs/py27/bin
 
 python gen_opt.py 1 192 1 1000 100 0 0 > gen_opt_1_1_1000_100_0_0.log
 

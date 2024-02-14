@@ -20,6 +20,7 @@ def find_large_files(json_file):
         file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/fct_topology_flows_{cc_dict[cc]}_k{item['window']}_b1.0_p{param_cc}.txt"
         file_list.append(file_name)
     cc_cnt_dict=defaultdict(lambda:0)
+    cc_cnt_dict_process=defaultdict(lambda:0)
     for item_idx, file_path in enumerate(file_list):
         # print(file_path)
         try:
@@ -27,6 +28,8 @@ def find_large_files(json_file):
 
             if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/elapsed.txt"):
                 cc_cnt_dict[cc]+=1
+            elif os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/flows_path_map.txt"):
+                cc_cnt_dict_process[cc]+=1
             else:
                 file_size = os.path.getsize(file_path)
             
@@ -40,6 +43,7 @@ def find_large_files(json_file):
         except Exception as e:
             print(f"Error processing file {file_path}: {str(e)}")
     print(cc_cnt_dict)
+    print(cc_cnt_dict_process)
     return large_files
 
 if __name__ == "__main__":
