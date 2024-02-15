@@ -56,7 +56,7 @@ const SAMPLE_MODE: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
-const MODEL_SUFFIX: &str = "_cc_param_e125";
+const MODEL_SUFFIX: &str = "_cc_param_e258";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {

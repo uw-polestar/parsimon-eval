@@ -5,6 +5,9 @@
         "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
         "lognorm_sigma": 2.0,
         "max_load": 0.5150773623899252,
-        "cluster": "spec/cluster_4_to_1.json"
+        "cluster": "spec/cluster_4_to_1.json",
+        "cc": "hp",
+        "param_cc": 0.5155241302758674,
+        "window": 18000
     }
 ]
