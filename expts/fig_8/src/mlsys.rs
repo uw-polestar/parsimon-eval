@@ -96,15 +96,15 @@ impl Mlsys {
         let data_dir = data_dir.display();
         let script_path = std::fs::canonicalize(&self.script_path)?;
         let script_path = script_path.display();
-        let n_hosts = n_hosts.to_string();
 
         // Build the command that runs the C script.
         // let cc = self.cc_kind.as_str();
+        let n_hosts = n_hosts;
         let model_suffix = self.model_suffix.clone();
         let window = self.window.into_u64();
         let bfsz_factor = self.bfsz_factor;
         let cc_param_factor = self.param_cc_factor;
-        let cc = self.cc_kind.get_int_value().to_string();
+        let cc = self.cc_kind.get_int_value();
         let c_command = format!(
             "run ../data_test/checkpoints/model_llama{model_suffix}.bin ../data_test/checkpoints/model_mlp{model_suffix}.bin {data_dir} -b 10 -e 576 -n {n_hosts} -t 1 -k {window} -f {bfsz_factor} -p {cc_param_factor} -c {cc} > {data_dir}/output.txt 2>&1"
         );
