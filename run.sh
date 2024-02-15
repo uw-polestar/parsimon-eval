@@ -32,6 +32,8 @@ cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 cargo run --release -- --root=./data_test --mixes spec/test.mix.json ns3-config
 cargo run --release -- --mixes spec/all_config.mix.json ns3-config
 
+cargo run --release -- --mixes spec/mlsys_config.mix.json mlsys-config
+
 # fig-8 gen specs
 cargo run --bin gen_mixes -- --input spec/all_config.mixspace.json --count 192 --output spec/all_config.mix.json
 
