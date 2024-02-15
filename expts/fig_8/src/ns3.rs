@@ -242,13 +242,13 @@ impl CcKind {
         }
     }
 
-    const DCTCP_VALUE: i32 = 1;
-    const TIMELY_VALUE: i32 = 2;
-    const DCQCN_VALUE: i32 = 3;
-    const HP_VALUE: i32 = 4;
+    const DCTCP_VALUE: usize = 1;
+    const TIMELY_VALUE: usize = 2;
+    const DCQCN_VALUE: usize = 3;
+    const HP_VALUE: usize = 4;
 
     /// Get the integer value of the cc protocol.
-    pub fn get_int_value(&self) -> i32 {
+    pub fn get_int_value(&self) -> usize {
         match self {
             CcKind::Dctcp => Self::DCTCP_VALUE,
             CcKind::Timely => Self::TIMELY_VALUE,
