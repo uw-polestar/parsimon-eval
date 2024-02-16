@@ -9,7 +9,7 @@ bin_size_list=[MTU, BDP, 5 * BDP]
 n_size_bucket_list_output=len(bin_size_list)+1
 
 # N_FLOW_THRESHOLD_LIST=[0, 1, 10, 20]
-N_FLOW_THRESHOLD_LIST=[10,20]
+N_FLOW_THRESHOLD_LIST=[0,1,10,20]
 NR_PATHS_SAMPLED=500
 NR_INTEPOLATE=100
 N_FLOWS=NR_PATHS_SAMPLED*NR_INTEPOLATE*4
@@ -19,9 +19,9 @@ sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
 # mlsys_dir_list=["mlsys_bdp_bt10_l30"]
 # mlsys_dir_list=["mlsys_0114_const_bt10"]
 # mlsys_dir_list=["mlsys_final_reprod_v1"]
-mlsys_dir_list=["mlsys_e240"]
+mlsys_dir_list=["mlsys-config_e245"]
 # mlsys_dir_list=["mlsys_bt1_p100"]
-legend_list=['ns3','pmn-m',"mlsys"]
+legend_list=['ns3-config','pmn-m',"mlsys"]
 
 for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
     print("N_FLOW_THRESHOLD: ",N_FLOW_THRESHOLD)
@@ -33,8 +33,9 @@ for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
             n_flows_in_f_list_final=[]
             # for worst_low_id in np.random.choice(66,50,replace=False):
             for worst_low_id in range(192):
-                res_tmp=[]
                 mix_dir = f'../data/{worst_low_id}'
+                if not os.path.exists(f'{mix_dir}/{mlsys_dir}/elapsed.txt'):continue
+                res_tmp=[]
                 df_pmn_m = pd.read_csv(f'{mix_dir}/{legend_list[1]}/records.csv')
                 
                 n_freq_list=[]
