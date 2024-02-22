@@ -28,7 +28,7 @@ impl MixSpace {
                 max_load: rng.gen_range(self.max_loads.low..=self.max_loads.high),
                 cluster: self.clusters.choose(&mut rng).unwrap().clone(),
                 bfsz: rng_2.gen_range(self.bfszs.low..=self.bfszs.high),
-                window: rng_2.gen_range(self.windows.low..=self.windows.high),
+                window: (rng_2.gen_range(self.windows.low..=self.windows.high)*1000.0) as u64,
                 enable_pfc: *self.pfcs.choose(&mut rng_2).unwrap(),
                 cc: self.ccs[i % self.ccs.len()],
                 param_1: rng_2.gen_range(self.params[i % self.ccs.len()*2].low..=self.params[i % self.ccs.len()*2].high),
@@ -62,7 +62,7 @@ pub struct Mix {
     #[serde(default = "default_bfsz")]
     pub bfsz: f64,
     #[serde(default = "default_window")]
-    pub window: f64,
+    pub window: u64,
     #[serde(default = "default_enable_pfc")]
     pub enable_pfc: f64,
     #[serde(default = "default_cc")]
@@ -77,8 +77,8 @@ pub struct Mix {
 fn default_bfsz() -> f64 {
     30.0
 }
-fn default_window() -> f64 {
-    18.0
+fn default_window() -> u64 {
+    18000
 }
 fn default_enable_pfc() -> f64 {
     1.0

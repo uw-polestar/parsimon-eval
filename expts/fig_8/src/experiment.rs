@@ -56,7 +56,7 @@ const SAMPLE_MODE: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
-const MODEL_SUFFIX: &str = "_cc_param_e245";
+const MODEL_SUFFIX: &str = "_e118";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -271,8 +271,11 @@ impl Experiment {
             .base_rtt(BASE_RTT)
             .flows(flows)
             .window(Bytes::new(mix.window))
-            .param_cc_factor(mix.param_cc)
+            .bfsz(mix.bfsz)
+            .enable_pfc(mix.enable_pfc)
             .cc_kind(mix.cc)
+            .param_1(mix.param_1)
+            .param_2(mix.param_2)
             .build();
 
         let records = ns3
@@ -1379,9 +1382,12 @@ impl Experiment {
                     .input_percentiles((1..=100).map(|x| x as f32 / 100.0).collect())
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
+                    .bfsz(mix.bfsz)
                     .window(Bytes::new(mix.window))
-                    .param_cc_factor(mix.param_cc)
+                    .enable_pfc(mix.enable_pfc)
                     .cc_kind(mix.cc)
+                    .param_1(mix.param_1)
+                    .param_2(mix.param_2)
                     .model_suffix(MODEL_SUFFIX.to_string())
                     .build();
                 let result = mlsys.run(path_length);
@@ -1842,7 +1848,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Mlsys => "mlsys",
             SimKind::MlsysParam => "mlsys-param",
-            SimKind::MlsysConfig => "mlsys-new"
+            SimKind::MlsysConfig => "mlsys-new_e118"
         };
         write!(f, "{}", s)
     }
