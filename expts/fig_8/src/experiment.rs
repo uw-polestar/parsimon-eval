@@ -1842,7 +1842,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMPath => "pmn-m-path",
             SimKind::Mlsys => "mlsys",
             SimKind::MlsysParam => "mlsys-param",
-            SimKind::MlsysConfig => "mlsys-config_e245"
+            SimKind::MlsysConfig => "mlsys-new"
         };
         write!(f, "{}", s)
     }
