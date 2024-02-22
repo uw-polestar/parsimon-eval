@@ -59,5 +59,5 @@ python gen_sensitivity_path_param.py > gen_mlsys-param_e267_p500_l100_tx_nosamp_
 
 python gen_sensitivity_path.py > gen_mlsys_e365_p500_l100_tx_nosamp_1.log
 
-python gen_sensitivity_path.py > gen_mlsys-config_e258_p500_l100_tx_nosamp.log
+python gen_sensitivity_path.py > gen_mlsys-new_e173_p500_l100_tx_nosamp_1.log
 
