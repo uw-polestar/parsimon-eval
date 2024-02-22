@@ -22,14 +22,52 @@
         "spec/cluster_2_to_1.json",
         "spec/cluster_4_to_1.json"
     ],
-    "ccs":[
-        "dctcp","timely","dcqcn","hp"
-    ],
-    "params_cc": {
-        "low": 0.1,
-        "high": 2.0
+    "bfszs":{
+        "low": 10,
+        "high": 30
     },
-    "windows":[
-        18000
+    "windows":{
+        "low": 10,
+        "high": 60
+    },
+    "pfcs":[
+        0.0, 1.0
+    ],
+    "ccs":[
+        "dctcp", "dcqcn_paper_vwin", "hp","timely_vwin"
+    ],
+    "params": [
+        {
+            "low": 10.0,
+            "high": 60.0
+        },
+        {
+            "low": 0.0,
+            "high": 0.0
+        },
+        {
+            "low": 20.0,
+            "high": 50.0
+        },
+        {
+            "low": 50.0,
+            "high": 100.0
+        },
+        {
+            "low": 70.0,
+            "high": 95.0
+        },
+        {
+            "low": 10.0,
+            "high": 50.0
+        },
+        {
+            "low": 20.0,
+            "high": 50.0
+        },
+        {
+            "low": 50.0,
+            "high": 100.0
+        }
     ]
 }

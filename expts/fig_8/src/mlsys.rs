@@ -36,18 +36,24 @@ pub struct Mlsys {
     pub nr_size_buckets: usize,
     /// The number of output percentiles.
     pub output_length: usize,
-    /// The parameter for DCTCP.
+    /// The buffer size factor.
+    #[builder(default = 30.0)]
+    pub bfsz: f64,
+    /// The sencing window.
     #[builder(default = Bytes::new(18000))]
     pub window: Bytes,
-    /// The buffer size factor.
+    /// Enable PFC.
     #[builder(default = 1.0)]
-    pub bfsz_factor: f64,
-    /// The congestion control parameter.
-    #[builder(default = 1.0)]
-    pub param_cc_factor: f64,
+    pub enable_pfc: f64,
     /// The congestion control protocol.
     #[builder(default)]
     pub cc_kind: CcKind,
+    /// The congestion control parameter.
+    #[builder(default = 30.0)]
+    pub param_1: f64,
+    /// The congestion control parameter.
+    #[builder(default = 0.0)]
+    pub param_2: f64,
     /// ML model ID
     #[builder(default="".to_string())]
     pub model_suffix: String,
@@ -101,12 +107,14 @@ impl Mlsys {
         // let cc = self.cc_kind.as_str();
         let n_hosts = n_hosts;
         let model_suffix = self.model_suffix.clone();
+        let bfsz = self.bfsz;
         let window = self.window.into_u64();
-        let bfsz_factor = self.bfsz_factor;
-        let cc_param_factor = self.param_cc_factor;
+        let enable_pfc = self.enable_pfc;
         let cc = self.cc_kind.get_int_value();
+        let param_1 = self.param_1;
+        let param_2 = self.param_2;
         let c_command = format!(
-            "run ../data_test/checkpoints/model_llama{model_suffix}.bin ../data_test/checkpoints/model_mlp{model_suffix}.bin {data_dir} -b 10 -e 576 -n {n_hosts} -t 1 -k {window} -f {bfsz_factor} -p {cc_param_factor} -c {cc} > {data_dir}/output.txt 2>&1"
+            "run ../data_test/checkpoints/model_llama{model_suffix}.bin ../data_test/checkpoints/model_mlp{model_suffix}.bin {data_dir} -b 10 -e 576 -n {n_hosts} -t 1 -f {bfsz} -k {window} -p {enable_pfc} -c {cc} -x {param_1} -y {param_2} > {data_dir}/output.txt 2>&1"
         );
        
         // println!("{}", c_command);

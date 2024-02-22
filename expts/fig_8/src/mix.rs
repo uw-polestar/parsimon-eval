@@ -10,9 +10,11 @@ pub struct MixSpace {
     pub lognorm_sigmas: Vec<f64>,
     pub max_loads: LoadRange,
     pub clusters: Vec<PathBuf>,
+    pub bfszs: ParamRange,
+    pub windows: ParamRange,
+    pub pfcs: Vec<f64>,
     pub ccs: Vec<CcKind>,
-    pub params_cc: ParamRange,
-    pub windows: Vec<u64>,
+    pub params: Vec<ParamRange>,
 }
 
 impl MixSpace {
@@ -25,9 +27,12 @@ impl MixSpace {
                 lognorm_sigma: *self.lognorm_sigmas.choose(&mut rng).unwrap(),
                 max_load: rng.gen_range(self.max_loads.low..=self.max_loads.high),
                 cluster: self.clusters.choose(&mut rng).unwrap().clone(),
-                cc: *self.ccs.choose(&mut rng_2).unwrap(),
-                param_cc: rng_2.gen_range(self.params_cc.low..=self.params_cc.high),
-                window: *self.windows.choose(&mut rng_2).unwrap(),
+                bfsz: rng_2.gen_range(self.bfszs.low..=self.bfszs.high),
+                window: rng_2.gen_range(self.windows.low..=self.windows.high),
+                enable_pfc: *self.pfcs.choose(&mut rng_2).unwrap(),
+                cc: self.ccs[i % self.ccs.len()],
+                param_1: rng_2.gen_range(self.params[i % self.ccs.len()*2].low..=self.params[i % self.ccs.len()*2].high),
+                param_2: rng_2.gen_range(self.params[i % self.ccs.len()*2+1].low..=self.params[i % self.ccs.len()*2+1].high),
             })
             .collect()
     }
@@ -54,21 +59,35 @@ pub struct Mix {
     pub lognorm_sigma: f64,
     pub max_load: f64,
     pub cluster: PathBuf,
+    #[serde(default = "default_bfsz")]
+    pub bfsz: f64,
+    #[serde(default = "default_window")]
+    pub window: f64,
+    #[serde(default = "default_enable_pfc")]
+    pub enable_pfc: f64,
     #[serde(default = "default_cc")]
     pub cc: CcKind,
     #[serde(default = "default_param_cc")]
-    pub param_cc: f64,
-    #[serde(default = "default_window")]
-    pub window: u64,
+    pub param_1: f64,
+    #[serde(default = "default_param_cc")]
+    pub param_2: f64,
+    
+}
+
+fn default_bfsz() -> f64 {
+    30.0
+}
+fn default_window() -> f64 {
+    18.0
+}
+fn default_enable_pfc() -> f64 {
+    1.0
 }
 fn default_cc() -> CcKind {
     CcKind::Dctcp
 }
 fn default_param_cc() -> f64 {
-    1.0
-}
-fn default_window() -> u64 {
-    18000
+    30.0
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]

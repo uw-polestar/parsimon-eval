@@ -37,18 +37,24 @@ pub struct Ns3Simulation {
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
+    /// The buffer size factor.
+    #[builder(default = 300.0)]
+    pub bfsz: f64,
     /// The sencing window.
     #[builder(default = Bytes::new(18000))]
     pub window: Bytes,
-    /// The buffer size factor.
+    /// Enable PFC.
     #[builder(default = 1.0)]
-    pub bfsz_factor: f64,
-    /// The congestion control parameter.
-    #[builder(default = 1.0)]
-    pub param_cc_factor: f64,
+    pub enable_pfc: f64,
     /// The congestion control protocol.
     #[builder(default)]
     pub cc_kind: CcKind,
+    /// The congestion control parameter.
+    #[builder(default = 30.0)]
+    pub param_1: f64,
+    /// The congestion control parameter.
+    #[builder(default = 0.0)]
+    pub param_2: f64,
 }
 
 impl Ns3Simulation {
@@ -80,7 +86,7 @@ impl Ns3Simulation {
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}_k{}_b{:.1}_p{:.1}.txt", self.cc_kind.as_str(),self.window.into_u64(),self.bfsz_factor,self.param_cc_factor).as_ref(),
+            format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
         Ok(records)
@@ -95,14 +101,16 @@ impl Ns3Simulation {
 
         // Build the command that runs the Python script.
         let base_rtt = self.base_rtt.into_u64();
+        let bfsz = self.bfsz;
         let window = self.window.into_u64();
-        let bfsz_factor = self.bfsz_factor;
-        let cc_param_factor = self.param_cc_factor;
+        let enable_pfc = self.enable_pfc;
         let cc = self.cc_kind.as_str();
+        let param_1 = self.param_1;
+        let param_2 = self.param_2;
         
         let python_command = format!(
-            "python2 run.py --root {data_dir} --fwin {window} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --cc {cc} --bfsz_factor {bfsz_factor} --cc_param_factor {cc_param_factor} \
+            "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
+            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1}  --param_2 {param_2}\
             > {data_dir}/output.txt 2>&1"
         );
         // Execute the command in a child process.
@@ -242,18 +250,18 @@ impl CcKind {
         }
     }
 
-    const DCTCP_VALUE: usize = 1;
-    const TIMELY_VALUE: usize = 2;
-    const DCQCN_VALUE: usize = 3;
-    const HP_VALUE: usize = 4;
+    const DCTCP_VALUE: usize = 0;
+    const DCQCN_VALUE: usize = 1;
+    const HP_VALUE: usize = 2;
+    const TIMELY_VALUE: usize = 3;
 
     /// Get the integer value of the cc protocol.
     pub fn get_int_value(&self) -> usize {
         match self {
             CcKind::Dctcp => Self::DCTCP_VALUE,
-            CcKind::Timely => Self::TIMELY_VALUE,
             CcKind::Dcqcn => Self::DCQCN_VALUE,
             CcKind::Hp => Self::HP_VALUE,
+            CcKind::Timely => Self::TIMELY_VALUE,
         }
     }
 }
