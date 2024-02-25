@@ -110,14 +110,14 @@ impl Ns3Simulation {
         
         let python_command = format!(
             "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2}
+            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
             > {data_dir}/output.txt 2>&1"
         );
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
             // .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
-            .arg(format!("cd {ns3_dir}; ls;{python_command}"))
+            .arg(format!("cd {ns3_dir};{python_command}"))
             .output()?;
         Ok(())
     }
@@ -320,6 +320,36 @@ mod tests {
         0 0 1 3 100 1234 1
         1 0 2 3 100 5678 2
         "###);
+        Ok(())
+    }
+
+    #[test]
+    fn simulate_8_node_topology() -> anyhow::Result<()> {
+        // Create an instance of the 8-node topology
+        let (nodes, links) = testing::eight_node_config();
+        let flows = (0..20)
+            .map(|i| Flow {
+                id: FlowId::new(i),
+                src: NodeId::new(0),
+                dst: NodeId::new(3),
+                size: Bytes::new(10_000),
+                start: Nanosecs::new(2_000_000_000),
+            })
+            .collect::<Vec<_>>();
+        // Create an instance of Ns3Simulation using the 8-node topology
+        let simulation = Ns3Simulation::builder()
+            .ns3_dir("../../../parsimon/backends/High-Precision-Congestion-Control/simulation")
+            .data_dir("/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data_test/test")
+            .nodes(nodes)
+            .links(links)
+            .base_rtt(Nanosecs::new(1000)) // Set base RTT as required
+            .flows(flows) // Add flows if needed
+            .build();
+        
+        // Run the simulation
+        let result = simulation.run();
+
+        // Assert that the simulation ran successfully
         Ok(())
     }
 }

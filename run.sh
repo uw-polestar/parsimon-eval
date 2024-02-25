@@ -29,6 +29,7 @@ cargo run --release -- --mixes spec/test_mlsys.mix.json mlsys-param
 
 cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 
+cargo run --release -- --root=./data_test --mixes spec/0.mix.json ns3
 cargo run --release -- --root=./data_test --mixes spec/0.mix.json mlsys-test
 cargo run --release -- --mixes spec/all_config.mix.json ns3-config
 
@@ -61,3 +62,7 @@ python gen_sensitivity_path.py > gen_mlsys_e365_p500_l100_tx_nosamp_1.log
 
 python gen_sensitivity_path.py > gen_mlsys-new_e173_p500_l100_tx_nosamp_1.log
 
+
+
+cargo test --lib ns3
+cargo test --lib network
