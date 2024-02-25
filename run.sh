@@ -9,7 +9,7 @@ cargo run --release -- --mix spec/1.mix.json pmn-path
 cargo run --release -- --mix spec/3.mix.json ns3
 
 # fig-8
-cargo run --release -- --mixes spec/164.mix.json ns3
+cargo run --release -- --mixes spec/0.mix.json ns3
 cargo run --release -- --root=./data_test --mixes spec/4.mix.json mlsys
 cargo run --release -- --mixes spec/25.mix.json pmn
 cargo run --release -- --mixes spec/25.mix.json pmn-m
@@ -17,7 +17,7 @@ cargo run --release -- --mixes spec/25.mix.json pmn-mc
 cargo run --release -- --mixes spec/25.mix.json pmn-path
 cargo run --release -- --mixes spec/25.mix.json flowsim
 
-cargo run --release -- --root=./data_test --mixes spec/63.mix.json ns3
+cargo run --release -- --root=./data_test --mixes spec/0.mix.json ns3
 cargo run --release -- --root=./data_test --mixes spec/63.mix.json flowsim
 
 cargo run --release -- --mixes spec/all.mix.json ns3
@@ -29,7 +29,7 @@ cargo run --release -- --mixes spec/test_mlsys.mix.json mlsys-param
 
 cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 
-cargo run --release -- --root=./data_test --mixes spec/test.mix.json ns3-config
+cargo run --release -- --root=./data_test --mixes spec/0.mix.json mlsys-test
 cargo run --release -- --mixes spec/all_config.mix.json ns3-config
 
 cargo run --release -- --mixes spec/mlsys_config.mix.json mlsys-config
