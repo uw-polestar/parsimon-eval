@@ -38,7 +38,7 @@ pub struct Ns3Simulation {
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
     /// The buffer size factor.
-    #[builder(default = 300.0)]
+    #[builder(default = 30.0)]
     pub bfsz: f64,
     /// The sencing window.
     #[builder(default = Bytes::new(18000))]
@@ -110,13 +110,14 @@ impl Ns3Simulation {
         
         let python_command = format!(
             "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1}  --param_2 {param_2}\
+            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2}
             > {data_dir}/output.txt 2>&1"
         );
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
-            .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
+            // .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
+            .arg(format!("cd {ns3_dir}; ls;{python_command}"))
             .output()?;
         Ok(())
     }

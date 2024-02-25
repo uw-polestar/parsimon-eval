@@ -29,7 +29,7 @@ use workload::{
 use crate::mix::{Mix, MixId, MixParam};
 
 use rand::distributions::WeightedIndex;
-use rustc_hash::FxHashMap;
+use rustc_hash::{FxHashMap,FxHashSet};
 use crate::mlsys::{
     Mlsys,
     ns3_clean,
@@ -52,11 +52,11 @@ const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
-// const NR_FLOWS: usize = 10;
-const NR_FLOWS: usize = 10_000_000;
+const NR_FLOWS: usize = 20;
+// const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
-const MODEL_SUFFIX: &str = "_e173";
+const MODEL_SUFFIX: &str = "_e196";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -122,6 +122,12 @@ impl Experiment {
 
                 for (mix,mix_param) in &mixed_combined {
                     self.run_mlsys_param(mix,mix_param)?;
+                }
+            }
+
+            SimKind::MlsysTest => {
+                for mix in &mixes {
+                    self.run_mlsys_test(mix)?;
                 }
             }
             
@@ -1233,6 +1239,108 @@ impl Experiment {
         Ok(())
     }
 
+    fn run_mlsys_test(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::MlsysTest;
+        let flows = self.flows(mix)?;
+
+        let start_2 = Instant::now(); // timer start
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        // construct SimNetwork
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations_path(flows.clone());
+        let path_to_flowid_map_pmn:FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>> = network.get_path_to_flowid_map().unwrap().clone();
+        let mut path_to_flows_vec_pmn_sorted = path_to_flowid_map_pmn
+            .iter()
+            .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+            .collect::<Vec<_>>();
+        path_to_flows_vec_pmn_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
+        println!("Path to FlowID Map length: {}", path_to_flows_vec_pmn_sorted.len());
+       
+        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
+
+        let mut results_str_pmn = String::new();
+    
+        for (index, (nodes, hash_set)) in path_to_flows_vec_pmn_sorted.iter().enumerate() {
+            results_str_pmn.push_str(&format!("Path-{}, ", index));
+            
+            // Append nodes
+            results_str_pmn.push_str("[");
+            for (node_a, node_b) in nodes.iter() {
+                results_str_pmn.push_str(&format!("({}, {}) ", node_a, node_b));
+            }
+            results_str_pmn.push_str("], ");
+            
+            // Append hash set
+            results_str_pmn.push_str("{");
+            for value in hash_set.iter() {
+                results_str_pmn.push_str(&format!("{}, ", value));
+            }
+            results_str_pmn.push_str("}. ");
+        }
+        self.put_path_with_idx(
+            mix,
+            sim,
+            0,
+            format!(
+                "{},{}\n{}", NR_PATHS_SAMPLED,path_to_flowid_map_pmn.len(),results_str_pmn
+            ),
+        )
+        .unwrap();
+
+        // read flows associated with a path
+        let start_1 = Instant::now(); // timer start
+        let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
+        let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
+
+        let start_extra = Instant::now(); // timer start
+        let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
+        let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
+
+        let mut path_to_flows_vec_sorted = path_to_flowid_map
+            .iter()
+            .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+            .collect::<Vec<_>>();
+        path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
+        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
+            
+        self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1,elapsed_secs_2,elapsed_secs_extra))?;
+
+        let mut results_str = String::new();
+    
+        for (index, (nodes, hash_set)) in path_to_flows_vec_sorted.iter().enumerate() {
+            results_str.push_str(&format!("Path-{}, ", index));
+            
+            // Append nodes
+            results_str.push_str("[");
+            for (node_a, node_b) in nodes.iter() {
+                results_str.push_str(&format!("({}, {}) ", node_a, node_b));
+            }
+            results_str.push_str("], ");
+            
+            // Append hash set
+            results_str.push_str("{");
+            for value in hash_set.iter() {
+                results_str.push_str(&format!("{}, ", value));
+            }
+            results_str.push_str("}. ");
+        }
+        self.put_path_with_idx(
+            mix,
+            sim,
+            1,
+            format!(
+                "{},{}\n{}", NR_PATHS_SAMPLED,path_to_flows_vec_sorted.len(),results_str
+            ),
+        )
+        .unwrap();
+        // self.put_path(mix, sim, format!("{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_to_flowid_map.len(),results_str_pmn,results_str))
+        //         .unwrap();
+            
+        Ok(())
+    }
+    
     fn run_pmn_mc(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::PmnMC;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
@@ -1615,6 +1723,7 @@ pub enum SimKind {
     PmnMPath,
     Mlsys,
     MlsysParam,
+    MlsysTest
 }
 
 impl fmt::Display for SimKind {
@@ -1630,8 +1739,9 @@ impl fmt::Display for SimKind {
             SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys",
+            SimKind::Mlsys => "mlsys-new_e196",
             SimKind::MlsysParam => "mlsys-param",
+            SimKind::MlsysTest => "mlsys-test",
         };
         write!(f, "{}", s)
     }
