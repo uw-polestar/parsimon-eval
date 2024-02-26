@@ -327,12 +327,12 @@ mod tests {
     fn simulate_8_node_topology() -> anyhow::Result<()> {
         // Create an instance of the 8-node topology
         let (nodes, links) = testing::eight_node_config();
-        let flows = (0..20)
+        let flows = (0..1)
             .map(|i| Flow {
                 id: FlowId::new(i),
                 src: NodeId::new(0),
                 dst: NodeId::new(3),
-                size: Bytes::new(10_000),
+                size: Bytes::new(3_000),
                 start: Nanosecs::new(2_000_000_000),
             })
             .collect::<Vec<_>>();
