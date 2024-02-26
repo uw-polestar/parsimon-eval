@@ -30,7 +30,7 @@ cargo run --release -- --mixes spec/test_mlsys.mix.json mlsys-param
 cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 
 cargo run --release -- --root=./data_test --mixes spec/0.mix.json ns3
-cargo run --release -- --root=./data_test --mixes spec/0.mix.json mlsys-test
+cargo run --release -- --root=./data_test --mixes spec/0.mix.json mlsys-test > test.log
 cargo run --release -- --mixes spec/all_config.mix.json ns3-config
 
 cargo run --release -- --mixes spec/mlsys_config.mix.json mlsys-config
@@ -62,7 +62,12 @@ python gen_sensitivity_path.py > gen_mlsys_e365_p500_l100_tx_nosamp_1.log
 
 python gen_sensitivity_path.py > gen_mlsys-new_e173_p500_l100_tx_nosamp_1.log
 
-
-
+# test ns3 from parsimon-eval
+cd /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/src
 cargo test --lib ns3
+
+# test network from parsimon-core
+cd /data1/lichenni/projects/flow_simulation/parsimon/crates/parsimon-core/src
 cargo test --lib network
+
+cargo update -p parsimon

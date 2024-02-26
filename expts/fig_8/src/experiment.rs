@@ -52,7 +52,7 @@ const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
-const NR_FLOWS: usize = 20;
+const NR_FLOWS: usize = 10000;
 // const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
@@ -1250,7 +1250,18 @@ impl Experiment {
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations_path(flows.clone());
-        let path_to_flowid_map_pmn:FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>> = network.get_path_to_flowid_map().unwrap().clone();
+        // let path_to_flowid_map_pmn:FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>> = network.get_path_to_flowid_map().unwrap().clone();
+        let (channel_to_flowid_map_pmn, path_to_flowid_map_pmn): (
+            &FxHashMap<(NodeId, NodeId), FxHashSet<FlowId>>,
+            &FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>>
+        ) = match network.get_routes() {
+            Some((channel_map, path_map)) => (channel_map, path_map),
+            None => panic!("Routes not available"),
+        };
+        let mut channel_to_flowid_map_pmn_sorted = channel_to_flowid_map_pmn
+            .iter()
+            .collect::<Vec<_>>();
+        channel_to_flowid_map_pmn_sorted.sort_by(|x, y| x.0.cmp(&y.0));
         let mut path_to_flows_vec_pmn_sorted = path_to_flowid_map_pmn
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
@@ -1259,9 +1270,27 @@ impl Experiment {
         println!("Path to FlowID Map length: {}", path_to_flows_vec_pmn_sorted.len());
        
         let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
+        let mut results_str_pmn_c = String::new();
+        
+        for (index, (nodes, hash_set)) in channel_to_flowid_map_pmn_sorted.iter().enumerate() {
+            results_str_pmn_c.push_str(&format!("Link-{}, ", index));
+            
+            // Append nodes
+            results_str_pmn_c.push_str("[");
+            results_str_pmn_c.push_str(&format!("({}, {}) ", nodes.0, nodes.1));
+            
+            // Append hash set
+            results_str_pmn_c.push_str("{");
+            let mut results_vec: Vec<_> = hash_set.iter().collect();
+            results_vec.sort(); // Sort the vector
+            for value in results_vec.iter() {
+                results_str_pmn_c.push_str(&format!("{}, ", value));
+            }
+            results_str_pmn_c.push_str("}\n");
+        }
 
         let mut results_str_pmn = String::new();
-    
+        
         for (index, (nodes, hash_set)) in path_to_flows_vec_pmn_sorted.iter().enumerate() {
             results_str_pmn.push_str(&format!("Path-{}, ", index));
             
@@ -1274,17 +1303,19 @@ impl Experiment {
             
             // Append hash set
             results_str_pmn.push_str("{");
-            for value in hash_set.iter() {
+            let mut results_vec: Vec<_> = hash_set.iter().collect();
+            results_vec.sort(); // Sort the vector
+            for value in results_vec.iter() {
                 results_str_pmn.push_str(&format!("{}, ", value));
             }
-            results_str_pmn.push_str("}. ");
+            results_str_pmn.push_str("}\n");
         }
         self.put_path_with_idx(
             mix,
             sim,
             0,
             format!(
-                "{},{}\n{}", NR_PATHS_SAMPLED,path_to_flowid_map_pmn.len(),results_str_pmn
+                "{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_to_flowid_map_pmn.len(),results_str_pmn_c,results_str_pmn
             ),
         )
         .unwrap();
@@ -1295,8 +1326,13 @@ impl Experiment {
         let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
 
         let start_extra = Instant::now(); // timer start
-        let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
+        let (path_to_flowid_map, _)= self.get_routes(flowid_to_path_map, &flows);
         let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
+
+        let mut channel_to_flowid_map_sorted = channel_to_flowid_map
+            .iter()
+            .collect::<Vec<_>>();
+        channel_to_flowid_map_sorted.sort_by(|x, y| x.0.cmp(&y.0));
 
         let mut path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
@@ -1306,6 +1342,25 @@ impl Experiment {
         let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
             
         self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1,elapsed_secs_2,elapsed_secs_extra))?;
+
+        let mut results_str_c = String::new();
+        
+        for (index, (nodes, hash_set)) in channel_to_flowid_map_sorted.iter().enumerate() {
+            results_str_c.push_str(&format!("Link-{}, ", index));
+            
+            // Append nodes
+            results_str_c.push_str("[");
+            results_str_c.push_str(&format!("({}, {}) ", nodes.0, nodes.1));
+            
+            // Append hash set
+            results_str_c.push_str("{");
+            let mut results_vec: Vec<_> = hash_set.iter().collect();
+            results_vec.sort(); // Sort the vector
+            for value in results_vec.iter() {
+                results_str_c.push_str(&format!("{}, ", value));
+            }
+            results_str_c.push_str("}\n");
+        }
 
         let mut results_str = String::new();
     
@@ -1321,17 +1376,19 @@ impl Experiment {
             
             // Append hash set
             results_str.push_str("{");
-            for value in hash_set.iter() {
+            let mut results_vec: Vec<_> = hash_set.iter().collect();
+            results_vec.sort(); // Sort the vector
+            for value in results_vec.iter() {
                 results_str.push_str(&format!("{}, ", value));
             }
-            results_str.push_str("}. ");
+            results_str.push_str("}\n");
         }
         self.put_path_with_idx(
             mix,
             sim,
             1,
             format!(
-                "{},{}\n{}", NR_PATHS_SAMPLED,path_to_flows_vec_sorted.len(),results_str
+                "{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_to_flows_vec_sorted.len(),results_str_c,results_str
             ),
         )
         .unwrap();
