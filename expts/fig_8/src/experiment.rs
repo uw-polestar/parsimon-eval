@@ -56,7 +56,7 @@ const NR_FLOWS: usize = 10000;
 // const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
-const MODEL_SUFFIX: &str = "_e196";
+const MODEL_SUFFIX: &str = "_e293";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -810,14 +810,11 @@ impl Experiment {
 
     fn run_mlsys(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::Mlsys;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
-        // let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
-        //     .iter()
-        //     .map(|flow| (flow.id, flow.clone()))
-        //     .collect::<FxHashMap<_, _>>();
 
         let start_1 = Instant::now(); // timer start
-        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let start_read = Instant::now(); // timer start
         // construct SimNetwork
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
@@ -830,12 +827,14 @@ impl Experiment {
             Some((channel_map, path_map)) => (channel_map, path_map),
             None => panic!("Routes not available"),
         };
-
+        
         let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
+        let elapsed_read= start_read.elapsed().as_secs();
 
+        let start_sample= Instant::now(); // timer start
         let mut path_list: Vec<Vec<(NodeId, NodeId)>>;
         let mut path_counts: FxHashMap<Vec<(NodeId, NodeId)>, usize> = FxHashMap::default();
 
@@ -856,8 +855,9 @@ impl Experiment {
         path_list = path_counts.clone().into_keys().collect();
 
         path_list.sort_by(|x, y| y.len().cmp(&x.len()).then(path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len())));
+        let elapsed_sample= start_sample.elapsed().as_secs();
 
-        let start_2 = Instant::now(); // timer start
+        let start_path = Instant::now(); // timer start
         let results:Vec<_> = path_list
             .par_iter()
             .enumerate()
@@ -975,10 +975,10 @@ impl Experiment {
         self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),results_str))
                 .unwrap();
         
-        let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
-        let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
+        let elapsed_path = start_path.elapsed().as_secs(); // timer end
+        let elapsed_1 = start_1.elapsed().as_secs(); // timer end
 
-        self.put_elapsed_str(mix, sim, format!("{},{}", elapsed_secs_1, elapsed_secs_2))?;
+        self.put_elapsed_str(mix, sim, format!("{},{},{},{}", elapsed_1, elapsed_read,elapsed_sample,elapsed_path))?;
         Ok(())
     }
 
@@ -1752,7 +1752,7 @@ impl fmt::Display for SimKind {
             SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e196",
+            SimKind::Mlsys => "mlsys-new_e293",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
