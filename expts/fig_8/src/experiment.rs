@@ -811,84 +811,50 @@ impl Experiment {
     fn run_mlsys(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::Mlsys;
         let flows = self.flows(mix)?;
-        // read flows associated with a path
-        let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
-            .iter()
-            .map(|flow| (flow.id, flow.clone()))
-            .collect::<FxHashMap<_, _>>();
-        let flow_path_map_file = self.flow_path_map_file(mix, sim)?;
+        // let flowid_to_flow_map: FxHashMap<FlowId, Flow> = flows
+        //     .iter()
+        //     .map(|flow| (flow.id, flow.clone()))
+        //     .collect::<FxHashMap<_, _>>();
 
         let start_1 = Instant::now(); // timer start
-        let (channel_to_flowid_map, flowid_to_path_map)= self.get_input_from_file(flow_path_map_file)?;
-
-        let start_extra = Instant::now(); // timer start
-        let (path_to_flowid_map, flowid_to_path_map_ordered)= self.get_routes(flowid_to_path_map, &flows);
-        let elapsed_secs_extra = start_extra.elapsed().as_secs(); // timer end
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        // construct SimNetwork
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations_path(flows.clone());
+        let (channel_to_flowid_map, path_to_flowid_map): (
+            &FxHashMap<(NodeId, NodeId), FxHashSet<FlowId>>,
+            &FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>>
+        ) = match network.get_routes() {
+            Some((channel_map, path_map)) => (channel_map, path_map),
+            None => panic!("Routes not available"),
+        };
 
         let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
-        // path_to_flows_vec_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
-        // let path_to_flows_vec_sorted: Vec<(&Vec<(NodeId, NodeId)>, &HashSet<usize>)> = {
-        //     let mut temp_vec: Vec<_> = path_to_flowid_map
-        //         .iter()
-        //         .map(|(k, v)| (k, v))
-        //         .collect();
-        //     temp_vec.sort_by(|(_, a), (_, b)| b.len().cmp(&a.len()));
-        //     temp_vec
-        //         .iter()
-        //         .take((temp_vec.len() as f64 * 0.8) as usize)
-        //         .map(|&(k, v)| (k, v))
-        //         .collect()
-        // };
 
         let mut path_list: Vec<Vec<(NodeId, NodeId)>>;
-        let mut flow_sampled_set: Vec<&usize>=Vec::new();
         let mut path_counts: FxHashMap<Vec<(NodeId, NodeId)>, usize> = FxHashMap::default();
 
-        // Sample-1: randomly select N flows, with the probability of a flow being selected proportional to the number of paths it is on
-        if SAMPLE_MODE==1{
-            let weights: Vec<usize> = path_to_flows_vec_sorted.iter()
-            .map(|(_, flows)| flows.len()).collect();
-            let weighted_index = WeightedIndex::new(weights).unwrap();
+        // path sampling: randomly select N flows, with the probability of a flow being selected proportional to the number of paths it is on
+        let weights: Vec<usize> = path_to_flows_vec_sorted.iter()
+        .map(|(_, flows)| flows.len()).collect();
+        let weighted_index = WeightedIndex::new(weights).unwrap();
 
-            let mut rng = StdRng::seed_from_u64(self.seed);
-            (0..NR_PATHS_SAMPLED).for_each(|_| {
-                let sampled_index = weighted_index.sample(&mut rng);
-                let key = path_to_flows_vec_sorted[sampled_index].0.clone();
-                // Update counts
-                *path_counts.entry(key).or_insert(0) += 1;
-            });
+        let mut rng = StdRng::seed_from_u64(self.seed);
+        (0..NR_PATHS_SAMPLED).for_each(|_| {
+            let sampled_index = weighted_index.sample(&mut rng);
+            let key = path_to_flows_vec_sorted[sampled_index].0.clone();
+            // Update counts
+            *path_counts.entry(key).or_insert(0) += 1;
+        });
 
-            // Derive the unique set of paths
-            path_list = path_counts.clone().into_keys().collect();
-        }
-        else if SAMPLE_MODE==2{
-            // Sample-2: randomly select N flows, and then collect the paths they are on
-            let flowid_pool= path_to_flows_vec_sorted
-                .iter()
-                .flat_map(|&(_, flows)| flows.iter());
+        // Derive the unique set of paths
+        path_list = path_counts.clone().into_keys().collect();
 
-            let mut rng = StdRng::seed_from_u64(self.seed);
-            flow_sampled_set=flowid_pool.choose_multiple(&mut rng, NR_PATHS_SAMPLED);
-
-            let path_list_ori = flow_sampled_set.iter()
-            .map(|&flow_id| flowid_to_path_map_ordered[&flow_id].clone());
-            
-            path_list=path_list_ori.clone().collect::<HashSet<_>>().into_iter().collect::<Vec<_>>();
-
-            path_counts = path_list_ori
-            .fold(FxHashMap::default(), |mut acc, path| {
-                *acc.entry(path.clone()).or_insert(0) += 1;
-                acc
-            });
-        }
-        else{
-            panic!("invalid sample mode");
-        }
-
-        // path_list.sort_by(|x, y| path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len()));
         path_list.sort_by(|x, y| y.len().cmp(&x.len()).then(path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len())));
 
         let start_2 = Instant::now(); // timer start
@@ -927,7 +893,7 @@ impl Experiment {
                 // get flows for a specific path
                 let mut flows_remaining: Vec<Flow> = flow_ids_in_f_prime
                 .iter()
-                .filter_map(|&flow_id| flowid_to_flow_map.get(&flow_id).cloned())
+                .filter_map(|&flow_id| flows.get(flow_id.as_usize()).cloned())
                 .collect();
                 
                 let mut flow_extra: Vec<Flow>=Vec::new();
@@ -1006,23 +972,13 @@ impl Experiment {
             }
         }
         
-        if SAMPLE_MODE==1{
-            self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),results_str))
+        self.put_path(mix, sim, format!("{},{}\n{}", NR_PATHS_SAMPLED,path_list.len(),results_str))
                 .unwrap();
-        }
-        else if SAMPLE_MODE==2{
-            let flow_sampled_str=flow_sampled_set.iter().map(|&x| x.to_string()).collect::<Vec<_>>().join(",");
-            self.put_path(mix, sim, format!("{},{}\n{}{}", NR_PATHS_SAMPLED,path_list.len(),results_str,flow_sampled_str))
-            .unwrap();
-        }
-        else{
-            panic!("invalid sample mode");
-        }
         
         let elapsed_secs_2 = start_2.elapsed().as_secs(); // timer end
         let elapsed_secs_1 = start_1.elapsed().as_secs(); // timer end
 
-        self.put_elapsed_str(mix, sim, format!("{},{},{}", elapsed_secs_1, elapsed_secs_2,elapsed_secs_extra))?;
+        self.put_elapsed_str(mix, sim, format!("{},{}", elapsed_secs_1, elapsed_secs_2))?;
         Ok(())
     }
 
