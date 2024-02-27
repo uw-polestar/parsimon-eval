@@ -34,7 +34,7 @@
         0.0, 1.0
     ],
     "ccs":[
-        "dctcp", "dcqcn_paper_vwin", "hp","timely_vwin"
+        "dctcp", "dcqcn", "hp","timely"
     ],
     "params": [
         {

@@ -72,7 +72,7 @@ pub struct Experiment {
 
 impl Experiment {
     pub fn run(&self) -> anyhow::Result<()> {
-        let mut mixes: Vec<Mix> = serde_json::from_str(&fs::read_to_string(&self.mixes)?)?;
+        let mixes: Vec<Mix> = serde_json::from_str(&fs::read_to_string(&self.mixes)?)?;
         // mixes=mixes.into_iter().rev().collect();
         
         // All ns3 simulations can run in parallel. Parsimon simulations are already massively
