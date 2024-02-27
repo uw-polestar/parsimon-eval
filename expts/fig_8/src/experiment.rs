@@ -52,8 +52,8 @@ const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
-const NR_FLOWS: usize = 10000;
-// const NR_FLOWS: usize = 10_000_000;
+// const NR_FLOWS: usize = 10000;
+const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
 const MODEL_SUFFIX: &str = "_e372";
@@ -99,14 +99,6 @@ impl Experiment {
                 // mix_list[1].par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
 
                 mixed_combined.par_iter().try_for_each(|(mix,mix_param)| self.run_ns3_param(mix,mix_param))?;
-            }
-            SimKind::Ns3Config => {
-                mixes.par_iter().try_for_each(|mix| self.run_ns3_config(mix))?;
-                // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
-
-                // for mix_tmp in &mix_list {
-                //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
-                // }
             }
 
             SimKind::Mlsys => {
@@ -199,9 +191,15 @@ impl Experiment {
             .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
-            .window(WINDOW)
+            // .window(WINDOW)
             .base_rtt(BASE_RTT)
             .flows(flows)
+            .bfsz(mix.bfsz)
+            .window(Bytes::new(mix.window))
+            .enable_pfc(mix.enable_pfc)
+            .cc_kind(mix.cc)
+            .param_1(mix.param_1)
+            .param_2(mix.param_2)
             .build();
         let records = ns3
             .run()?
@@ -252,46 +250,6 @@ impl Experiment {
             .collect::<Vec<_>>();
         self.put_records(mix, sim, &records)?;
 
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
-        self.put_elapsed(mix, sim, elapsed_secs)?;
-        Ok(())
-    }
-
-    fn run_ns3_config(&self, mix: &Mix) -> anyhow::Result<()> {
-        let sim = SimKind::Ns3Config;
-        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
-        let flows = self.flows(mix)?;
-
-        let start = Instant::now(); // timer start
-        let ns3 = Ns3Simulation::builder()
-            .ns3_dir(NS3_DIR)
-            .data_dir(self.sim_dir(mix, sim)?)
-            .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
-            .links(cluster.links().cloned().collect::<Vec<_>>())
-            // .window(WINDOW)
-            .base_rtt(BASE_RTT)
-            .flows(flows)
-            .window(Bytes::new(mix.window))
-            .bfsz(mix.bfsz)
-            .enable_pfc(mix.enable_pfc)
-            .cc_kind(mix.cc)
-            .param_1(mix.param_1)
-            .param_2(mix.param_2)
-            .build();
-
-        let records = ns3
-            .run()?
-            .into_iter()
-            .map(|rec| Record {
-                mix_id: mix.id,
-                flow_id: rec.id,
-                size: rec.size,
-                slowdown: rec.slowdown(),
-                sim,
-            })
-            .collect::<Vec<_>>();
-        self.put_records(mix, sim, &records)?;
-        
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
@@ -1726,7 +1684,6 @@ fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
 pub enum SimKind {
     Ns3,
     Ns3Param,
-    Ns3Config,
     Pmn,
     PmnM,
     PmnMParam,
@@ -1744,7 +1701,6 @@ impl fmt::Display for SimKind {
         let s = match self {
             SimKind::Ns3 => "ns3",
             SimKind::Ns3Param => "ns3-param",
-            SimKind::Ns3Config => "ns3-config",
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMParam => "pmn-m-param",

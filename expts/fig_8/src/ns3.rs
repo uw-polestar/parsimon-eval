@@ -233,21 +233,21 @@ pub enum CcKind {
     /// DCTCP.
     #[derivative(Default)]
     Dctcp,
-    /// TIMELY.
-    Timely,
     /// DCQCN.
     Dcqcn,
     /// HP
-    Hp
+    Hp,
+    /// TIMELY.
+    Timely,
 }
 
 impl CcKind {
     fn as_str(&self) -> &'static str {
         match self {
             CcKind::Dctcp => "dctcp",
-            CcKind::Timely => "timely_vwin",
             CcKind::Dcqcn => "dcqcn_paper_vwin",
             CcKind::Hp => "hp",
+            CcKind::Timely => "timely_vwin",
         }
     }
 
