@@ -37,7 +37,7 @@ pub struct Mlsys {
     /// The number of output percentiles.
     pub output_length: usize,
     /// The buffer size factor.
-    #[builder(default = 300.0)]
+    #[builder(default = 30.0)]
     pub bfsz: f64,
     /// The sencing window.
     #[builder(default = Bytes::new(18000))]

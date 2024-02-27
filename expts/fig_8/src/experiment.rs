@@ -56,7 +56,7 @@ const NR_FLOWS: usize = 10000;
 // const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
-const MODEL_SUFFIX: &str = "_e293";
+const MODEL_SUFFIX: &str = "_e372";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -1752,7 +1752,7 @@ impl fmt::Display for SimKind {
             SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e293",
+            SimKind::Mlsys => "mlsys-new_e372",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
