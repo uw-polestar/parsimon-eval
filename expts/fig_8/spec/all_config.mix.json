@@ -6,9 +6,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6546710160064348,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.155048872132114,
-    "window": 18000
+    "bfsz": 24.62226831727409,
+    "window": 48673,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 39.20796309681002,
+    "param_2": 0.0
   },
   {
     "id": 1,
@@ -17,9 +20,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.2851827465663648,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 25.439738114936418,
+    "window": 20934,
+    "enable_pfc": 1.0,
     "cc": "dcqcn",
-    "param_cc": 0.5981242018877977,
-    "window": 18000
+    "param_1": 35.904641743395516,
+    "param_2": 92.4991592644823
   },
   {
     "id": 2,
@@ -28,9 +34,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5150773623899252,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 15.649442677368956,
+    "window": 12310,
+    "enable_pfc": 0.0,
     "cc": "hp",
-    "param_cc": 0.5155241302758674,
-    "window": 18000
+    "param_1": 94.12089249113674,
+    "param_2": 11.97600217727925
   },
   {
     "id": 3,
@@ -39,9 +48,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.7324178498227348,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.982083847027841,
-    "window": 18000
+    "bfsz": 18.514041325219907,
+    "window": 33028,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 49.86326944262905,
+    "param_2": 69.81820162882843
   },
   {
     "id": 4,
@@ -50,9 +62,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3455859171762805,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 23.718084001724293,
+    "window": 46049,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_cc": 0.9088339258958914,
-    "window": 18000
+    "param_1": 35.15646414919374,
+    "param_2": 0.0
   },
   {
     "id": 5,
@@ -61,9 +76,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6104936716327665,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 19.57698826560481,
+    "window": 53803,
+    "enable_pfc": 1.0,
     "cc": "dcqcn",
-    "param_cc": 0.39523936123662096,
-    "window": 18000
+    "param_1": 47.75724962165043,
+    "param_2": 58.07748869977531
   },
   {
     "id": 6,
@@ -72,9 +90,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6901726291402162,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.7726559907328214,
-    "window": 18000
+    "bfsz": 18.739163909185663,
+    "window": 24852,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 70.37562558648133,
+    "param_2": 12.768865179444173
   },
   {
     "id": 7,
@@ -83,9 +104,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7126208270275072,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 22.363091897479848,
+    "window": 40688,
+    "enable_pfc": 1.0,
     "cc": "timely",
-    "param_cc": 1.6078334938419394,
-    "window": 18000
+    "param_1": 29.748433964223864,
+    "param_2": 93.23161112454125
   },
   {
     "id": 8,
@@ -94,9 +118,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.25751251172962664,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.837625004733713,
-    "window": 18000
+    "bfsz": 26.323196026889637,
+    "window": 57738,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 47.64689761284989,
+    "param_2": 0.0
   },
   {
     "id": 9,
@@ -105,9 +132,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5568846038892901,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.23152109602359824,
-    "window": 18000
+    "bfsz": 11.752097030010816,
+    "window": 27556,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 35.67326503492772,
+    "param_2": 98.83383855483423
   },
   {
     "id": 10,
@@ -116,9 +146,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.2919822652843035,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 15.276363172617469,
+    "window": 22507,
+    "enable_pfc": 1.0,
     "cc": "hp",
-    "param_cc": 1.6507036225545157,
-    "window": 18000
+    "param_1": 86.80167359938592,
+    "param_2": 41.6715257207271
   },
   {
     "id": 11,
@@ -127,9 +160,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.36787237542304263,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.5305821092882959,
-    "window": 18000
+    "bfsz": 15.85124539070085,
+    "window": 41723,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 22.507671554923554,
+    "param_2": 59.67780754453924
   },
   {
     "id": 12,
@@ -138,9 +174,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7383383855483423,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.2664492178510275,
-    "window": 18000
+    "bfsz": 23.11740409930832,
+    "window": 39072,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 53.35251588126137,
+    "param_2": 0.0
   },
   {
     "id": 13,
@@ -149,9 +188,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5860334719877185,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.45596892875758355,
-    "window": 18000
+    "bfsz": 16.06127437352488,
+    "window": 40739,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 39.0346415121823,
+    "param_2": 50.90273444600284
   },
   {
     "id": 14,
@@ -160,9 +202,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2671581429794989,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.5752936614599045,
-    "window": 18000
+    "bfsz": 11.663653666977973,
+    "window": 26193,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 71.0988005218436,
+    "param_2": 33.756789630640164
   },
   {
     "id": 15,
@@ -171,9 +216,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6213051726408152,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.2849207379568666,
-    "window": 18000
+    "bfsz": 15.125736668311976,
+    "window": 17855,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 21.428379212256758,
+    "param_2": 90.04508535369789
   },
   {
     "id": 16,
@@ -182,9 +230,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.409306522776384,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.8367519512086858,
-    "window": 18000
+    "bfsz": 26.275658041919517,
+    "window": 52060,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 11.16492152306864,
+    "param_2": 0.0
   },
   {
     "id": 17,
@@ -193,9 +244,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2590273444600284,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.46775668669249126,
-    "window": 18000
+    "bfsz": 12.996201319111611,
+    "window": 57413,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 28.61667969648525,
+    "param_2": 68.05940064204046
   },
   {
     "id": 18,
@@ -204,9 +258,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.27197601043687214,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 25.407874550376878,
+    "window": 52880,
+    "enable_pfc": 0.0,
     "cc": "hp",
-    "param_cc": 1.4833856903507483,
-    "window": 18000
+    "param_1": 82.89056264992132,
+    "param_2": 17.952750061117044
   },
   {
     "id": 19,
@@ -215,9 +272,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.46548395995167463,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 12.142976040025252,
+    "window": 24089,
+    "enable_pfc": 0.0,
     "cc": "timely",
-    "param_cc": 1.2680997119915773,
-    "window": 18000
+    "param_1": 41.41060842781942,
+    "param_2": 59.34984490224651
   },
   {
     "id": 20,
@@ -226,9 +286,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.42465960069254305,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 14.674460719218658,
+    "window": 15974,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_cc": 0.2580470983629075,
-    "window": 18000
+    "param_1": 58.91033008947264,
+    "param_2": 0.0
   },
   {
     "id": 21,
@@ -237,9 +300,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.2616492152306864,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.5670995198630063,
-    "window": 18000
+    "bfsz": 14.249520447190342,
+    "window": 46042,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 27.599299383960187,
+    "param_2": 67.23793352244058
   },
   {
     "id": 22,
@@ -248,9 +314,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.30340988002115266,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.839255191275954,
-    "window": 18000
+    "bfsz": 15.671461114096564,
+    "window": 54231,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 75.02076373770103,
+    "param_2": 31.46808469181288
   },
   {
     "id": 23,
@@ -259,9 +328,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2719164250616908,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.1904640167762614,
-    "window": 18000
+    "bfsz": 19.951559776734896,
+    "window": 16414,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 20.753156910498806,
+    "param_2": 88.94009105612999
   },
   {
     "id": 24,
@@ -270,9 +342,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.349409375763963,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.6461875139823543,
-    "window": 18000
+    "bfsz": 10.233561609183939,
+    "window": 29779,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 32.52791695778369,
+    "param_2": 0.0
   },
   {
     "id": 25,
@@ -281,9 +356,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6068434737969903,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.8401796720550323,
-    "window": 18000
+    "bfsz": 17.61863328636327,
+    "window": 37869,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 27.54268480299875,
+    "param_2": 98.9584860785302
   },
   {
     "id": 26,
@@ -292,9 +370,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.30974796746406696,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.9090057561101827,
-    "window": 18000
+    "bfsz": 11.354322286070998,
+    "window": 12778,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 82.21664215459126,
+    "param_2": 45.1275591376668
   },
   {
     "id": 27,
@@ -303,9 +384,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.32663654142670284,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.3029575440803801,
-    "window": 18000
+    "bfsz": 12.352452656586937,
+    "window": 18133,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 20.781321435173666,
+    "param_2": 51.481835864652226
   },
   {
     "id": 28,
@@ -314,9 +398,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3895119590853292,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.500242352016796,
-    "window": 18000
+    "bfsz": 17.96557430669677,
+    "window": 21075,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 51.9441990244424,
+    "param_2": 0.0
   },
   {
     "id": 29,
@@ -325,9 +412,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.518351058647661,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.43043686106860934,
-    "window": 18000
+    "bfsz": 23.592934698090858,
+    "window": 41657,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 39.81392103115812,
+    "param_2": 81.81712871250252
   },
   {
     "id": 30,
@@ -336,9 +426,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2625526151749801,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.4777556279030596,
-    "window": 18000
+    "bfsz": 27.339318738380697,
+    "window": 10064,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 79.42715471823317,
+    "param_2": 17.207105799948952
   },
   {
     "id": 31,
@@ -347,9 +440,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.47527916957783684,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.6354079776943806,
-    "window": 18000
+    "bfsz": 18.678109492358118,
+    "window": 48794,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 35.91757387744846,
+    "param_2": 97.53755381726265
   },
   {
     "id": 32,
@@ -358,9 +454,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5584738779382943,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.6345730022921308,
-    "window": 18000
+    "bfsz": 23.044328898924753,
+    "window": 14302,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 17.666240652327076,
+    "param_2": 0.0
   },
   {
     "id": 33,
@@ -369,9 +468,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.2777842232339133,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.7558075785105847,
-    "window": 18000
+    "bfsz": 15.131527444752392,
+    "window": 42130,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 45.56348933314401,
+    "param_2": 81.702245564555
   },
   {
     "id": 34,
@@ -380,9 +482,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3857303263943396,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.5706732207106646,
-    "window": 18000
+    "bfsz": 19.680567217730314,
+    "window": 37201,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 72.17874932288386,
+    "param_2": 27.088602751018932
   },
   {
     "id": 35,
@@ -391,9 +496,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2630220239195611,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.2505586509888622,
-    "window": 18000
+    "bfsz": 19.782490365206144,
+    "window": 38369,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 42.09734443305168,
+    "param_2": 72.31121064556172
   },
   {
     "id": 36,
@@ -402,9 +510,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4189518845598552,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.5147528291072154,
-    "window": 18000
+    "bfsz": 25.6168606460286,
+    "window": 23158,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 43.166362288164464,
+    "param_2": 0.0
   },
   {
     "id": 37,
@@ -413,9 +524,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6046028883056305,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.7057705368554027,
-    "window": 18000
+    "bfsz": 12.698214476652852,
+    "window": 42639,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 41.24749019691026,
+    "param_2": 91.20886624258526
   },
   {
     "id": 38,
@@ -424,9 +538,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6834829684595175,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.2211654638827985,
-    "window": 18000
+    "bfsz": 28.579587794789337,
+    "window": 10491,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 87.41708513077879,
+    "param_2": 12.221554613240606
   },
   {
     "id": 39,
@@ -435,9 +552,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2696321481117253,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 10.028175313166555,
+    "window": 15189,
+    "enable_pfc": 1.0,
     "cc": "timely",
-    "param_cc": 1.3171306036503028,
-    "window": 18000
+    "param_1": 24.389563085973165,
+    "param_2": 96.14848212005104
   },
   {
     "id": 40,
@@ -446,9 +566,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5152928979574745,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.4815780440652778,
-    "window": 18000
+    "bfsz": 27.66438298496069,
+    "window": 18024,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 49.85446719931479,
+    "param_2": 0.0
   },
   {
     "id": 41,
@@ -457,9 +580,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3266624065232707,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 27.0207027959507,
+    "window": 13871,
+    "enable_pfc": 1.0,
     "cc": "dcqcn",
-    "param_cc": 1.045398178789815,
-    "window": 18000
+    "param_1": 36.348811540139465,
+    "param_2": 98.90207853323517
   },
   {
     "id": 42,
@@ -468,9 +594,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5569544659977093,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 27.894973974856583,
+    "window": 53680,
+    "enable_pfc": 0.0,
     "cc": "hp",
-    "param_cc": 0.6920899362003665,
-    "window": 18000
+    "param_1": 77.48506153139724,
+    "param_2": 48.115153481894154
   },
   {
     "id": 43,
@@ -479,9 +608,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.4920141804432579,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.3393857091152397,
-    "window": 18000
+    "bfsz": 13.401987628037487,
+    "window": 45433,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 44.014105163322895,
+    "param_2": 84.59794037058057
   },
   {
     "id": 44,
@@ -490,9 +622,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2935749864576772,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.9560608443957799,
-    "window": 18000
+    "bfsz": 26.62667697584301,
+    "window": 24301,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 40.990306027091535,
+    "param_2": 0.0
   },
   {
     "id": 45,
@@ -501,9 +636,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.31627027149863873,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.9966403451105043,
-    "window": 18000
+    "bfsz": 21.374638748876897,
+    "window": 41329,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 32.57496636805746,
+    "param_2": 60.251609643940945
   },
   {
     "id": 46,
@@ -512,9 +650,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.47397038559206334,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.9604224709841478,
-    "window": 18000
+    "bfsz": 28.072108181579296,
+    "window": 48060,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 80.59321702804674,
+    "param_2": 11.17345335564993
   },
   {
     "id": 47,
@@ -523,9 +664,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6494533494271933,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.20558004828887047,
-    "window": 18000
+    "bfsz": 14.510452701382192,
+    "window": 20569,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 35.15555673349189,
+    "param_2": 59.458099474841234
   },
   {
     "id": 48,
@@ -534,9 +678,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5399094882804178,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 23.32701412035535,
+    "window": 58262,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_cc": 0.6157752402984904,
-    "window": 18000
+    "param_1": 42.02287303682307,
+    "param_2": 0.0
   },
   {
     "id": 49,
@@ -545,9 +692,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2777694326655076,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.3405304509701805,
-    "window": 18000
+    "bfsz": 15.80158966581435,
+    "window": 34879,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 27.533410750663606,
+    "param_2": 70.01545268416845
   },
   {
     "id": 50,
@@ -556,9 +706,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6220991136292884,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.20644681885752575,
-    "window": 18000
+    "bfsz": 21.944983014604077,
+    "window": 42985,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 93.41463397002235,
+    "param_2": 14.28972769877791
   },
   {
     "id": 51,
@@ -567,9 +720,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4556169864961452,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 15.402940940830874,
+    "window": 51845,
+    "enable_pfc": 0.0,
     "cc": "timely",
-    "param_cc": 1.1721544902587493,
-    "window": 18000
+    "param_1": 34.062651463126606,
+    "param_2": 77.72108009693514
   },
   {
     "id": 52,
@@ -578,9 +734,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6112845687720734,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.8065477872415396,
-    "window": 18000
+    "bfsz": 22.79635694060986,
+    "window": 19697,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 21.228222673095637,
+    "param_2": 0.0
   },
   {
     "id": 53,
@@ -589,9 +748,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7390207853323516,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.9671938458119708,
-    "window": 18000
+    "bfsz": 14.146259325607506,
+    "window": 40883,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 28.83030242554686,
+    "param_2": 69.4875685447668
   },
   {
     "id": 54,
@@ -600,9 +762,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3997012306279446,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.7949090810944625,
-    "window": 18000
+    "bfsz": 26.485130033555023,
+    "window": 14003,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 86.55228064794329,
+    "param_2": 39.813590202474174
   },
   {
     "id": 55,
@@ -611,9 +776,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5696093428489593,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.3578519827510278,
-    "window": 18000
+    "bfsz": 22.0168180875497,
+    "window": 18905,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 32.710335642289415,
+    "param_2": 82.90779777711737
   },
   {
     "id": 56,
@@ -622,9 +790,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5593355068507759,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.1081130122384029,
-    "window": 18000
+    "bfsz": 25.4492313997538,
+    "window": 30312,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 55.546253976786105,
+    "param_2": 0.0
   },
   {
     "id": 57,
@@ -633,9 +804,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6056914918947001,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.4303983613639373,
-    "window": 18000
+    "bfsz": 17.095582813732246,
+    "window": 48220,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 35.023933355871485,
+    "param_2": 86.96569692055746
   },
   {
     "id": 58,
@@ -644,9 +818,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.46186434056093467,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 24.746170642115835,
+    "window": 23137,
+    "enable_pfc": 0.0,
     "cc": "hp",
-    "param_cc": 0.5874951072514772,
-    "window": 18000
+    "param_1": 70.85007054427597,
+    "param_2": 41.37716595876549
   },
   {
     "id": 59,
@@ -655,9 +832,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.36963396623102673,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.7190209910991208,
-    "window": 18000
+    "bfsz": 29.55738852712504,
+    "window": 20988,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 28.32807084795263,
+    "param_2": 55.24534864920553
   },
   {
     "id": 60,
@@ -666,9 +846,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5831753530088837,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.15821587061967074,
-    "window": 18000
+    "bfsz": 19.824037870517596,
+    "window": 57779,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 18.984220485938824,
+    "param_2": 0.0
   },
   {
     "id": 61,
@@ -677,9 +860,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5655960123381027,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 10.325722895590026,
+    "window": 35904,
+    "enable_pfc": 1.0,
     "cc": "dcqcn",
-    "param_cc": 1.1421904716941849,
-    "window": 18000
+    "param_1": 37.35347953936431,
+    "param_2": 56.21475566229651
   },
   {
     "id": 62,
@@ -688,9 +874,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3755568458443934,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.3604753698686832,
-    "window": 18000
+    "bfsz": 18.86784609055212,
+    "window": 37854,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 92.51249503991059,
+    "param_2": 12.968669428650061
   },
   {
     "id": 63,
@@ -699,9 +888,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7311332739938902,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.9510874652498406,
-    "window": 18000
+    "bfsz": 21.801064206571347,
+    "window": 14733,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 37.28598028454251,
+    "param_2": 98.50793657763435
   },
   {
     "id": 64,
@@ -710,9 +902,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4843775243854434,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 10.323443987079607,
+    "window": 47522,
+    "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_cc": 1.3603217669502494,
-    "window": 18000
+    "param_1": 45.298438768367134,
+    "param_2": 0.0
   },
   {
     "id": 65,
@@ -721,9 +916,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3469791436046634,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.2766482355399782,
-    "window": 18000
+    "bfsz": 20.56848265252094,
+    "window": 46120,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 41.86047282833677,
+    "param_2": 86.92009739451825
   },
   {
     "id": 66,
@@ -732,9 +930,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.35548132138250854,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 22.458691453092705,
+    "window": 40366,
+    "enable_pfc": 0.0,
     "cc": "hp",
-    "param_cc": 1.865060840504987,
-    "window": 18000
+    "param_1": 88.04660671754486,
+    "param_2": 41.71024816606147
   },
   {
     "id": 67,
@@ -743,9 +944,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.39717170709244765,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.4236984699391877,
-    "window": 18000
+    "bfsz": 14.513724198091507,
+    "window": 15499,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 26.792073693980456,
+    "param_2": 57.29534328975894
   },
   {
     "id": 68,
@@ -754,9 +958,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2557384943449943,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 22.21276475765991,
+    "window": 15832,
+    "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_cc": 0.10267665475082265,
-    "window": 18000
+    "param_1": 35.74888522371373,
+    "param_2": 0.0
   },
   {
     "id": 69,
@@ -765,9 +972,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3390592231106748,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.5139766317912957,
-    "window": 18000
+    "bfsz": 25.201391132995816,
+    "window": 16635,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 34.3174020809452,
+    "param_2": 71.24331595184002
   },
   {
     "id": 70,
@@ -776,9 +986,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5069716246400675,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.5203764778453953,
-    "window": 18000
+    "bfsz": 13.519038438838265,
+    "window": 43179,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 80.10330154796465,
+    "param_2": 29.628045842861177
   },
   {
     "id": 71,
@@ -787,9 +1000,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.705462539767861,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.614469753573962,
-    "window": 18000
+    "bfsz": 16.970399216813995,
+    "window": 12070,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 40.25066823495483,
+    "param_2": 73.62149675765338
   },
   {
     "id": 72,
@@ -798,9 +1014,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5003988892645248,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.24713320961987606,
-    "window": 18000
+    "bfsz": 29.682975629048958,
+    "window": 28701,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 32.822707456209045,
+    "param_2": 0.0
   },
   {
     "id": 73,
@@ -809,9 +1028,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.7496522051820941,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.22130288105920637,
-    "window": 18000
+    "bfsz": 20.207451806551145,
+    "window": 49243,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 26.806201826964365,
+    "param_2": 78.44550901552188
   },
   {
     "id": 74,
@@ -820,9 +1042,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5909489223635469,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.9104697903899726,
-    "window": 18000
+    "bfsz": 16.131741138140416,
+    "window": 54274,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 93.5880006216587,
+    "param_2": 27.32486461264941
   },
   {
     "id": 75,
@@ -831,9 +1056,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.34691401838273683,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.62089332701045,
-    "window": 18000
+    "bfsz": 27.007269448272684,
+    "window": 37330,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 36.50788491418386,
+    "param_2": 91.25786744076737
   },
   {
     "id": 76,
@@ -842,9 +1070,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5090416360434802,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.2754749260329488,
-    "window": 18000
+    "bfsz": 10.797813326641421,
+    "window": 24289,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 38.02219214667359,
+    "param_2": 0.0
   },
   {
     "id": 77,
@@ -853,9 +1084,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.47194363451311944,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 28.464679870426266,
+    "window": 37017,
+    "enable_pfc": 0.0,
     "cc": "dcqcn",
-    "param_cc": 1.2776316290294785,
-    "window": 18000
+    "param_1": 35.350938397180684,
+    "param_2": 64.86461293214532
   },
   {
     "id": 78,
@@ -864,9 +1098,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5159723315456286,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.0123308641790856,
-    "window": 18000
+    "bfsz": 10.42595788874638,
+    "window": 20341,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 74.30276946329587,
+    "param_2": 20.72692576771749
   },
   {
     "id": 79,
@@ -875,9 +1112,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5450266051642836,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.017425004087752,
-    "window": 18000
+    "bfsz": 17.097071963582025,
+    "window": 46718,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 42.07662857197016,
+    "param_2": 55.03087587284888
   },
   {
     "id": 80,
@@ -886,9 +1126,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7350793657763435,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.6117191111632208,
-    "window": 18000
+    "bfsz": 16.590400957661217,
+    "window": 13439,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 39.872265459321696,
+    "param_2": 0.0
   },
   {
     "id": 81,
@@ -897,9 +1140,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6029843876836714,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.5284930066313082,
-    "window": 18000
+    "bfsz": 27.440156649287974,
+    "window": 11045,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 25.961936216968816,
+    "param_2": 62.44607820243772
   },
   {
     "id": 82,
@@ -908,9 +1154,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.37647944685565304,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.4594077800439669,
-    "window": 18000
+    "bfsz": 13.111710640176177,
+    "window": 58136,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 88.35355986696588,
+    "param_2": 38.01679558973954
   },
   {
     "id": 83,
@@ -919,9 +1168,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5614672863273176,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 22.57043945259747,
+    "window": 49899,
+    "enable_pfc": 0.0,
     "cc": "timely",
-    "param_cc": 1.0126236778956068,
-    "window": 18000
+    "param_1": 26.36273447820625,
+    "param_2": 85.1651291497516
   },
   {
     "id": 84,
@@ -930,9 +1182,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6463781020757684,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.8242176995673538,
-    "window": 18000
+    "bfsz": 19.73634841068301,
+    "window": 17915,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 19.208557771505447,
+    "param_2": 0.0
   },
   {
     "id": 85,
@@ -941,9 +1196,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6330249900710475,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.9050011803537115,
-    "window": 18000
+    "bfsz": 17.505137463953545,
+    "window": 52604,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 43.53392305574515,
+    "param_2": 98.99039480426663
   },
   {
     "id": 86,
@@ -952,9 +1210,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.308329956610627,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.3933686540703665,
-    "window": 18000
+    "bfsz": 28.932761321751563,
+    "window": 14342,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 80.42055321342424,
+    "param_2": 44.46492339994761
   },
   {
     "id": 87,
@@ -963,9 +1224,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5750752053631623,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 25.022175990227637,
+    "window": 12385,
+    "enable_pfc": 0.0,
     "cc": "timely",
-    "param_cc": 0.4422299984353888,
-    "window": 18000
+    "param_1": 45.616291087272046,
+    "param_2": 84.98282635568918
   },
   {
     "id": 88,
@@ -974,9 +1238,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.4886233680157534,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.8468864266884981,
-    "window": 18000
+    "bfsz": 17.247601746915045,
+    "window": 41929,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 29.35509870833773,
+    "param_2": 0.0
   },
   {
     "id": 89,
@@ -985,9 +1252,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5817947562675669,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 14.043967796368221,
+    "window": 44854,
+    "enable_pfc": 0.0,
     "cc": "dcqcn",
-    "param_cc": 0.5008290212535326,
-    "window": 18000
+    "param_1": 22.423018195052958,
+    "param_2": 56.01633401350973
   },
   {
     "id": 90,
@@ -996,9 +1266,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5611895251834542,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.7047194826656908,
-    "window": 18000
+    "bfsz": 19.835303604079492,
+    "window": 58634,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 76.0370012132267,
+    "param_2": 40.79839310918463
   },
   {
     "id": 91,
@@ -1007,9 +1280,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.36708612320760126,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.5204899834563318,
-    "window": 18000
+    "bfsz": 23.790475649804037,
+    "window": 14581,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 45.68161847990925,
+    "param_2": 93.68893064450626
   },
   {
     "id": 92,
@@ -1018,9 +1294,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.36583227014692055,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 14.964493022235654,
+    "window": 13100,
+    "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_cc": 1.35797332924369,
-    "window": 18000
+    "param_1": 10.542772442719974,
+    "param_2": 0.0
   },
   {
     "id": 93,
@@ -1029,9 +1308,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.36343669711607274,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 10.47495295719426,
+    "window": 59727,
+    "enable_pfc": 1.0,
     "cc": "dcqcn",
-    "param_cc": 0.43842504782056435,
-    "window": 18000
+    "param_1": 42.17800248687121,
+    "param_2": 74.32627539557046
   },
   {
     "id": 94,
@@ -1040,9 +1322,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7217600124331737,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.14908382391270153,
-    "window": 18000
+    "bfsz": 29.98648218866543,
+    "window": 22154,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 80.59141362039215,
+    "param_2": 11.776155204326173
   },
   {
     "id": 95,
@@ -1051,9 +1336,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.29252399644765925,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.1487675000653106,
-    "window": 18000
+    "bfsz": 15.420298588411262,
+    "window": 21184,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 34.696397541871626,
+    "param_2": 65.00811625044545
   },
   {
     "id": 96,
@@ -1062,9 +1350,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3928900746943492,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.41426591274249,
-    "window": 18000
+    "bfsz": 26.360369539814197,
+    "window": 21071,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 13.95359555336925,
+    "param_2": 0.0
   },
   {
     "id": 97,
@@ -1073,9 +1364,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7116169967606567,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.1778030023208534,
-    "window": 18000
+    "bfsz": 27.80296023984918,
+    "window": 47249,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 20.166347950886752,
+    "param_2": 58.080917458333275
   },
   {
     "id": 98,
@@ -1084,9 +1378,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.2909727515998869,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.5904153830413608,
-    "window": 18000
+    "bfsz": 13.148757587218745,
+    "window": 25226,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 72.80129634864876,
+    "param_2": 40.83752009571613
   },
   {
     "id": 99,
@@ -1095,9 +1392,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3360553892659176,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 20.33866506820781,
+    "window": 32437,
+    "enable_pfc": 1.0,
     "cc": "timely",
-    "param_cc": 0.7794110152161692,
-    "window": 18000
+    "param_1": 34.89440702096923,
+    "param_2": 86.9350858055561
   },
   {
     "id": 100,
@@ -1106,9 +1406,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.373830321652044,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 29.56801059127824,
+    "window": 14976,
+    "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_cc": 0.9111623795468644,
-    "window": 18000
+    "param_1": 15.246947727985276,
+    "param_2": 0.0
   },
   {
     "id": 101,
@@ -1117,9 +1420,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.41476002394153044,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.4682732698544,
-    "window": 18000
+    "bfsz": 26.881664465011035,
+    "window": 44144,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 44.02064446713203,
+    "param_2": 51.04381101630647
   },
   {
     "id": 102,
@@ -1128,9 +1434,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4932731422127044,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.49117214791164365,
-    "window": 18000
+    "bfsz": 24.874592751981943,
+    "window": 36800,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 89.47912733277033,
+    "param_2": 41.1241442694204
   },
   {
     "id": 103,
@@ -1139,9 +1448,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3493656036161469,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.7166717373263136,
-    "window": 18000
+    "bfsz": 16.590563313095892,
+    "window": 37128,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 23.612445200891667,
+    "param_2": 64.14071175035625
   },
   {
     "id": 104,
@@ -1150,9 +1462,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.7313691177103281,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 23.89765679421374,
+    "window": 47044,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_cc": 0.9433858111498538,
-    "window": 18000
+    "param_1": 32.30829627094684,
+    "param_2": 0.0
   },
   {
     "id": 105,
@@ -1161,9 +1476,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5642609863149368,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.5915062991805498,
-    "window": 18000
+    "bfsz": 22.158787802963715,
+    "window": 57578,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 47.706503190986794,
+    "param_2": 91.7846751622785
   },
   {
     "id": 106,
@@ -1172,9 +1490,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6016512914975161,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.569384854920465,
-    "window": 18000
+    "bfsz": 12.609284370148677,
+    "window": 34544,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 75.97922693571438,
+    "param_2": 34.71643061243206
   },
   {
     "id": 107,
@@ -1183,9 +1504,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.34208557771505443,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.194778751354359,
-    "window": 18000
+    "bfsz": 14.064351208270876,
+    "window": 50484,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 45.69437315372941,
+    "param_2": 77.58947120410537
   },
   {
     "id": 108,
@@ -1194,9 +1518,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6422320509290859,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 28.008268117524924,
+    "window": 41582,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_cc": 1.5258470130412811,
-    "window": 18000
+    "param_1": 53.90871080552503,
+    "param_2": 0.0
   },
   {
     "id": 109,
@@ -1205,9 +1532,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.4584110642684848,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.18747370198569976,
-    "window": 18000
+    "bfsz": 10.583017792805567,
+    "window": 34739,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 23.876450709866596,
+    "param_2": 89.12687295343002
   },
   {
     "id": 110,
@@ -1216,9 +1546,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6698157913107089,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.4076202530461922,
-    "window": 18000
+    "bfsz": 11.977875740164734,
+    "window": 36471,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 82.88144847572741,
+    "param_2": 49.555394694148326
   },
   {
     "id": 111,
@@ -1227,9 +1560,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4433183807243915,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.8169482707939054,
-    "window": 18000
+    "bfsz": 28.497255918996814,
+    "window": 23914,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 42.17484952528339,
+    "param_2": 78.48102717690122
   },
   {
     "id": 112,
@@ -1238,9 +1574,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.737859350819907,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 14.908729414388706,
+    "window": 34116,
+    "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_cc": 1.4715421105334097,
-    "window": 18000
+    "param_1": 23.818291764575545,
+    "param_2": 0.0
   },
   {
     "id": 113,
@@ -1249,9 +1588,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6796948012432781,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.5554949622699805,
-    "window": 18000
+    "bfsz": 16.8647822371559,
+    "window": 18227,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 40.61218213006069,
+    "param_2": 82.4518379219931
   },
   {
     "id": 114,
@@ -1260,9 +1602,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3101633401350973,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 23.146255987940698,
+    "window": 26686,
+    "enable_pfc": 1.0,
     "cc": "hp",
-    "param_cc": 0.8496160448010133,
-    "window": 18000
+    "param_1": 81.86974595184331,
+    "param_2": 16.787170716849573
   },
   {
     "id": 115,
@@ -1271,9 +1616,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6349799138648079,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.6229754404232335,
-    "window": 18000
+    "bfsz": 19.052039721503633,
+    "window": 54128,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 33.742917076455214,
+    "param_2": 58.37583067932177
   },
   {
     "id": 116,
@@ -1282,9 +1630,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6780269746651542,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.3521395125084198,
-    "window": 18000
+    "bfsz": 17.608557052809374,
+    "window": 36851,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 34.2439325719155,
+    "param_2": 0.0
   },
   {
     "id": 117,
@@ -1293,9 +1644,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.582595013654567,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.11663851413429249,
-    "window": 18000
+    "bfsz": 23.191579972485464,
+    "window": 56654,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 36.62056858535333,
+    "param_2": 87.88770197181874
   },
   {
     "id": 118,
@@ -1304,9 +1658,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.7472724190064007,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 20.03985917239237,
+    "window": 21899,
+    "enable_pfc": 0.0,
     "cc": "hp",
-    "param_cc": 1.4496174954954042,
-    "window": 18000
+    "param_1": 84.13686276147779,
+    "param_2": 44.367673158276304
   },
   {
     "id": 119,
@@ -1315,9 +1672,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.49326275395570457,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.3825423215471393,
-    "window": 18000
+    "bfsz": 14.430607636682083,
+    "window": 50730,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 36.43782085880485,
+    "param_2": 76.6430049537559
   },
   {
     "id": 120,
@@ -1326,9 +1686,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.461828272407843,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.2625402093431877,
-    "window": 18000
+    "bfsz": 24.049185544262592,
+    "window": 45728,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 26.747870961454506,
+    "param_2": 0.0
   },
   {
     "id": 121,
@@ -1337,9 +1700,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.49493995903119375,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 26.046732756989766,
+    "window": 49656,
+    "enable_pfc": 1.0,
     "cc": "dcqcn",
-    "param_cc": 1.5912663960004236,
-    "window": 18000
+    "param_1": 47.63220287374952,
+    "param_2": 74.35276296860002
   },
   {
     "id": 122,
@@ -1348,9 +1714,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6731542124437904,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 25.092870058849883,
+    "window": 17486,
+    "enable_pfc": 1.0,
     "cc": "hp",
-    "param_cc": 1.6058378667060589,
-    "window": 18000
+    "param_1": 77.07865097475857,
+    "param_2": 10.164546011599764
   },
   {
     "id": 123,
@@ -1359,9 +1728,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6950740059962296,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.8926880472460599,
-    "window": 18000
+    "bfsz": 22.15244575578044,
+    "window": 31445,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 22.665072627214908,
+    "param_2": 56.64561283422828
   },
   {
     "id": 124,
@@ -1370,9 +1742,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3308091745833327,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.1385609970352826,
-    "window": 18000
+    "bfsz": 14.193566811072227,
+    "window": 38798,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 27.540003652400387,
+    "param_2": 0.0
   },
   {
     "id": 125,
@@ -1381,9 +1756,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.30602592697297515,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.5103639331752199,
-    "window": 18000
+    "bfsz": 18.086401316834113,
+    "window": 48468,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 34.21873030323413,
+    "param_2": 69.53175057626677
   },
   {
     "id": 126,
@@ -1392,9 +1770,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.4185834677713861,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.6429822838385272,
-    "window": 18000
+    "bfsz": 10.838893498211487,
+    "window": 37831,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 94.81111116473316,
+    "param_2": 33.71463498178392
   },
   {
     "id": 127,
@@ -1403,9 +1784,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.49824011701615384,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.324984152444108,
-    "window": 18000
+    "bfsz": 29.659423262662052,
+    "window": 38127,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 35.87584988420957,
+    "param_2": 88.07070591818749
   },
   {
     "id": 128,
@@ -1414,9 +1798,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.45664101386204586,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.6648552914215221,
-    "window": 18000
+    "bfsz": 15.394290990578142,
+    "window": 43570,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 54.829260090626846,
+    "param_2": 0.0
   },
   {
     "id": 129,
@@ -1425,9 +1812,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.39190538186072243,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.4929894123471157,
-    "window": 18000
+    "bfsz": 19.90415385179768,
+    "window": 41916,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 37.435499508772764,
+    "param_2": 82.21414061975673
   },
   {
     "id": 130,
@@ -1436,9 +1826,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6503440744522004,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.7742218365402924,
-    "window": 18000
+    "bfsz": 22.035644954887665,
+    "window": 56543,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 76.19773611774148,
+    "param_2": 29.560510617818576
   },
   {
     "id": 131,
@@ -1447,9 +1840,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5180003868085181,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.7260880909778158,
-    "window": 18000
+    "bfsz": 21.587449457170337,
+    "window": 20186,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 45.99770642373768,
+    "param_2": 62.04978477312922
   },
   {
     "id": 132,
@@ -1458,9 +1854,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3419344937812453,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 19.911738082706833,
+    "window": 44565,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_cc": 1.0244379404082768,
-    "window": 18000
+    "param_1": 30.4937292022006,
+    "param_2": 0.0
   },
   {
     "id": 133,
@@ -1469,9 +1868,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3914071175035624,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.13973024338021664,
-    "window": 18000
+    "bfsz": 10.987924578759802,
+    "window": 30969,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 46.207130622199195,
+    "param_2": 65.44993353812986
   },
   {
     "id": 134,
@@ -1480,9 +1882,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.4241574152059473,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 24.315925443344888,
+    "window": 57572,
+    "enable_pfc": 0.0,
     "cc": "hp",
-    "param_cc": 1.7312827420368766,
-    "window": 18000
+    "param_1": 74.0509670531908,
+    "param_2": 13.720504903863189
   },
   {
     "id": 135,
@@ -1491,9 +1896,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5683213427477707,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.4948705498894073,
-    "window": 18000
+    "bfsz": 11.918385391300932,
+    "window": 59863,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 37.27894807886194,
+    "param_2": 96.18397883945224
   },
   {
     "id": 136,
@@ -1502,9 +1910,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4954424477588005,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.8117392239911405,
-    "window": 18000
+    "bfsz": 23.795780068549988,
+    "window": 36589,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 54.431508415408985,
+    "param_2": 0.0
   },
   {
     "id": 137,
@@ -1513,9 +1924,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3516087802067719,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.9325053767126411,
-    "window": 18000
+    "bfsz": 20.184128947944714,
+    "window": 45166,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 41.931481707940605,
+    "param_2": 57.195133200450236
   },
   {
     "id": 138,
@@ -1524,9 +1938,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6056627327176369,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.9681614521855026,
-    "window": 18000
+    "bfsz": 25.507823789351697,
+    "window": 11484,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 74.23332945786369,
+    "param_2": 23.34599841602021
   },
   {
     "id": 139,
@@ -1535,9 +1952,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.36169084657817685,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.7876761226763779,
-    "window": 18000
+    "bfsz": 10.559139737236919,
+    "window": 37494,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 29.338908252829064,
+    "param_2": 95.73126689730164
   },
   {
     "id": 140,
@@ -1546,9 +1966,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.26457544482013917,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.19323180583084038,
-    "window": 18000
+    "bfsz": 10.243842709200619,
+    "window": 59550,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 43.758289203429015,
+    "param_2": 0.0
   },
   {
     "id": 141,
@@ -1557,9 +1980,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3146075118311099,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.8665581420476394,
-    "window": 18000
+    "bfsz": 22.530890052002995,
+    "window": 28545,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 21.219945686681843,
+    "param_2": 86.59206042301395
   },
   {
     "id": 142,
@@ -1568,9 +1994,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6382770065410617,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.3144902973522163,
-    "window": 18000
+    "bfsz": 13.981885318034083,
+    "window": 54055,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 79.66124685371261,
+    "param_2": 40.60768753307265
   },
   {
     "id": 143,
@@ -1579,9 +2008,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6195808254213897,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.7739712123748147,
-    "window": 18000
+    "bfsz": 27.74978799951385,
+    "window": 43786,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 21.89740118500635,
+    "param_2": 97.91017167713761
   },
   {
     "id": 144,
@@ -1590,9 +2022,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3881829176457554,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 14.936619505248615,
+    "window": 58888,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_cc": 1.7223651021938964,
-    "window": 18000
+    "param_1": 41.14998547214793,
+    "param_2": 0.0
   },
   {
     "id": 145,
@@ -1601,9 +2036,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5497249697782385,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.3939061140847677,
-    "window": 18000
+    "bfsz": 17.66218256959739,
+    "window": 34110,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 27.681651603003715,
+    "param_2": 96.61955294518472
   },
   {
     "id": 146,
@@ -1612,9 +2050,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.4873949190368663,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.1904770422910054,
-    "window": 18000
+    "bfsz": 24.828345453342553,
+    "window": 43511,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 92.02575086707824,
+    "param_2": 29.073029921662265
   },
   {
     "id": 147,
@@ -1623,9 +2064,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3726029934923354,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 0.6869903690471518,
-    "window": 18000
+    "bfsz": 17.620946269360605,
+    "window": 45724,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 38.32654615529324,
+    "param_2": 96.02465345323134
   },
   {
     "id": 148,
@@ -1634,9 +2078,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4402139263202343,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.2337957805612725,
-    "window": 18000
+    "bfsz": 14.698773983032677,
+    "window": 18927,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 46.18738187661123,
+    "param_2": 0.0
   },
   {
     "id": 149,
@@ -1645,9 +2092,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.492439325719155,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.627565619986121,
-    "window": 18000
+    "bfsz": 12.07182097593174,
+    "window": 22443,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 26.369966394572824,
+    "param_2": 77.54204616529796
   },
   {
     "id": 150,
@@ -1656,9 +2106,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.7165477704140878,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.7317379148115433,
-    "window": 18000
+    "bfsz": 14.954682926708017,
+    "window": 28655,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 81.77104070921669,
+    "param_2": 32.29492452912285
   },
   {
     "id": 151,
@@ -1667,9 +2120,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.42582408589101306,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.760179364491238,
-    "window": 18000
+    "bfsz": 27.238329294767126,
+    "window": 55151,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 39.280988843999594,
+    "param_2": 85.70181098644747
   },
   {
     "id": 152,
@@ -1678,9 +2134,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.43017195695609256,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.8443479548715584,
-    "window": 18000
+    "bfsz": 25.811848307795714,
+    "window": 45860,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 41.430182639637536,
+    "param_2": 0.0
   },
   {
     "id": 153,
@@ -1689,9 +2148,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.25206033685414797,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.8373444514620951,
-    "window": 18000
+    "bfsz": 20.588508741900366,
+    "window": 46994,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 23.435853302062476,
+    "param_2": 50.13015828341143
   },
   {
     "id": 154,
@@ -1700,9 +2162,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6012296386065648,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.0065445342098167,
-    "window": 18000
+    "bfsz": 23.00064255961529,
+    "window": 56969,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 84.34608406239113,
+    "param_2": 38.4719090264707
   },
   {
     "id": 155,
@@ -1711,9 +2176,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3144567544030674,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.6149283658990699,
-    "window": 18000
+    "bfsz": 25.750328480301633,
+    "window": 38378,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 41.644148548463434,
+    "param_2": 71.68314817591482
   },
   {
     "id": 156,
@@ -1722,9 +2190,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.710536714562492,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.18571693627352398,
-    "window": 18000
+    "bfsz": 28.985872735837138,
+    "window": 23074,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 59.5688293021395,
+    "param_2": 0.0
   },
   {
     "id": 157,
@@ -1733,9 +2204,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5464247734227365,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.6542351062823488,
-    "window": 18000
+    "bfsz": 23.4990440995042,
+    "window": 48337,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 28.295759589712397,
+    "param_2": 73.72121440297397
   },
   {
     "id": 158,
@@ -1744,9 +2218,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.46445782633635463,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 29.429961330693075,
+    "window": 51751,
+    "enable_pfc": 1.0,
     "cc": "hp",
-    "param_cc": 1.3458235480565552,
-    "window": 18000
+    "param_1": 81.82343128922864,
+    "param_2": 44.703123383375726
   },
   {
     "id": 159,
@@ -1755,9 +2232,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.35483917027680567,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.26397324044703363,
-    "window": 18000
+    "bfsz": 11.67493873898322,
+    "window": 55082,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 44.36132363197646,
+    "param_2": 97.09152521009685
   },
   {
     "id": 160,
@@ -1766,9 +2246,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.46012220978164114,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.6582984266480885,
-    "window": 18000
+    "bfsz": 18.968796920313707,
+    "window": 16051,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 17.386758101866643,
+    "param_2": 0.0
   },
   {
     "id": 161,
@@ -1777,9 +2260,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4869788383872355,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 0.11295600230970296,
-    "window": 18000
+    "bfsz": 23.479673962893692,
+    "window": 53118,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 22.837442117592676,
+    "param_2": 76.1645164955055
   },
   {
     "id": 162,
@@ -1788,9 +2274,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.35743736808149074,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.1328534576894898,
-    "window": 18000
+    "bfsz": 22.610528645601157,
+    "window": 50634,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 75.85157058321272,
+    "param_2": 33.09754822007335
   },
   {
     "id": 163,
@@ -1799,9 +2288,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.2607629057674832,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.5647822045465163,
-    "window": 18000
+    "bfsz": 19.417112806724994,
+    "window": 52073,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 34.60802364587071,
+    "param_2": 75.85792801683495
   },
   {
     "id": 164,
@@ -1810,9 +2302,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.2862987474854347,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.7878129181522615,
-    "window": 18000
+    "bfsz": 11.006238820704697,
+    "window": 54151,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 54.007515998121576,
+    "param_2": 0.0
   },
   {
     "id": 165,
@@ -1821,9 +2316,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.4976038462949421,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 12.681097345148888,
+    "window": 19901,
+    "enable_pfc": 0.0,
     "cc": "dcqcn",
-    "param_cc": 1.0433124446613846,
-    "window": 18000
+    "param_1": 39.57928543651695,
+    "param_2": 94.22049796352903
   },
   {
     "id": 166,
@@ -1832,9 +2330,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.4377477482944125,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 23.44510423408084,
+    "window": 54991,
+    "enable_pfc": 1.0,
     "cc": "hp",
-    "param_cc": 0.23632537845032303,
-    "window": 18000
+    "param_1": 75.39141284986692,
+    "param_2": 25.34216699087014
   },
   {
     "id": 167,
@@ -1843,9 +2344,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3739547223548296,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.0870068196801788,
-    "window": 18000
+    "bfsz": 10.69691465044429,
+    "window": 26232,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 40.9668159997502,
+    "param_2": 82.43388742927914
   },
   {
     "id": 168,
@@ -1854,9 +2358,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.35186803852402815,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.7037581241760482,
-    "window": 18000
+    "bfsz": 12.840352127913373,
+    "window": 51246,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 34.3099352728647,
+    "param_2": 0.0
   },
   {
     "id": 169,
@@ -1865,9 +2372,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.49779345206767084,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.173151611029475,
-    "window": 18000
+    "bfsz": 13.078295072986187,
+    "window": 52019,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 35.99864556868996,
+    "param_2": 72.97188465387919
   },
   {
     "id": 170,
@@ -1876,9 +2386,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.45969779337288225,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 0.7001539099526327,
-    "window": 18000
+    "bfsz": 27.55531227918487,
+    "window": 31636,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 91.37309407649647,
+    "param_2": 49.545914668155454
   },
   {
     "id": 171,
@@ -1887,9 +2400,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3899553900952213,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.578396852797469,
-    "window": 18000
+    "bfsz": 10.05037397369486,
+    "window": 28780,
+    "enable_pfc": 0.0,
+    "cc": "timely",
+    "param_1": 23.43854888062892,
+    "param_2": 77.35620110820413
   },
   {
     "id": 172,
@@ -1898,9 +2414,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6690420765770847,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.509291762152671,
-    "window": 18000
+    "bfsz": 13.738242237963822,
+    "window": 45662,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 49.78064089560019,
+    "param_2": 0.0
   },
   {
     "id": 173,
@@ -1909,9 +2428,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3960337478872348,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.4202773954503056,
-    "window": 18000
+    "bfsz": 27.640512243410214,
+    "window": 30929,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 39.28733495349431,
+    "param_2": 94.53332946001183
   },
   {
     "id": 174,
@@ -1920,9 +2442,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.46849940132410967,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.7571523601100312,
-    "window": 18000
+    "bfsz": 27.311537258998886,
+    "window": 19974,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 93.56594324385465,
+    "param_2": 48.45263783884029
   },
   {
     "id": 175,
@@ -1931,9 +2456,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.491735519764727,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 26.204596877486022,
+    "window": 17573,
+    "enable_pfc": 0.0,
     "cc": "timely",
-    "param_cc": 0.4411696167773832,
-    "window": 18000
+    "param_1": 24.75597892729761,
+    "param_2": 93.23658161039918
   },
   {
     "id": 176,
@@ -1942,9 +2470,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.6155246951323434,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.9079881273712551,
-    "window": 18000
+    "bfsz": 28.0671707173088,
+    "window": 34025,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 26.654444890557688,
+    "param_2": 0.0
   },
   {
     "id": 177,
@@ -1953,9 +2484,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.25428706454458816,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dctcp",
-    "param_cc": 1.8468475258105308,
-    "window": 18000
+    "bfsz": 23.00282470224295,
+    "window": 13560,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 45.44922868622231,
+    "param_2": 85.30159006081473
   },
   {
     "id": 178,
@@ -1964,9 +2498,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5249442952927075,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 0.667663424004028,
-    "window": 18000
+    "bfsz": 15.756691970559189,
+    "window": 34804,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 77.58941296860641,
+    "param_2": 28.792300078060812
   },
   {
     "id": 179,
@@ -1975,9 +2512,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.28461777988293036,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.90324351311988,
-    "window": 18000
+    "bfsz": 21.289459153209716,
+    "window": 38130,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 36.519088224513254,
+    "param_2": 88.76115866349771
   },
   {
     "id": 180,
@@ -1986,9 +2526,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5959382679039567,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 11.791641374412839,
+    "window": 46702,
+    "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_cc": 0.289112222203613,
-    "window": 18000
+    "param_1": 24.12311415230379,
+    "param_2": 0.0
   },
   {
     "id": 181,
@@ -1997,9 +2540,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.3510081172036781,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.1483999057560037,
-    "window": 18000
+    "bfsz": 11.76677536726499,
+    "window": 31646,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 44.29645311709605,
+    "param_2": 57.11164932721065
   },
   {
     "id": 182,
@@ -2008,9 +2554,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.31519777454448783,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.3431718866506863,
-    "window": 18000
+    "bfsz": 25.993357755047136,
+    "window": 17379,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 92.1686109788335,
+    "param_2": 15.186363105098888
   },
   {
     "id": 183,
@@ -2019,9 +2568,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.46696641106108877,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.5523643239960283,
-    "window": 18000
+    "bfsz": 13.123098845661092,
+    "window": 18640,
+    "enable_pfc": 1.0,
+    "cc": "timely",
+    "param_1": 29.301643617527663,
+    "param_2": 83.97397182085135
   },
   {
     "id": 184,
@@ -2030,9 +2582,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.729101716771376,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.2296945438360583,
-    "window": 18000
+    "bfsz": 16.066643217313768,
+    "window": 48347,
+    "enable_pfc": 1.0,
+    "cc": "dctcp",
+    "param_1": 56.65775693416252,
+    "param_2": 0.0
   },
   {
     "id": 185,
@@ -2041,9 +2596,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.5614998547214793,
     "cluster": "spec/cluster_4_to_1.json",
+    "bfsz": 28.856781212439333,
+    "window": 14550,
+    "enable_pfc": 1.0,
     "cc": "dcqcn",
-    "param_cc": 1.5754526248560343,
-    "window": 18000
+    "param_1": 43.91417937243796,
+    "param_2": 56.69011994344731
   },
   {
     "id": 186,
@@ -2052,9 +2610,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.37802752671672857,
     "cluster": "spec/cluster_1_to_1.json",
-    "cc": "dcqcn",
-    "param_cc": 1.9788812479720457,
-    "window": 18000
+    "bfsz": 17.93621158073829,
+    "window": 47637,
+    "enable_pfc": 1.0,
+    "cc": "hp",
+    "param_1": 81.57535546926219,
+    "param_2": 24.595562753434976
   },
   {
     "id": 187,
@@ -2063,9 +2624,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6803397105255539,
     "cluster": "spec/cluster_2_to_1.json",
+    "bfsz": 23.324521677589953,
+    "window": 46172,
+    "enable_pfc": 1.0,
     "cc": "timely",
-    "param_cc": 1.8263663278128432,
-    "window": 18000
+    "param_1": 20.378674609212997,
+    "param_2": 72.93703618476815
   },
   {
     "id": 188,
@@ -2074,9 +2638,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.5369251655038476,
     "cluster": "spec/cluster_2_to_1.json",
-    "cc": "hp",
-    "param_cc": 1.2885617921139132,
-    "window": 18000
+    "bfsz": 10.392108752560342,
+    "window": 39371,
+    "enable_pfc": 0.0,
+    "cc": "dctcp",
+    "param_1": 57.80154773563168,
+    "param_2": 0.0
   },
   {
     "id": 189,
@@ -2085,9 +2652,12 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.555442435921554,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.0829285431225804,
-    "window": 18000
+    "bfsz": 18.89281963474391,
+    "window": 46123,
+    "enable_pfc": 0.0,
+    "cc": "dcqcn",
+    "param_1": 28.520420501779512,
+    "param_2": 71.50419287331643
   },
   {
     "id": 190,
@@ -2096,9 +2666,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6224102471231658,
     "cluster": "spec/cluster_4_to_1.json",
-    "cc": "timely",
-    "param_cc": 1.7763282994485268,
-    "window": 18000
+    "bfsz": 14.273327074326515,
+    "window": 18046,
+    "enable_pfc": 0.0,
+    "cc": "hp",
+    "param_1": 81.358543651981,
+    "param_2": 30.627231325169543
   },
   {
     "id": 191,
@@ -2107,8 +2680,11 @@
     "lognorm_sigma": 1.0,
     "max_load": 0.3017955243982935,
     "cluster": "spec/cluster_1_to_1.json",
+    "bfsz": 15.950266007346473,
+    "window": 24981,
+    "enable_pfc": 0.0,
     "cc": "timely",
-    "param_cc": 0.4126474896619857,
-    "window": 18000
+    "param_1": 46.63595112754976,
+    "param_2": 89.53031457620591
   }
 ]
