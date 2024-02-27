@@ -62,6 +62,7 @@ python gen_sensitivity_path.py > gen_mlsys_e365_p500_l100_tx_nosamp_1.log
 
 python gen_sensitivity_path.py > gen_mlsys-new_e293_p500_l100_tx_nosamp_2.log
 
+# change the route calculation from ns3 to parsimon, which delivers the same result
 # test ns3 from parsimon-eval
 cd /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/src
 cargo test --lib ns3
