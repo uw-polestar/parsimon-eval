@@ -60,7 +60,7 @@ python gen_sensitivity_path_param.py > gen_mlsys-param_e267_p500_l100_tx_nosamp_
 
 python gen_sensitivity_path.py > gen_mlsys_e365_p500_l100_tx_nosamp_1.log
 
-python gen_sensitivity_path.py > gen_mlsys-new_e173_p500_l100_tx_nosamp_1.log
+python gen_sensitivity_path.py > gen_mlsys-new_e293_p500_l100_tx_nosamp_2.log
 
 # test ns3 from parsimon-eval
 cd /data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/src
