@@ -20,7 +20,7 @@ sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
 # mlsys_dir_list=["mlsys_bdp_bt10_l30"]
 # mlsys_dir_list=["mlsys_0114_const_bt10"]
 # mlsys_dir_list=["mlsys_final_reprod_v1"]
-mlsys_dir_list=["mlsys-new_e372"]
+mlsys_dir_list=["mlsys-new_e28"]
 # mlsys_dir_list=["mlsys_bt1_p100"]
 legend_list=['ns3','pmn-m',"mlsys"]
 
