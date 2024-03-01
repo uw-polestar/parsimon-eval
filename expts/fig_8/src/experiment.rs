@@ -43,7 +43,7 @@ const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
-// const NR_PARALLEL_PROCESSES: usize = 50;
+const NR_PARALLEL_PROCESSES: usize = 192;
 // const INPUT_PERCENTILES: [f32; 20] = [0.01, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 30] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98,0.982,0.984,0.986,0.988, 0.99,0.992,0.994,0.996,0.998, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 29] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 1.0, 1.0];
@@ -88,8 +88,9 @@ impl Experiment {
             SimKind::Ns3Config => {
                 mixes.par_iter().try_for_each(|mix| self.run_ns3_config(mix))?;
                 // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+                // println!("mix_list.len(): {}", mix_list.len());
                 // for mix_tmp in &mix_list {
-                //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3_config(mix))?;
                 // }
             }
             SimKind::Ns3Param => {
