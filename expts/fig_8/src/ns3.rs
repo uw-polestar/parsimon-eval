@@ -89,6 +89,14 @@ impl Ns3Simulation {
             format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
+        let data_dir=self.data_dir.to_str().unwrap();
+        let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
+        // println!("rm {data_dir}/{fct_file}");
+        let _output = Command::new("sh")
+            .arg("-c")
+            .arg(format!("rm {data_dir}/{fct_file}"))
+            // .arg(format!("cd {ns3_dir};{python_command}"))
+            .output()?;
         Ok(records)
     }
 
