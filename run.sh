@@ -30,6 +30,7 @@ cargo run --release -- --mixes spec/test_mlsys.mix.json mlsys-param
 cargo run --release -- --mixes spec/pmn_m.mix.json pmn-m-param
 
 cargo run --release -- --root=./data_test --mixes spec/0.mix.json ns3
+cargo run --release -- --root=./data_test --mixes spec/0_config.mix.json ns3-config
 cargo run --release -- --root=./data_test --mixes spec/0.mix.json mlsys-test > test.log
 cargo run --release -- --mixes spec/all_config.mix.json ns3-config
 
