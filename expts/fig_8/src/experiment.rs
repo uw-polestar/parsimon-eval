@@ -259,10 +259,11 @@ impl Experiment {
                 sim,
             })
             .collect::<Vec<_>>();
-        self.put_records(mix, sim, &records)?;
+        self.put_records_with_idx(mix, sim, mix.param_id, &records)?;
 
         let elapsed_secs = start.elapsed().as_secs(); // timer end
-        self.put_elapsed(mix, sim, elapsed_secs)?;
+        // self.put_elapsed(mix, sim, elapsed_secs)?;
+        self.put_elapsed_with_idx(mix, sim, mix.param_id, elapsed_secs)?;
         Ok(())
     }
 
@@ -1474,6 +1475,11 @@ impl Experiment {
         Ok(())
     }
 
+    fn put_elapsed_with_idx(&self, mix: &Mix, sim: SimKind, path_idx: usize, secs: u64) -> anyhow::Result<()> {
+        fs::write(self.elapsed_file_with_idx(mix, sim, path_idx)?, secs.to_string())?;
+        Ok(())
+    }
+
     fn put_elapsed_str(&self, mix: &Mix, sim: SimKind, secs: String) -> anyhow::Result<()> {
         fs::write(self.elapsed_file(mix, sim)?, secs)?;
         Ok(())
@@ -1636,6 +1642,13 @@ impl Experiment {
 
     fn elapsed_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "elapsed.txt".as_ref()]
+            .into_iter()
+            .collect();
+        Ok(file)
+    }
+
+    fn elapsed_file_with_idx(&self, mix: &Mix, sim: SimKind, path_idx: usize) -> anyhow::Result<PathBuf> {
+        let file = [self.sim_dir(mix, sim)?.as_path(), format!("elapsed_{}.txt", path_idx).as_ref()]
             .into_iter()
             .collect();
         Ok(file)
