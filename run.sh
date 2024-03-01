@@ -33,9 +33,9 @@ cargo run --release -- --root=./data_test --mixes spec/0.mix.json ns3
 cargo run --release -- --root=./data_test --mixes spec/0.mix.json mlsys-test > test.log
 cargo run --release -- --mixes spec/all_config.mix.json ns3-config
 
-cargo run --release -- --mixes spec/mlsys_config.mix.json mlsys-config
+cargo run --release -- --mixes spec/mlsys_config.mix.json mlsys
 
-cargo run --release -- --mixes spec/0.mix.json mlsys-config
+cargo run --release -- --mixes spec/4.mix.json mlsys
 
 cargo flamegraph -- --mixes spec/0.mix.json mlsys
 

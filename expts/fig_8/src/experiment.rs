@@ -1,6 +1,6 @@
 use std::{
     collections::HashSet,
-    fmt::{self}, fs,
+    fmt::{self, format}, fs,
     io::{self, BufRead},
     path::{Path, PathBuf},
     time::Instant,
@@ -80,6 +80,13 @@ impl Experiment {
         match self.sim {
             SimKind::Ns3 => {
                 mixes.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
+                // for mix_tmp in &mix_list {
+                //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
+                // }
+            }
+            SimKind::Ns3Config => {
+                mixes.par_iter().try_for_each(|mix| self.run_ns3_config(mix))?;
                 // let mix_list = mixes.chunks(NR_PARALLEL_PROCESSES).collect::<Vec<_>>();
                 // for mix_tmp in &mix_list {
                 //     mix_tmp.par_iter().try_for_each(|mix| self.run_ns3(mix))?;
@@ -189,6 +196,46 @@ impl Experiment {
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
             .data_dir(self.sim_dir(mix, sim)?)
+            .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
+            .links(cluster.links().cloned().collect::<Vec<_>>())
+            // .window(WINDOW)
+            .base_rtt(BASE_RTT)
+            .flows(flows)
+            .bfsz(mix.bfsz)
+            .window(Bytes::new(mix.window))
+            .enable_pfc(mix.enable_pfc)
+            .cc_kind(mix.cc)
+            .param_1(mix.param_1)
+            .param_2(mix.param_2)
+            .build();
+        let records = ns3
+            .run()?
+            .into_iter()
+            .map(|rec| Record {
+                mix_id: mix.id,
+                flow_id: rec.id,
+                size: rec.size,
+                slowdown: rec.slowdown(),
+                sim,
+            })
+            .collect::<Vec<_>>();
+        self.put_records(mix, sim, &records)?;
+
+        let elapsed_secs = start.elapsed().as_secs(); // timer end
+        self.put_elapsed(mix, sim, elapsed_secs)?;
+        Ok(())
+    }
+
+    fn run_ns3_config(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::Ns3;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+
+        let start = Instant::now(); // timer start
+        let ns3 = Ns3Simulation::builder()
+            .ns3_dir(NS3_DIR)
+            // .data_dir(self.sim_dir(mix, sim)?)
+            .data_dir(self.sim_dir_with_idx(mix, sim, mix.param_id)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
             // .window(WINDOW)
@@ -932,7 +979,7 @@ impl Experiment {
                 .unwrap();
                 result
             }).collect();
-        println!("{}: {}, {}", mix.id,results.len(),flows_on_path_threshold);
+        println!("{}: {}", mix.id,results.len());
 
         let mut results_str = String::new();
         for result in results {
@@ -1696,6 +1743,7 @@ fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
 pub enum SimKind {
     Ns3,
     Ns3Param,
+    Ns3Config,
     Ns3PathOne,
     Ns3PathAll,
     Pmn,
@@ -1712,6 +1760,7 @@ impl fmt::Display for SimKind {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let s = match self {
             SimKind::Ns3 => "ns3",
+            SimKind::Ns3Config => "ns3-config",
             SimKind::Ns3Param => "ns3-param",
             SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
@@ -1720,7 +1769,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e218",
+            SimKind::Mlsys => "mlsys-new_e218_b100",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
