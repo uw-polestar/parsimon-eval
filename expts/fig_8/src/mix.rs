@@ -18,10 +18,11 @@ pub struct MixSpace {
 }
 
 impl MixSpace {
-    pub fn to_mixes(&self, count: usize, mut rng: impl Rng, mut rng_2: impl Rng) -> Vec<Mix> {
+    pub fn to_mixes(&self, count: usize, mut rng: impl Rng, mut rng_2: impl Rng, param_id: usize) -> Vec<Mix> {
         (0..count)
             .map(|i| Mix {
                 id: i,
+                param_id:param_id,
                 spatial: self.spatials.choose(&mut rng).unwrap().clone(),
                 size_dist: self.size_dists.choose(&mut rng).unwrap().clone(),
                 lognorm_sigma: *self.lognorm_sigmas.choose(&mut rng).unwrap(),
@@ -30,9 +31,9 @@ impl MixSpace {
                 bfsz: rng_2.gen_range(self.bfszs.low..=self.bfszs.high),
                 window: (rng_2.gen_range(self.windows.low..=self.windows.high)*1000.0) as u64,
                 enable_pfc: *self.pfcs.choose(&mut rng_2).unwrap(),
-                cc: self.ccs[i % self.ccs.len()],
-                param_1: rng_2.gen_range(self.params[i % self.ccs.len()*2].low..=self.params[i % self.ccs.len()*2].high),
-                param_2: rng_2.gen_range(self.params[i % self.ccs.len()*2+1].low..=self.params[i % self.ccs.len()*2+1].high),
+                cc: self.ccs[param_id % self.ccs.len()],
+                param_1: rng_2.gen_range(self.params[param_id % self.ccs.len()*2].low..=self.params[param_id % self.ccs.len()*2].high),
+                param_2: rng_2.gen_range(self.params[param_id % self.ccs.len()*2+1].low..=self.params[param_id % self.ccs.len()*2+1].high),
             })
             .collect()
     }
@@ -59,6 +60,8 @@ pub struct Mix {
     pub lognorm_sigma: f64,
     pub max_load: f64,
     pub cluster: PathBuf,
+    #[serde(default = "default_param_id")]
+    pub param_id: MixId,
     #[serde(default = "default_bfsz")]
     pub bfsz: f64,
     #[serde(default = "default_window")]
@@ -73,9 +76,12 @@ pub struct Mix {
     pub param_2: f64,
     
 }
+fn default_param_id() -> MixId {
+    0
+}
 
 fn default_bfsz() -> f64 {
-    30.0
+    100.0
 }
 fn default_window() -> u64 {
     18000
