@@ -17,7 +17,7 @@ use parsimon::impls::clustering::{
     feature::{self, DistsAndLoad},
     greedy::GreedyClustering,
 };
-use parsimon::impls::linksim::{minim::MinimLink, ns3::Ns3Link};
+use parsimon::impls::linksim::minim::MinimLink;
 use rand::prelude::*;
 use rayon::prelude::*;
 use workload::{
@@ -35,6 +35,7 @@ use crate::mlsys::{
     ns3_clean,
 };
 use crate::ns3::Ns3Simulation;
+use crate::ns3link::Ns3Link;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
@@ -43,7 +44,7 @@ const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
-const NR_PARALLEL_PROCESSES: usize = 192;
+// const NR_PARALLEL_PROCESSES: usize = 192;
 // const INPUT_PERCENTILES: [f32; 20] = [0.01, 0.25, 0.40, 0.55, 0.70, 0.75, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 30] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98,0.982,0.984,0.986,0.988, 0.99,0.992,0.994,0.996,0.998, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 29] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 1.0, 1.0];
@@ -52,8 +53,8 @@ const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
-// const NR_FLOWS: usize = 100;
-const NR_FLOWS: usize = 10_000_000;
+const NR_FLOWS: usize = 100;
+// const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
 const MODEL_SUFFIX: &str = "_e218";
