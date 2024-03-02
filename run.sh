@@ -21,7 +21,7 @@ cargo run --release -- --root=./data_test --mixes spec/0.mix.json ns3
 cargo run --release -- --root=./data_test --mixes spec/63.mix.json flowsim
 
 cargo run --release -- --mixes spec/all.mix.json ns3
-cargo run --release -- --mixes spec/all.mix.json pmn-m
+cargo run --release -- --root=./data_test --mixes spec/0.mix.json pmn
 cargo run --release -- --mixes spec/all.mix.json pmn-mc
 cargo run --release -- --mixes spec/all.mix.json mlsys
 
