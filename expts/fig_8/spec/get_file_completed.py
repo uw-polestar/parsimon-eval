@@ -16,12 +16,9 @@ def find_large_files(json_file):
     file_list=[]
     for item_idx, item in enumerate(data):
         cc=item['cc']
-        param_cc=round(item['param_cc'],1)
-        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/fct_topology_flows_{cc_dict[cc]}_k{item['window']}_b1.0_p{param_cc}.txt"
+        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/0/fct_topology_flows_{cc_dict[cc]}.txt"
         file_list.append(file_name)
     cc_cnt_dict=defaultdict(lambda:0)
-    cc_cnt_dict_process=defaultdict(lambda:0)
-    file_to_process=[]
     file_to_finished=[]
     file_to_wait=[]
     for item_idx, file_path in enumerate(file_list):
@@ -29,12 +26,9 @@ def find_large_files(json_file):
         try:
             cc=data[item_idx]['cc']
 
-            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/elapsed.txt"):
+            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/elapsed_0.txt"):
                 cc_cnt_dict[cc]+=1
-                file_to_finished.append(data[item_idx])
-            elif os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/flows_path_map.txt"):
-                cc_cnt_dict_process[cc]+=1
-                file_to_process.append(data[item_idx])
+                file_to_finished.append(data[item_idx]['id'])
             else:
                 file_size = os.path.getsize(file_path)
             
@@ -48,13 +42,11 @@ def find_large_files(json_file):
         except Exception as e:
             print(f"Error processing file {file_path}: {str(e)}")
     print(cc_cnt_dict)
-    print(cc_cnt_dict_process)
-    assert len(file_to_finished)+len(file_to_process)+len(file_to_wait)==len(file_list)
-    print(f"files: {len(file_to_finished)},{len(file_to_process)},{len(file_to_wait)}")
-    with open(f"mlsys_config.mix.json", 'w') as f:
-        json.dump(file_to_finished, f, indent=2)
-    with open(f"ns3_config.mix.json", 'w') as f:
-        json.dump(file_to_process, f, indent=2)
+    print(file_to_finished)
+    assert len(file_to_finished)+len(file_to_wait)==len(file_list)
+    print(f"files: {len(file_to_finished)},{len(file_to_wait)}")
+    # with open(f"mlsys_config.mix.json", 'w') as f:
+    #     json.dump(file_to_finished, f, indent=2)
     return large_files
 
 if __name__ == "__main__":
