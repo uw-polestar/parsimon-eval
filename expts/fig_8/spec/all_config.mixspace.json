@@ -23,7 +23,7 @@
         "spec/cluster_4_to_1.json"
     ],
     "bfszs":{
-        "low": 10,
+        "low": 15,
         "high": 30
     },
     "windows":{
