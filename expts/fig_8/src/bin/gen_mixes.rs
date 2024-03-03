@@ -21,10 +21,10 @@ fn main() -> anyhow::Result<()> {
     
     let mix_space: MixSpace = serde_json::from_str(&fs::read_to_string(&opt.input)?)?;
     let mut mixes_list = Vec::new();
-    for param_id in 0..1 {
+    for param_seed in 1..2 {
         let mut rng = StdRng::seed_from_u64(opt.seed);
-        let mut rng_2 = StdRng::seed_from_u64(param_id);
-        let mixes = mix_space.to_mixes(opt.count, &mut rng, &mut rng_2, param_id as usize);
+        let mut rng_2 = StdRng::seed_from_u64(param_seed);
+        let mixes = mix_space.to_mixes(opt.count, &mut rng, &mut rng_2, param_seed as usize);
         mixes_list.extend(mixes);
     }
     // mixes_list.sort_by_key(|mix| mix.id);
