@@ -7,11 +7,11 @@
         "max_load": 0.6901726291402162,
         "cluster": "spec/cluster_4_to_1.json",
         "param_id": 0,
-        "bfsz": 18.739163909185663,
-        "window": 15941,
-        "enable_pfc": 1.0,
-        "cc": "dctcp",
-        "param_1": 10.751251172962665,
-        "param_2": 0.0
+        "bfsz": 28.01661446662827,
+        "window": 11752,
+        "enable_pfc": 0.0,
+        "cc": "timely",
+        "param_1": 46.93646082899852,
+        "param_2": 94.25805527934982
     }
 ]

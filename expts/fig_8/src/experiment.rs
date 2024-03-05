@@ -1,6 +1,6 @@
 use std::{
     collections::HashSet,
-    fmt::{self}, fs,
+    fmt::{self, format}, fs,
     io::{self, BufRead},
     path::{Path, PathBuf},
     time::Instant,
@@ -57,7 +57,7 @@ const SAMPLE_MODE: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
-const MODEL_SUFFIX: &str = "_e218";
+const MODEL_SUFFIX: &str = "_e271";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -576,8 +576,14 @@ impl Experiment {
         let linksim = Ns3Link::builder()
             .root_dir(self.sim_dir(mix, sim)?)
             .ns3_dir(NS3_DIR)
-            .window(WINDOW)
+            // .window(WINDOW)
             .base_rtt(BASE_RTT)
+            .bfsz(mix.bfsz)
+            .window(Bytes::new(mix.window))
+            .enable_pfc(mix.enable_pfc)
+            .cc_kind(mix.cc)
+            .param_1(mix.param_1)
+            .param_2(mix.param_2)
             .build();
         let sim_opts = SimOpts::builder().link_sim(linksim).build();
         let network = network.into_delays(sim_opts)?;
@@ -600,6 +606,7 @@ impl Experiment {
         self.put_loads(mix, sim, &loads)?;
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
+        println!("{}: {}", mix.id, elapsed_secs);
         Ok(())
     }
 
@@ -1784,7 +1791,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e218",
+            SimKind::Mlsys => "mlsys-new_e271_1k",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
