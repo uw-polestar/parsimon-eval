@@ -403,7 +403,7 @@ impl Experiment {
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
 
-        let start = Instant::now(); // timer start
+        let start_1 = Instant::now(); // timer start
         let start_read = Instant::now(); // timer start
         // construct SimNetwork
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
@@ -444,11 +444,14 @@ impl Experiment {
         path_list = path_counts.clone().into_keys().collect();
         
         path_list.sort_by(|x, y| y.len().cmp(&x.len()).then(path_to_flowid_map[y].len().cmp(&path_to_flowid_map[x].len())));
+        let elapsed_sample= start_sample.elapsed().as_secs();
 
+        let start_path = Instant::now(); // timer start
         path_list
             .par_iter()
             .enumerate()
             .for_each(|(path_idx, path)| {
+                let mut start_tmp = Instant::now();
                 let flow_ids_in_f = path_to_flowid_map[path]
                     .iter()
                     .collect::<HashSet<_>>();
@@ -459,35 +462,15 @@ impl Experiment {
                     }
                 }
 
-                let path_str = path
-                    .iter()
-                    .map(|&x| format!("{}-{}", x.0, x.1))
-                    .collect::<Vec<String>>()
-                    .join("|");
-                let flow_ids_in_f_str = flow_ids_in_f.iter().map(|&x| x.to_string()).collect::<Vec<String>>().join(",");
-                self.put_path_with_idx(
-                    mix,
-                    sim,
-                    path_idx,
-                    format!(
-                        "{},{},{},{}\n{}",
-                        path_str,
-                        flow_ids_in_f.len(),
-                        flow_ids_in_f_prime.len(),
-                        path_counts[path],
-                        flow_ids_in_f_str,
-                        // flow_ids_in_f_prime_str
-                    ),
-                )
-                .unwrap();
-                // println!("The selected path is ({:?}, {:?})", max_row,max_col);
-
                 // get flows for a specific path
                 let mut flows_remaining: Vec<Flow> = flow_ids_in_f_prime
                 .iter()
                 .filter_map(|&flow_id| flows.get(flow_id.as_usize()).cloned())
                 .collect();
                 flows_remaining.sort_by(|a, b| a.start.cmp(&b.start));
+
+                let elapsed_secs_preprop = start_tmp.elapsed().as_secs();
+                start_tmp= Instant::now();
                 let data_dir=self.sim_dir_with_idx(mix, sim, path_idx).unwrap();
                 let ns3 = Ns3Simulation::builder()
                     .ns3_dir(NS3_DIR)
@@ -517,15 +500,40 @@ impl Experiment {
                         sim,
                     })
                     .collect::<Vec<_>>();
+                
+                let elapsed_secs_mlsys = start_tmp.elapsed().as_secs();
+
+                let path_str = path
+                    .iter()
+                    .map(|&x| format!("{}-{}", x.0, x.1))
+                    .collect::<Vec<String>>()
+                    .join("|");
+                let flow_ids_in_f_str = flow_ids_in_f.iter().map(|&x| x.to_string()).collect::<Vec<String>>().join(",");
+                self.put_path_with_idx(
+                    mix,
+                    sim,
+                    path_idx,
+                    format!(
+                        "{},{},{},{}\n{},{}\n{}",
+                        path_str,
+                        flow_ids_in_f.len(),
+                        flow_ids_in_f_prime.len(),
+                        path_counts[path],
+                        elapsed_secs_preprop,
+                        elapsed_secs_mlsys,
+                        flow_ids_in_f_str,
+                        // flow_ids_in_f_prime_str
+                    ),
+                )
+                .unwrap();
                 self.put_records_with_idx(mix, sim, path_idx, &records)
                     .unwrap();
-                // println!("path {} done", data_dir.to_str().unwrap());
                 ns3_clean(data_dir).unwrap();
             });
-
-        let elapsed_secs = start.elapsed().as_secs(); // timer end
-        self.put_elapsed(mix, sim, elapsed_secs)?;
-        
+        let elapsed_path = start_path.elapsed().as_secs(); // timer end
+        let elapsed_1 = start_1.elapsed().as_secs(); // timer end
+        self.put_elapsed_str(mix, sim, format!("{},{},{},{}", elapsed_1, elapsed_read,elapsed_sample,elapsed_path))?;
+        println!("{}: {}", mix.id,elapsed_1);
         Ok(())
     }
 
