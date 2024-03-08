@@ -434,7 +434,7 @@ impl Experiment {
         let weighted_index = WeightedIndex::new(weights).unwrap();
 
         let mut rng = StdRng::seed_from_u64(self.seed);
-        (0..NR_PATHS_SAMPLED).for_each(|_| {
+        (0..NR_PATHS_SAMPLED_NS3).for_each(|_| {
             let sampled_index = weighted_index.sample(&mut rng);
             let key = path_to_flows_vec_sorted[sampled_index].0.clone();
             // Update counts
