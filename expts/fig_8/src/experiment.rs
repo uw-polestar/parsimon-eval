@@ -1,6 +1,6 @@
 use std::{
     collections::HashSet,
-    fmt::{self, format}, fs,
+    fmt::{self}, fs,
     io::{self, BufRead},
     path::{Path, PathBuf},
     time::Instant,
@@ -50,7 +50,7 @@ const NR_PATHS_SAMPLED_NS3: usize = 500;
 // const INPUT_PERCENTILES: [f32; 29] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 30] = [0.01, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 0.999, 1.0, 1.0];
 const NR_SIZE_BUCKETS: usize = 4;
-const OUTPUT_LEN: usize = 100;
+const OUTPUT_LEN: usize = 1000;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
 // const NR_FLOWS: usize = 100;
@@ -853,8 +853,10 @@ impl Experiment {
 
         // // Calculate the 90th percentile index
         // // Note: subtract 1 because vector indices start at 0
-        // let flows_on_path_threshold = ((lengths.len() as f32) * 0.1).ceil() as usize - 1;
-
+        // let flows_on_path_threshold_idx = ((lengths.len() as f32) * 0.1).ceil() as usize - 1;
+        // let flows_on_path_threshold= lengths[flows_on_path_threshold_idx];
+        // println!("flows_on_path_threshold: {}", flows_on_path_threshold);
+        
         let path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
@@ -1791,7 +1793,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e271_1k",
+            SimKind::Mlsys => "mlsys-new_e271_var",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
