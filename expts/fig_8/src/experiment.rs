@@ -50,7 +50,7 @@ const NR_PATHS_SAMPLED_NS3: usize = 500;
 // const INPUT_PERCENTILES: [f32; 29] = [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 1.0, 1.0];
 // const INPUT_PERCENTILES: [f32; 30] = [0.01, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.982, 0.984, 0.986, 0.988, 0.99, 0.992, 0.994, 0.996, 0.998, 0.999, 1.0, 1.0];
 const NR_SIZE_BUCKETS: usize = 4;
-const OUTPUT_LEN: usize = 1000;
+const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const SAMPLE_MODE: usize = 1;
 // const NR_FLOWS: usize = 100;
@@ -433,7 +433,7 @@ impl Experiment {
         let weighted_index = WeightedIndex::new(weights).unwrap();
 
         let mut rng = StdRng::seed_from_u64(self.seed);
-        (0..NR_PATHS_SAMPLED_NS3).for_each(|_| {
+        (0..NR_PATHS_SAMPLED).for_each(|_| {
             let sampled_index = weighted_index.sample(&mut rng);
             let key = path_to_flows_vec_sorted[sampled_index].0.clone();
             // Update counts
@@ -833,10 +833,11 @@ impl Experiment {
         // let flows_on_path_threshold= lengths[flows_on_path_threshold_idx];
         // println!("flows_on_path_threshold: {}", flows_on_path_threshold);
         
-        let path_to_flows_vec_sorted = path_to_flowid_map
+        let mut path_to_flows_vec_sorted = path_to_flowid_map
             .iter()
             .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
             .collect::<Vec<_>>();
+        path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
         let elapsed_read= start_read.elapsed().as_secs();
 
         let start_sample= Instant::now(); // timer start
@@ -1769,7 +1770,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e271_var",
+            SimKind::Mlsys => "mlsys-new_e271_test",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
