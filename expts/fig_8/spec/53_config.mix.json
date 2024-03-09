@@ -1,0 +1,17 @@
+[
+    {
+        "id": 53,
+        "spatial": "../../workload/spatials/cluster_c_2_16.json",
+        "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
+        "lognorm_sigma": 2.0,
+        "max_load": 0.7390207853323516,
+        "cluster": "spec/cluster_1_to_1.json",
+        "param_id": 0,
+        "bfsz": 23.19916576606802,
+        "window": 11700,
+        "enable_pfc": 1.0,
+        "cc": "timely",
+        "param_1": 44.75472046446042,
+        "param_2": 51.99453331660355
+    }
+]
