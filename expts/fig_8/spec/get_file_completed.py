@@ -54,7 +54,7 @@ def find_large_files(json_file):
 
 if __name__ == "__main__":
 
-    json_file = 'all_config.mix.json'  # Replace with your JSON file path
+    json_file = 'all_config_0.mix.json'  # Replace with your JSON file path
     
     # Find large files
     large_files = find_large_files(json_file)
