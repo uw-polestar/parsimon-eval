@@ -8,7 +8,7 @@ cc_dict={
     "dcqcn": "dcqcn_paper_vwin",
     "hp": "hp",
 }
-def find_large_files(json_file):
+def find_large_files(json_file,shard_seed):
     large_files = []
     with open(json_file, 'r') as f:
         data = json.load(f)
@@ -16,7 +16,7 @@ def find_large_files(json_file):
     file_list=[]
     for item_idx, item in enumerate(data):
         cc=item['cc']
-        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/0/fct_topology_flows_{cc_dict[cc]}.txt"
+        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/{shard_seed}/fct_topology_flows_{cc_dict[cc]}.txt"
         file_list.append(file_name)
     cc_cnt_dict=defaultdict(lambda:0)
     file_to_finished=[]
@@ -27,7 +27,7 @@ def find_large_files(json_file):
         try:
             cc=data[item_idx]['cc']
 
-            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/elapsed_0.txt"):
+            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/elapsed_{shard_seed}.txt"):
                 cc_cnt_dict[cc]+=1
                 file_to_finished.append(data[item_idx]['id'])
             else:
@@ -35,7 +35,7 @@ def find_large_files(json_file):
             
                 # Convert bytes to megabytes
                 file_size_in_mb = file_size / (1024 * 1024)
-                if file_size_in_mb>600 and not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/0/flows.txt"):
+                if file_size_in_mb>600 and not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/{shard_seed}/flows.txt"):
                     file_to_restart.append(data[item_idx])
                 else:
                     large_files.append((item_idx, file_size_in_mb))
@@ -54,10 +54,11 @@ def find_large_files(json_file):
 
 if __name__ == "__main__":
 
-    json_file = 'all_config_0.mix.json'  # Replace with your JSON file path
+    shard_seed=1
+    json_file = f'all_config_{shard_seed}.mix.json'  # Replace with your JSON file path
     
     # Find large files
-    large_files = find_large_files(json_file)
+    large_files = find_large_files(json_file,shard_seed=shard_seed)
     print(f"{len(large_files)} large files found")
     for item_idx, file_size_in_mb in large_files:
         print(f"{item_idx} ({file_size_in_mb} MB)")
