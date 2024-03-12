@@ -57,7 +57,7 @@ const SAMPLE_MODE: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
-const MODEL_SUFFIX: &str = "_e271";
+const MODEL_SUFFIX: &str = "_e238";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -1771,7 +1771,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e271_path",
+            SimKind::Mlsys => "mlsys-new_e238_s1",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
