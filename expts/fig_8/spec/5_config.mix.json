@@ -1,0 +1,17 @@
+[
+    {
+        "id": 5,
+        "spatial": "../../workload/spatials/cluster_b_2_16.json",
+        "size_dist": "../../workload/distributions/facebook/hadoop-all.txt",
+        "lognorm_sigma": 2.0,
+        "max_load": 0.6104936716327665,
+        "cluster": "spec/cluster_4_to_1.json",
+        "param_id": 1,
+        "bfsz": 28.074636975286456,
+        "window": 22260,
+        "enable_pfc": 0.0,
+        "cc": "timely",
+        "param_1": 27.54023026887645,
+        "param_2": 33.677069011549854
+    }
+]

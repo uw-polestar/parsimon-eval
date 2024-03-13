@@ -41,7 +41,7 @@ cargo run --release -- --mixes spec/4.mix.json mlsys
 cargo flamegraph -- --mixes spec/0.mix.json mlsys
 
 # fig-8 gen specs
-cargo run --bin gen_mixes -- --input spec/all_config.mixspace.json --count 192 --output spec/all_config_1.mix.json
+cargo run --bin gen_mixes -- --input spec/all_config.mixspace.json --count 192 --output spec/all_config_2.mix.json
 
 PATH=$PATH:/data1/lichenni/software/anaconda3/envs/py27/bin
 
