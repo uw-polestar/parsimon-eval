@@ -8,16 +8,16 @@ bin_size_list=[MTU, BDP, 5 * BDP]
 
 n_size_bucket_list_output=len(bin_size_list)+1
 
-N_FLOW_THRESHOLD_LIST=[0,1,5,10]
+N_FLOW_THRESHOLD_LIST=[5,10]
 NR_PATHS_SAMPLED=500
-NR_INTEPOLATE=1000
+NR_INTEPOLATE=100
 N_FLOWS=NR_PATHS_SAMPLED*NR_INTEPOLATE*4
 N_FLOWS_PER_PATH=NR_INTEPOLATE*4
 enable_sample_per_path=False
 sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
-mlsys_dir_list=["mlsys-new_e271_var"]
+mlsys_dir_list=["mlsys-new_e397_s1"]
 legend_list=['ns3-config','pmn-m',"mlsys"]
-shard_seed=0
+shard_seed=1
 for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
     print("N_FLOW_THRESHOLD: ",N_FLOW_THRESHOLD)
     res=[]

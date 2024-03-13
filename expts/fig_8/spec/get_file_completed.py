@@ -55,6 +55,7 @@ def find_large_files(json_file,shard_seed):
 if __name__ == "__main__":
 
     shard_seed=1
+    # json_file = f'all_config_{shard_seed}.mix_0.json'  # Replace with your JSON file path
     json_file = f'all_config_{shard_seed}.mix.json'  # Replace with your JSON file path
     
     # Find large files
