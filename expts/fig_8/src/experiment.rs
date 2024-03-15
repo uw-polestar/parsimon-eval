@@ -39,7 +39,7 @@ use crate::ns3link::Ns3Link;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
-const WINDOW: Bytes = Bytes::new(18_000);
+// const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_PATHS_SAMPLED: usize = 500;
@@ -57,7 +57,7 @@ const SAMPLE_MODE: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
-const MODEL_SUFFIX: &str = "_e476";
+const MODEL_SUFFIX: &str = "_e419";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -377,7 +377,7 @@ impl Experiment {
             .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
-            .window(WINDOW)
+            .window(Bytes::new(mix.window))
             .base_rtt(BASE_RTT)
             .flows(flows_remaining)
             .build();
@@ -600,9 +600,11 @@ impl Experiment {
         let network = network.into_simulations(flows.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
         let linksim = MinimLink::builder()
-            .window(WINDOW)
+            // .window(WINDOW)
             .dctcp_gain(DCTCP_GAIN)
             .dctcp_ai(DCTCP_AI)
+            .window(Bytes::new(mix.window))
+            .dctcp_k(mix.param_1)
             .build();
         let sim_opts = SimOpts::builder().link_sim(linksim).build();
         let network = network.into_delays(sim_opts)?;
@@ -772,7 +774,8 @@ impl Experiment {
         let network = network.into_simulations(flows_remaining.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
         let linksim = MinimLink::builder()
-            .window(WINDOW)
+            // .window(WINDOW)
+            .window(Bytes::new(mix.window))
             .dctcp_gain(DCTCP_GAIN)
             .dctcp_ai(DCTCP_AI)
             .build();
@@ -1377,7 +1380,8 @@ impl Experiment {
         let nr_clusters = network.clusters().len();
         let frac = nr_clusters as f64 / (links.len() * 2) as f64;
         let linksim = MinimLink::builder()
-            .window(WINDOW)
+            // .window(WINDOW)
+            .window(Bytes::new(mix.window))
             .dctcp_gain(DCTCP_GAIN)
             .dctcp_ai(DCTCP_AI)
             .build();
@@ -1772,7 +1776,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e476_timely",
+            SimKind::Mlsys => "mlsys-new_e419_s1",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };

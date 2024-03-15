@@ -267,7 +267,7 @@ checksum = "702fc72eb24e5a1e48ce58027a675bc24edd52096d5397d4aea7c6dd9eca0bd1"
 [[package]]
 name = "clustering-impls"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=m3#f422b1e181a581e7cd5a49a22c3b4d8e2345e92a"
+source = "git+https://github.com/netiken/parsimon.git?branch=m3#d52b4aacbfce9f1352fc33934d83d0b55bd97e37"
 dependencies = [
  "dashmap",
  "derive-new 0.6.0",
@@ -981,7 +981,7 @@ checksum = "0717cef1bc8b636c6e1c1bbdefc09e6322da8a9321966e8928ef80d20f7f770f"
 [[package]]
 name = "linksim-impls"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=m3#f422b1e181a581e7cd5a49a22c3b4d8e2345e92a"
+source = "git+https://github.com/netiken/parsimon.git?branch=m3#d52b4aacbfce9f1352fc33934d83d0b55bd97e37"
 dependencies = [
  "anyhow",
  "minim",
@@ -1181,7 +1181,7 @@ dependencies = [
 [[package]]
 name = "ns3-frontend"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=m3#f422b1e181a581e7cd5a49a22c3b4d8e2345e92a"
+source = "git+https://github.com/netiken/parsimon.git?branch=m3#d52b4aacbfce9f1352fc33934d83d0b55bd97e37"
 dependencies = [
  "derivative",
  "parsimon-core",
@@ -1341,7 +1341,7 @@ dependencies = [
 [[package]]
 name = "parsimon"
 version = "0.0.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=m3#f422b1e181a581e7cd5a49a22c3b4d8e2345e92a"
+source = "git+https://github.com/netiken/parsimon.git?branch=m3#d52b4aacbfce9f1352fc33934d83d0b55bd97e37"
 dependencies = [
  "clustering-impls",
  "linksim-impls",
@@ -1353,7 +1353,7 @@ dependencies = [
 [[package]]
 name = "parsimon-core"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=m3#f422b1e181a581e7cd5a49a22c3b4d8e2345e92a"
+source = "git+https://github.com/netiken/parsimon.git?branch=m3#d52b4aacbfce9f1352fc33934d83d0b55bd97e37"
 dependencies = [
  "anyhow",
  "chrono",
@@ -1381,7 +1381,7 @@ dependencies = [
 [[package]]
 name = "parsimon-utils"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=m3#f422b1e181a581e7cd5a49a22c3b4d8e2345e92a"
+source = "git+https://github.com/netiken/parsimon.git?branch=m3#d52b4aacbfce9f1352fc33934d83d0b55bd97e37"
 dependencies = [
  "linksim-impls",
  "parsimon-core",
@@ -1395,7 +1395,7 @@ dependencies = [
 [[package]]
 name = "parsimon-worker"
 version = "0.1.0"
-source = "git+https://github.com/netiken/parsimon.git?branch=m3#f422b1e181a581e7cd5a49a22c3b4d8e2345e92a"
+source = "git+https://github.com/netiken/parsimon.git?branch=m3#d52b4aacbfce9f1352fc33934d83d0b55bd97e37"
 dependencies = [
  "anyhow",
  "clap",
