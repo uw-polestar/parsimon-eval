@@ -56,7 +56,7 @@ const SAMPLE_MODE: usize = 1;
 // const NR_FLOWS: usize = 100;
 const NR_FLOWS: usize = 10_000_000;
 
-const MLSYS_PATH: &str = "../../../fast-mmf-fattree";
+const MLSYS_PATH: &str = "../../../clibs";
 const MODEL_SUFFIX: &str = "_e476";
 
 #[derive(Debug, clap::Parser)]
