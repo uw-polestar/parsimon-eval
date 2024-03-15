@@ -6,12 +6,12 @@
     "lognorm_sigma": 2.0,
     "max_load": 0.6546710160064348,
     "cluster": "spec/cluster_1_to_1.json",
-    "param_id": 0,
-    "bfsz": 15.387669513500324,
-    "window": 21683,
-    "enable_pfc": 0.0,
-    "cc": "timely",
-    "param_1": 22.110964793981886,
-    "param_2": 89.45265346228491
+    "param_id": 1,
+    "bfsz": 48.87808338867897,
+    "window": 14715,
+    "enable_pfc": 1.0,
+    "cc": "dcqcn",
+    "param_1": 35.61031182374887,
+    "param_2": 69.27497880714766
   }
 ]

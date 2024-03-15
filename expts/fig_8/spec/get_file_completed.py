@@ -55,13 +55,13 @@ def find_large_files(json_file,shard_seed,dir_str=''):
 
 if __name__ == "__main__":
 
-    shard_seed=1
-    dir_str=""
-    json_file=f'all_config_{shard_seed}.mix.json' 
-    
-    # shard_seed=2
+    # shard_seed=1
     # dir_str=""
-    # json_file = f'all_config_{shard_seed}.mix.json' 
+    # json_file=f'all_config_{shard_seed}.mix.json' 
+    
+    shard_seed=2
+    dir_str=""
+    json_file = f'all_config_{shard_seed}.mix.json' 
     
     # shard_seed=1
     # dir_str="_timely"
