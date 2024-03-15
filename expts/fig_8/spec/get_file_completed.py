@@ -8,7 +8,7 @@ cc_dict={
     "dcqcn": "dcqcn_paper_vwin",
     "hp": "hp",
 }
-def find_large_files(json_file,shard_seed):
+def find_large_files(json_file,shard_seed,dir_str=''):
     large_files = []
     with open(json_file, 'r') as f:
         data = json.load(f)
@@ -16,7 +16,8 @@ def find_large_files(json_file,shard_seed):
     file_list=[]
     for item_idx, item in enumerate(data):
         cc=item['cc']
-        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/{shard_seed}/fct_topology_flows_{cc_dict[cc]}.txt"
+        config_id=item['id']
+        file_name=f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config/{shard_seed}/fct_topology_flows_{cc_dict[cc]}.txt"
         file_list.append(file_name)
     cc_cnt_dict=defaultdict(lambda:0)
     file_to_finished=[]
@@ -26,8 +27,8 @@ def find_large_files(json_file,shard_seed):
         # print(file_path)
         try:
             cc=data[item_idx]['cc']
-
-            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/elapsed_{shard_seed}.txt"):
+            config_id=data[item_idx]['id']
+            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config{dir_str}/elapsed_{shard_seed}.txt")and not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config{dir_str}/{shard_seed}/flows.txt"):
                 cc_cnt_dict[cc]+=1
                 file_to_finished.append(data[item_idx]['id'])
             else:
@@ -35,10 +36,10 @@ def find_large_files(json_file,shard_seed):
             
                 # Convert bytes to megabytes
                 file_size_in_mb = file_size / (1024 * 1024)
-                if file_size_in_mb>600 and not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{item_idx}/ns3-config/{shard_seed}/flows.txt"):
+                if file_size_in_mb>600 and not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config{dir_str}/{shard_seed}/flows.txt"):
                     file_to_restart.append(data[item_idx])
                 else:
-                    large_files.append((item_idx, file_size_in_mb))
+                    large_files.append((config_id, file_size_in_mb))
                     file_to_wait.append(data[item_idx])
         except FileNotFoundError:
             print(f"File not found: {file_path}")
@@ -55,11 +56,19 @@ def find_large_files(json_file,shard_seed):
 if __name__ == "__main__":
 
     shard_seed=1
-    # json_file = f'all_config_{shard_seed}.mix_0.json'  # Replace with your JSON file path
-    json_file = f'all_config_{shard_seed}.mix.json'  # Replace with your JSON file path
+    dir_str=""
+    json_file=f'all_config_{shard_seed}.mix.json' 
+    
+    # shard_seed=2
+    # dir_str=""
+    # json_file = f'all_config_{shard_seed}.mix.json' 
+    
+    # shard_seed=1
+    # dir_str="_timely"
+    # json_file = f'all_config_{shard_seed}{dir_str}.mix.json'  
     
     # Find large files
-    large_files = find_large_files(json_file,shard_seed=shard_seed)
+    large_files = find_large_files(json_file,shard_seed=shard_seed,dir_str=dir_str)
     print(f"{len(large_files)} large files found")
     for item_idx, file_size_in_mb in large_files:
         print(f"{item_idx} ({file_size_in_mb} MB)")
