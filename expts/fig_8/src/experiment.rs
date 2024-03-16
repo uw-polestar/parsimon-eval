@@ -1772,7 +1772,7 @@ impl fmt::Display for SimKind {
             SimKind::Ns3PathOne => "ns3-path-one",
             SimKind::Ns3PathAll => "ns3-path-all",
             SimKind::Pmn => "pmn_s1",
-            SimKind::PmnM => "pmn-m",
+            SimKind::PmnM => "pmn-m_s2",
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
