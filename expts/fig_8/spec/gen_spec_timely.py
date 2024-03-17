@@ -8,7 +8,7 @@ def filter_json(json_file, output_file):
     
     remain_data = []
     for data_tmp in data:
-        if data_tmp['cc'] == 'timely':
+        if data_tmp['cc'] == 'dctcp':
             remain_data.append(data_tmp)
         
     print(len(remain_data))
@@ -18,5 +18,5 @@ def filter_json(json_file, output_file):
     
 # Example usage
 json_file_path = 'all_config_1.mix.json'  # Replace with your JSON file path
-filter_json(json_file_path,"all_config_1_timely")
+filter_json(json_file_path,"all_config_1_dctcp")
 
