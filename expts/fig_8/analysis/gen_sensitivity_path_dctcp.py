@@ -15,10 +15,9 @@ N_FLOWS=NR_PATHS_SAMPLED*NR_INTEPOLATE*4
 N_FLOWS_PER_PATH=NR_INTEPOLATE*4
 enable_sample_per_path=False
 sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
-# mlsys_dir_list=["mlsys-new_e397_s1"]
-mlsys_dir_list=["mlsys-new_e533_s1"]
-legend_list=['ns3-config','pmn-m',"mlsys"]
-shard_seed=1
+shard_seed=2
+mlsys_dir_list=[f"mlsys-new_e533_s{shard_seed}"]
+legend_list=['ns3-config',f'pmn-m_s{shard_seed}',"mlsys"]
 for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
     print("N_FLOW_THRESHOLD: ",N_FLOW_THRESHOLD)
     res=[]
@@ -31,7 +30,7 @@ for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
                 mix_dir = f'../data/{worst_low_id}'
                 if not os.path.exists(f'{mix_dir}/{legend_list[0]}/elapsed_{shard_seed}.txt'):
                     print(f'{worst_low_id}: No GT!')
-                    res_final.append(np.zeros((n_size_bucket_list_output+1,2)))
+                    res_final.append(np.zeros((n_size_bucket_list_output+1,3)))
                     n_flows_in_f_list_final.append(np.zeros(NR_PATHS_SAMPLED))
                     continue
                 
@@ -76,6 +75,7 @@ for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
                 
                 sizes_ns3=np.array(df_ns3['size'])
                 bin_ns3=np.digitize(sizes_ns3, bin_size_list)
+                bin_pmn=np.digitize(sizes_pmn, bin_size_list)
                 bin_counts = np.bincount(bin_ns3)
                 total_count = np.sum(bin_counts)
                 bucket_ratios = bin_counts / total_count
@@ -127,19 +127,23 @@ for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
                 sldn_mlsys_p99=np.percentile(df_mlsys_total,99)
 
                 sldn_ns3=df_ns3['slowdown']
+                sldn_pmn_m=df_pmn_m['slowdown']
                 sldn_ns3_p99=np.percentile(sldn_ns3,99)
+                sldn_pmn_m_p99=np.percentile(sldn_pmn_m,99)
                 
-                print("sldn_ns3: ",sldn_ns3_p99," sldn_mlsys: ", sldn_mlsys_p99)
+                print("sldn_ns3: ",sldn_ns3_p99," sldn_pmn_m: ", sldn_pmn_m_p99," sldn_mlsys: ", sldn_mlsys_p99)
 
-                res_tmp.append([sldn_ns3_p99,sldn_mlsys_p99])
-                
+                res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,sldn_mlsys_p99])
+
                 for i in range(len(bin_size_list)+1):
                     tmp_sldn_ns3 = np.extract(bin_ns3==i, sldn_ns3)
+                    tmp_sldn_pmn_m = np.extract(bin_pmn==i, sldn_pmn_m)
                     tmp_sldn_mlsys=df_mlsys[i]
                     
                     sldn_ns3_p99=np.percentile(tmp_sldn_ns3,99)
+                    sldn_pmn_m_p99=np.percentile(tmp_sldn_pmn_m,99)
                     df_mlsys_p99=np.percentile(tmp_sldn_mlsys,99)
-                    res_tmp.append([sldn_ns3_p99,df_mlsys_p99])
+                    res_tmp.append([sldn_ns3_p99,sldn_pmn_m_p99,df_mlsys_p99])
                 res_final.append(res_tmp)
             res_final = np.array(res_final)
             n_flows_in_f_list_final = np.array(n_flows_in_f_list_final)
@@ -152,6 +156,7 @@ for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
         if mlsys_dir_idx==0:
             res.append(res_final[:,0,0].transpose())
             res.append(res_final[:,0,1].transpose())
+            res.append(res_final[:,0,2].transpose())
         else:
             res.append(res_final[:,0,-1].transpose())
 

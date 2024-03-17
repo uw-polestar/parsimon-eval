@@ -8,10 +8,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 23722,
-    "enable_pfc": 1.0,
+    "window": 8602,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 16.74921590441583,
+    "param_1": 13.182947478623609,
     "param_2": 0.0
   },
   {
@@ -23,10 +23,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 25479,
-    "enable_pfc": 1.0,
+    "window": 18109,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 10.66919199773944,
+    "param_1": 10.79224758934501,
     "param_2": 0.0
   },
   {
@@ -38,10 +38,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 13356,
+    "window": 19550,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 11.269784924222918,
+    "param_1": 9.01277373586774,
     "param_2": 0.0
   },
   {
@@ -53,10 +53,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 14232,
-    "enable_pfc": 1.0,
+    "window": 16593,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 16.611756834210944,
+    "param_1": 18.180084167691383,
     "param_2": 0.0
   },
   {
@@ -68,10 +68,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 12160,
+    "window": 24097,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 6.618115885894212,
+    "param_1": 6.224295597952637,
     "param_2": 0.0
   },
   {
@@ -83,10 +83,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 6815,
-    "enable_pfc": 1.0,
+    "window": 28381,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 11.729439142724939,
+    "param_1": 9.978931631469333,
     "param_2": 0.0
   },
   {
@@ -98,10 +98,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 20407,
+    "window": 14046,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 29.433479380730745,
+    "param_1": 10.029103853376498,
     "param_2": 0.0
   },
   {
@@ -113,10 +113,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 19720,
-    "enable_pfc": 1.0,
+    "window": 18425,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 12.617455453710994,
+    "param_1": 5.634079154909051,
     "param_2": 0.0
   },
   {
@@ -128,10 +128,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 20619,
+    "window": 18042,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 10.867103976746698,
+    "param_1": 7.283170555948626,
     "param_2": 0.0
   },
   {
@@ -143,10 +143,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 10155,
-    "enable_pfc": 1.0,
+    "window": 17535,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 27.96015651529219,
+    "param_1": 8.637452895040333,
     "param_2": 0.0
   },
   {
@@ -158,10 +158,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 22105,
+    "window": 10867,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 20.15967181965611,
+    "param_1": 9.565644224891198,
     "param_2": 0.0
   },
   {
@@ -173,10 +173,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 8451,
-    "enable_pfc": 1.0,
+    "window": 23818,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 5.115019237230651,
+    "param_1": 18.776093909175316,
     "param_2": 0.0
   },
   {
@@ -188,10 +188,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 13246,
+    "window": 22105,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 29.608869754043486,
+    "param_1": 5.283552061408146,
     "param_2": 0.0
   },
   {
@@ -203,10 +203,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18506,
+    "window": 22192,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 13.225986907451624,
+    "param_1": 13.5390275572371,
     "param_2": 0.0
   },
   {
@@ -218,10 +218,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 13744,
-    "enable_pfc": 1.0,
+    "window": 8451,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 23.8881429618191,
+    "param_1": 7.472078044849961,
     "param_2": 0.0
   },
   {
@@ -233,10 +233,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 11145,
-    "enable_pfc": 1.0,
+    "window": 13246,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 13.986771881199394,
+    "param_1": 19.76532185242609,
     "param_2": 0.0
   },
   {
@@ -248,10 +248,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 13291,
+    "window": 18506,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 25.624650613232987,
+    "param_1": 16.897338940975487,
     "param_2": 0.0
   },
   {
@@ -263,10 +263,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 16065,
-    "enable_pfc": 1.0,
+    "window": 9233,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 18.16104145865956,
+    "param_1": 10.24652205523671,
     "param_2": 0.0
   },
   {
@@ -278,10 +278,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 14710,
-    "enable_pfc": 1.0,
+    "window": 9852,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 9.299125333757743,
+    "param_1": 5.818277262663791,
     "param_2": 0.0
   },
   {
@@ -293,10 +293,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 14381,
-    "enable_pfc": 1.0,
+    "window": 9533,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 7.884617292685622,
+    "param_1": 13.857765533582958,
     "param_2": 0.0
   },
   {
@@ -308,10 +308,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 10415,
+    "window": 18161,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 20.213488627915808,
+    "param_1": 11.952456490447931,
     "param_2": 0.0
   },
   {
@@ -323,10 +323,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18070,
+    "window": 12902,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 27.761085659041502,
+    "param_1": 14.237832018494288,
     "param_2": 0.0
   },
   {
@@ -338,10 +338,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 7362,
+    "window": 24688,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 15.391566779263304,
+    "param_1": 11.263529265011378,
     "param_2": 0.0
   },
   {
@@ -353,10 +353,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 15635,
-    "enable_pfc": 1.0,
+    "window": 10415,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 25.86455213653135,
+    "param_1": 14.128093176749486,
     "param_2": 0.0
   },
   {
@@ -368,10 +368,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 14054,
-    "enable_pfc": 1.0,
+    "window": 18070,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 9.180577122436109,
+    "param_1": 18.656651395424902,
     "param_2": 0.0
   },
   {
@@ -383,10 +383,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 25714,
-    "enable_pfc": 1.0,
+    "window": 7362,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 21.339079149790525,
+    "param_1": 11.045151343456137,
     "param_2": 0.0
   },
   {
@@ -398,10 +398,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 17636,
-    "enable_pfc": 1.0,
+    "window": 14815,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 10.192053128074733,
+    "param_1": 9.705738163455695,
     "param_2": 0.0
   },
   {
@@ -413,10 +413,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 15581,
+    "window": 21804,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 15.806146686782961,
+    "param_1": 9.360692224927615,
     "param_2": 0.0
   },
   {
@@ -428,10 +428,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 7156,
+    "window": 17636,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 28.780882237430685,
+    "param_1": 16.48967693086466,
     "param_2": 0.0
   },
   {
@@ -443,10 +443,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 17935,
+    "window": 17452,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 6.961803643779248,
+    "param_1": 18.965174475578696,
     "param_2": 0.0
   },
   {
@@ -458,10 +458,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 26392,
-    "enable_pfc": 1.0,
+    "window": 15834,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 6.085189869144537,
+    "param_1": 13.39146774284044,
     "param_2": 0.0
   },
   {
@@ -473,10 +473,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 24959,
+    "window": 16911,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 21.197918088512623,
+    "param_1": 8.736260209109371,
     "param_2": 0.0
   },
   {
@@ -488,10 +488,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 14225,
+    "window": 17260,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 5.043369979570296,
+    "param_1": 17.835595523932405,
     "param_2": 0.0
   },
   {
@@ -503,10 +503,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 20797,
-    "enable_pfc": 1.0,
+    "window": 9940,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 12.393330077099694,
+    "param_1": 8.86271388898037,
     "param_2": 0.0
   },
   {
@@ -518,10 +518,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 13132,
-    "enable_pfc": 1.0,
+    "window": 14225,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 7.742226861329112,
+    "param_1": 5.026021987742178,
     "param_2": 0.0
   },
   {
@@ -533,10 +533,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 22650,
+    "window": 20797,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 11.348430660001316,
+    "param_1": 18.748020766938545,
     "param_2": 0.0
   },
   {
@@ -548,10 +548,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 16057,
-    "enable_pfc": 1.0,
+    "window": 20799,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 24.353680930243122,
+    "param_1": 8.46575499200367,
     "param_2": 0.0
   },
   {
@@ -563,10 +563,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 23735,
+    "window": 11444,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 17.80037379291685,
+    "param_1": 14.430548747745224,
     "param_2": 0.0
   },
   {
@@ -578,10 +578,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 21814,
+    "window": 6541,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 29.05927809126459,
+    "param_1": 19.652710207460697,
     "param_2": 0.0
   },
   {
@@ -593,10 +593,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 24065,
+    "window": 25758,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 18.27984498378852,
+    "param_1": 6.46681851571288,
     "param_2": 0.0
   },
   {
@@ -608,10 +608,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 5153,
+    "window": 28799,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 5.7853221931093834,
+    "param_1": 10.04985204696232,
     "param_2": 0.0
   },
   {
@@ -623,10 +623,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18051,
+    "window": 10319,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 12.789114127330862,
+    "param_1": 13.835371352727384,
     "param_2": 0.0
   },
   {
@@ -638,10 +638,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 5046,
+    "window": 29124,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 24.745407147330635,
+    "param_1": 12.003406587328637,
     "param_2": 0.0
   },
   {
@@ -653,10 +653,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 22463,
-    "enable_pfc": 1.0,
+    "window": 29767,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 16.048775723687278,
+    "param_1": 6.460360987061759,
     "param_2": 0.0
   },
   {
@@ -668,10 +668,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 15948,
+    "window": 18656,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 20.70663187898888,
+    "param_1": 11.139702979947355,
     "param_2": 0.0
   },
   {
@@ -683,10 +683,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 13306,
+    "window": 19651,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 17.811610590734198,
+    "param_1": 5.654776360320043,
     "param_2": 0.0
   },
   {
@@ -698,10 +698,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 8391,
-    "enable_pfc": 1.0,
+    "window": 7144,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 22.15652797094322,
+    "param_1": 8.926720452501549,
     "param_2": 0.0
   },
   {
@@ -713,10 +713,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 27969,
+    "window": 21711,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 16.76556131695005,
+    "param_1": 5.340955837818314,
     "param_2": 0.0
   },
   {
@@ -728,10 +728,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 7574,
+    "window": 29846,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 26.31601075163101,
+    "param_1": 17.77437440635671,
     "param_2": 0.0
   },
   {
@@ -743,10 +743,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 22436,
+    "window": 23147,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 17.369982460040184,
+    "param_1": 12.322237397552868,
     "param_2": 0.0
   },
   {
@@ -758,10 +758,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 11808,
+    "window": 12993,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 25.77914632920154,
+    "param_1": 12.775376430662696,
     "param_2": 0.0
   },
   {
@@ -773,10 +773,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 26422,
-    "enable_pfc": 1.0,
+    "window": 20950,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 14.960055209970806,
+    "param_1": 12.059336790170029,
     "param_2": 0.0
   },
   {
@@ -788,10 +788,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 12458,
-    "enable_pfc": 1.0,
+    "window": 7574,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 26.614110021232836,
+    "param_1": 17.98865142395705,
     "param_2": 0.0
   },
   {
@@ -803,10 +803,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 23614,
+    "window": 27979,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 29.332347966025715,
+    "param_1": 15.299167315993591,
     "param_2": 0.0
   },
   {
@@ -818,10 +818,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 26797,
-    "enable_pfc": 1.0,
+    "window": 12408,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 18.513494423958164,
+    "param_1": 17.625797375452027,
     "param_2": 0.0
   },
   {
@@ -833,10 +833,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 22143,
-    "enable_pfc": 1.0,
+    "window": 20841,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 22.102408111351025,
+    "param_1": 19.881573499437557,
     "param_2": 0.0
   },
   {
@@ -848,10 +848,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18225,
-    "enable_pfc": 1.0,
+    "window": 23614,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 15.150034067353223,
+    "param_1": 19.59940877961543,
     "param_2": 0.0
   },
   {
@@ -863,10 +863,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 24176,
+    "window": 26797,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 23.150446666696112,
+    "param_1": 14.856207448745861,
     "param_2": 0.0
   },
   {
@@ -878,10 +878,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 24844,
-    "enable_pfc": 1.0,
+    "window": 9080,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 10.057329132047885,
+    "param_1": 15.286238490684,
     "param_2": 0.0
   },
   {
@@ -893,10 +893,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 15464,
-    "enable_pfc": 1.0,
+    "window": 18225,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 6.510803024369356,
+    "param_1": 11.090020440411934,
     "param_2": 0.0
   },
   {
@@ -908,10 +908,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 10203,
+    "window": 24176,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 28.096429936381202,
+    "param_1": 19.798212994007336,
     "param_2": 0.0
   },
   {
@@ -923,10 +923,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 11572,
-    "enable_pfc": 1.0,
+    "window": 23601,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 20.54376379870656,
+    "param_1": 8.03439747922873,
     "param_2": 0.0
   },
   {
@@ -938,10 +938,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18167,
+    "window": 15464,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 19.63650234141049,
+    "param_1": 12.502694347269045,
     "param_2": 0.0
   },
   {
@@ -953,10 +953,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 8095,
-    "enable_pfc": 1.0,
+    "window": 17273,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 28.81554219308446,
+    "param_1": 18.178724366405667,
     "param_2": 0.0
   },
   {
@@ -968,10 +968,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 8367,
-    "enable_pfc": 1.0,
+    "window": 7614,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 25.88814287990407,
+    "param_1": 16.728183290785175,
     "param_2": 0.0
   },
   {
@@ -983,10 +983,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 7895,
+    "window": 19824,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 22.745761282913968,
+    "param_1": 8.878658139822122,
     "param_2": 0.0
   },
   {
@@ -998,10 +998,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 19926,
+    "window": 8095,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 23.117202199004257,
+    "param_1": 8.483516164242774,
     "param_2": 0.0
   },
   {
@@ -1013,10 +1013,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18542,
-    "enable_pfc": 1.0,
+    "window": 25245,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 6.676112044930228,
+    "param_1": 16.01793971607824,
     "param_2": 0.0
   },
   {
@@ -1028,10 +1028,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 6053,
-    "enable_pfc": 1.0,
+    "window": 15501,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 5.497990508854423,
+    "param_1": 9.167609140427658,
     "param_2": 0.0
   },
   {
@@ -1043,10 +1043,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 7711,
-    "enable_pfc": 1.0,
+    "window": 22943,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 28.34772055800105,
+    "param_1": 9.670222742837996,
     "param_2": 0.0
   },
   {
@@ -1058,10 +1058,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 5130,
-    "enable_pfc": 1.0,
+    "window": 9905,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 15.36215561450037,
+    "param_1": 9.813315024348045,
     "param_2": 0.0
   },
   {
@@ -1073,10 +1073,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 25045,
+    "window": 10634,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 18.961894619121544,
+    "param_1": 11.003474933474081,
     "param_2": 0.0
   },
   {
@@ -1088,10 +1088,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18810,
+    "window": 18425,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 12.92264035146005,
+    "param_1": 16.564351403995214,
     "param_2": 0.0
   },
   {
@@ -1103,10 +1103,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 23119,
-    "enable_pfc": 1.0,
+    "window": 10341,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 5.859178478992384,
+    "param_1": 19.748951604762308,
     "param_2": 0.0
   },
   {
@@ -1118,10 +1118,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 26866,
-    "enable_pfc": 1.0,
+    "window": 14751,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 13.835445984195925,
+    "param_1": 6.4171734473314945,
     "param_2": 0.0
   },
   {
@@ -1133,10 +1133,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 28971,
+    "window": 17950,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 23.26450384386398,
+    "param_1": 13.07504267084021,
     "param_2": 0.0
   },
   {
@@ -1148,10 +1148,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 10411,
-    "enable_pfc": 1.0,
+    "window": 23699,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 16.893952796825346,
+    "param_1": 10.201991447642254,
     "param_2": 0.0
   },
   {
@@ -1163,10 +1163,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 10142,
+    "window": 26866,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 14.041348266991413,
+    "param_1": 18.617624835298148,
     "param_2": 0.0
   },
   {
@@ -1178,10 +1178,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 6855,
+    "window": 8362,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 15.770766000120638,
+    "param_1": 7.107272162637681,
     "param_2": 0.0
   },
   {
@@ -1193,10 +1193,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 25069,
+    "window": 10411,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 12.692308072879808,
+    "param_1": 17.79521797637286,
     "param_2": 0.0
   },
   {
@@ -1208,10 +1208,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 8794,
+    "window": 19102,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 15.429131321405064,
+    "param_1": 13.90770387380209,
     "param_2": 0.0
   },
   {
@@ -1223,10 +1223,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 25681,
+    "window": 10142,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 17.056054744235247,
+    "param_1": 16.08464320476208,
     "param_2": 0.0
   },
   {
@@ -1238,10 +1238,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 18740,
-    "enable_pfc": 1.0,
+    "window": 18905,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 6.151468776267661,
+    "param_1": 6.113026840815471,
     "param_2": 0.0
   },
   {
@@ -1253,10 +1253,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 28565,
-    "enable_pfc": 1.0,
+    "window": 12577,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 29.201537639608436,
+    "param_1": 14.353979939371706,
     "param_2": 0.0
   },
   {
@@ -1268,10 +1268,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 12010,
+    "window": 18016,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 11.007229872227644,
+    "param_1": 7.276852286617483,
     "param_2": 0.0
   },
   {
@@ -1283,10 +1283,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 7887,
+    "window": 24810,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 17.52216324147632,
+    "param_1": 10.268608793922027,
     "param_2": 0.0
   },
   {
@@ -1298,10 +1298,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 20050,
-    "enable_pfc": 1.0,
+    "window": 23124,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 25.225539400099933,
+    "param_1": 11.382029360592455,
     "param_2": 0.0
   },
   {
@@ -1313,10 +1313,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 14871,
+    "window": 8915,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 9.5333465080038,
+    "param_1": 11.070756647152262,
     "param_2": 0.0
   },
   {
@@ -1328,10 +1328,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 24274,
-    "enable_pfc": 1.0,
+    "window": 25049,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 27.672102772715693,
+    "param_1": 9.206375374887418,
     "param_2": 0.0
   },
   {
@@ -1343,10 +1343,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 21326,
-    "enable_pfc": 1.0,
+    "window": 23197,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 5.070456729007396,
+    "param_1": 8.76293874269645,
     "param_2": 0.0
   },
   {
@@ -1358,10 +1358,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 12409,
-    "enable_pfc": 1.0,
+    "window": 22776,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 11.230535725480337,
+    "param_1": 13.25517667886881,
     "param_2": 0.0
   },
   {
@@ -1373,10 +1373,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 11742,
+    "window": 28820,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 11.155682054121826,
+    "param_1": 18.247281005075205,
     "param_2": 0.0
   },
   {
@@ -1388,10 +1388,10 @@
     "cluster": "spec/cluster_2_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 15025,
-    "enable_pfc": 1.0,
+    "window": 14502,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 21.70553250398852,
+    "param_1": 18.603261663629414,
     "param_2": 0.0
   },
   {
@@ -1403,10 +1403,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 15570,
+    "window": 21326,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 17.90528708402924,
+    "param_1": 18.121950545048666,
     "param_2": 0.0
   },
   {
@@ -1418,10 +1418,10 @@
     "cluster": "spec/cluster_4_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 5867,
-    "enable_pfc": 1.0,
+    "window": 6225,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 10.708970537550075,
+    "param_1": 9.445763872060294,
     "param_2": 0.0
   },
   {
@@ -1433,10 +1433,10 @@
     "cluster": "spec/cluster_1_to_1.json",
     "param_id": 2,
     "bfsz": 40.0,
-    "window": 28132,
-    "enable_pfc": 1.0,
+    "window": 8246,
+    "enable_pfc": 0.0,
     "cc": "dctcp",
-    "param_1": 11.10090375390487,
+    "param_1": 6.730740241529766,
     "param_2": 0.0
   }
 ]

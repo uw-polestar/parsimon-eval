@@ -28,7 +28,7 @@ def find_large_files(json_file,shard_seed,dir_str=''):
         try:
             cc=data[item_idx]['cc']
             config_id=data[item_idx]['id']
-            if os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config{dir_str}/elapsed_{shard_seed}.txt")and not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config{dir_str}/{shard_seed}/flows.txt"):
+            if not os.path.exists(file_path):
                 cc_cnt_dict[cc]+=1
                 file_to_finished.append(data[item_idx]['id'])
             else:
@@ -36,7 +36,7 @@ def find_large_files(json_file,shard_seed,dir_str=''):
             
                 # Convert bytes to megabytes
                 file_size_in_mb = file_size / (1024 * 1024)
-                if file_size_in_mb>600 and not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config{dir_str}/{shard_seed}/flows.txt"):
+                if not os.path.exists(f"/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/data/{config_id}/ns3-config{dir_str}/{shard_seed}/flows.txt"):
                     file_to_restart.append(data[item_idx])
                 else:
                     large_files.append((config_id, file_size_in_mb))
@@ -49,19 +49,19 @@ def find_large_files(json_file,shard_seed,dir_str=''):
     print(file_to_finished)
     assert len(file_to_finished)+len(file_to_restart)+len(file_to_wait)==len(file_list)
     print(f"files: {len(file_to_finished)},{len(file_to_restart)},{len(file_to_wait)}")
-    with open(f"mlsys_config.mix.json", 'w') as f:
+    with open(f"restart_config.mix.json", 'w') as f:
         json.dump(file_to_restart, f, indent=2)
     return large_files
 
 if __name__ == "__main__":
 
-    # shard_seed=1
-    # dir_str=""
-    # json_file=f'all_config_{shard_seed}.mix.json' 
-    
-    shard_seed=2
+    shard_seed=1
     dir_str=""
-    json_file = f'all_config_{shard_seed}.mix.json' 
+    json_file=f'all_config_{shard_seed}.mix.json' 
+    
+    # shard_seed=2
+    # dir_str=""
+    # json_file = f'all_config_{shard_seed}.mix.json' 
     
     # shard_seed=1
     # dir_str="_timely"
