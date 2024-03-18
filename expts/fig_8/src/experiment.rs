@@ -57,7 +57,7 @@ const SAMPLE_MODE: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
-const MODEL_SUFFIX: &str = "_e533";
+const MODEL_SUFFIX: &str = "_e426";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -1776,7 +1776,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnMParam => "pmn-m-param",
             SimKind::PmnMC => "pmn-mc",
             SimKind::PmnMPath => "pmn-m-path",
-            SimKind::Mlsys => "mlsys-new_e533_s2",
+            SimKind::Mlsys => "mlsys-new_e426_s1",
             SimKind::MlsysParam => "mlsys-param",
             SimKind::MlsysTest => "mlsys-test",
         };
