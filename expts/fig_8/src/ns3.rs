@@ -64,24 +64,24 @@ impl Ns3Simulation {
     pub fn run(&self) -> Result<Vec<FctRecord>, Error> {
         // Set up directory
         let mk_path = |dir, file| [dir, file].into_iter().collect::<PathBuf>();
-        fs::create_dir_all(&self.data_dir)?;
+        // fs::create_dir_all(&self.data_dir)?;
 
-        // Set up the topology
-        let topology = translate_topology(&self.nodes, &self.links);
-        fs::write(
-            mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
-            topology,
-        )?;
+        // // Set up the topology
+        // let topology = translate_topology(&self.nodes, &self.links);
+        // fs::write(
+        //     mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
+        //     topology,
+        // )?;
 
-        // Set up the flows
-        let flows = translate_flows(&self.flows);
-        fs::write(
-            mk_path(self.data_dir.as_path(), "flows.txt".as_ref()),
-            flows,
-        )?;
+        // // Set up the flows
+        // let flows = translate_flows(&self.flows);
+        // fs::write(
+        //     mk_path(self.data_dir.as_path(), "flows.txt".as_ref()),
+        //     flows,
+        // )?;
 
-        // Run ns-3
-        self.invoke_ns3()?;
+        // // Run ns-3
+        // self.invoke_ns3()?;
 
         // Parse and return results
         let s = fs::read_to_string(mk_path(
