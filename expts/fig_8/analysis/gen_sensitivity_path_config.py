@@ -16,7 +16,7 @@ N_FLOWS_PER_PATH=NR_INTEPOLATE*4
 enable_sample_per_path=False
 sample_per_path_str="_samp" if enable_sample_per_path else "_nosamp"
 # mlsys_dir_list=["mlsys-new_e397_s1"]
-mlsys_dir_list=["mlsys-new_e533_s1"]
+mlsys_dir_list=["mlsys-new_e426_s1"]
 legend_list=['ns3-config','pmn-m',"mlsys"]
 shard_seed=1
 for N_FLOW_THRESHOLD in N_FLOW_THRESHOLD_LIST:
