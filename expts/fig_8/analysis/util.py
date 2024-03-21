@@ -42,7 +42,7 @@ def plot_cdf(
     group_size=1,
 ):
     _fontsize = fontsize
-    fig = plt.figure(figsize=(5.2, 4))  # 2.5 inch for 1/3 double column width
+    fig = plt.figure(figsize=(5.2, 3))  # 2.5 inch for 1/3 double column width
     ax = fig.add_subplot(111)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)

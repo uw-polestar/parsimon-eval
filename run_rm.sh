@@ -8,7 +8,7 @@ OUTPUT_PATH='/data1/lichenni/projects/flow_simulation/parsimon-eval/expts/fig_8/
 for shard in {0..191..1}
 # for shard in 0
 do
-    COMMAND="rm -rf ${OUTPUT_PATH}/${shard}/mlsys-new_e533_s1"
+    COMMAND="rm -rf ${OUTPUT_PATH}/${shard}/pmn-m_s2"
     # COMMAND="mv ${OUTPUT_PATH}/${shard}/mlsys ${OUTPUT_PATH}/${shard}/mlsys_e240"
     # COMMAND="mv ${OUTPUT_PATH}/${shard}/mlsys_final_reprod_v0 /data2/lichenni/data_10m/${shard}/"
     # COMMAND="mv /data2/lichenni/data_10m_/${shard}/* /data2/lichenni/data_10m/${shard}/mlsys_s2_bt100"
