@@ -50,7 +50,7 @@ const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 
 const MLSYS_PATH: &str = "../../../clibs";
-const MODEL_SUFFIX: &str = "_e466";
+const MODEL_SUFFIX: &str = "_e426";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -657,11 +657,11 @@ pub enum SimKind {
 impl fmt::Display for SimKind {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let s = match self {
-            SimKind::Ns3 => "ns3",
+            SimKind::Ns3 => "ns3-config",
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::Mlsys => "mlsys",
+            SimKind::Mlsys => "mlsys-new_e426",
         };
         write!(f, "{}", s)
     }
