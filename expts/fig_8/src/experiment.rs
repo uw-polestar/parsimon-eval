@@ -68,7 +68,7 @@ pub struct Experiment {
     #[clap(long, default_value_t = 0)]
     seed: u64,
     #[clap(subcommand)]
-    sim: SimKind
+    sim: SimKind,
 }
 
 impl Experiment {
@@ -1619,6 +1619,7 @@ impl Experiment {
             .collect();
         Ok(file)
     }
+    
     fn record_file_with_idx(
         &self,
         mix: &Mix,

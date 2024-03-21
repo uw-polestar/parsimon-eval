@@ -9,14 +9,13 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::io;
 
-use derivative::Derivative;
 use parsimon::core::{
     network::Flow,
     // network::types::{Link, Node},
-    // units::{Bytes, Nanosecs},
+    units::Bytes,
 };
 // use rand::prelude::*;
-
+use crate::ns3::CcKind;
 /// An ns-3 simulation.
 #[derive(Debug, typed_builder::TypedBuilder)]
 pub struct Mlsys {
@@ -26,9 +25,6 @@ pub struct Mlsys {
     /// The directory in which to write simulation configs and data.
     #[builder(setter(into))]
     pub data_dir: PathBuf,
-    /// The congestion control protocol.
-    #[builder(default)]
-    pub cc_kind: CcKind,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
@@ -40,6 +36,27 @@ pub struct Mlsys {
     pub nr_size_buckets: usize,
     /// The number of output percentiles.
     pub output_length: usize,
+    /// The buffer size factor.
+    #[builder(default = 30.0)]
+    pub bfsz: f64,
+    /// The sencing window.
+    #[builder(default = Bytes::new(18000))]
+    pub window: Bytes,
+    /// Enable PFC.
+    #[builder(default = 1.0)]
+    pub enable_pfc: f64,
+    /// The congestion control protocol.
+    #[builder(default)]
+    pub cc_kind: CcKind,
+    /// The congestion control parameter.
+    #[builder(default = 30.0)]
+    pub param_1: f64,
+    /// The congestion control parameter.
+    #[builder(default = 0.0)]
+    pub param_2: f64,
+    /// ML model ID
+    #[builder(default="".to_string())]
+    pub model_suffix: String,
 }
 
 impl Mlsys {
@@ -85,19 +102,22 @@ impl Mlsys {
         let data_dir = data_dir.display();
         let script_path = std::fs::canonicalize(&self.script_path)?;
         let script_path = script_path.display();
-        let n_hosts = n_hosts.to_string();
+
+        // Build the command that runs the C script.
         // let cc = self.cc_kind.as_str();
-        // Build the command that runs the Python script.
-        // let python_command = format!(
-        //     "{script_path}/python {script_path} --root {data_dir} -b 10 --nhost {n_hosts} --cc {cc}> {data_dir}/output.txt 2>&1"
-        // );
+        let n_hosts = n_hosts;
+        let model_suffix = self.model_suffix.clone();
+        let bfsz = self.bfsz;
+        let window = self.window.into_u64();
+        let enable_pfc = self.enable_pfc;
+        let cc = self.cc_kind.get_int_value();
+        let param_1 = self.param_1;
+        let param_2 = self.param_2;
         let c_command = format!(
-            "./run ../data_test/checkpoints/model_llama.bin ../data_test/checkpoints/model_mlp.bin {data_dir} -b 10 -e 288 -n {n_hosts} -p 30 -t 1 > {data_dir}/output.txt 2>&1"
+            "run ../ckpts/model_llama{model_suffix}.bin ../ckpts/model_mlp{model_suffix}.bin {data_dir} -b 10 -e 576 -n {n_hosts} -t 1 -f {bfsz} -k {window} -p {enable_pfc} -c {cc} -x {param_1} -y {param_2} > {data_dir}/output.txt 2>&1"
         );
-        // let c_command = format!(
-        //     "./run ../data_test/checkpoints/model_llama_all_e267.bin ../data_test/checkpoints/model_mlp_all_e267.bin {data_dir} -b 10 -e 576 -n {n_hosts} -p 18 -t 1 -c 1 > {data_dir}/output.txt 2>&1"
-        // );
-        // println!("{}", python_command);
+
+        // println!("{}", c_command);
         // Execute the command in a child process.
         // let _output = Command::new("sh")
         //     .arg("-c")
@@ -109,6 +129,7 @@ impl Mlsys {
             .output()?;
         Ok(())
     }
+
     fn interpolate_values(
         &self,
         input_values: Vec<Vec<f32>>,
@@ -122,7 +143,7 @@ impl Mlsys {
         for set_index in 0..input_sets {
             // let mut target_percentiles: Vec<f32> = (0..self.output_length-target_percentiles_extra.len()).map(|_| rng.gen_range(0.02..0.99)).collect();
 
-            // let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.001..1.0)).collect();
+            // let mut target_percentiles: Vec<f32> = (0..self.output_length).map(|_| rng.gen_range(0.02..1.0)).collect();
             // // target_percentiles.extend(target_percentiles_extra.iter());
             // target_percentiles.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
@@ -134,9 +155,11 @@ impl Mlsys {
                     input_set[i]=input_set[i - 1];
                 }
             }
-            input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
+            // input_set[self.input_percentiles.len()-2]=input_set[self.input_percentiles.len()-2].max(input_set[self.input_percentiles.len()-1]);
+
             let val_comp=(1.0-input_set[0]).max(0.0);
             input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
+
             // input_set.sort_by(|a, b| a.partial_cmp(b).unwrap());
             // input_set.insert(0, 1.0);
             // input_set.pop();
@@ -302,29 +325,6 @@ pub enum ParseMlsysError {
     ParseInt(#[from] std::num::ParseIntError),
 }
 
-/// Congestion control protocol.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Derivative, serde::Serialize, serde::Deserialize)]
-#[derivative(Default)]
-#[serde(rename_all = "lowercase")]
-pub enum CcKind {
-    /// DCTCP.
-    #[derivative(Default)]
-    Dctcp,
-    /// TIMELY.
-    Timely,
-    /// DCQCN.
-    Dcqcn,
-}
-
-// impl CcKind {
-//     fn as_str(&self) -> &'static str {
-//         match self {
-//             CcKind::Dctcp => "dctcp",
-//             CcKind::Timely => "timely_vwin",
-//             CcKind::Dcqcn => "dcqcn_paper_vwin",
-//         }
-//     }
-// }
 
 #[cfg(test)]
 mod tests {
