@@ -84,7 +84,7 @@ fn default_param_id() -> MixId {
 }
 
 fn default_bfsz() -> f64 {
-    30.0
+    40.0
 }
 fn default_window() -> u64 {
     18000

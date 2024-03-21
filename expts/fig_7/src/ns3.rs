@@ -32,19 +32,29 @@ pub struct Ns3Simulation {
     pub nodes: Vec<Node>,
     /// The topology links.
     pub links: Vec<Link>,
-    /// The sencing window.
-    pub window: Bytes,
     /// The base RTT.
     pub base_rtt: Nanosecs,
-    /// The congestion control protocol.
-    #[builder(default)]
-    pub cc_kind: CcKind,
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
-    /// The parameter for DCTCP.
-    #[builder(default = 30)]
-    pub dctcp_k: u32,
+    /// The buffer size factor.
+    #[builder(default = 30.0)]
+    pub bfsz: f64,
+    /// The sencing window.
+    #[builder(default = Bytes::new(18000))]
+    pub window: Bytes,
+    /// Enable PFC.
+    #[builder(default = 1.0)]
+    pub enable_pfc: f64,
+    /// The congestion control protocol.
+    #[builder(default)]
+    pub cc_kind: CcKind,
+    /// The congestion control parameter.
+    #[builder(default = 30.0)]
+    pub param_1: f64,
+    /// The congestion control parameter.
+    #[builder(default = 0.0)]
+    pub param_2: f64,
 }
 
 impl Ns3Simulation {
@@ -54,31 +64,38 @@ impl Ns3Simulation {
     pub fn run(&self) -> Result<Vec<FctRecord>, Error> {
         // Set up directory
         let mk_path = |dir, file| [dir, file].into_iter().collect::<PathBuf>();
-        // fs::create_dir_all(&self.data_dir)?;
+        fs::create_dir_all(&self.data_dir)?;
 
         // Set up the topology
-        // let topology = translate_topology(&self.nodes, &self.links);
-        // fs::write(
-        //     mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
-        //     topology,
-        // )?;
+        let topology = translate_topology(&self.nodes, &self.links);
+        fs::write(
+            mk_path(self.data_dir.as_path(), "topology.txt".as_ref()),
+            topology,
+        )?;
 
         // Set up the flows
-        // let flows = translate_flows(&self.flows);
-        // fs::write(
-        //     mk_path(self.data_dir.as_path(), "flows.txt".as_ref()),
-        //     flows,
-        // )?;
+        let flows = translate_flows(&self.flows);
+        fs::write(
+            mk_path(self.data_dir.as_path(), "flows.txt".as_ref()),
+            flows,
+        )?;
 
         // Run ns-3
-        // self.invoke_ns3()?;
+        self.invoke_ns3()?;
 
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}_k{}.txt", self.cc_kind.as_str(),self.dctcp_k).as_ref(),
+            format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
+        let data_dir=self.data_dir.to_str().unwrap();
+        let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
+        // println!("rm {data_dir}/{fct_file}");
+        let _output = Command::new("sh")
+            .arg("-c")
+            .arg(format!("rm {data_dir}/{fct_file}"))
+            .output()?;
         Ok(records)
     }
 
@@ -90,19 +107,24 @@ impl Ns3Simulation {
         let ns3_dir = ns3_dir.display();
 
         // Build the command that runs the Python script.
-        let window = self.window.into_u64();
         let base_rtt = self.base_rtt.into_u64();
+        let bfsz = self.bfsz;
+        let window = self.window.into_u64();
+        let enable_pfc = self.enable_pfc;
         let cc = self.cc_kind.as_str();
-        let dctcp_k = self.dctcp_k.to_string();
+        let param_1 = self.param_1;
+        let param_2 = self.param_2;
+
         let python_command = format!(
-            "python2 run.py --root {data_dir} --fwin {window} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --cc {cc} --dctcp_k {dctcp_k} \
+            "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
+            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
             > {data_dir}/output.txt 2>&1"
         );
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
-            .arg(format!("cd {ns3_dir}; {python_command}"))
+            .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
+            // .arg(format!("cd {ns3_dir};{python_command}"))
             .output()?;
         Ok(())
     }
@@ -218,31 +240,36 @@ pub enum CcKind {
     /// DCTCP.
     #[derivative(Default)]
     Dctcp,
-    /// TIMELY.
-    Timely,
     /// DCQCN.
     Dcqcn,
+    /// HP
+    Hp,
+    /// TIMELY.
+    Timely,
 }
 
 impl CcKind {
     fn as_str(&self) -> &'static str {
         match self {
             CcKind::Dctcp => "dctcp",
-            CcKind::Timely => "timely_vwin",
             CcKind::Dcqcn => "dcqcn_paper_vwin",
+            CcKind::Hp => "hp",
+            CcKind::Timely => "timely_vwin",
         }
     }
 
-    const DCTCP_VALUE: i32 = 1;
-    const TIMELY_VALUE: i32 = 2;
-    const DCQCN_VALUE: i32 = 3;
+    const DCTCP_VALUE: usize = 0;
+    const DCQCN_VALUE: usize = 1;
+    const HP_VALUE: usize = 2;
+    const TIMELY_VALUE: usize = 3;
 
     /// Get the integer value of the cc protocol.
-    pub fn get_int_value(&self) -> i32 {
+    pub fn get_int_value(&self) -> usize {
         match self {
             CcKind::Dctcp => Self::DCTCP_VALUE,
-            CcKind::Timely => Self::TIMELY_VALUE,
             CcKind::Dcqcn => Self::DCQCN_VALUE,
+            CcKind::Hp => Self::HP_VALUE,
+            CcKind::Timely => Self::TIMELY_VALUE,
         }
     }
 }
