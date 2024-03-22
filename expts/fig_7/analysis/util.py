@@ -5,7 +5,6 @@ import numpy as np
 color_list = [
     "cornflowerblue",
     "orange",
-    "gold",
     "deeppink",
     "black",
     "blueviolet",
