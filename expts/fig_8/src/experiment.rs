@@ -625,6 +625,7 @@ impl Experiment {
             .collect();
         self.put_loads(mix, sim, &loads)?;
         self.put_records(mix, sim, &records)?;
+        
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
         Ok(())
