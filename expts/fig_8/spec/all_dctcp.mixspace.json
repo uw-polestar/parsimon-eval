@@ -1,0 +1,49 @@
+{
+    "spatials": [
+        "../../workload/spatials/cluster_a_2_16.json",
+        "../../workload/spatials/cluster_b_2_16.json",
+        "../../workload/spatials/cluster_c_2_16.json"
+    ],
+    "size_dists": [
+        "../../workload/distributions/facebook/webserver-all.txt",
+        "../../workload/distributions/facebook/hadoop-all.txt",
+        "../../workload/distributions/facebook/cachefollower-all.txt"
+    ],
+    "lognorm_sigmas": [
+        1.0,
+        2.0
+    ],
+    "max_loads": {
+        "low": 0.25,
+        "high": 0.75
+    },
+    "clusters": [
+        "spec/cluster_1_to_1.json",
+        "spec/cluster_2_to_1.json",
+        "spec/cluster_4_to_1.json"
+    ],
+    "bfszs":{
+        "low": 40,
+        "high": 40
+    },
+    "windows":{
+        "low": 5,
+        "high": 30
+    },
+    "pfcs":[
+        0.0, 1.0
+    ],
+    "ccs":[
+        "dctcp"
+    ],
+    "params": [
+        {
+            "low": 5.0,
+            "high": 20.0
+        },
+        {
+            "low": 0.0,
+            "high": 0.0
+        }
+    ]
+}

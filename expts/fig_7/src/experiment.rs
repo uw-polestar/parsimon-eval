@@ -40,7 +40,6 @@ use crate::ns3link::Ns3Link;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
-// const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 31_647_250; //11_351_649, 31_647_250;
@@ -89,7 +88,6 @@ impl Experiment {
             .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
-            // .window(WINDOW)
             .base_rtt(BASE_RTT)
             .flows(flows)
             .bfsz(mix.bfsz)
