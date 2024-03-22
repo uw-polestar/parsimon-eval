@@ -7,7 +7,6 @@ use std::{
 };
 
 use anyhow::Ok;
-// use ns3_frontend::Ns3Simulation;
 use parsimon::core::{
     network::{Flow, FlowId, Network, NodeId},
     opts::SimOpts,
@@ -31,23 +30,18 @@ use crate::mix::{Mix, MixId};
 
 use rand::distributions::WeightedIndex;
 use rustc_hash::{FxHashMap,FxHashSet};
-use crate::mlsys::{
-    Mlsys,
-    ns3_clean,
-};
+use crate::mlsys::Mlsys;
 use crate::ns3::Ns3Simulation;
 use crate::ns3link::Ns3Link;
 
 const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
-// const WINDOW: Bytes = Bytes::new(18_000);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 31_647_250; //11_351_649, 31_647_250;
+const NR_FLOWS: usize = 15_872_306; //11_351_649, 31_647_250;
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 
 const MLSYS_PATH: &str = "../../../clibs";
 const MODEL_SUFFIX: &str = "_e426";
@@ -89,7 +83,6 @@ impl Experiment {
             .data_dir(self.sim_dir(mix, sim)?)
             .nodes(cluster.nodes().cloned().collect::<Vec<_>>())
             .links(cluster.links().cloned().collect::<Vec<_>>())
-            // .window(WINDOW)
             .base_rtt(BASE_RTT)
             .flows(flows)
             .bfsz(mix.bfsz)
@@ -136,12 +129,12 @@ impl Experiment {
             Some((channel_map, path_map)) => (channel_map, path_map),
             None => panic!("Routes not available"),
         };
-
-        let mut path_to_flows_vec_sorted = path_to_flowid_map
-            .iter()
-            .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
-            .collect::<Vec<_>>();
-        path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
+        let path_to_flows_vec_sorted=path_to_flowid_map.iter().collect::<Vec<_>>();
+        // let mut path_to_flows_vec_sorted = path_to_flowid_map
+        //     .iter()
+        //     .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+        //     .collect::<Vec<_>>();
+        // path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
         let elapsed_read= start_read.elapsed().as_secs();
 
         let start_sample= Instant::now(); // timer start
@@ -232,7 +225,6 @@ impl Experiment {
                     .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
                     .flows(flows_remaining)
                     .seed(self.seed)
-                    // .input_percentiles(INPUT_PERCENTILES.to_vec())
                     .input_percentiles((1..=100).map(|x| x as f32 / 100.0).collect())
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
@@ -315,7 +307,6 @@ impl Experiment {
             .build();
         let sim_opts = SimOpts::builder()
             .link_sim(linksim)
-            .workers(self.workers.clone())
             .build();
         let network = network.into_delays(sim_opts)?;
         let mut rng = StdRng::seed_from_u64(self.seed);
@@ -364,16 +355,13 @@ impl Experiment {
         println!("Setup took {b} seconds");
         let sim_opts = SimOpts::builder()
             .link_sim(linksim)
-            .workers(self.workers.clone())
             .build();
         let network = network.into_delays(sim_opts)?;
         let a = Instant::now();
+        let mut rng = StdRng::seed_from_u64(self.seed);
         let records: Vec<_> = flows
-            .par_iter()
-            .enumerate()
-            .filter_map(|(i, f)| {
-                let seed = self.seed + i as u64;
-                let mut rng = StdRng::seed_from_u64(seed + i as u64);
+            .iter()
+            .filter_map(|f| {
                 network
                     .slowdown(f.size, (f.src, f.dst), &mut rng)
                     .map(|slowdown| Record {
@@ -391,7 +379,6 @@ impl Experiment {
         
         let elapsed_secs = start.elapsed().as_secs(); // timer end
         self.put_elapsed(mix, sim, elapsed_secs)?;
-        
         Ok(())
     }
 
@@ -409,22 +396,18 @@ impl Experiment {
         let nr_clusters = network.clusters().len();
         let frac = nr_clusters as f64 / (links.len() * 2) as f64;
         let linksim = MinimLink::builder()
-            // .window(WINDOW)
             .window(Bytes::new(mix.window))
             .dctcp_gain(DCTCP_GAIN)
             .dctcp_ai(DCTCP_AI)
             .build();
         let sim_opts = SimOpts::builder()
             .link_sim(linksim)
-            .workers(self.workers.clone())
             .build();
         let network = network.into_delays(sim_opts)?;
+        let mut rng = StdRng::seed_from_u64(self.seed);
         let records: Vec<_> = flows
-            .par_iter()
-            .enumerate()
-            .filter_map(|(i, f)| {
-                let seed = self.seed + i as u64;
-                let mut rng = StdRng::seed_from_u64(seed + i as u64);
+            .iter()
+            .filter_map(|f| {
                 network
                     .slowdown(f.size, (f.src, f.dst), &mut rng)
                     .map(|slowdown| Record {
