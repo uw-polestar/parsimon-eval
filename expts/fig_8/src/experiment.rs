@@ -48,7 +48,7 @@ const NR_FLOWS: usize = 10_000_000;
 // const NR_FLOWS: usize = 10;
 
 const MLSYS_PATH: &str = "../../../clibs";
-const MODEL_SUFFIX: &str = "_e426";
+const MODEL_SUFFIX: &str = "";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
