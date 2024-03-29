@@ -437,25 +437,12 @@ impl Experiment {
             None => panic!("Routes not available"),
         };
         
-        // // Collect lengths into a vector
-        // let mut lengths: Vec<usize> = path_to_flowid_map.iter()
-        // .map(|(_, value)| value.len())
-        // .collect();
-
-        // // Sort the vector to enable percentile calculation
-        // lengths.sort_unstable();
-
-        // // Calculate the 90th percentile index
-        // // Note: subtract 1 because vector indices start at 0
-        // let flows_on_path_threshold_idx = ((lengths.len() as f32) * 0.1).ceil() as usize - 1;
-        // let flows_on_path_threshold= lengths[flows_on_path_threshold_idx];
-        // println!("flows_on_path_threshold: {}", flows_on_path_threshold);
-        
-        let mut path_to_flows_vec_sorted = path_to_flowid_map
-            .iter()
-            .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
-            .collect::<Vec<_>>();
-        path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
+        let path_to_flows_vec_sorted=path_to_flowid_map.iter().collect::<Vec<_>>();
+        // let mut path_to_flows_vec_sorted = path_to_flowid_map
+        //     .iter()
+        //     .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+        //     .collect::<Vec<_>>();
+        // path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
         let elapsed_read= start_read.elapsed().as_secs();
 
         let start_sample= Instant::now(); // timer start
@@ -899,7 +886,7 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::Mlsys => "mlsys-new_e426_s1",
+            SimKind::Mlsys => "mlsys",
         };
         write!(f, "{}", s)
     }
