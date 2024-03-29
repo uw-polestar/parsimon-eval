@@ -1,7 +1,6 @@
 **/target/
 **/data/
-**/data_2m/
-**/data_4m/
-**/data_test/
+**/data_dctcp/
+**/data_hpcc/
 **/__pycache__/
 **/deprecated/

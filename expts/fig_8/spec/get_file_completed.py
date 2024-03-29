@@ -17,7 +17,7 @@ def find_large_files(json_file,shard_seed,dir_str=''):
     for item_idx, item in enumerate(data):
         cc=item['cc']
         config_id=item['id']
-        file_name=f"../data/{config_id}/ns3-config/{shard_seed}/fct_topology_flows_{cc_dict[cc]}.txt"
+        file_name=f"../data{dir_str}/{config_id}/ns3-config/{shard_seed}/fct_topology_flows_{cc_dict[cc]}.txt"
         file_list.append(file_name)
     cc_cnt_dict=defaultdict(lambda:0)
     file_to_finished=[]
@@ -36,7 +36,7 @@ def find_large_files(json_file,shard_seed,dir_str=''):
             
                 # Convert bytes to megabytes
                 file_size_in_mb = file_size / (1024 * 1024)
-                if not os.path.exists(f"../data/{config_id}/ns3-config{dir_str}/{shard_seed}/flows.txt"):
+                if not os.path.exists(f"../data{dir_str}/{config_id}/ns3-config/{shard_seed}/flows.txt"):
                     file_to_restart.append(data[item_idx])
                 else:
                     large_files.append((config_id, file_size_in_mb))
@@ -55,13 +55,17 @@ def find_large_files(json_file,shard_seed,dir_str=''):
 
 if __name__ == "__main__":
 
-    shard_seed=1
-    dir_str=""
-    json_file=f'all_counterfactual.mix.json' 
+    # shard_seed=1
+    # dir_str=""
+    # json_file=f'all_counterfactual.mix.json' 
     
     # shard_seed=2
     # dir_str=""
     # json_file = f'all_dctcp.mix.json' 
+    
+    shard_seed=3
+    dir_str="_dctcp"
+    json_file=f'all_counterfactual{dir_str}.mix.json' 
     
     # Find large files
     large_files = find_large_files(json_file,shard_seed=shard_seed,dir_str=dir_str)
