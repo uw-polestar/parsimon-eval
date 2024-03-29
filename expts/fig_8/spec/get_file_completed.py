@@ -67,6 +67,10 @@ if __name__ == "__main__":
     dir_str="_dctcp"
     json_file=f'all_counterfactual{dir_str}.mix.json' 
     
+    # shard_seed=4
+    # dir_str="_hpcc"
+    # json_file=f'all_counterfactual{dir_str}.mix.json' 
+    
     # Find large files
     large_files = find_large_files(json_file,shard_seed=shard_seed,dir_str=dir_str)
     print(f"{len(large_files)} large files found")
