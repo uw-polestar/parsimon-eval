@@ -1,19 +1,19 @@
 {
     "spatials": [
-        "../../workload/spatials/cluster_a_2_16.json"
+        "../../workload/spatials/cluster_b_2_16.json"
     ],
     "size_dists": [
-        "../../workload/distributions/facebook/hadoop-all.txt"
+        "../../workload/distributions/facebook/webserver-all.txt"
     ],
     "lognorm_sigmas": [
         2.0
     ],
     "max_loads": {
-        "low": 0.50,
-        "high": 0.50
+        "low": 0.60,
+        "high": 0.60
     },
     "clusters": [
-        "spec/cluster_2_to_1.json"
+        "spec/cluster_1_to_1.json"
     ],
     "bfszs":{
         "low": 40,

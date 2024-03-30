@@ -63,9 +63,9 @@ if __name__ == "__main__":
     # dir_str=""
     # json_file = f'all_dctcp.mix.json' 
     
-    shard_seed=3
+    shard_seed=4
     dir_str="_dctcp"
-    json_file=f'all_counterfactual{dir_str}.mix.json' 
+    json_file=f'all_counterfactual{dir_str}.mix_4.json' 
     
     # shard_seed=4
     # dir_str="_hpcc"

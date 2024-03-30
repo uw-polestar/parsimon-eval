@@ -9,15 +9,15 @@
         2.0
     ],
     "max_loads": {
-        "low": 0.50,
-        "high": 0.50
+        "low": 0.35,
+        "high": 0.35
     },
     "clusters": [
         "spec/cluster_2_to_1.json"
     ],
     "bfszs":{
-        "low": 40,
-        "high": 40
+        "low": 20,
+        "high": 20
     },
     "windows":{
         "low": 15,
