@@ -22,6 +22,7 @@ impl MixSpace {
         (0..count)
             .map(|i| {
                 let param_id = rng_2.gen_range(0..self.ccs.len()) as usize;
+                // let param_id=2;
                 Mix {
                 id: i,
                 param_id:param_seed,
