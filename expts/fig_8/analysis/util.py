@@ -176,6 +176,7 @@ def plot_scatter(
     ylim=None,
     ylim_bottom=None,
     xlim=None,
+    xlim_bottom=None,
     fontsize=15,
     legend_font=15,
     loc=2,
@@ -227,6 +228,8 @@ def plot_scatter(
         plt.ylim(bottom=ylim_bottom)
     if xlim:
         plt.xlim(right=xlim)
+    if xlim_bottom:
+        plt.xlim(left=xlim_bottom)
     plt.yticks(fontsize=_fontsize)
     plt.xticks(fontsize=_fontsize)
     if rotate_xaxis:

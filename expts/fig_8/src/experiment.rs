@@ -499,7 +499,6 @@ impl Experiment {
                         path_length += 1;
                     }
                 }
-                // assert_eq!(path_length, path.len());
 
                 // get flows for a specific path
                 let mut flows_remaining: Vec<Flow> = flow_ids_in_f_prime

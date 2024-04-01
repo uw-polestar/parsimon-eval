@@ -2,5 +2,8 @@
 **/data/
 **/data_dctcp/
 **/data_hpcc/
+**/data_window/
+**/data_bfsz/
 **/__pycache__/
 **/deprecated/
+run_rm.sh
