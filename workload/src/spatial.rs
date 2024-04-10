@@ -2,7 +2,7 @@ use std::{ops::AddAssign, path::Path};
 
 use crate::fabric::Cluster;
 use parsimon::core::network::NodeId;
-use rand::{prelude::*, Rng};
+use rand::prelude::*;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::entry::Entry;

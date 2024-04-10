@@ -236,7 +236,7 @@ mod tests {
     use parsimon::core::network::topology::Topology;
     use parsimon::core::routing::BfsRoutes;
 
-    use crate::{fabric::Cluster, testing::MEDIUM_CLUSTER};
+    use crate::testing::MEDIUM_CLUSTER;
 
     use super::*;
 

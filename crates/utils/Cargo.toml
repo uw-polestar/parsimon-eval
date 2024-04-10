@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = { workspace = true }
-ordered-float = "3.1.0"
+ordered-float = "4.2.0"
 parsimon = { workspace = true }
 rand = { workspace = true }
 thiserror = { workspace = true }
