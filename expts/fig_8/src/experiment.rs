@@ -114,12 +114,13 @@ impl Experiment {
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         let loads = network.link_loads().collect::<Vec<_>>();
-        let linksim = Ns3Link::builder()
-            .root_dir(self.sim_dir(mix, SimKind::Pmn)?)
-            .ns3_dir(NS3_DIR)
-            .window(WINDOW)
-            .base_rtt(BASE_RTT)
-            .build();
+        let linksim =
+            Ns3Link::builder()
+                .root_dir(self.sim_dir(mix, SimKind::Pmn)?)
+                .ns3_dir(NS3_DIR)
+                .window(WINDOW)
+                .base_rtt(BASE_RTT)
+                .build();
         let sim_opts = SimOpts::builder().link_sim(linksim).build();
         let network = network.into_delays(sim_opts)?;
         let mut rng = StdRng::seed_from_u64(self.seed);
@@ -240,15 +241,16 @@ impl Experiment {
         let spatial: SpatialData = serde_json::from_str(&fs::read_to_string(&mix.spatial)?)?;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let size_dist = utils::read_ecdf(&mix.size_dist)?;
-        let flowgen = FlowGenerator::builder()
-            .spatial_data(spatial)
-            .cluster(cluster)
-            .size_dist(size_dist)
-            .lognorm_sigma(mix.lognorm_sigma)
-            .max_load(mix.max_load)
-            .stop_when(StopWhen::NrFlows(NR_FLOWS))
-            .seed(self.seed)
-            .build();
+        let flowgen =
+            FlowGenerator::builder()
+                .spatial_data(spatial)
+                .cluster(cluster)
+                .size_dist(size_dist)
+                .lognorm_sigma(mix.lognorm_sigma)
+                .max_load(mix.max_load)
+                .stop_when(StopWhen::NrFlows(NR_FLOWS))
+                .seed(self.seed)
+                .build();
         let flows = flowgen.generate();
         let s = serde_json::to_string(&flows)?;
         fs::write(&to, s)?;
