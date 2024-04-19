@@ -213,7 +213,7 @@ def plot_scatter(
             for j, (x_val, y_val) in enumerate(data):
                 plt.text(x_val + text_offset[j][0], y_val + text_offset[j][1], text_info[j], fontsize=fontsize-4)
                 
-    if enable_legend:            
+    if enable_legend and loc is not None:            
         legend_properties = {"size": legend_font}
         plt.legend(
             prop=legend_properties,

@@ -33,9 +33,11 @@ impl MixSpace {
                 cluster: self.clusters.choose(&mut rng).unwrap().clone(),
                 bfsz: rng_2.gen_range(self.bfszs.low..=self.bfszs.high),
                 window: (rng_2.gen_range(self.windows.low..=self.windows.high)*1000.0) as u64,
+                // window: ((self.windows.low + i as f64) *1000.0) as u64,
                 enable_pfc: *self.pfcs.choose(&mut rng_2).unwrap(),
                 cc: self.ccs[param_id],
                 param_1: rng_2.gen_range(self.params[param_id*2].low..=self.params[param_id*2].high),
+                // param_1: self.params[param_id*2].low + i as f64,
                 param_2: rng_2.gen_range(self.params[param_id*2+1].low..=self.params[param_id*2+1].high),
             }
         })

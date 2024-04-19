@@ -1,0 +1,66 @@
+{
+    "spatials": [
+        "../../workload/spatials/cluster_c_2_16.json"
+    ],
+    "size_dists": [
+        "../../workload/distributions/facebook/webserver-all.txt"
+    ],
+    "lognorm_sigmas": [
+        2.0
+    ],
+    "max_loads": {
+        "low": 0.50,
+        "high": 0.50
+    },
+    "clusters": [
+        "spec/cluster_2_to_1.json"
+    ],
+    "bfszs":{
+        "low": 40,
+        "high": 40
+    },
+    "windows":{
+        "low": 20,
+        "high": 20
+    },
+    "pfcs":[
+        1.0
+    ],
+    "ccs":[
+        "dctcp", "dcqcn", "hp","timely"
+    ],
+    "params": [
+        {
+            "low": 5.0,
+            "high": 20.0
+        },
+        {
+            "low": 0.0,
+            "high": 0.0
+        },
+        {
+            "low": 20.0,
+            "high": 50.0
+        },
+        {
+            "low": 50.0,
+            "high": 100.0
+        },
+        {
+            "low": 70.0,
+            "high": 95.0
+        },
+        {
+            "low": 50.0,
+            "high": 50.0
+        },
+        {
+            "low": 40.0,
+            "high": 60.0
+        },
+        {
+            "low": 100.0,
+            "high": 150.0
+        }
+    ]
+}

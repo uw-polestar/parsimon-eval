@@ -96,7 +96,6 @@ impl Mlsys {
         let script_path = script_path.display();
 
         // Build the command that runs the C script.
-        // let cc = self.cc_kind.as_str();
         let n_hosts = n_hosts;
         let model_suffix = self.model_suffix.clone();
         let bfsz = self.bfsz;
@@ -127,16 +126,6 @@ impl Mlsys {
         let mut result = Vec::with_capacity(input_sets);
         for set_index in 0..input_sets {
             let mut input_set = input_values[set_index].clone();
-            assert_eq!(input_set.len(), self.input_percentiles.len());
-            for i in 1..input_set.len() {
-                if input_set[i] < input_set[i - 1] {
-                    input_set[i]=input_set[i - 1];
-                }
-            }
-
-            let val_comp=(1.0-input_set[0]).max(0.0);
-            input_set=input_set.iter().map(|&x| x+val_comp).collect::<Vec<f32>>();
-
             let set_result=input_set;
             result.push(set_result);
         }
@@ -145,7 +134,6 @@ impl Mlsys {
     
     fn parse_mlsys_record(&self, s: &str) -> Result<Vec<Vec<f32>>, ParseMlsysError> {
         // sip, dip, sport, dport, size (B), start_time, fct (ns), standalone_fct (ns)
-        
         let mut fields = s.split_whitespace().map(|x| x.parse::<f32>().unwrap()).collect::<Vec<f32>>();
         let nr_fields = fields.len();
         let nr_mlsys_fields=self.nr_size_buckets*(self.input_percentiles.len());
@@ -201,19 +189,6 @@ fn translate_flows(flows: &[Flow]) -> String {
             )
         }))
         .collect::<Vec<_>>();
-    // let lines = flows
-    //     .iter()
-    //     .map(|f| {
-    //         format!(
-    //             "{} {} {} 3 100 {} {}",
-    //             f.id,
-    //             f.src,
-    //             f.dst,
-    //             f.size.into_u64(),
-    //             f.start.into_u64() as f64 / 1e9 // in seconds, for some reason
-    //         )
-    //     })
-    //     .collect::<Vec<_>>();
     lines.join("\n")
 }
 
