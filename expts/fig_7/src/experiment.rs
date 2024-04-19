@@ -38,13 +38,13 @@ const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Cont
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 15_872_306; //11_351_649, 31_647_250;
+const NR_FLOWS: usize = 15_872_306; //11_351_649, 15_872_306, 31_647_250;
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
 
 const MLSYS_PATH: &str = "../../../clibs";
-const MODEL_SUFFIX: &str = "_e426";
+const MODEL_SUFFIX: &str = "_large";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -129,10 +129,11 @@ impl Experiment {
             Some((channel_map, path_map)) => (channel_map, path_map),
             None => panic!("Routes not available"),
         };
+
         let path_to_flows_vec_sorted=path_to_flowid_map.iter().collect::<Vec<_>>();
         // let mut path_to_flows_vec_sorted = path_to_flowid_map
         //     .iter()
-        //     .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
+        //     .filter(|(_, value)| value.len() >= 1)
         //     .collect::<Vec<_>>();
         // path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
         let elapsed_read= start_read.elapsed().as_secs();
@@ -191,7 +192,6 @@ impl Experiment {
                         path_length += 1;
                     }
                 }
-                // assert_eq!(path_length, path.len());
 
                 // get flows for a specific path
                 let mut flows_remaining: Vec<Flow> = flow_ids_in_f_prime
@@ -644,7 +644,7 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::Mlsys => "mlsys-new_e426",
+            SimKind::Mlsys => "mlsys",
         };
         write!(f, "{}", s)
     }
