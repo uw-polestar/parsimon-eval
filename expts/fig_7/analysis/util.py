@@ -19,7 +19,7 @@ def plot_cdf(
     file_name,
     linelabels,
     x_label,
-    y_label="CDF",
+    y_label="CDF (%)",
     log_switch=False,
     rotate_xaxis=False,
     ylim_low=0,
@@ -38,7 +38,7 @@ def plot_cdf(
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
 
-    plt.axhline(0.99, color='k', linewidth=3, linestyle='--',zorder=0)
+    plt.axhline(99, color='k', linewidth=3, linestyle='--',zorder=0)
     
     ax.tick_params(axis="y", direction="in")
     ax.tick_params(axis="x", direction="in")
@@ -69,7 +69,7 @@ def plot_cdf(
 
         # Find the cdf
         cdf = np.cumsum(counts)
-
+        cdf=100 * cdf / cdf[-1]
         # Plot the cdf
         if i < len(linelabels):
             plt.plot(
@@ -96,7 +96,7 @@ def plot_cdf(
         loc=loc,
     )
 
-    plt.ylim((ylim_low, 1))
+    plt.ylim((ylim_low, 100))
     if xlim_bottom:
         plt.xlim(left=xlim_bottom)
     if xlim:
