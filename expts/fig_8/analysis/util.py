@@ -28,7 +28,7 @@ def plot_cdf(
     file_name,
     linelabels,
     x_label,
-    y_label="CDF",
+    y_label="CDF (%)",
     log_switch=False,
     rotate_xaxis=False,
     ylim_low=0,
@@ -40,9 +40,10 @@ def plot_cdf(
     title=None,
     enable_abs=False,
     group_size=1,
+    color_list=color_list
 ):
     _fontsize = fontsize
-    fig = plt.figure(figsize=(5.2, 3))  # 2.5 inch for 1/3 double column width
+    fig = plt.figure(figsize=(5.2, 4))  # 2.5 inch for 1/3 double column width
     ax = fig.add_subplot(111)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
@@ -76,7 +77,7 @@ def plot_cdf(
 
         # Find the cdf
         cdf = np.cumsum(counts)
-
+        cdf=100 * cdf / cdf[-1]
         # Plot the cdf
         if i < len(linelabels):
             plt.plot(
@@ -103,7 +104,7 @@ def plot_cdf(
         loc=loc,
     )
 
-    plt.ylim((ylim_low, 1))
+    plt.ylim((ylim_low, 100))
     if xlim_bottom:
         plt.xlim(left=xlim_bottom)
     if xlim:
