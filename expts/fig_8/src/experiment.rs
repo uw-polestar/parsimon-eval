@@ -46,7 +46,8 @@ const OUTPUT_LEN: usize = 100;
 const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
-const MLSYS_PATH: &str = "../../../clibs";
+// const MLSYS_PATH: &str = "../../../clibs";
+const MLSYS_PATH: &str = "/data1/lichenni/projects/per-flow-sim/clibs";
 const MODEL_SUFFIX: &str = "";
 
 #[derive(Debug, clap::Parser)]
@@ -885,7 +886,7 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::Mlsys => "mlsys",
+            SimKind::Mlsys => "mlsys_perflow",
         };
         write!(f, "{}", s)
     }
