@@ -885,7 +885,7 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::Mlsys => "mlsys_perflow",
+            SimKind::Mlsys => "mlsys",
         };
         write!(f, "{}", s)
     }
