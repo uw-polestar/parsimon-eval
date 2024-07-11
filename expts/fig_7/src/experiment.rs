@@ -38,7 +38,7 @@ const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Cont
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 15_872_306; //11_351_649, 15_872_306, 31_647_250;
+const NR_FLOWS: usize = 20_000_000; //11_351_649, 15_872_306, 31_647_250;
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
@@ -342,8 +342,8 @@ impl Experiment {
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         // println!("Collecting link loads! Don't use perf results!");
-        // let loads = network.link_loads().collect::<Vec<_>>();
-        // self.put_loads(mix, sim, &loads)?;
+        let loads = network.link_loads().collect::<Vec<_>>();
+        self.put_loads(mix, sim, &loads)?;
         let linksim = MinimLink::builder()
             // .window(WINDOW)
             .dctcp_gain(DCTCP_GAIN)

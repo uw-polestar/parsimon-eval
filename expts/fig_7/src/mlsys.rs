@@ -126,6 +126,11 @@ impl Mlsys {
         let mut result = Vec::with_capacity(input_sets);
         for set_index in 0..input_sets {
             let mut input_set = input_values[set_index].clone();
+            for i in 1..input_set.len() {
+                if input_set[i] < input_set[i - 1] {
+                    input_set[i]=input_set[i - 1];
+                }
+            }
             let set_result=input_set;
             result.push(set_result);
         }
