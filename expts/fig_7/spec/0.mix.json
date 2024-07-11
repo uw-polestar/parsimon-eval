@@ -1,9 +1,9 @@
 {
-    "id": 2,
+    "id": 0,
     "spatial": "../../workload/spatials/cluster_b.json",
     "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
     "lognorm_sigma": 2.0,
-    "max_load": 0.7,
+    "max_load": 0.5,
     "cluster": "../../workload/topologies/cluster_b_2_to_1.json",
     "duration": 5,
     "param_id": 0,

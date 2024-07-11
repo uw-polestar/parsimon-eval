@@ -6,4 +6,5 @@
 **/data_bfsz/
 **/__pycache__/
 **/deprecated/
+**/data_ori/
 run_rm.sh
