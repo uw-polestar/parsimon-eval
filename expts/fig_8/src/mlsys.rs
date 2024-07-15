@@ -105,7 +105,7 @@ impl Mlsys {
         let param_1 = self.param_1;
         let param_2 = self.param_2;
         let c_command = format!(
-            "run ../ckpts/model_llama{model_suffix}.bin ../ckpts/model_mlp{model_suffix}.bin {data_dir} -b 10 -e 576 -n {n_hosts} -t 1 -f {bfsz} -k {window} -p {enable_pfc} -c {cc} -x {param_1} -y {param_2} > {data_dir}/output.txt 2>&1"
+            "./run ../ckpts/model_llama{model_suffix}.bin ../ckpts/model_mlp{model_suffix}.bin {data_dir} -b 10 -e 576 -n {n_hosts} -t 1 -f {bfsz} -k {window} -p {enable_pfc} -c {cc} -x {param_1} -y {param_2} > {data_dir}/output.txt 2>&1"
         );
        
         // println!("{}", c_command);
@@ -125,7 +125,7 @@ impl Mlsys {
         assert!(input_sets == self.nr_size_buckets);
         let mut result = Vec::with_capacity(input_sets);
         for set_index in 0..input_sets {
-            let mut input_set = input_values[set_index].clone();
+            let input_set = input_values[set_index].clone();
             assert_eq!(input_set.len(), self.input_percentiles.len());
             let set_result=input_set;
             result.push(set_result);
