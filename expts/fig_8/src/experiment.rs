@@ -43,7 +43,6 @@ const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const FLOWS_ON_PATH_THRESHOLD: usize = 1;
 const NR_FLOWS: usize = 10_000_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
@@ -206,11 +205,6 @@ impl Experiment {
         };
 
         let path_to_flows_vec_sorted=path_to_flowid_map.iter().collect::<Vec<_>>();
-        // let mut path_to_flows_vec_sorted = path_to_flowid_map
-        //     .iter()
-        //     .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
-        //     .collect::<Vec<_>>();
-        // path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
         let elapsed_read= start_read.elapsed().as_secs();
 
         let start_sample= Instant::now(); // timer start
@@ -438,11 +432,6 @@ impl Experiment {
         };
         
         let path_to_flows_vec_sorted=path_to_flowid_map.iter().collect::<Vec<_>>();
-        // let mut path_to_flows_vec_sorted = path_to_flowid_map
-        //     .iter()
-        //     .filter(|(_, value)| value.len() >= FLOWS_ON_PATH_THRESHOLD)
-        //     .collect::<Vec<_>>();
-        // path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
         let elapsed_read= start_read.elapsed().as_secs();
 
         let start_sample= Instant::now(); // timer start
