@@ -43,7 +43,7 @@ const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const NR_FLOWS: usize = 10_000_000;
+const NR_FLOWS: usize = 2_000_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
 const MODEL_SUFFIX: &str = "";
@@ -592,7 +592,7 @@ impl Experiment {
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
 
-        let start_1 = Instant::now(); // timer start
+        let start = Instant::now(); // timer start
         let start_read = Instant::now(); // timer start
         // construct SimNetwork
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
@@ -606,66 +606,74 @@ impl Experiment {
             Some((channel_map, path_map)) => (channel_map, path_map),
             None => panic!("Routes not available"),
         };
+        let elapsed_read= start_read.elapsed().as_secs();
+
         let mut channel_to_flowid_map_sorted = channel_to_flowid_map
             .iter()
             .collect::<Vec<_>>();
         channel_to_flowid_map_sorted.sort_by(|x, y| x.0.cmp(&y.0));
+        println!("Channel to FlowID Map length: {}", channel_to_flowid_map_sorted.len());
+
         let mut path_to_flowid_map_sorted = path_to_flowid_map
             .iter()
             .collect::<Vec<_>>();
         path_to_flowid_map_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
         println!("Path to FlowID Map length: {}", path_to_flowid_map_sorted.len());
        
-        let elapsed_read= start_read.elapsed().as_secs();
-        let mut results_str_channel = String::new();
         
+        let mut results_str_channel = String::new();
         for (index, (nodes, hash_set)) in channel_to_flowid_map_sorted.iter().enumerate() {
-            results_str_channel.push_str(&format!("Link-{}, ", index));
+            results_str_channel.push_str(&format!("{},", index));
             
             // Append nodes
-            results_str_channel.push_str("[");
-            results_str_channel.push_str(&format!("({}, {}) ", nodes.0, nodes.1));
+            results_str_channel.push_str(&format!("{},{},{}\n", nodes.0, nodes.1, hash_set.len()));
             
             // Append hash set
-            results_str_channel.push_str("{");
             let mut results_vec: Vec<_> = hash_set.iter().collect();
             results_vec.sort(); // Sort the vector
             for value in results_vec.iter() {
-                results_str_channel.push_str(&format!("{}, ", value));
+                results_str_channel.push_str(&format!("{},", value));
             }
-            results_str_channel.push_str("}\n");
         }
 
         let mut results_str_path = String::new();
         
         for (index, (nodes, hash_set)) in path_to_flowid_map_sorted.iter().enumerate() {
-            results_str_path.push_str(&format!("Path-{}, ", index));
+            results_str_path.push_str(&format!("{},{},{}\n", index,nodes.len(),hash_set.len()));
             
             // Append nodes
-            results_str_path.push_str("[");
             for (node_a, node_b) in nodes.iter() {
-                results_str_path.push_str(&format!("({}, {}) ", node_a, node_b));
+                results_str_path.push_str(&format!("{},{},", node_a, node_b));
             }
-            results_str_path.push_str("], ");
             
             // Append hash set
-            results_str_path.push_str("{");
             let mut results_vec: Vec<_> = hash_set.iter().collect();
             results_vec.sort(); // Sort the vector
             for value in results_vec.iter() {
-                results_str_path.push_str(&format!("{}, ", value));
+                results_str_path.push_str(&format!("{},", value));
             }
-            results_str_path.push_str("}\n");
         }
         self.put_path_with_idx(
             mix,
             sim,
             0,
             format!(
-                "{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_to_flowid_map.len(),results_str_channel,results_str_path
+                "{}\n{}", channel_to_flowid_map_sorted.len(),results_str_channel
             ),
         )
         .unwrap();
+
+        self.put_path_with_idx(
+            mix,
+            sim,
+            1,
+            format!(
+                "{}\n{}",path_to_flowid_map_sorted.len(),results_str_path
+            ),
+        )
+        .unwrap();
+        let elapsed = start.elapsed().as_secs(); // timer end
+        println!("{}: {}, {}", mix.id, elapsed, elapsed_read);
         Ok(())
     }
 
