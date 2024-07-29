@@ -79,6 +79,12 @@ impl Experiment {
                     self.run_mlsys(mix)?;
                 }
             }
+            
+            SimKind::MlsysTest => {
+                for mix in &mixes {
+                    self.run_mlsys_test(mix)?;
+                }
+            }
 
             SimKind::Ns3Path => {
                 for mix in &mixes {
@@ -581,7 +587,88 @@ impl Experiment {
         Ok(())
     }
 
-    
+    fn run_mlsys_test(&self, mix: &Mix) -> anyhow::Result<()> {
+        let sim = SimKind::MlsysTest;
+        let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
+        let flows = self.flows(mix)?;
+
+        let start_1 = Instant::now(); // timer start
+        let start_read = Instant::now(); // timer start
+        // construct SimNetwork
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations_path(flows.clone());
+        let (channel_to_flowid_map, path_to_flowid_map): (
+            &FxHashMap<(NodeId, NodeId), FxHashSet<FlowId>>,
+            &FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>>
+        ) = match network.get_routes() {
+            Some((channel_map, path_map)) => (channel_map, path_map),
+            None => panic!("Routes not available"),
+        };
+        let mut channel_to_flowid_map_sorted = channel_to_flowid_map
+            .iter()
+            .collect::<Vec<_>>();
+        channel_to_flowid_map_sorted.sort_by(|x, y| x.0.cmp(&y.0));
+        let mut path_to_flowid_map_sorted = path_to_flowid_map
+            .iter()
+            .collect::<Vec<_>>();
+        path_to_flowid_map_sorted.sort_by(|x, y| y.1.len().cmp(&x.1.len()).then(x.0.cmp(&y.0)));
+        println!("Path to FlowID Map length: {}", path_to_flowid_map_sorted.len());
+       
+        let elapsed_read= start_read.elapsed().as_secs();
+        let mut results_str_channel = String::new();
+        
+        for (index, (nodes, hash_set)) in channel_to_flowid_map_sorted.iter().enumerate() {
+            results_str_channel.push_str(&format!("Link-{}, ", index));
+            
+            // Append nodes
+            results_str_channel.push_str("[");
+            results_str_channel.push_str(&format!("({}, {}) ", nodes.0, nodes.1));
+            
+            // Append hash set
+            results_str_channel.push_str("{");
+            let mut results_vec: Vec<_> = hash_set.iter().collect();
+            results_vec.sort(); // Sort the vector
+            for value in results_vec.iter() {
+                results_str_channel.push_str(&format!("{}, ", value));
+            }
+            results_str_channel.push_str("}\n");
+        }
+
+        let mut results_str_path = String::new();
+        
+        for (index, (nodes, hash_set)) in path_to_flowid_map_sorted.iter().enumerate() {
+            results_str_path.push_str(&format!("Path-{}, ", index));
+            
+            // Append nodes
+            results_str_path.push_str("[");
+            for (node_a, node_b) in nodes.iter() {
+                results_str_path.push_str(&format!("({}, {}) ", node_a, node_b));
+            }
+            results_str_path.push_str("], ");
+            
+            // Append hash set
+            results_str_path.push_str("{");
+            let mut results_vec: Vec<_> = hash_set.iter().collect();
+            results_vec.sort(); // Sort the vector
+            for value in results_vec.iter() {
+                results_str_path.push_str(&format!("{}, ", value));
+            }
+            results_str_path.push_str("}\n");
+        }
+        self.put_path_with_idx(
+            mix,
+            sim,
+            0,
+            format!(
+                "{},{}\n{}\n{}", NR_PATHS_SAMPLED,path_to_flowid_map.len(),results_str_channel,results_str_path
+            ),
+        )
+        .unwrap();
+        Ok(())
+    }
+
     fn run_pmn_mc(&self, mix: &Mix) -> anyhow::Result<()> {
         let sim = SimKind::PmnMC;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
@@ -863,6 +950,7 @@ pub enum SimKind {
     PmnM,
     PmnMC,
     Mlsys,
+    MlsysTest
 }
 
 impl fmt::Display for SimKind {
@@ -875,6 +963,7 @@ impl fmt::Display for SimKind {
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
             SimKind::Mlsys => "mlsys",
+            SimKind::MlsysTest => "mlsys-test",
         };
         write!(f, "{}", s)
     }
