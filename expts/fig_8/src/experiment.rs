@@ -35,7 +35,8 @@ use crate::mlsys::{
 use crate::ns3::Ns3Simulation;
 use crate::ns3link::Ns3Link;
 
-const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
+const NS3_DIR: &str = "../../../High-Precision-Congestion-Control/ns-3.39";
+
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
