@@ -92,10 +92,10 @@ impl Ns3Simulation {
         let data_dir=self.data_dir.to_str().unwrap();
         let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
         // println!("rm {data_dir}/{fct_file}");
-        let _output = Command::new("sh")
-            .arg("-c")
-            .arg(format!("rm {data_dir}/{fct_file}"))
-            .output()?;
+        // let _output = Command::new("sh")
+        //     .arg("-c")
+        //     .arg(format!("rm {data_dir}/{fct_file}"))
+        //     .output()?;
         Ok(records)
     }
 
@@ -123,8 +123,8 @@ impl Ns3Simulation {
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
-            .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
-            // .arg(format!("cd {ns3_dir};{python_command}"))
+            // .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
+            .arg(format!("cd {ns3_dir};{python_command}"))
             .output()?;
         Ok(())
     }

@@ -635,6 +635,7 @@ impl Experiment {
             for value in results_vec.iter() {
                 results_str_channel.push_str(&format!("{},", value));
             }
+            results_str_channel.push_str("\n");
         }
 
         let mut results_str_path = String::new();
@@ -653,6 +654,7 @@ impl Experiment {
             for value in results_vec.iter() {
                 results_str_path.push_str(&format!("{},", value));
             }
+            results_str_path.push_str("\n");
         }
         self.put_path_with_idx(
             mix,
