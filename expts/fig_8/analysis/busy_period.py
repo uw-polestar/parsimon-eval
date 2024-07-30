@@ -52,6 +52,8 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
     graph_id_new = 0  # Unique identifier for each graph
 
     for time, event, flow_id, links in events:
+        if flow_id % 1000 == 0:
+            print(f'Processing flow {flow_id}')
         if event == 'start':
             # Find all graphs involved with the new flow's links
             involved_graph_ids = set()
@@ -65,23 +67,20 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
             
             if involved_graph_ids:
                 for gid in involved_graph_ids:
-                    graph = active_graphs[gid]
+                    graph = active_graphs.pop(gid)
                     new_links.update(graph['active_links'])
                     new_flows.update(graph['active_flows'])
                     new_all_flows.update(graph['all_flows'])
-                    time=graph['start_time']
+                    time = graph['start_time']
                     
                     for link in graph['active_links']:
-                        del link_to_graph[link]
-                    del active_graphs[gid]
+                        link_to_graph[link]=graph_id_new
             
             for link in links:
                 new_links[link].add(flow_id)
+                link_to_graph[link] = graph_id_new
             new_flows.add(flow_id)
             new_all_flows.add(flow_id)
-            for link in new_links:
-                assert link not in link_to_graph, f"Link {link} already in a graph"
-                link_to_graph[link] = graph_id_new
             active_graphs[graph_id_new] = {
                 'active_links': new_links,
                 'active_flows': new_flows,
@@ -121,7 +120,8 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
 # Main function to run the analysis
 def main():
     root_dir = '../data_test/'  # Update with the path to your root directory
-    mix_list = [20, 179, 12]
+    # mix_list = [12, 20, 179]
+    mix_list = [12]
     for mix_id in mix_list:
         flow_info_file = f"{root_dir}{mix_id}/ns3-config/0/fct_topology_flows_dctcp.txt"
         link_info_file = f"{root_dir}{mix_id}/mlsys-test/path_0.txt"
