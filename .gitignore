@@ -8,4 +8,5 @@
 **/deprecated/
 **/data_ori/
 **/data_test/
+**/res/
 run_rm.sh
