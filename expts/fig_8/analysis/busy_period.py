@@ -49,7 +49,7 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
     events.sort()
 
     link_to_graph = {}  # Map to quickly find which graph a link belongs to
-    graph_id = 0  # Unique identifier for each graph
+    graph_id_new = 0  # Unique identifier for each graph
 
     for time, event, flow_id, links in events:
         if event == 'start':
@@ -59,50 +59,36 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
                 if link in link_to_graph:
                     involved_graph_ids.add(link_to_graph[link])
 
+            new_links = defaultdict(set)
+            new_flows = set()
+            new_all_flows = set()
+            
             if involved_graph_ids:
-                # Merge involved graphs and add the new flow
-                new_links = defaultdict(set)
-                new_flows = set()
-                new_all_flows = set()
-
                 for gid in involved_graph_ids:
                     graph = active_graphs[gid]
                     new_links.update(graph['active_links'])
                     new_flows.update(graph['active_flows'])
                     new_all_flows.update(graph['all_flows'])
+                    time=graph['start_time']
+                    
+                    for link in graph['active_links']:
+                        del link_to_graph[link]
                     del active_graphs[gid]
-
-                for link in links:
-                    new_links[link].add(flow_id)
-                    link_to_graph[link] = graph_id
-
-                new_flows.add(flow_id)
-                new_all_flows.add(flow_id)
-                active_graphs[graph_id] = {
-                    'active_links': new_links,
-                    'active_flows': new_flows,
-                    'all_flows': new_all_flows,
-                    'start_time': time
-                }
-                graph_id += 1
-
-            else:
-                # Create a new bipartite graph
-                new_links = defaultdict(set)
-                new_flows = set()
-                new_all_flows = set()
-                for link in links:
-                    new_links[link].add(flow_id)
-                    link_to_graph[link] = graph_id
-                new_flows.add(flow_id)
-                new_all_flows.add(flow_id)
-                active_graphs[graph_id] = {
-                    'active_links': new_links,
-                    'active_flows': new_flows,
-                    'all_flows': new_all_flows,
-                    'start_time': time
-                }
-                graph_id += 1
+            
+            for link in links:
+                new_links[link].add(flow_id)
+            new_flows.add(flow_id)
+            new_all_flows.add(flow_id)
+            for link in new_links:
+                assert link not in link_to_graph, f"Link {link} already in a graph"
+                link_to_graph[link] = graph_id_new
+            active_graphs[graph_id_new] = {
+                'active_links': new_links,
+                'active_flows': new_flows,
+                'all_flows': new_all_flows,
+                'start_time': time
+            }
+            graph_id_new += 1
 
         elif event == 'end':
             graph = None
@@ -114,15 +100,22 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
 
             if graph:
                 for link in links:
-                    graph['active_links'][link].remove(flow_id)
-                graph['active_flows'].remove(flow_id)
+                    if flow_id in graph['active_links'][link]:
+                        graph['active_links'][link].remove(flow_id)
+                    else:
+                        assert False, f"Flow {flow_id} not found in link {link} of graph {graph_id}"
+                if flow_id in graph['active_flows']:
+                    graph['active_flows'].remove(flow_id)
+                else:
+                    assert False, f"Flow {flow_id} not found in active flows of graph {graph_id}"
                 if not graph['active_flows']:  # If no active flows left in the graph
                     busy_periods.append((graph['start_time'], time, list(graph['active_links'].keys()), list(graph['all_flows'])))
                     del active_graphs[graph_id]
                     for link in graph['active_links']:
                         if link in link_to_graph:
                             del link_to_graph[link]
-
+            else:
+                assert False, f"Flow {flow_id} has no active graph"
     return busy_periods
 
 # Main function to run the analysis
@@ -135,7 +128,9 @@ def main():
 
         # Parse logs
         flows = parse_flow_info_log(flow_info_file)
+        print(f'Parsed {len(flows)} flows')
         link_flows = parse_link_info_log(link_info_file)
+        print(f'Parsed {len(link_flows)} links')
         
         # Assign links to flows
         flows = assign_links_to_flows(flows, link_flows)
