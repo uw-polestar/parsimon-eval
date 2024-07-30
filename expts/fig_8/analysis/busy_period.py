@@ -1,5 +1,7 @@
+import json
+import matplotlib.pyplot as plt
 from collections import defaultdict
-
+import os
 # Function to parse the flow info log
 def parse_flow_info_log(flow_info_file):
     flows = {}
@@ -61,28 +63,32 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
                 if link in link_to_graph:
                     involved_graph_ids.add(link_to_graph[link])
 
-            new_links = defaultdict(set)
+            new_active_links = defaultdict(set)
+            new_all_links = set()
             new_flows = set()
             new_all_flows = set()
             
             if involved_graph_ids:
                 for gid in involved_graph_ids:
                     graph = active_graphs.pop(gid)
-                    new_links.update(graph['active_links'])
+                    new_active_links.update(graph['active_links'])
+                    new_all_links.update(graph['all_links'])
                     new_flows.update(graph['active_flows'])
                     new_all_flows.update(graph['all_flows'])
                     time = graph['start_time']
                     
                     for link in graph['active_links']:
-                        link_to_graph[link]=graph_id_new
+                        link_to_graph[link] = graph_id_new
             
             for link in links:
-                new_links[link].add(flow_id)
+                new_active_links[link].add(flow_id)
+                new_all_links.add(link)
                 link_to_graph[link] = graph_id_new
             new_flows.add(flow_id)
             new_all_flows.add(flow_id)
             active_graphs[graph_id_new] = {
-                'active_links': new_links,
+                'active_links': new_active_links,
+                'all_links': new_all_links,
                 'active_flows': new_flows,
                 'all_flows': new_all_flows,
                 'start_time': time
@@ -101,6 +107,10 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
                 for link in links:
                     if flow_id in graph['active_links'][link]:
                         graph['active_links'][link].remove(flow_id)
+                        if not graph['active_links'][link]:
+                            del graph['active_links'][link]
+                            if link in link_to_graph:
+                                del link_to_graph[link]
                     else:
                         assert False, f"Flow {flow_id} not found in link {link} of graph {graph_id}"
                 if flow_id in graph['active_flows']:
@@ -108,7 +118,7 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
                 else:
                     assert False, f"Flow {flow_id} not found in active flows of graph {graph_id}"
                 if not graph['active_flows']:  # If no active flows left in the graph
-                    busy_periods.append((graph['start_time'], time, list(graph['active_links'].keys()), list(graph['all_flows'])))
+                    busy_periods.append((graph['start_time'], time, list(graph['all_links']), list(graph['all_flows'])))
                     del active_graphs[graph_id]
                     for link in graph['active_links']:
                         if link in link_to_graph:
@@ -117,32 +127,44 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
                 assert False, f"Flow {flow_id} has no active graph"
     return busy_periods
 
+
+# Function to save results to a file
+def save_results(filename, busy_periods):
+    with open(filename, 'w') as file:
+        json.dump(busy_periods, file)
+
+# Function to read results from a file
+def read_results(filename):
+    with open(filename, 'r') as file:
+        return json.load(file)
+
 # Main function to run the analysis
 def main():
     root_dir = '../data_test/'  # Update with the path to your root directory
-    # mix_list = [12, 20, 179]
-    mix_list = [12]
+    mix_list = [12, 20, 179]
     for mix_id in mix_list:
         flow_info_file = f"{root_dir}{mix_id}/ns3-config/0/fct_topology_flows_dctcp.txt"
         link_info_file = f"{root_dir}{mix_id}/mlsys-test/path_0.txt"
+        result_file = f"{root_dir}{mix_id}/busy_periods.json"
 
         # Parse logs
-        flows = parse_flow_info_log(flow_info_file)
-        print(f'Parsed {len(flows)} flows')
-        link_flows = parse_link_info_log(link_info_file)
-        print(f'Parsed {len(link_flows)} links')
+        if os.path.exists(result_file):
+            busy_periods = read_results(result_file)
+        else:
+            flows = parse_flow_info_log(flow_info_file)
+            print(f'Parsed {len(flows)} flows')
+            link_flows = parse_link_info_log(link_info_file)
+            print(f'Parsed {len(link_flows)} links')
+            
+            # Assign links to flows
+            flows = assign_links_to_flows(flows, link_flows)
+            
+            # Update bipartite graph and calculate busy periods
+            busy_periods = update_bipartite_graph_and_calculate_busy_periods(flows)
+            
+            # Save results
+            save_results(result_file, busy_periods)
+            print(f'Saved results to {result_file}')
         
-        # Assign links to flows
-        flows = assign_links_to_flows(flows, link_flows)
-        
-        # Update bipartite graph and calculate busy periods
-        busy_periods = update_bipartite_graph_and_calculate_busy_periods(flows)
-        
-        # Print results
-        for start_time, end_time, links, all_flows in busy_periods:
-            print(f'Busy Period: Start = {start_time}, End = {end_time}')
-            print(f'  Links: {list(links)}')
-            print(f'  Flows: {list(all_flows)}')
-
 if __name__ == '__main__':
     main()
