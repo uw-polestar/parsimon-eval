@@ -109,8 +109,7 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
                         graph['active_links'][link].remove(flow_id)
                         if not graph['active_links'][link]:
                             del graph['active_links'][link]
-                            if link in link_to_graph:
-                                del link_to_graph[link]
+                            del link_to_graph[link]
                     else:
                         assert False, f"Flow {flow_id} not found in link {link} of graph {graph_id}"
                 if flow_id in graph['active_flows']:
@@ -121,12 +120,10 @@ def update_bipartite_graph_and_calculate_busy_periods(flows):
                     busy_periods.append((graph['start_time'], time, list(graph['all_links']), list(graph['all_flows'])))
                     del active_graphs[graph_id]
                     for link in graph['active_links']:
-                        if link in link_to_graph:
-                            del link_to_graph[link]
+                        del link_to_graph[link]
             else:
                 assert False, f"Flow {flow_id} has no active graph"
     return busy_periods
-
 
 # Function to save results to a file
 def save_results(filename, busy_periods):
