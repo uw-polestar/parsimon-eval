@@ -44,7 +44,7 @@ const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const NR_FLOWS: usize = 100_000;
+const NR_FLOWS: usize = 2_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
 const MODEL_SUFFIX: &str = "";
@@ -118,7 +118,60 @@ impl Experiment {
         let sim = SimKind::Ns3;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+        
+        let start_read = Instant::now(); // timer start
+        // construct SimNetwork
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations_path(flows.clone());
+        let (channel_to_flowid_map, path_to_flowid_map): (
+            &FxHashMap<(NodeId, NodeId), FxHashSet<FlowId>>,
+            &FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>>
+        ) = match network.get_routes() {
+            Some((channel_map, path_map)) => (channel_map, path_map),
+            None => panic!("Routes not available"),
+        };
+        let elapsed_read= start_read.elapsed().as_secs();
 
+        println!("Path to FlowID Map length: {}", path_to_flowid_map.len());
+        // Step 1: Create a new HashMap to store FlowId -> Path mapping
+        let mut flowid_to_path_map: FxHashMap<FlowId, Vec<(NodeId, NodeId)>> = FxHashMap::default();
+        for (path, flow_ids) in path_to_flowid_map.iter() {
+            for flow_id in flow_ids {
+                // Insert the flow ID and corresponding path into the reverse map
+                flowid_to_path_map.insert(*flow_id, path.clone());
+            }
+        }
+        
+        let mut sorted_flowid_to_path_map: Vec<(&FlowId, &Vec<(NodeId, NodeId)>)> = flowid_to_path_map.iter().collect();
+        sorted_flowid_to_path_map.sort_by_key(|&(flow_id, _)| flow_id);
+        
+        // Step 3: Write the sorted FlowId -> Path mapping into a file
+        let mut results_str_flowid = String::new();
+        for (flow_id, path) in sorted_flowid_to_path_map.iter() {
+            results_str_flowid.push_str(&format!("{}:", flow_id));
+
+            // Append the nodes in the path
+            for (node_a, node_b) in path.iter() {
+                results_str_flowid.push_str(&format!("{}-{}", node_a, node_b));
+                results_str_flowid.push_str(",");
+            }
+            results_str_flowid.push_str("\n");
+        }
+
+        self.put_path_with_idx(
+            mix,
+            sim,
+            1,
+            format!(
+                "{}\n{}",
+                flowid_to_path_map.len(),
+                results_str_flowid
+            ),
+        )
+        .unwrap();
+    
         let start = Instant::now(); // timer start
         let ns3 = Ns3Simulation::builder()
             .ns3_dir(NS3_DIR)
