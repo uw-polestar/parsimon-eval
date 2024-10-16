@@ -115,9 +115,13 @@ impl Ns3Simulation {
         let param_1 = self.param_1;
         let param_2 = self.param_2;
         
+        // let python_command = format!(
+        //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
+        //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
+        //     > {data_dir}/output.txt 2>&1"
+        // );
         let python_command = format!(
-            "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
+            "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --shard_cc 0 --shard_total 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr 0 --enable_debug 0 --max_inflight_flows 0 \
             > {data_dir}/output.txt 2>&1"
         );
         // Execute the command in a child process.

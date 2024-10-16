@@ -1,11 +1,11 @@
 [
   {
     "id": 0,
-    "spatial": "../../workload/spatials/cluster_c_2_16.json",
+    "spatial": "../../workload/spatials/cluster_a_2_4.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.6546710160064348,
-    "cluster": "spec/cluster_1_to_1.json",
+    "cluster": "spec/cluster_1_to_1_m4.json",
     "param_id": 2,
     "bfsz": 40.0,
     "window": 16515,

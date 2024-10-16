@@ -1,0 +1,668 @@
+{
+  "planes": [
+    [
+      {
+        "id": 44,
+        "kind": "Switch"
+      },
+      {
+        "id": 45,
+        "kind": "Switch"
+      },
+      {
+        "id": 46,
+        "kind": "Switch"
+      },
+      {
+        "id": 47,
+        "kind": "Switch"
+      }
+    ],
+    [
+      {
+        "id": 48,
+        "kind": "Switch"
+      },
+      {
+        "id": 49,
+        "kind": "Switch"
+      },
+      {
+        "id": 50,
+        "kind": "Switch"
+      },
+      {
+        "id": 51,
+        "kind": "Switch"
+      }
+    ]
+  ],
+  "pods": [
+    {
+      "fabs": [
+        {
+          "id": 40,
+          "kind": "Switch"
+        },
+        {
+          "id": 41,
+          "kind": "Switch"
+        }
+      ],
+      "racks": [
+        {
+          "tor": {
+            "id": 32,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 0,
+              "kind": "Host"
+            },
+            {
+              "id": 1,
+              "kind": "Host"
+            },
+            {
+              "id": 2,
+              "kind": "Host"
+            },
+            {
+              "id": 3,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 0,
+              "b": 32,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 1,
+              "b": 32,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 2,
+              "b": 32,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 3,
+              "b": 32,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        },
+        {
+          "tor": {
+            "id": 33,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 4,
+              "kind": "Host"
+            },
+            {
+              "id": 5,
+              "kind": "Host"
+            },
+            {
+              "id": 6,
+              "kind": "Host"
+            },
+            {
+              "id": 7,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 4,
+              "b": 33,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 5,
+              "b": 33,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 6,
+              "b": 33,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 7,
+              "b": 33,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        },
+        {
+          "tor": {
+            "id": 34,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 8,
+              "kind": "Host"
+            },
+            {
+              "id": 9,
+              "kind": "Host"
+            },
+            {
+              "id": 10,
+              "kind": "Host"
+            },
+            {
+              "id": 11,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 8,
+              "b": 34,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 9,
+              "b": 34,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 10,
+              "b": 34,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 11,
+              "b": 34,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        },
+        {
+          "tor": {
+            "id": 35,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 12,
+              "kind": "Host"
+            },
+            {
+              "id": 13,
+              "kind": "Host"
+            },
+            {
+              "id": 14,
+              "kind": "Host"
+            },
+            {
+              "id": 15,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 12,
+              "b": 35,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 13,
+              "b": 35,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 14,
+              "b": 35,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 15,
+              "b": 35,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        }
+      ],
+      "tor2fab": [
+        {
+          "a": 32,
+          "b": 40,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 32,
+          "b": 41,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 33,
+          "b": 40,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 33,
+          "b": 41,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 34,
+          "b": 40,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 34,
+          "b": 41,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 35,
+          "b": 40,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 35,
+          "b": 41,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        }
+      ]
+    },
+    {
+      "fabs": [
+        {
+          "id": 42,
+          "kind": "Switch"
+        },
+        {
+          "id": 43,
+          "kind": "Switch"
+        }
+      ],
+      "racks": [
+        {
+          "tor": {
+            "id": 36,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 16,
+              "kind": "Host"
+            },
+            {
+              "id": 17,
+              "kind": "Host"
+            },
+            {
+              "id": 18,
+              "kind": "Host"
+            },
+            {
+              "id": 19,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 16,
+              "b": 36,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 17,
+              "b": 36,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 18,
+              "b": 36,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 19,
+              "b": 36,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        },
+        {
+          "tor": {
+            "id": 37,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 20,
+              "kind": "Host"
+            },
+            {
+              "id": 21,
+              "kind": "Host"
+            },
+            {
+              "id": 22,
+              "kind": "Host"
+            },
+            {
+              "id": 23,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 20,
+              "b": 37,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 21,
+              "b": 37,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 22,
+              "b": 37,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 23,
+              "b": 37,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        },
+        {
+          "tor": {
+            "id": 38,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 24,
+              "kind": "Host"
+            },
+            {
+              "id": 25,
+              "kind": "Host"
+            },
+            {
+              "id": 26,
+              "kind": "Host"
+            },
+            {
+              "id": 27,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 24,
+              "b": 38,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 25,
+              "b": 38,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 26,
+              "b": 38,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 27,
+              "b": 38,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        },
+        {
+          "tor": {
+            "id": 39,
+            "kind": "Switch"
+          },
+          "hosts": [
+            {
+              "id": 28,
+              "kind": "Host"
+            },
+            {
+              "id": 29,
+              "kind": "Host"
+            },
+            {
+              "id": 30,
+              "kind": "Host"
+            },
+            {
+              "id": 31,
+              "kind": "Host"
+            }
+          ],
+          "host2tor": [
+            {
+              "a": 28,
+              "b": 39,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 29,
+              "b": 39,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 30,
+              "b": 39,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            },
+            {
+              "a": 31,
+              "b": 39,
+              "bandwidth": 10000000000,
+              "delay": 1000
+            }
+          ]
+        }
+      ],
+      "tor2fab": [
+        {
+          "a": 36,
+          "b": 42,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 36,
+          "b": 43,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 37,
+          "b": 42,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 37,
+          "b": 43,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 38,
+          "b": 42,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 38,
+          "b": 43,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 39,
+          "b": 42,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        },
+        {
+          "a": 39,
+          "b": 43,
+          "bandwidth": 40000000000,
+          "delay": 1000
+        }
+      ]
+    }
+  ],
+  "fab2spine": [
+    {
+      "a": 40,
+      "b": 44,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 40,
+      "b": 45,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 40,
+      "b": 46,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 40,
+      "b": 47,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 41,
+      "b": 48,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 41,
+      "b": 49,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 41,
+      "b": 50,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 41,
+      "b": 51,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 42,
+      "b": 44,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 42,
+      "b": 45,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 42,
+      "b": 46,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 42,
+      "b": 47,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 43,
+      "b": 48,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 43,
+      "b": 49,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 43,
+      "b": 50,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    },
+    {
+      "a": 43,
+      "b": 51,
+      "bandwidth": 40000000000,
+      "delay": 1000
+    }
+  ]
+}
