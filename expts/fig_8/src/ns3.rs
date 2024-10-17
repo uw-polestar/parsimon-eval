@@ -130,7 +130,7 @@ impl Ns3Simulation {
         );
         
         let command_post = format!(
-            "python run_m4_post.py --shard 0 -p topology --output_dir {data_dir} --shard {mix_id} --shard_cc 0 --enable_tr 0 --max_inflight_flows 0 \
+            "python run_m4_post.py --shard 0 -p topology_flows --output_dir {data_dir} --shard {mix_id} --cc {cc} --shard_cc 0 --enable_tr 0 --max_inflight_flows 0 \
             > {data_dir}/log_post.txt 2>&1"
         );
         println!("{}", command_post);
@@ -139,7 +139,7 @@ impl Ns3Simulation {
             .arg("-c")
             // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
             // .arg(format!("cd {ns3_dir};{command_sim};{command_post}"))
-            .arg(format!("cd {ns3_dir};{command_post}"))
+            .arg(format!("cd {ns3_dir}; {command_post}"))
             .output()?;
         Ok(())
     }
