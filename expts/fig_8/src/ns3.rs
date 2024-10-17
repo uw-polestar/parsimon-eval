@@ -37,6 +37,9 @@ pub struct Ns3Simulation {
     /// The flows to simulate.
     /// PRECONDITION: `flows` must be sorted by start time
     pub flows: Vec<Flow>,
+    /// The mix id
+    #[builder(default = 0)]
+    pub mix_id: usize,
     /// The buffer size factor.
     #[builder(default = 30.0)]
     pub bfsz: f64,
@@ -89,8 +92,8 @@ impl Ns3Simulation {
             format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
-        let data_dir=self.data_dir.to_str().unwrap();
-        let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
+        // let data_dir=self.data_dir.to_str().unwrap();
+        // let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
         // println!("rm {data_dir}/{fct_file}");
         // let _output = Command::new("sh")
         //     .arg("-c")
@@ -108,27 +111,35 @@ impl Ns3Simulation {
 
         // Build the command that runs the Python script.
         let base_rtt = self.base_rtt.into_u64();
-        let bfsz = self.bfsz;
-        let window = self.window.into_u64();
+        let mix_id=self.mix_id;
+        // let bfsz = self.bfsz;
+        // let window = self.window.into_u64();
         let enable_pfc = self.enable_pfc;
         let cc = self.cc_kind.as_str();
         let param_1 = self.param_1;
         let param_2 = self.param_2;
         
-        // let python_command = format!(
+        // let command_sim = format!(
         //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
         //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
         //     > {data_dir}/output.txt 2>&1"
         // );
-        let python_command = format!(
+        let command_sim = format!(
             "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --shard_cc 0 --shard_total 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr 0 --enable_debug 0 --max_inflight_flows 0 \
-            > {data_dir}/output.txt 2>&1"
+            > {data_dir}/log_sim.txt 2>&1"
         );
+        
+        let command_post = format!(
+            "python run_m4_post.py --shard 0 -p topology --output_dir {data_dir} --shard {mix_id} --shard_cc 0 --enable_tr 0 --max_inflight_flows 0 \
+            > {data_dir}/log_post.txt 2>&1"
+        );
+        println!("{}", command_post);
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
-            // .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
-            .arg(format!("cd {ns3_dir};{python_command}"))
+            // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
+            // .arg(format!("cd {ns3_dir};{command_sim};{command_post}"))
+            .arg(format!("cd {ns3_dir};{command_post}"))
             .output()?;
         Ok(())
     }
