@@ -182,6 +182,7 @@ impl Experiment {
             .links(cluster.links().cloned().collect::<Vec<_>>())
             .base_rtt(BASE_RTT)
             .flows(flows)
+            .mix_id(mix.id)
             .bfsz(mix.bfsz)
             .window(Bytes::new(mix.window))
             .enable_pfc(mix.enable_pfc)
