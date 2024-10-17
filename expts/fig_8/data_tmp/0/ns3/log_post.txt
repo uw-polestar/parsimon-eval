@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/data1/lichenni/projects/per-flow-sim/High-Precision-Congestion-Control/ns-3.39/run_m4_post.py", line 447, in <module>
+    output_type = OutputType.BUSY_PERIOD
+NameError: name 'OutputType' is not defined
