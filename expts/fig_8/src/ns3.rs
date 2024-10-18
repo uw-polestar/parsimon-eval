@@ -138,8 +138,8 @@ impl Ns3Simulation {
         let _output = Command::new("sh")
             .arg("-c")
             // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
-            // .arg(format!("cd {ns3_dir};{command_sim};{command_post}"))
-            .arg(format!("cd {ns3_dir}; {command_post}"))
+            .arg(format!("cd {ns3_dir};{command_sim}"))
+            // .arg(format!("cd {ns3_dir}; {command_post}"))
             .output()?;
         Ok(())
     }
