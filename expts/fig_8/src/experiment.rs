@@ -44,7 +44,7 @@ const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const NR_FLOWS: usize = 200_000;
+const NR_FLOWS: usize = 100_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
 const MODEL_SUFFIX: &str = "";
@@ -119,13 +119,13 @@ impl Experiment {
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
         
-        let start_read = Instant::now(); // timer start
+        // let start_read = Instant::now(); // timer start
         // construct SimNetwork
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations_path(flows.clone());
-        let (channel_to_flowid_map, path_to_flowid_map): (
+        let (_channel_to_flowid_map, path_to_flowid_map): (
             &FxHashMap<(NodeId, NodeId), FxHashSet<FlowId>>,
             &FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>>
         ) = match network.get_routes() {
@@ -172,7 +172,8 @@ impl Experiment {
             ),
         )
         .unwrap();
-        let elapsed_read= start_read.elapsed().as_secs();
+        // let elapsed_read= start_read.elapsed().as_secs();
+        // println!("read time-{}: {}", mix.id,elapsed_read);
 
         let start = Instant::now(); // timer start
         let ns3 = Ns3Simulation::builder()
