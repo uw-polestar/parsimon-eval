@@ -121,7 +121,11 @@ impl FlowGenerator {
         };
         while cur < end && nr_flows < max_nr_flows {
             let (src, dst) = spatial_wk.sample(&mut rng);
-            let size = Bytes::new(size_dist.sample(&mut rng).round() as u64);
+            let mut raw_size=size_dist.sample(&mut rng).round() as u64;
+            if raw_size%1000 == 0 {
+                raw_size-=1;
+            }
+            let size = Bytes::new(raw_size);
             let delta = Nanosecs::new(delta_dist.sample(&mut rng).round() as u64);
             let flow = Flow {
                 id: id_start + FlowId::new(flows.len()),
