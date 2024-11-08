@@ -14,26 +14,27 @@
         2.0
     ],
     "max_loads": {
-        "low": 0.25,
-        "high": 0.75
+        "low": 0.3,
+        "high": 0.8
     },
     "clusters": [
         "spec/cluster_1_to_1_m4.json",
         "spec/cluster_2_to_1_m4.json",
         "spec/cluster_4_to_1_m4.json"
     ],
-    "bfszs":{
+    "bfszs": {
         "low": 300,
         "high": 300
     },
-    "windows":{
+    "windows": {
         "low": 18,
         "high": 18
     },
-    "pfcs":[
-        1.0, 1.0
+    "pfcs": [
+        1.0,
+        1.0
     ],
-    "ccs":[
+    "ccs": [
         "dctcp"
     ],
     "params": [
