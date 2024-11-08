@@ -20,7 +20,7 @@ def generate_config(output_file):
 
     lognorm_sigmas = [1.0, 2.0]
 
-    max_loads = {"low": 0.25, "high": 0.75}
+    max_loads = {"low": 0.30, "high": 0.80}
 
     clusters = [
         "spec/cluster_1_to_1_m4.json",
