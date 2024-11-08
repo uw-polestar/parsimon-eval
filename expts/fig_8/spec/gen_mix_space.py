@@ -9,14 +9,14 @@ def generate_config(output_file):
         "../../workload/spatials/cluster_c_2_4.json",
     ]
 
-    # size_dists = [
-    #     "../../workload/distributions/facebook/webserver-all.txt",
-    #     "../../workload/distributions/facebook/hadoop-all.txt",
-    #     "../../workload/distributions/facebook/cachefollower-all.txt",
-    # ]
     size_dists = [
-        f"../../workload/distributions/synthetic/sync-all-{i}.txt" for i in range(1000)
+        "../../workload/distributions/facebook/webserver-all.txt",
+        "../../workload/distributions/facebook/hadoop-all.txt",
+        "../../workload/distributions/facebook/cachefollower-all.txt",
     ]
+    # size_dists = [
+    #     f"../../workload/distributions/synthetic/sync-all-{i}.txt" for i in range(1000)
+    # ]
 
     lognorm_sigmas = [1.0, 2.0]
 
@@ -61,7 +61,8 @@ def generate_config(output_file):
 
 if __name__ == "__main__":
     # Specify the output JSON file
-    output_file = "dctcp_sync.mixspace.json"
+    # output_file = "dctcp_sync.mixspace.json"
+    output_file = "dctcp_empirical.mixspace.json"
 
     # Generate the config file
     generate_config(output_file)
