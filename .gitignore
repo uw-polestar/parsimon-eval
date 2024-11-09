@@ -1,5 +1,6 @@
 **/target/
 **/data/
+**/bdata/
 **/data_dctcp/
 **/data_hpcc/
 **/data_window/
@@ -9,5 +10,6 @@
 **/data_ori/
 **/data_test/
 **/data_empirical/
+**/bdata_empirical/
 **/res/
 run_rm.sh
