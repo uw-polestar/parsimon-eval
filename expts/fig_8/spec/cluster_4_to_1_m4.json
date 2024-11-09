@@ -151,49 +151,49 @@
         {
           "a": 16,
           "b": 24,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 16,
           "b": 25,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 17,
           "b": 24,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 17,
           "b": 25,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 18,
           "b": 24,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 18,
           "b": 25,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 19,
           "b": 24,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 19,
           "b": 25,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         }
       ]
@@ -335,49 +335,49 @@
         {
           "a": 20,
           "b": 26,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 20,
           "b": 27,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 21,
           "b": 26,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 21,
           "b": 27,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 22,
           "b": 26,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 22,
           "b": 27,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 23,
           "b": 26,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         },
         {
           "a": 23,
           "b": 27,
-          "bandwidth": 40000000000,
+          "bandwidth": 10000000000,
           "delay": 1000
         }
       ]
@@ -387,25 +387,25 @@
     {
       "a": 24,
       "b": 28,
-      "bandwidth": 40000000000,
+      "bandwidth": 10000000000,
       "delay": 1000
     },
     {
       "a": 25,
       "b": 29,
-      "bandwidth": 40000000000,
+      "bandwidth": 10000000000,
       "delay": 1000
     },
     {
       "a": 26,
       "b": 28,
-      "bandwidth": 40000000000,
+      "bandwidth": 10000000000,
       "delay": 1000
     },
     {
       "a": 27,
       "b": 29,
-      "bandwidth": 40000000000,
+      "bandwidth": 10000000000,
       "delay": 1000
     }
   ]
