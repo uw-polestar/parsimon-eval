@@ -10,6 +10,7 @@
 **/data_ori/
 **/data_test/
 **/data_empirical/
+**/data_eval_small/
 **/bdata_empirical/
 **/res/
 run_rm.sh

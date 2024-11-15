@@ -67,7 +67,7 @@ let mkPod =
                     List/map
                       C.Node
                       C.Link
-                      (\(n : C.Node) -> mkLink r.tor.id n.id 10000000000)
+                      (\(n : C.Node) -> mkLink r.tor.id n.id 40000000000)
                       fabs
                 )
                 racks
@@ -136,7 +136,7 @@ let mkCluster =
                                     C.Node
                                     C.Link
                                     ( \(spine : C.Node) ->
-                                        mkLink fab.value.id spine.id 10000000000
+                                        mkLink fab.value.id spine.id 40000000000
                                     )
                                     spines
                           )
