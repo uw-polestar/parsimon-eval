@@ -13,7 +13,7 @@ pub struct Ecdf {
 impl Ecdf {
     pub fn from_ecdf(ecdf: Vec<(f64, f64)>) -> Result<Self, EcdfError> {
         if ecdf.is_empty() {
-            return Err(EcdfError::InvalidEcdf);
+            return Err(EcdfError::EmptyEcdf);
         }
         let len = ecdf.len();
         if (ecdf[len - 1].1 - 100.0).abs() > f64::EPSILON {
@@ -72,6 +72,9 @@ pub enum EcdfError {
 
     #[error("No values provided")]
     NoValues,
+
+    #[error("EDist is empty")]
+    EmptyEcdf,
 }
 
 impl Distribution<f64> for Ecdf {
