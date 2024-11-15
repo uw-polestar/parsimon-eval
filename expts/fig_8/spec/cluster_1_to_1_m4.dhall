@@ -4,7 +4,7 @@ let params =
       { nr_pods = 2
       , nr_fabs_per_pod = 1
       , nr_racks_per_pod = 4
-      , nr_hosts_per_rack = 8
+      , nr_hosts_per_rack = 2
       , nr_spines_per_plane = 4
       }
 
