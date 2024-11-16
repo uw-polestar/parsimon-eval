@@ -18,9 +18,9 @@
         "high": 0.8
     },
     "clusters": [
-        "spec/cluster_1_to_1.json",
-        "spec/cluster_2_to_1.json",
-        "spec/cluster_4_to_1.json"
+        "spec/cluster_1_to_1_eval_small.json",
+        "spec/cluster_2_to_1_eval_small.json",
+        "spec/cluster_4_to_1_eval_small.json"
     ],
     "bfszs": {
         "low": 300,
