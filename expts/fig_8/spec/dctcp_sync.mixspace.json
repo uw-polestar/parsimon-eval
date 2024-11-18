@@ -1011,8 +1011,8 @@
         2.0
     ],
     "max_loads": {
-        "low": 0.4,
-        "high": 0.9
+        "low": 0.35,
+        "high": 0.85
     },
     "clusters": [
         "spec/cluster_1_to_1_m4.json",
