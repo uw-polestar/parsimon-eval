@@ -62,9 +62,6 @@ impl SpatialData {
         for (src, dsts) in rack2rack2count {
             let src = *name2idx.get(&src).unwrap();
             for (dst, count) in dsts {
-                if src>dst {
-                    continue;
-                }
                 let dst = *name2idx.get(&dst).unwrap();
                 inner[src][dst] += count;
             }
