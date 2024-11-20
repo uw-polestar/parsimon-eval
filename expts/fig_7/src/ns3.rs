@@ -89,13 +89,13 @@ impl Ns3Simulation {
             format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
         ))?;
         let records = parse_ns3_records(&s)?;
-        let data_dir=self.data_dir.to_str().unwrap();
-        let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
+        // let data_dir=self.data_dir.to_str().unwrap();
+        // let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
         // println!("rm {data_dir}/{fct_file}");
-        let _output = Command::new("sh")
-            .arg("-c")
-            .arg(format!("rm {data_dir}/{fct_file}"))
-            .output()?;
+        // let _output = Command::new("sh")
+        //     .arg("-c")
+        //     .arg(format!("rm {data_dir}/{fct_file}"))
+        //     .output()?;
         Ok(records)
     }
 
@@ -108,23 +108,45 @@ impl Ns3Simulation {
 
         // Build the command that runs the Python script.
         let base_rtt = self.base_rtt.into_u64();
-        let bfsz = self.bfsz;
-        let window = self.window.into_u64();
+        // let bfsz = self.bfsz;
+        // let window = self.window.into_u64();
         let enable_pfc = self.enable_pfc;
         let cc = self.cc_kind.as_str();
         let param_1 = self.param_1;
         let param_2 = self.param_2;
+        let enable_tr = 1;
+        // let command_sim = format!(
+        //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
+        //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
+        //     > {data_dir}/output.txt 2>&1"
+        // );
+        let command_sim = format!(
+            "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --shard_cc 0 --random_seed 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr {enable_tr} --enable_debug 0 --max_inflight_flows 0 \
+            > {data_dir}/log_sim.txt 2>&1"
+        );
+        
+        let command_post = format!(
+            "python run_m4_post.py -p topology_flows --output_dir {data_dir} --random_seed {mix_id} --cc {cc} --shard_cc 0 --enable_tr {enable_tr} --max_inflight_flows 0 \
+            > {data_dir}/log_post.txt 2>&1"
+        );
 
-        let python_command = format!(
-            "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
-            --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
-            > {data_dir}/output.txt 2>&1"
+        let command_flowsim_pre = format!(
+            "python ../../../flowsim/convert.py {data_dir}/path_1.txt {data_dir}/flow_to_path.txt > {data_dir}/convert_log.txt"
+        );
+
+        let command_flowsim = format!(
+            "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
         );
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
-            .arg(format!("cd {ns3_dir}; {python_command}; rm {data_dir}/flows.txt"))
-            // .arg(format!("cd {ns3_dir};{python_command}"))
+            // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
+            .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
+            // .arg(format!("cd {ns3_dir}; {command_post}"))
+            .output()?;
+        let _output_flowsim = Command::new("sh")
+            .arg("-c")
+            .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
             .output()?;
         Ok(())
     }

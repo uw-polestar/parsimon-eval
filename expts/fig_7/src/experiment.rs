@@ -34,17 +34,17 @@ use crate::mlsys::Mlsys;
 use crate::ns3::Ns3Simulation;
 use crate::ns3link::Ns3Link;
 
-const NS3_DIR: &str = "../../../parsimon/backends/High-Precision-Congestion-Control/simulation";
+const NS3_DIR: &str = "../../../High-Precision-Congestion-Control/ns-3.39";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 20_000_000; //11_351_649, 15_872_306, 31_647_250;
 const NR_PATHS_SAMPLED: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
+const NR_FLOWS: usize = 20_000; //11_351_649, 15_872_306, 31_647_250;
 
 const MLSYS_PATH: &str = "../../../clibs";
-const MODEL_SUFFIX: &str = "_large";
+const MODEL_SUFFIX: &str = "";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -76,6 +76,62 @@ impl Experiment {
         let sim = SimKind::Ns3;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+
+        // let start_read = Instant::now(); // timer start
+        // construct SimNetwork
+        let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
+        let links = cluster.links().cloned().collect::<Vec<_>>();
+        let network = Network::new(&nodes, &links)?;
+        let network = network.into_simulations_path(flows.clone());
+        let (_channel_to_flowid_map, path_to_flowid_map): (
+            &FxHashMap<(NodeId, NodeId), FxHashSet<FlowId>>,
+            &FxHashMap<Vec<(NodeId, NodeId)>, FxHashSet<FlowId>>
+        ) = match network.get_routes() {
+            Some((channel_map, path_map)) => (channel_map, path_map),
+            None => panic!("Routes not available"),
+        };
+
+
+        // println!("Path to FlowID Map length: {}", path_to_flowid_map.len());
+        // Step 1: Create a new HashMap to store FlowId -> Path mapping
+        let mut flowid_to_path_map: FxHashMap<FlowId, Vec<(NodeId, NodeId)>> = FxHashMap::default();
+        for (path, flow_ids) in path_to_flowid_map.iter() {
+            for flow_id in flow_ids {
+                // Insert the flow ID and corresponding path into the reverse map
+                flowid_to_path_map.insert(*flow_id, path.clone());
+            }
+        }
+        
+        let mut sorted_flowid_to_path_map: Vec<(&FlowId, &Vec<(NodeId, NodeId)>)> = flowid_to_path_map.iter().collect();
+        sorted_flowid_to_path_map.sort_by_key(|&(flow_id, _)| flow_id);
+        
+        // Step 3: Write the sorted FlowId -> Path mapping into a file
+        let mut results_str_flowid = String::new();
+        for (flow_id, path) in sorted_flowid_to_path_map.iter() {
+            results_str_flowid.push_str(&format!("{}:", flow_id));
+
+            // Append the nodes in the path
+            for (node_a, node_b) in path.iter() {
+                results_str_flowid.push_str(&format!("{}-{}", node_a, node_b));
+                results_str_flowid.push_str(",");
+            }
+            results_str_flowid.push_str("\n");
+        }
+
+        self.put_path_with_idx(
+            mix,
+            sim,
+            1,
+            format!(
+                "{},{}\n{}",
+                flowid_to_path_map.len(),
+                path_to_flowid_map.len(),
+                results_str_flowid
+            ),
+        )
+        .unwrap();
+        // let elapsed_read= start_read.elapsed().as_secs();
+        // println!("read time-{}: {}", mix.id,elapsed_read);
 
         let start = Instant::now(); // timer start
         let ns3 = Ns3Simulation::builder()
@@ -131,11 +187,6 @@ impl Experiment {
         };
 
         let path_to_flows_vec_sorted=path_to_flowid_map.iter().collect::<Vec<_>>();
-        // let mut path_to_flows_vec_sorted = path_to_flowid_map
-        //     .iter()
-        //     .filter(|(_, value)| value.len() >= 1)
-        //     .collect::<Vec<_>>();
-        // path_to_flows_vec_sorted.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(b.0[0].cmp(&a.0[0])));
         let elapsed_read= start_read.elapsed().as_secs();
 
         let start_sample= Instant::now(); // timer start
@@ -640,7 +691,7 @@ pub enum SimKind {
 impl fmt::Display for SimKind {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let s = match self {
-            SimKind::Ns3 => "ns3-config",
+            SimKind::Ns3 => "ns3",
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",

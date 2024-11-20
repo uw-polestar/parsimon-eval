@@ -118,7 +118,7 @@ impl Ns3Simulation {
         let cc = self.cc_kind.as_str();
         let param_1 = self.param_1;
         let param_2 = self.param_2;
-        let enable_tr = 0;
+        let enable_tr = 1;
         // let command_sim = format!(
         //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
         //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
@@ -141,8 +141,6 @@ impl Ns3Simulation {
         let command_flowsim = format!(
             "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
         );
-
-        // println!("{}", command_flowsim_pre);
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
