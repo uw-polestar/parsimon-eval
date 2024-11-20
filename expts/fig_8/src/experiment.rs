@@ -44,7 +44,7 @@ const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const NR_FLOWS: usize = 10_000;
+const NR_FLOWS: usize = 2_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
 const MODEL_SUFFIX: &str = "";
@@ -585,7 +585,6 @@ impl Experiment {
                     .data_dir(self.sim_dir_with_idx(mix, sim, path_idx).unwrap())
                     .flows(flows_remaining)
                     .seed(self.seed)
-                    // .input_percentiles(INPUT_PERCENTILES.to_vec())
                     .input_percentiles((1..=100).map(|x| x as f32 / 100.0).collect())
                     .nr_size_buckets(NR_SIZE_BUCKETS)
                     .output_length(OUTPUT_LEN)
@@ -989,7 +988,6 @@ impl Experiment {
             .collect();
         Ok(file)
     }
-
 }
 
 fn is_close_enough(a: &Option<DistsAndLoad>, b: &Option<DistsAndLoad>) -> bool {
