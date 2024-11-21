@@ -11,6 +11,7 @@
 **/data_test/
 **/data_empirical/
 **/data_eval_small/
+**/data_eval/
 **/bdata_empirical/
 **/res/
 run_rm.sh
