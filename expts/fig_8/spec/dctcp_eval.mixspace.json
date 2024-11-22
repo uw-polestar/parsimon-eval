@@ -1,8 +1,8 @@
 {
     "spatials": [
-        "../../workload/spatials/cluster_a_2_16.json",
-        "../../workload/spatials/cluster_b_2_16.json",
-        "../../workload/spatials/cluster_c_2_16.json"
+        "../../workload/spatials/cluster_a_4_16.json",
+        "../../workload/spatials/cluster_b_4_16.json",
+        "../../workload/spatials/cluster_c_4_16.json"
     ],
     "size_dists": [
         "../../workload/distributions/facebook/webserver-all.txt",
@@ -18,9 +18,9 @@
         "high": 0.8
     },
     "clusters": [
-        "spec/cluster_1_to_1_eval_small.json",
-        "spec/cluster_2_to_1_eval_small.json",
-        "spec/cluster_4_to_1_eval_small.json"
+        "spec/cluster_1_to_1_eval.json",
+        "spec/cluster_2_to_1_eval.json",
+        "spec/cluster_4_to_1_eval.json"
     ],
     "bfszs": {
         "low": 300,
