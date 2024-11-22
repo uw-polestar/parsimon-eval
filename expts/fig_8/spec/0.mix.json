@@ -5,7 +5,7 @@
     "size_dist": "../../workload/distributions/synthetic/sync-all-731.txt",
     "lognorm_sigma": 2.0,
     "max_load": 0.7046710160064349,
-    "cluster": "spec/cluster_1_to_1.json",
+    "cluster": "spec/cluster_1_to_1_m4.json",
     "param_id": 0,
     "bfsz": 300.0,
     "window": 18000,
