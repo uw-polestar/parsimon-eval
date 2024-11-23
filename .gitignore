@@ -11,6 +11,7 @@
 **/data_test/
 **/data_empirical/
 **/data_eval_small/
+**/data_eval_large/
 **/data_eval/
 **/data_eval_sweep/
 **/bdata_empirical/
