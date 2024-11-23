@@ -130,7 +130,7 @@ impl Ns3Simulation {
         );
         
         let command_post = format!(
-            "python run_m4_post.py -p topology_flows --output_dir {data_dir} --random_seed 0 --cc {cc} --shard_cc 0 --enable_tr {enable_tr} --max_inflight_flows 0 \
+            "python run_m4_post.py -p topology_flows --output_dir {data_dir} --random_seed {mix_id} --cc {cc} --shard_cc 0 --enable_tr {enable_tr} --max_inflight_flows 0 \
             > {data_dir}/log_post.txt 2>&1"
         );
 
