@@ -27,8 +27,8 @@
         "high": 300
     },
     "windows": {
-        "low": 18,
-        "high": 18
+        "low": 15,
+        "high": 15
     },
     "pfcs": [
         1.0,
