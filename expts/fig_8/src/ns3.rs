@@ -89,8 +89,12 @@ impl Ns3Simulation {
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
+            "fct_topology_flows.txt".as_ref(),
         ))?;
+        // let s = fs::read_to_string(mk_path(
+        //     self.data_dir.as_path(),
+        //     format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
+        // ))?;
         let records = parse_ns3_records(&s)?;
         // let data_dir=self.data_dir.to_str().unwrap();
         // let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
@@ -118,7 +122,7 @@ impl Ns3Simulation {
         let cc = self.cc_kind.as_str();
         let param_1 = self.param_1;
         let param_2 = self.param_2;
-        let enable_tr = 0;
+        let enable_tr = 1;
         // let command_sim = format!(
         //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
         //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
