@@ -1,22 +1,24 @@
 import json
 
 
-def generate_config(output_file):
+def generate_config(output_file, enable_empirical=False):
     # Define the paths and values
     spatials = [
         "../../workload/spatials/cluster_a_2_4.json",
         "../../workload/spatials/cluster_b_2_4.json",
         "../../workload/spatials/cluster_c_2_4.json",
     ]
-
-    # size_dists = [
-    #     "../../workload/distributions/facebook/webserver-all.txt",
-    #     "../../workload/distributions/facebook/hadoop-all.txt",
-    #     "../../workload/distributions/facebook/cachefollower-all.txt",
-    # ]
-    size_dists = [
-        f"../../workload/distributions/synthetic/sync-all-{i}.txt" for i in range(2000)
-    ]
+    if enable_empirical:
+        size_dists = [
+            "../../workload/distributions/facebook/webserver-all.txt",
+            "../../workload/distributions/facebook/hadoop-all.txt",
+            "../../workload/distributions/facebook/cachefollower-all.txt",
+        ]
+    else:
+        size_dists = [
+            f"../../workload/distributions/synthetic/sync-all-{i}.txt"
+            for i in range(2000)
+        ]
 
     lognorm_sigmas = [1.0, 2.0]
 
