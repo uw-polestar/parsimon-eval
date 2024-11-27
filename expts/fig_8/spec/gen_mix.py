@@ -18,11 +18,21 @@ def generate_config_list(output_file, enable_empirical, num_configs):
             "../../workload/spatials/cluster_b_4_16.json",
             "../../workload/spatials/cluster_c_4_16.json",
         ]
+        clusters = [
+            "spec/cluster_1_to_1_eval.json",
+            "spec/cluster_2_to_1_eval.json",
+            "spec/cluster_4_to_1_eval.json",
+        ]
     else:
         spatials = [
             "../../workload/spatials/cluster_a_2_4.json",
             "../../workload/spatials/cluster_b_2_4.json",
             "../../workload/spatials/cluster_c_2_4.json",
+        ]
+        clusters = [
+            "spec/cluster_1_to_1_m4.json",
+            "spec/cluster_2_to_1_m4.json",
+            "spec/cluster_4_to_1_m4.json",
         ]
 
     if enable_empirical:
@@ -38,23 +48,20 @@ def generate_config_list(output_file, enable_empirical, num_configs):
         ]
 
     lognorm_sigmas = [1.0, 2.0]
-    max_loads = [0.35, 0.80]
-    clusters = [
-        "spec/cluster_1_to_1_eval.json",
-        "spec/cluster_2_to_1_eval.json",
-        "spec/cluster_4_to_1_eval.json",
-    ]
-    bfszs = [10, 20]
-    windows = [10000, 20000]
+    max_loads = [0.30, 0.80]
+
+    bfszs = [10, 18]
+    windows = [10000, 18000]
     pfcs = [1.0, 1.0]
-    ccs = ["dctcp", "dcqcn", "hp", "timely"]
+    # ccs = ["dctcp", "dcqcn", "hp", "timely"]
+    ccs = ["dctcp", "dcqcn", "timely"]
     params = {
         "dctcp": {
             "k": [10, 30],
         },
         "dcqcn": {
-            "k_min": [5.0, 20.0],
-            "k_max": [25.0, 40.0],
+            "k_min": [10.0, 30.0],
+            "k_max": [30.0, 50.0],
         },
         "hp": {
             "ita": [70.0, 95.0],
@@ -122,10 +129,10 @@ if __name__ == "__main__":
 
     # Specify the output JSON file and parameters
 
-    enable_empirical = True  # Change to False if you want synthetic workloads
-    num_configs = 2000 if not enable_empirical else 100
+    enable_empirical = False  # Change to False if you want synthetic workloads
+    num_configs = 4000 if not enable_empirical else 100
     output_file = (
-        "eval_train.mix.json" if not enable_empirical else "eval_test.mix.json"
+        "eval_train_new.mix.json" if not enable_empirical else "eval_test_new.mix.json"
     )
 
     # Generate configurations

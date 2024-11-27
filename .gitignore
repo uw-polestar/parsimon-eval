@@ -16,7 +16,9 @@
 **/data_eval/
 **/data_eval_sweep/
 **/eval_train/
+**/eval_train_new/
 **/eval_test/
+**/eval_test_new/
 **/bdata_empirical/
 **/res/
 run_rm.sh
