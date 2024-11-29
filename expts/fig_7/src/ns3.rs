@@ -86,8 +86,12 @@ impl Ns3Simulation {
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
-            format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
+            "fct_topology_flows.txt".as_ref(),
         ))?;
+        // let s = fs::read_to_string(mk_path(
+        //     self.data_dir.as_path(),
+        //     format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
+        // ))?;
         let records = parse_ns3_records(&s)?;
         // let data_dir=self.data_dir.to_str().unwrap();
         // let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
@@ -108,8 +112,8 @@ impl Ns3Simulation {
 
         // Build the command that runs the Python script.
         let base_rtt = self.base_rtt.into_u64();
-        // let bfsz = self.bfsz;
-        // let window = self.window.into_u64();
+        let bfsz = self.bfsz;
+        let window = self.window.into_u64();
         let enable_pfc = self.enable_pfc;
         let cc = self.cc_kind.as_str();
         let param_1 = self.param_1;
@@ -121,7 +125,7 @@ impl Ns3Simulation {
         //     > {data_dir}/output.txt 2>&1"
         // );
         let command_sim = format!(
-            "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --shard_cc 0 --random_seed 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr {enable_tr} --enable_debug 0 --max_inflight_flows 0 \
+            "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --shard_cc 0 --random_seed 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr {enable_tr} --enable_debug 0 --max_inflight_flows 0 \
             > {data_dir}/log_sim.txt 2>&1"
         );
         
@@ -137,6 +141,7 @@ impl Ns3Simulation {
         let command_flowsim = format!(
             "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
         );
+        // println!("{command_sim}");
         // Execute the command in a child process.
         let _output = Command::new("sh")
             .arg("-c")
