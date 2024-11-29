@@ -625,21 +625,6 @@ impl Experiment {
         Ok(file)
     }
 
-    fn record_file_with_idx(
-        &self,
-        mix: &Mix,
-        sim: SimKind,
-        path_idx: usize,
-    ) -> anyhow::Result<PathBuf> {
-        let file = [
-            self.sim_dir(mix, sim)?.as_path(),
-            format!("records_{}.csv", path_idx).as_ref(),
-        ]
-        .into_iter()
-        .collect();
-        Ok(file)
-    }
-    
     fn elapsed_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "elapsed.txt".as_ref()]
             .into_iter()

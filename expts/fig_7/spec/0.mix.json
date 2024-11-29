@@ -7,10 +7,10 @@
     "cluster": "../../workload/topologies/cluster_b_2_to_1_m4.json",
     "duration": 1,
     "param_id": 0,
-    "bfsz": 300.0,
-    "window": 18000,
+    "bfsz": 15.0,
+    "window": 15000,
     "enable_pfc": 1.0,
     "cc": "dctcp",
-    "param_1": 30.0,
+    "param_1": 20.0,
     "param_2": 0.0
 }
