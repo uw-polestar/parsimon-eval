@@ -20,7 +20,7 @@
 **/eval_test/
 **/eval_test_new/
 **/eval_test_new_large/
-**/eval_test_new_large_bk/
+**/eval_test_new_large_8k/
 **/bdata_empirical/
 **/res/
 run_rm.sh
