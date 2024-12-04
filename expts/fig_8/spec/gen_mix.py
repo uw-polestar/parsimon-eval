@@ -18,15 +18,10 @@ def generate_config_list(output_file, enable_empirical, num_configs):
             "../../workload/spatials/cluster_b_4_16.json",
             "../../workload/spatials/cluster_c_4_16.json",
         ]
-        # clusters = [
-        #     "spec/cluster_1_to_1_eval.json",
-        #     "spec/cluster_2_to_1_eval.json",
-        #     "spec/cluster_4_to_1_eval.json",
-        # ]
         clusters = [
-            "spec/cluster_1_to_1_eval_large.json",
-            "spec/cluster_2_to_1_eval_large.json",
-            "spec/cluster_4_to_1_eval_large.json",
+            "spec/cluster_1_to_1_eval_test.json",
+            "spec/cluster_2_to_1_eval_test.json",
+            "spec/cluster_4_to_1_eval_test.json",
         ]
     else:
         spatials = [
@@ -35,9 +30,9 @@ def generate_config_list(output_file, enable_empirical, num_configs):
             "../../workload/spatials/cluster_c_2_4.json",
         ]
         clusters = [
-            "spec/cluster_1_to_1_m4.json",
-            "spec/cluster_2_to_1_m4.json",
-            "spec/cluster_4_to_1_m4.json",
+            "spec/cluster_1_to_1_eval_train.json",
+            "spec/cluster_2_to_1_eval_train.json",
+            "spec/cluster_4_to_1_eval_train.json",
         ]
 
     if enable_empirical:
@@ -137,9 +132,7 @@ if __name__ == "__main__":
     enable_empirical = True  # Change to False if you want synthetic workloads
     num_configs = 4000 if not enable_empirical else 100
     output_file = (
-        "eval_train_new.mix.json"
-        if not enable_empirical
-        else "eval_test_new_large.mix.json"
+        "eval_train.mix.json" if not enable_empirical else "eval_test.mix.json"
     )
 
     # Generate configurations
