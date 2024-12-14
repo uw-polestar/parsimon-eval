@@ -16,7 +16,8 @@
 **/data_eval/
 **/data_eval_sweep/
 **/eval_train/
-**/eval_train_new/
+**/eval_train_ori/
+**/eval_train_test/
 **/eval_test/
 **/eval_test_8k/
 **/bdata_empirical/
