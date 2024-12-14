@@ -2,16 +2,16 @@
   {
     "id": 0,
     "spatial": "../../workload/spatials/cluster_c_2_4.json",
-    "size_dist": "../../workload/distributions/synthetic/sync-all-731.txt",
-    "lognorm_sigma": 2.0,
-    "max_load": 0.7046710160064349,
-    "cluster": "spec/cluster_1_to_1_m4.json",
+    "size_dist": "../../workload/distributions/synthetic/sync-all-228.txt",
+    "lognorm_sigma": 1.0,
+    "max_load": 0.6707752498799164,
+    "cluster": "spec/cluster_1_to_1_eval_train.json",
     "param_id": 0,
-    "bfsz": 300.0,
-    "window": 18000,
-    "enable_pfc": 1.0,
-    "cc": "dctcp",
-    "param_1": 30.0,
-    "param_2": 0.0
+    "bfsz": 11.785685905190583,
+    "window": 15891,
+    "enable_pfc": 1,
+    "cc": "timely",
+    "param_1": 48.43843639370541,
+    "param_2": 101.48986097190351
   }
 ]
