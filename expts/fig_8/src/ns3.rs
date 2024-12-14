@@ -153,10 +153,10 @@ impl Ns3Simulation {
             .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
             // .arg(format!("cd {ns3_dir}; {command_post}"))
             .output()?;
-        // let _output_flowsim = Command::new("sh")
-        //     .arg("-c")
-        //     .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
-        //     .output()?;
+        let _output_flowsim = Command::new("sh")
+            .arg("-c")
+            .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
+            .output()?;
         Ok(())
     }
 }
