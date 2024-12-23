@@ -125,6 +125,9 @@ impl FlowGenerator {
             if raw_size%1000 == 0 {
                 raw_size-=1;
             }
+            if raw_size<=1{
+                raw_size=50;
+            }
             let size = Bytes::new(raw_size);
             let delta = Nanosecs::new(delta_dist.sample(&mut rng).round() as u64);
             let flow = Flow {
