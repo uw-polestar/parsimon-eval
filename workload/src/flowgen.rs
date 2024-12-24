@@ -123,7 +123,7 @@ impl FlowGenerator {
             let (src, dst) = spatial_wk.sample(&mut rng);
             let mut raw_size=size_dist.sample(&mut rng).round() as u64;
             if raw_size<1{
-                raw_size=1;
+                raw_size=4_294_967_295;
             }
             if raw_size%1000 == 0 {
                 raw_size-=1;
