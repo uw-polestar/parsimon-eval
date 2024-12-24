@@ -1,17 +1,17 @@
 [
   {
-    "id": 0,
-    "spatial": "../../workload/spatials/cluster_c_4_16.json",
-    "size_dist": "../../workload/distributions/facebook/webserver-all.txt",
-    "lognorm_sigma": 1.0,
-    "max_load": 0.6707752498799164,
-    "cluster": "spec/cluster_1_to_1_eval_test.json",
+    "id": 60,
+    "spatial": "../../workload/spatials/cluster_b_4_16.json",
+    "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
+    "lognorm_sigma": 2.0,
+    "max_load": 0.33447836825982025,
+    "cluster": "spec/cluster_4_to_1_eval_test.json",
     "param_id": 0,
-    "bfsz": 11.785685905190583,
-    "window": 15891,
+    "bfsz": 12.729849398890266,
+    "window": 16796,
     "enable_pfc": 1,
-    "cc": "timely",
-    "param_1": 48.43843639370541,
-    "param_2": 101.48986097190351
+    "cc": "dctcp",
+    "param_1": 18.670468026516968,
+    "param_2": 0
   }
 ]
