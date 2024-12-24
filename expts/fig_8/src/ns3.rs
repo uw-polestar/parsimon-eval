@@ -139,11 +139,13 @@ impl Ns3Simulation {
         );
 
         let command_flowsim_pre = format!(
-            "python ../../../flowsim/convert.py {data_dir}/path_1.txt {data_dir}/flow_to_path.txt > {data_dir}/convert_log.txt"
+            "python ../../../flowsim/convert.py {data_dir} {data_dir} > {data_dir}/convert_log.txt"
         );
 
         let command_flowsim = format!(
             "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
+        //let command_flowsim = format!(
+        //    "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
         );
         // println!("{command_sim}");
         // Execute the command in a child process.
