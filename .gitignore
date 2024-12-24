@@ -15,10 +15,12 @@
 **/data_test_config/
 **/data_eval/
 **/data_eval_sweep/
+**/data_fix/
 **/eval_train/
 **/eval_train_ori/
 **/eval_train_test/
 **/eval_test/
+**/eval_test_large/
 **/eval_test_80k/
 **/eval_test_60k/
 **/bdata_empirical/
