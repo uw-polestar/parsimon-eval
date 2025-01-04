@@ -24,6 +24,7 @@
 **/eval_test_large/
 **/eval_test_80k/
 **/eval_test_60k/
+**/eval_test_ori/
 **/bdata_empirical/
 **/res/
 run_rm.sh
