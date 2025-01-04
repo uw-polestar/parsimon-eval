@@ -48,10 +48,10 @@ def generate_config_list(output_file, enable_empirical, num_configs):
         ]
 
     lognorm_sigmas = [1.0, 2.0]
-    max_loads = [0.30, 0.80]
+    max_loads = [0.20, 0.7]
 
     bfszs = [10, 18]
-    windows = [10000, 18000]
+    windows = [5000, 15000]
     pfcs = [1.0, 1.0]
     # ccs = ["dctcp", "dcqcn", "hp", "timely"]
     ccs = ["dctcp", "dcqcn", "timely"]
