@@ -122,7 +122,7 @@ impl Ns3Simulation {
         let cc = self.cc_kind.as_str();
         let param_1 = self.param_1;
         let param_2 = self.param_2;
-        let enable_tr = 0;
+        let enable_tr = 1;
         let max_inflight_flows = 0;
         // let command_sim = format!(
         //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
