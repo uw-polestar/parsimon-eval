@@ -8,6 +8,7 @@
 **/__pycache__/
 **/deprecated/
 **/data_ori/
+**/data_10/
 **/data_test/
 **/data_empirical/
 **/data_eval_small/
@@ -18,6 +19,7 @@
 **/data_fix/
 **/eval_train/
 **/eval_train_ori/
+**/eval_train_new/
 **/eval_train_test/
 **/eval_test/
 **/eval_test_trace/
