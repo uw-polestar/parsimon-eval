@@ -8,7 +8,7 @@
     "duration": 1,
     "param_id": 0,
     "bfsz": 10.0,
-    "window": 12000,
+    "window": 15000,
     "enable_pfc": 1.0,
     "cc": "dctcp",
     "param_1": 20.0,
