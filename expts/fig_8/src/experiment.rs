@@ -44,7 +44,7 @@ const NR_PATHS_SAMPLED: usize = 500;
 const NR_PATHS_SAMPLED_NS3: usize = 500;
 const NR_SIZE_BUCKETS: usize = 4;
 const OUTPUT_LEN: usize = 100;
-const NR_FLOWS: usize = 50_000;
+const NR_FLOWS: usize = 20_000;
 // const NR_FLOWS: usize = 2_000;
 
 const MLSYS_PATH: &str = "../../../clibs";
