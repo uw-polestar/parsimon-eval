@@ -39,6 +39,7 @@ impl MixSpace {
                 param_1: rng_2.gen_range(self.params[param_id*2].low..=self.params[param_id*2].high),
                 // param_1: self.params[param_id*2].low + i as f64,
                 param_2: rng_2.gen_range(self.params[param_id*2+1].low..=self.params[param_id*2+1].high),
+                max_inflight_flows: 0,
             }
         })
         .collect()
@@ -80,8 +81,13 @@ pub struct Mix {
     pub param_1: f64,
     #[serde(default = "default_param_cc")]
     pub param_2: f64,
-    
+    #[serde(default = "default_param_max_inflight_flows")]
+    pub max_inflight_flows: u32,
 }
+fn default_param_max_inflight_flows() -> u32 {
+    0
+}
+
 fn default_param_id() -> MixId {
     0
 }

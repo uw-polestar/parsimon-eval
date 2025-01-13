@@ -58,6 +58,9 @@ pub struct Ns3Simulation {
     /// The congestion control parameter.
     #[builder(default = 0.0)]
     pub param_2: f64,
+    /// The max number of inflight flows
+    #[builder(default = 0)]
+    pub max_inflight_flows: u32,
 }
 
 impl Ns3Simulation {
@@ -123,7 +126,7 @@ impl Ns3Simulation {
         let param_1 = self.param_1;
         let param_2 = self.param_2;
         let enable_tr = 0;
-        let max_inflight_flows = 0;
+        let max_inflight_flows = self.max_inflight_flows;
         // let command_sim = format!(
         //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
         //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
@@ -152,12 +155,12 @@ impl Ns3Simulation {
         //);
         // println!("{command_sim}");
         // Execute the command in a child process.
-        //let _output = Command::new("sh")
-        //    .arg("-c")
+        let _output = Command::new("sh")
+           .arg("-c")
             // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
-        //    .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
-            // .arg(format!("cd {ns3_dir}; {command_post}"))
-        //    .output()?;
+           .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
+        //     .arg(format!("cd {ns3_dir}; {command_post}"))
+           .output()?;
         let _output_flowsim = Command::new("sh")
             .arg("-c")
             .arg(format!("{command_flowsim_pre}; {command_flowsim};"))

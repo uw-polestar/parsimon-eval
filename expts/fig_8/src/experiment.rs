@@ -191,6 +191,7 @@ impl Experiment {
             .cc_kind(mix.cc)
             .param_1(mix.param_1)
             .param_2(mix.param_2)
+            .max_inflight_flows(mix.max_inflight_flows)
             .build();
         let records = ns3
             .run()?
