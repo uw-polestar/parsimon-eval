@@ -61,6 +61,9 @@ pub struct Ns3Simulation {
     /// The max number of inflight flows
     #[builder(default = 0)]
     pub max_inflight_flows: u32,
+    /// Enable MLSYS
+    #[builder(default = false)]
+    pub enable_mlsys: bool,
 }
 
 impl Ns3Simulation {
@@ -86,9 +89,11 @@ impl Ns3Simulation {
             flows,
         )?;
 
-        // Run ns-3
-        self.invoke_ns3()?;
-
+        if self.enable_mlsys {
+            self.invoke_mlsys()?;
+        } else {
+            self.invoke_ns3()?;
+        }
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
@@ -127,18 +132,19 @@ impl Ns3Simulation {
         let param_2 = self.param_2;
         let enable_tr = 0;
         let max_inflight_flows = self.max_inflight_flows;
+        let n_clients_per_rack_for_closed_loop = 16;
         // let command_sim = format!(
         //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
         //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
         //     > {data_dir}/output.txt 2>&1"
         // );
         let command_sim = format!(
-            "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --shard_cc 0 --random_seed 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr {enable_tr} --enable_debug 0 --max_inflight_flows {max_inflight_flows} \
+            "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --shard_cc 0 --random_seed 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr {enable_tr} --enable_debug 0 --max_inflight_flows {max_inflight_flows} --n_clients_per_rack_for_closed_loop {n_clients_per_rack_for_closed_loop} \
             > {data_dir}/log_sim.txt 2>&1"
         );
         
         let command_post = format!(
-            "python run_m4_post.py -p topology_flows --output_dir {data_dir} --random_seed {mix_id} --cc {cc} --shard_cc 0 --enable_tr {enable_tr} --max_inflight_flows {max_inflight_flows} \
+            "python run_m4_post.py -p topology_flows --output_dir {data_dir} --random_seed {mix_id} --cc {cc} --shard_cc 0 --enable_tr {enable_tr} \
             > {data_dir}/log_post.txt 2>&1"
         );
 
@@ -151,17 +157,54 @@ impl Ns3Simulation {
         let command_flowsim = format!(
            "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
         );
+
         // println!("{command_sim}");
         // Execute the command in a child process.
         let _output = Command::new("sh")
-           .arg("-c")
+          .arg("-c")
             // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
-           .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
-        //     .arg(format!("cd {ns3_dir}; {command_post}"))
-           .output()?;
+          .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
+            // .arg(format!("cd {ns3_dir}; {command_post}"))
+          .output()?;
         let _output_flowsim = Command::new("sh")
+           .arg("-c")
+           .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
+           .output()?;
+        Ok(())
+    }
+
+    fn invoke_mlsys(&self) -> io::Result<()> {
+        // We need to canonicalize the directories because we run `cd` below.
+        let data_dir = std::fs::canonicalize(&self.data_dir)?;
+        let data_dir = data_dir.display();
+        let ns3_dir = std::fs::canonicalize(&self.ns3_dir)?;
+        let ns3_dir = ns3_dir.display();
+
+        // Build the command that runs the Python script.
+        let base_rtt = self.base_rtt.into_u64();
+        let mix_id=self.mix_id;
+        let bfsz = self.bfsz;
+        let window = self.window.into_u64();
+        let enable_pfc = self.enable_pfc;
+        let cc = self.cc_kind.as_str();
+        let param_1 = self.param_1;
+        let param_2 = self.param_2;
+        let enable_tr = 0;
+        let max_inflight_flows = self.max_inflight_flows;
+        let n_clients_per_rack_for_closed_loop = 16;
+        
+        let command_flowsim_pre = format!(
+            "python ../../../flowsim/convert.py {data_dir} {data_dir} > {data_dir}/convert_log.txt"
+        );
+
+        let command_m4 = format!(
+            "../../../flowsim/build/no_flowsim {data_dir} /data1/lichenni/projects/per-flow-sim/config/test_config_lstm_topo_eval.yaml {data_dir}/m4_fct.npy"
+        ); 
+        // println!("{command_sim}");
+        // Execute the command in a child process.
+        let _output_m4 = Command::new("sh")
             .arg("-c")
-            .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
+            .arg(format!("{command_flowsim_pre}; {command_m4};"))
             .output()?;
         Ok(())
     }

@@ -94,16 +94,22 @@ def generate_config_list(output_file, num_configs, max_inflight_flows_list):
             "cc": cc,
             "param_1": param_1,
             "param_2": param_2,
-            "max_inflight_flows": max_inflight_flows_list[config_id],
+            "max_inflight_flows": 0,
         }
 
         config_list.append(config)
-
+    config_list_repeat = []
+    for max_inflight_flows in max_inflight_flows_list:
+        for config in config_list:
+            config_tmp = config.copy()
+            config_tmp["id"] = len(config_list_repeat)
+            config_tmp["max_inflight_flows"] = max_inflight_flows
+            config_list_repeat.append(config_tmp)
     # Write the configurations to a JSON file
     with open(output_file, "w") as json_file:
-        json.dump(config_list, json_file, indent=4)
+        json.dump(config_list_repeat, json_file, indent=4)
 
-    print(f"Generated {num_configs} configurations saved to {output_file}")
+    print(f"Generated {len(config_list_repeat)} configurations saved to {output_file}")
 
 
 if __name__ == "__main__":
@@ -114,10 +120,10 @@ if __name__ == "__main__":
 
     num_configs = 10
     output_file = "eval_test_app.mix.json"
-    max_inflight_flows_list = [0, 5, 10, 20, 40, 80, 160]
+    max_inflight_flows_list = [0, 2, 4, 6, 8, 10, 15, 20]
     # Generate configurations
     generate_config_list(
         output_file,
-        len(max_inflight_flows_list),
+        num_configs,
         max_inflight_flows_list,
     )
