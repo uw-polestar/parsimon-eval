@@ -57,7 +57,6 @@ impl Experiment {
             SimKind::Pmn => self.run_pmn(&mix),
             SimKind::PmnM => self.run_pmn_m(&mix),
             SimKind::PmnMC => self.run_pmn_mc(&mix),
-            SimKind::Mlsys => self.run_ns3(&mix),
         }
     }
 
@@ -457,7 +456,6 @@ pub enum SimKind {
     Pmn,
     PmnM,
     PmnMC,
-    Mlsys,
 }
 
 impl fmt::Display for SimKind {
@@ -467,7 +465,6 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
-            SimKind::Mlsys => "mlsys",
         };
         write!(f, "{}", s)
     }
