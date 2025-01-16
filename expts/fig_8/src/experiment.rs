@@ -1,5 +1,4 @@
 use std::{
-    collections::HashSet,
     fmt::{self}, fs,
     path::{Path, PathBuf},
     time::Instant,
@@ -26,12 +25,7 @@ use workload::{
 
 use crate::mix::{Mix, MixId};
 
-use rand::distributions::WeightedIndex;
 use rustc_hash::{FxHashMap,FxHashSet};
-use crate::mlsys::{
-    Mlsys,
-    ns3_clean,
-};
 use crate::ns3::Ns3Simulation;
 use crate::ns3link::Ns3Link;
 
@@ -40,15 +34,8 @@ const NS3_DIR: &str = "../../../High-Precision-Congestion-Control/ns-3.39";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_PATHS_SAMPLED: usize = 500;
-const NR_PATHS_SAMPLED_NS3: usize = 500;
-const NR_SIZE_BUCKETS: usize = 4;
-const OUTPUT_LEN: usize = 100;
 const NR_FLOWS: usize = 20_000;
 // const NR_FLOWS: usize = 2_000;
-
-const MLSYS_PATH: &str = "../../../clibs";
-const MODEL_SUFFIX: &str = "";
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -80,7 +67,6 @@ impl Experiment {
             }
             
             SimKind::Pmn => {
-                println!("mixes.len(): {}", mixes.len());
                 for mix in &mixes {
                     self.run_pmn(mix)?;
                 }
@@ -372,42 +358,11 @@ impl Experiment {
         Ok(())
     }
 
-    fn put_records_with_idx(
-        &self,
-        mix: &Mix,
-        sim: SimKind,
-        path_idx: usize,
-        records: &[Record],
-    ) -> anyhow::Result<()> {
-        let path = self.record_file_with_idx(mix, sim, path_idx)?;
-        let mut wtr = csv::Writer::from_path(path)?;
-        for record in records {
-            wtr.serialize(record)?;
-        }
-        wtr.flush()?;
-        Ok(())
-    }
-
     fn put_elapsed(&self, mix: &Mix, sim: SimKind, secs: u64) -> anyhow::Result<()> {
         fs::write(self.elapsed_file(mix, sim)?, secs.to_string())?;
         Ok(())
     }
 
-    fn put_elapsed_with_idx(&self, mix: &Mix, sim: SimKind, path_idx: usize, secs: u64) -> anyhow::Result<()> {
-        fs::write(self.elapsed_file_with_idx(mix, sim, path_idx)?, secs.to_string())?;
-        Ok(())
-    }
-
-    fn put_elapsed_str(&self, mix: &Mix, sim: SimKind, secs: String) -> anyhow::Result<()> {
-        fs::write(self.elapsed_file(mix, sim)?, secs)?;
-        Ok(())
-    }
-
-    fn put_path(&self, mix: &Mix, sim: SimKind, path_str: String) -> anyhow::Result<()> {
-        fs::write(self.path_file(mix, sim)?, path_str)?;
-        Ok(())
-    }
-    
     fn put_path_with_idx(
         &self,
         mix: &Mix,
@@ -445,33 +400,9 @@ impl Experiment {
         fs::create_dir_all(&dir)?;
         Ok(dir)
     }
-    
-    fn sim_dir_with_idx(
-        &self,
-        mix: &Mix,
-        sim: SimKind,
-        path_idx: usize,
-    ) -> anyhow::Result<PathBuf> {
-        let dir = [
-            self.mix_dir(mix)?.as_path(),
-            sim.to_string().as_ref(),
-            path_idx.to_string().as_ref(),
-        ]
-        .into_iter()
-        .collect();
-        fs::create_dir_all(&dir)?;
-        Ok(dir)
-    }
 
     fn flow_file(&self, mix: &Mix) -> anyhow::Result<PathBuf> {
         let file = [self.mix_dir(mix)?.as_path(), "flows.json".as_ref()]
-            .into_iter()
-            .collect();
-        Ok(file)
-    }
-
-    fn path_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
-        let file = [self.sim_dir(mix, sim)?.as_path(), "path.txt".as_ref()]
             .into_iter()
             .collect();
         Ok(file)
@@ -499,30 +430,9 @@ impl Experiment {
         Ok(file)
     }
     
-    fn record_file_with_idx(
-        &self,
-        mix: &Mix,
-        sim: SimKind,
-        path_idx: usize,
-    ) -> anyhow::Result<PathBuf> {
-        let file = [
-            self.sim_dir(mix, sim)?.as_path(),
-            format!("records_{}.csv", path_idx).as_ref(),
-        ]
-        .into_iter()
-        .collect();
-        Ok(file)
-    }
 
     fn elapsed_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "elapsed.txt".as_ref()]
-            .into_iter()
-            .collect();
-        Ok(file)
-    }
-
-    fn elapsed_file_with_idx(&self, mix: &Mix, sim: SimKind, path_idx: usize) -> anyhow::Result<PathBuf> {
-        let file = [self.sim_dir(mix, sim)?.as_path(), format!("elapsed_{}.txt", path_idx).as_ref()]
             .into_iter()
             .collect();
         Ok(file)
