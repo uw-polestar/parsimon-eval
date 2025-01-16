@@ -177,21 +177,11 @@ impl Ns3Simulation {
         // We need to canonicalize the directories because we run `cd` below.
         let data_dir = std::fs::canonicalize(&self.data_dir)?;
         let data_dir = data_dir.display();
-        let ns3_dir = std::fs::canonicalize(&self.ns3_dir)?;
-        let ns3_dir = ns3_dir.display();
 
         // Build the command that runs the Python script.
-        let base_rtt = self.base_rtt.into_u64();
-        let mix_id=self.mix_id;
-        let bfsz = self.bfsz;
-        let window = self.window.into_u64();
-        let enable_pfc = self.enable_pfc;
-        let cc = self.cc_kind.as_str();
-        let param_1 = self.param_1;
-        let param_2 = self.param_2;
-        let enable_tr = 0;
         let max_inflight_flows = self.max_inflight_flows;
         let n_clients_per_rack_for_closed_loop = 16;
+        println!("max_inflight_flows: {}, n_clients_per_rack_for_closed_loop: {}", max_inflight_flows, n_clients_per_rack_for_closed_loop);
         
         let command_flowsim_pre = format!(
             "python ../../../flowsim/convert.py {data_dir} {data_dir} > {data_dir}/convert_log.txt"
