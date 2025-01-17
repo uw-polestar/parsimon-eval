@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
     num_configs = 10
     output_file = "eval_test_app.mix.json"
-    max_inflight_flows_list = [0, 2, 4, 5, 6, 7, 8, 10, 12, 14]
+    max_inflight_flows_list = [2, 4, 5, 6, 7, 8, 10, 12, 15, 20]
     # Generate configurations
     generate_config_list(
         output_file,
