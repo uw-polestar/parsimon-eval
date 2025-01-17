@@ -34,8 +34,8 @@ const NS3_DIR: &str = "../../../High-Precision-Congestion-Control/ns-3.39";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-const NR_FLOWS: usize = 20_000;
 const INIT_START_TIME: Nanosecs = Nanosecs::new(1_000_000_000);
+const NR_FLOWS: usize = 20_000;
 // const NR_FLOWS: usize = 2_000;
 
 #[derive(Debug, clap::Parser)]
