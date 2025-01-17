@@ -35,6 +35,7 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const NR_FLOWS: usize = 20_000;
+const INIT_START_TIME: Nanosecs = Nanosecs::new(1_000_000_000);
 // const NR_FLOWS: usize = 2_000;
 
 #[derive(Debug, clap::Parser)]
@@ -47,6 +48,8 @@ pub struct Experiment {
     seed: u64,
     #[clap(subcommand)]
     sim: SimKind,
+    #[clap(long)]
+    enable_app: bool,
 }
 
 impl Experiment {
@@ -342,7 +345,14 @@ impl Experiment {
             .stop_when(StopWhen::NrFlows(NR_FLOWS))
             .seed(self.seed)
             .build();
-        let flows = flowgen.generate();
+        let mut flows = flowgen.generate();
+
+        // Enable application-specific behavior if needed
+        if self.enable_app{
+            for flow in &mut flows {
+                flow.start = INIT_START_TIME;
+            }
+        }
         let s = serde_json::to_string(&flows)?;
         fs::write(&to, s)?;
         Ok(())
