@@ -32,7 +32,7 @@ def generate_config_list(output_file, num_configs, max_inflight_flows_list):
     lognorm_sigmas = [1.0, 2.0]
     max_loads = [0.30, 0.80]
 
-    bfszs = [10, 16]
+    bfszs = [16, 16]
     windows = [5000, 15000]
     pfcs = [1.0, 1.0]
     # ccs = ["dctcp", "dcqcn", "hp", "timely"]
@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
     num_configs = 10
     output_file = "eval_test_app.mix.json"
-    max_inflight_flows_list = [2, 4, 5, 6, 7, 8, 10, 12, 15, 20]
+    max_inflight_flows_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     # Generate configurations
     generate_config_list(
         output_file,

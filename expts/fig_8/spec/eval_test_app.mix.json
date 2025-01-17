@@ -7,13 +7,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 1,
@@ -23,13 +23,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 2,
@@ -39,13 +39,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 3,
@@ -55,13 +55,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 4,
@@ -71,13 +71,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 5,
@@ -87,13 +87,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 6,
@@ -103,13 +103,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 7,
@@ -119,13 +119,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 8,
@@ -135,13 +135,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 9,
@@ -151,13 +151,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 2
+        "max_inflight_flows": 1
     },
     {
         "id": 10,
@@ -167,13 +167,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 11,
@@ -183,13 +183,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 12,
@@ -199,13 +199,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 13,
@@ -215,13 +215,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 14,
@@ -231,13 +231,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 15,
@@ -247,13 +247,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 16,
@@ -263,13 +263,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 17,
@@ -279,13 +279,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 18,
@@ -295,13 +295,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 19,
@@ -311,13 +311,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 4
+        "max_inflight_flows": 2
     },
     {
         "id": 20,
@@ -327,13 +327,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 21,
@@ -343,13 +343,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 22,
@@ -359,13 +359,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 23,
@@ -375,13 +375,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 24,
@@ -391,13 +391,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 25,
@@ -407,13 +407,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 26,
@@ -423,13 +423,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 27,
@@ -439,13 +439,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 28,
@@ -455,13 +455,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 29,
@@ -471,13 +471,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 5
+        "max_inflight_flows": 3
     },
     {
         "id": 30,
@@ -487,13 +487,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 31,
@@ -503,13 +503,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 32,
@@ -519,13 +519,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 33,
@@ -535,13 +535,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 34,
@@ -551,13 +551,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 35,
@@ -567,13 +567,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 36,
@@ -583,13 +583,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 37,
@@ -599,13 +599,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 38,
@@ -615,13 +615,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 39,
@@ -631,13 +631,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 6
+        "max_inflight_flows": 4
     },
     {
         "id": 40,
@@ -647,13 +647,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 41,
@@ -663,13 +663,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 42,
@@ -679,13 +679,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 43,
@@ -695,13 +695,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 44,
@@ -711,13 +711,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 45,
@@ -727,13 +727,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 46,
@@ -743,13 +743,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 47,
@@ -759,13 +759,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 48,
@@ -775,13 +775,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 49,
@@ -791,13 +791,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 7
+        "max_inflight_flows": 5
     },
     {
         "id": 50,
@@ -807,13 +807,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 51,
@@ -823,13 +823,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 52,
@@ -839,13 +839,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 53,
@@ -855,13 +855,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 54,
@@ -871,13 +871,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 55,
@@ -887,13 +887,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 56,
@@ -903,13 +903,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 57,
@@ -919,13 +919,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 58,
@@ -935,13 +935,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 59,
@@ -951,13 +951,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 8
+        "max_inflight_flows": 6
     },
     {
         "id": 60,
@@ -967,13 +967,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 61,
@@ -983,13 +983,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 62,
@@ -999,13 +999,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 63,
@@ -1015,13 +1015,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 64,
@@ -1031,13 +1031,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 65,
@@ -1047,13 +1047,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 66,
@@ -1063,13 +1063,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 67,
@@ -1079,13 +1079,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 68,
@@ -1095,13 +1095,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 69,
@@ -1111,13 +1111,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 10
+        "max_inflight_flows": 7
     },
     {
         "id": 70,
@@ -1127,13 +1127,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 71,
@@ -1143,13 +1143,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 72,
@@ -1159,13 +1159,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 73,
@@ -1175,13 +1175,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 74,
@@ -1191,13 +1191,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 75,
@@ -1207,13 +1207,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 76,
@@ -1223,13 +1223,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 77,
@@ -1239,13 +1239,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 78,
@@ -1255,13 +1255,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 79,
@@ -1271,13 +1271,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 12
+        "max_inflight_flows": 8
     },
     {
         "id": 80,
@@ -1287,13 +1287,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 81,
@@ -1303,13 +1303,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 82,
@@ -1319,13 +1319,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 83,
@@ -1335,13 +1335,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 84,
@@ -1351,13 +1351,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 85,
@@ -1367,13 +1367,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 86,
@@ -1383,13 +1383,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 87,
@@ -1399,13 +1399,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 88,
@@ -1415,13 +1415,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 89,
@@ -1431,13 +1431,13 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 15
+        "max_inflight_flows": 9
     },
     {
         "id": 90,
@@ -1447,13 +1447,13 @@
         "max_load": 0.6707752498799164,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.339264428892937,
+        "bfsz": 16.0,
         "window": 12364,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 48.43843639370541,
         "param_2": 101.48986097190351,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 91,
@@ -1463,13 +1463,13 @@
         "max_load": 0.5806225314693065,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.89930662667714,
+        "bfsz": 16.0,
         "window": 10449,
         "enable_pfc": 1,
         "cc": "dcqcn",
         "param_1": 21.785313677518175,
         "param_2": 46.18860913355653,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 92,
@@ -1479,13 +1479,13 @@
         "max_load": 0.4701252582589959,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.291882572645532,
+        "bfsz": 16.0,
         "window": 12634,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 17.59854601274675,
         "param_2": 0,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 93,
@@ -1495,13 +1495,13 @@
         "max_load": 0.7035641366371901,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 12.756549278031056,
+        "bfsz": 16.0,
         "window": 6248,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 21.04081262546454,
         "param_2": 0,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 94,
@@ -1511,13 +1511,13 @@
         "max_load": 0.5886760726283811,
         "cluster": "spec/cluster_4_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.417330892942445,
+        "bfsz": 16.0,
         "window": 11612,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 27.10635442030294,
         "param_2": 0,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 95,
@@ -1527,13 +1527,13 @@
         "max_load": 0.5267051511842178,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.975924582936509,
+        "bfsz": 16.0,
         "window": 8552,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 58.733091754249884,
         "param_2": 132.40176926232968,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 96,
@@ -1543,13 +1543,13 @@
         "max_load": 0.567069938514854,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 10.98041496257157,
+        "bfsz": 16.0,
         "window": 8794,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 46.48565468830644,
         "param_2": 138.4156788796186,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 97,
@@ -1559,13 +1559,13 @@
         "max_load": 0.7025229003856072,
         "cluster": "spec/cluster_2_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.606445255854217,
+        "bfsz": 16.0,
         "window": 7109,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 23.1087733058976,
         "param_2": 0,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 98,
@@ -1575,13 +1575,13 @@
         "max_load": 0.3714357952210313,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 11.479765046163902,
+        "bfsz": 16.0,
         "window": 10613,
         "enable_pfc": 1,
         "cc": "timely",
         "param_1": 51.69171980447081,
         "param_2": 144.89114418012383,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     },
     {
         "id": 99,
@@ -1591,12 +1591,12 @@
         "max_load": 0.7986628889945805,
         "cluster": "spec/cluster_1_to_1_eval_test.json",
         "param_id": 0,
-        "bfsz": 13.057157762058786,
+        "bfsz": 16.0,
         "window": 5909,
         "enable_pfc": 1,
         "cc": "dctcp",
         "param_1": 13.056826386965222,
         "param_2": 0,
-        "max_inflight_flows": 20
+        "max_inflight_flows": 10
     }
 ]
