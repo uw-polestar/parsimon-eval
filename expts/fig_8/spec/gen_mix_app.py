@@ -27,9 +27,9 @@ def generate_config_list(
         ]
     else:
         spatials = [
-            "../../workload/spatials/cluster_d_4_4.json",
-            "../../workload/spatials/cluster_d_4_4.json",
-            "../../workload/spatials/cluster_d_4_4.json",
+            "../../workload/spatials/cluster_d_2_8.json",
+            "../../workload/spatials/cluster_d_2_8.json",
+            "../../workload/spatials/cluster_d_2_8.json",
         ]
         clusters = [
             "spec/cluster_1_to_1_eval_app.json",
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 
     # Specify the output JSON file and parameters
 
-    num_configs = 10
+    num_configs = 15
 
     enable_small = True
     if enable_small:
@@ -151,16 +151,6 @@ if __name__ == "__main__":
         15,
         17,
         19,
-        21,
-        23,
-        25,
-        27,
-        29,
-        31,
-        33,
-        35,
-        37,
-        39,
     ]
     # Generate configurations
     generate_config_list(
