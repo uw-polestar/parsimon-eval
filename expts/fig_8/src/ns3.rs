@@ -132,7 +132,7 @@ impl Ns3Simulation {
         let param_2 = self.param_2;
         let enable_tr = 0;
         let max_inflight_flows = self.max_inflight_flows;
-        let n_clients_per_rack_for_closed_loop = 16;
+        let n_clients_per_rack_for_closed_loop = 4;
         // let command_sim = format!(
         //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
         //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
@@ -154,8 +154,11 @@ impl Ns3Simulation {
         // let command_flowsim = format!(
         //     "../../../flowsim/main {data_dir} ../../../flowsim/new_config.yaml {data_dir}/m4_flowsim.npy 0 0 > {data_dir}/log_flowsim.txt"
         // );
-        let command_flowsim = format!(
-           "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
+        //let command_flowsim = format!(
+        //   "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
+        //);
+        let command_flowsim= format!(
+            "../../../flowsim/build/pure_flowsim {data_dir} {data_dir}/app_flowsim_fct.npy {max_inflight_flows} {data_dir}/flowsim_release_times.npy > {data_dir}/flowsim_log.txt"
         );
 
         // println!("{command_sim}");
@@ -167,9 +170,9 @@ impl Ns3Simulation {
             // .arg(format!("cd {ns3_dir}; {command_post}"))
           .output()?;
         // let _output_flowsim = Command::new("sh")
-        //    .arg("-c")
-        //    .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
-        //    .output()?;
+        //     .arg("-c")
+        //     .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
+        //     .output()?;
         Ok(())
     }
 
@@ -180,7 +183,7 @@ impl Ns3Simulation {
 
         // Build the command that runs the Python script.
         let max_inflight_flows = self.max_inflight_flows;
-        let n_clients_per_rack_for_closed_loop = 16;
+        let n_clients_per_rack_for_closed_loop = 4;
         println!("max_inflight_flows: {}, n_clients_per_rack_for_closed_loop: {}", max_inflight_flows, n_clients_per_rack_for_closed_loop);
         
         let command_flowsim_pre = format!(
@@ -188,7 +191,7 @@ impl Ns3Simulation {
         );
 
         let command_m4 = format!(
-            "../../../flowsim/build/no_flowsim {data_dir} /data1/lichenni/projects/per-flow-sim/config/test_config_lstm_topo_eval.yaml {data_dir}/m4_fct.npy"
+            "../../../flowsim/build/no_flowsim {data_dir} /data1/lichenni/projects/per-flow-sim/config/test_config_lstm_topo_eval.yaml {data_dir}/m4_fct.npy {max_inflight_flows} {data_dir}/m4_release_times.npy > {data_dir}/m4_log.txt"
         ); 
         // println!("{command_sim}");
         // Execute the command in a child process.

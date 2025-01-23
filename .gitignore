@@ -36,6 +36,7 @@
 **/eval_test_app/
 **/eval_test_50k/
 **/eval_test_ori/
+**/eval_app/
 **/bdata_empirical/
 **/res/
 run_rm.sh

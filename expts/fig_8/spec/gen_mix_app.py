@@ -10,18 +10,32 @@ def fix_seed(seed):
 
 
 # Generate a list of configurations
-def generate_config_list(output_file, num_configs, max_inflight_flows_list):
+def generate_config_list(
+    output_file, num_configs, max_inflight_flows_list, enable_small
+):
     # Define ranges and lists
-    spatials = [
-        "../../workload/spatials/cluster_d_4_16.json",
-        "../../workload/spatials/cluster_d_4_16.json",
-        "../../workload/spatials/cluster_d_4_16.json",
-    ]
-    clusters = [
-        "spec/cluster_1_to_1_eval_test.json",
-        "spec/cluster_2_to_1_eval_test.json",
-        "spec/cluster_4_to_1_eval_test.json",
-    ]
+    if not enable_small:
+        spatials = [
+            "../../workload/spatials/cluster_d_4_16.json",
+            "../../workload/spatials/cluster_d_4_16.json",
+            "../../workload/spatials/cluster_d_4_16.json",
+        ]
+        clusters = [
+            "spec/cluster_1_to_1_eval_test.json",
+            "spec/cluster_2_to_1_eval_test.json",
+            "spec/cluster_4_to_1_eval_test.json",
+        ]
+    else:
+        spatials = [
+            "../../workload/spatials/cluster_d_4_4.json",
+            "../../workload/spatials/cluster_d_4_4.json",
+            "../../workload/spatials/cluster_d_4_4.json",
+        ]
+        clusters = [
+            "spec/cluster_1_to_1_eval_app.json",
+            "spec/cluster_2_to_1_eval_app.json",
+            "spec/cluster_4_to_1_eval_app.json",
+        ]
 
     size_dists = [
         "../../workload/distributions/facebook/webserver-all.txt",
@@ -119,12 +133,39 @@ if __name__ == "__main__":
     # Specify the output JSON file and parameters
 
     num_configs = 10
-    output_file = "eval_test_app.mix.json"
+
+    enable_small = True
+    if enable_small:
+        output_file = "eval_app.mix.json"
+    else:
+        output_file = "eval_test_app.mix.json"
     # max_inflight_flows_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    max_inflight_flows_list = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29]
+    max_inflight_flows_list = [
+        1,
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35,
+        37,
+        39,
+    ]
     # Generate configurations
     generate_config_list(
         output_file,
         num_configs,
         max_inflight_flows_list,
+        enable_small,
     )
