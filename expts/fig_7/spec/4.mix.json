@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "id": 4,
+=======
+    "id": 0,
+>>>>>>> 8c443d9255aad2174e837bcb00ce3641e91c7352
     "spatial": "../../workload/spatials/cluster_b_24k.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,

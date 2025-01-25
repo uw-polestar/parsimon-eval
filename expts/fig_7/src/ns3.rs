@@ -150,6 +150,7 @@ impl Ns3Simulation {
         ); 
         // println!("{command_sim}");
         // Execute the command in a child process.
+<<<<<<< HEAD
         let _output = Command::new("sh")
            .arg("-c")
             // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
@@ -160,6 +161,18 @@ impl Ns3Simulation {
         //    .arg("-c")
         //    .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
         //    .output()?;
+=======
+        //let _output = Command::new("sh")
+        //    .arg("-c")
+            // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
+        //    .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
+            // .arg(format!("cd {ns3_dir}; {command_post}"))
+        //    .output()?;
+        let _output_flowsim = Command::new("sh")
+           .arg("-c")
+           .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
+           .output()?;
+>>>>>>> 8c443d9255aad2174e837bcb00ce3641e91c7352
         // let _output_m4 = Command::new("sh")
         //     .arg("-c")
         //     .arg(format!("{command_flowsim_pre}; {command_m4};"))
