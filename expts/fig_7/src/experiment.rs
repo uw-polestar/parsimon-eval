@@ -34,10 +34,7 @@ const NS3_DIR: &str = "../../../High-Precision-Congestion-Control/ns-3.39";
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
-<<<<<<< HEAD
 const NR_FLOWS: usize = 50_000;
-=======
->>>>>>> 8c443d9255aad2174e837bcb00ce3641e91c7352
 
 #[derive(Debug, clap::Parser)]
 pub struct Experiment {
@@ -322,12 +319,8 @@ impl Experiment {
             .size_dist(size_dist)
             .lognorm_sigma(mix.lognorm_sigma)
             .max_load(mix.max_load)
-<<<<<<< HEAD
             // .stop_when(StopWhen::Elapsed(mix.duration))
             .stop_when(StopWhen::NrFlows(NR_FLOWS))
-=======
-            .stop_when(StopWhen::Elapsed(mix.duration))
->>>>>>> 8c443d9255aad2174e837bcb00ce3641e91c7352
             .seed(self.seed)
             .build();
         let flows = flowgen.generate();
