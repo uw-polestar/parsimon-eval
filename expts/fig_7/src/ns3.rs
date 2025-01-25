@@ -138,8 +138,11 @@ impl Ns3Simulation {
             "python ../../../flowsim/convert.py {data_dir} {data_dir} > {data_dir}/convert_log.txt"
         );
 
+        //let command_flowsim = format!(
+        //    "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
+        //);
         let command_flowsim = format!(
-            "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
+            "../../../flowsim/build/pure_flowsim {data_dir} {data_dir}/flowsim_fct.npy 0 16 > {data_dir}/flowsim_log.txt"
         );
 
         let command_m4 = format!(
@@ -153,14 +156,14 @@ impl Ns3Simulation {
         //    .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
             // .arg(format!("cd {ns3_dir}; {command_post}"))
         //    .output()?;
-        //let _output_flowsim = Command::new("sh")
-        //    .arg("-c")
-        //    .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
-        //    .output()?;
-        let _output_m4 = Command::new("sh")
-            .arg("-c")
-            .arg(format!("{command_flowsim_pre}; {command_m4};"))
-            .output()?;
+        let _output_flowsim = Command::new("sh")
+           .arg("-c")
+           .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
+           .output()?;
+        // let _output_m4 = Command::new("sh")
+        //     .arg("-c")
+        //     .arg(format!("{command_flowsim_pre}; {command_m4};"))
+        //     .output()?;
         Ok(())
     }
 }
