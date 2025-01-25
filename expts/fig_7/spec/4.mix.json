@@ -1,5 +1,5 @@
 {
-    "id": 0,
+    "id": 4,
     "spatial": "../../workload/spatials/cluster_b_24k.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 2.0,
