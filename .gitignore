@@ -8,6 +8,7 @@
 **/__pycache__/
 **/deprecated/
 **/data_ori/
+**/data_cap/
 **/data_10/
 **/data_bfsz15/
 **/data_bfsz10/
@@ -41,4 +42,5 @@
 **/res/
 run_rm.sh
 workload/spatials/cluster_b_48k.json
+workload/spatials/cluster_b_36k.json
 workload/spatials/cluster_b_24k.json
