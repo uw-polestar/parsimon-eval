@@ -154,21 +154,21 @@ impl Ns3Simulation {
         // let command_flowsim = format!(
         //     "../../../flowsim/main {data_dir} ../../../flowsim/new_config.yaml {data_dir}/m4_flowsim.npy 0 0 > {data_dir}/log_flowsim.txt"
         // );
-        //let command_flowsim = format!(
-        //   "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
-        //);
-        let command_flowsim= format!(
-            "../../../flowsim/build/pure_flowsim {data_dir} {data_dir}/app_flowsim_fct.npy {max_inflight_flows} {n_clients_per_rack_for_closed_loop} {data_dir}/flowsim_release_times.npy > {data_dir}/flowsim_log.txt"
+        let command_flowsim = format!(
+          "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
         );
+        // let command_flowsim= format!(
+        //     "../../../flowsim/build/pure_flowsim {data_dir} {data_dir}/app_flowsim_fct.npy {max_inflight_flows} {n_clients_per_rack_for_closed_loop} {data_dir}/flowsim_release_times.npy > {data_dir}/flowsim_log.txt"
+        // );
 
         // println!("{command_sim}");
         // Execute the command in a child process.
-        // let _output = Command::new("sh")
-        //   .arg("-c")
-        //     // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
-        //   .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
-        //     // .arg(format!("cd {ns3_dir}; {command_post}"))
-        //   .output()?;
+        let _output = Command::new("sh")
+          .arg("-c")
+            // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
+          .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
+            // .arg(format!("cd {ns3_dir}; {command_post}"))
+          .output()?;
         let _output_flowsim = Command::new("sh")
             .arg("-c")
             .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
