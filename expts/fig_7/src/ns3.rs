@@ -160,10 +160,10 @@ impl Ns3Simulation {
            .arg("-c")
            .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
            .output()?;
-        let _output_m4 = Command::new("sh")
-            .arg("-c")
-            .arg(format!("{command_flowsim_pre}; {command_m4};"))
-            .output()?;
+        // let _output_m4 = Command::new("sh")
+        //     .arg("-c")
+        //     .arg(format!("{command_flowsim_pre}; {command_m4};"))
+        //     .output()?;
         Ok(())
     }
 }
