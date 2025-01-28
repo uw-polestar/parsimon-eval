@@ -42,6 +42,7 @@
 **/bdata_empirical/
 **/res/
 run_rm.sh
+workload/spatials/cluster_b_60k.json
 workload/spatials/cluster_b_48k.json
 workload/spatials/cluster_b_36k.json
 workload/spatials/cluster_b_24k.json
