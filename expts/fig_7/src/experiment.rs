@@ -319,8 +319,8 @@ impl Experiment {
             .size_dist(size_dist)
             .lognorm_sigma(mix.lognorm_sigma)
             .max_load(mix.max_load)
-            // .stop_when(StopWhen::Elapsed(mix.duration))
-            .stop_when(StopWhen::NrFlows(NR_FLOWS))
+            .stop_when(StopWhen::Elapsed(mix.duration))
+            // .stop_when(StopWhen::NrFlows(NR_FLOWS))
             .seed(self.seed)
             .build();
         let flows = flowgen.generate();
