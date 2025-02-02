@@ -53,14 +53,16 @@ impl Experiment {
     pub fn run(&self) -> anyhow::Result<()> {
         let mix: Mix = serde_json::from_str(&fs::read_to_string(&self.mix)?)?;
         match self.sim {
-            SimKind::Ns3 => self.run_ns3(&mix),
+            SimKind::Ns3 => self.run_ns3(&mix, false),
+            Simkind::Mlsys => self.run_ns3(&mix, true),
             SimKind::Pmn => self.run_pmn(&mix),
             SimKind::PmnM => self.run_pmn_m(&mix),
             SimKind::PmnMC => self.run_pmn_mc(&mix),
+            
         }
     }
 
-    fn run_ns3(&self, mix: &Mix) -> anyhow::Result<()> {
+    fn run_ns3(&self, mix: &Mix, enable_mlsys: bool) -> anyhow::Result<()> {
         let sim = SimKind::Ns3;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
@@ -79,8 +81,6 @@ impl Experiment {
             None => panic!("Routes not available"),
         };
 
-
-        // println!("Path to FlowID Map length: {}", path_to_flowid_map.len());
         // Step 1: Create a new HashMap to store FlowId -> Path mapping
         let mut flowid_to_path_map: FxHashMap<FlowId, Vec<(NodeId, NodeId)>> = FxHashMap::default();
         for (path, flow_ids) in path_to_flowid_map.iter() {
@@ -135,6 +135,7 @@ impl Experiment {
             .cc_kind(mix.cc)
             .param_1(mix.param_1)
             .param_2(mix.param_2)
+            .enable_mlsys(enable_mlsys)
             .build();
         let records = ns3
             .run()?
@@ -158,9 +159,11 @@ impl Experiment {
         let sim = SimKind::Pmn;
         let cluster: Cluster = serde_json::from_str(&fs::read_to_string(&mix.cluster)?)?;
         let flows = self.flows(mix)?;
+
+        let start = Instant::now(); // timer start
         let nodes = cluster.nodes().cloned().collect::<Vec<_>>();
         let links = cluster.links().cloned().collect::<Vec<_>>();
-        let start = Instant::now(); // timer start
+        
         let network = Network::new(&nodes, &links)?;
         let network = network.into_simulations(flows.clone());
         let linksim = Ns3Link::builder()
@@ -381,7 +384,6 @@ impl Experiment {
         Ok(dir)
     }
 
-
     fn flow_file(&self, mix: &Mix) -> anyhow::Result<PathBuf> {
         let file = [self.mix_dir(mix)?.as_path(), "flows.json".as_ref()]
             .into_iter()
@@ -456,6 +458,7 @@ pub enum SimKind {
     Pmn,
     PmnM,
     PmnMC,
+    Mlsys,
 }
 
 impl fmt::Display for SimKind {
@@ -465,6 +468,7 @@ impl fmt::Display for SimKind {
             SimKind::Pmn => "pmn",
             SimKind::PmnM => "pmn-m",
             SimKind::PmnMC => "pmn-mc",
+            SimKind::Mlsys => "mlsys",
         };
         write!(f, "{}", s)
     }

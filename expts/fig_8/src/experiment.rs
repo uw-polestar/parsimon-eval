@@ -30,7 +30,6 @@ use crate::ns3::Ns3Simulation;
 use crate::ns3link::Ns3Link;
 
 const NS3_DIR: &str = "../../../High-Precision-Congestion-Control/ns-3.39";
-
 const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
@@ -109,8 +108,6 @@ impl Experiment {
             None => panic!("Routes not available"),
         };
         
-
-        // println!("Path to FlowID Map length: {}", path_to_flowid_map.len());
         // Step 1: Create a new HashMap to store FlowId -> Path mapping
         let mut flowid_to_path_map: FxHashMap<FlowId, Vec<(NodeId, NodeId)>> = FxHashMap::default();
         for (path, flow_ids) in path_to_flowid_map.iter() {
@@ -439,7 +436,6 @@ impl Experiment {
             .collect();
         Ok(file)
     }
-    
 
     fn elapsed_file(&self, mix: &Mix, sim: SimKind) -> anyhow::Result<PathBuf> {
         let file = [self.sim_dir(mix, sim)?.as_path(), "elapsed.txt".as_ref()]

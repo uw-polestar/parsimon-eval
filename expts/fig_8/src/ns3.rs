@@ -94,23 +94,13 @@ impl Ns3Simulation {
         } else {
             self.invoke_ns3()?;
         }
+
         // Parse and return results
         let s = fs::read_to_string(mk_path(
             self.data_dir.as_path(),
             "fct_topology_flows.txt".as_ref(),
         ))?;
-        // let s = fs::read_to_string(mk_path(
-        //     self.data_dir.as_path(),
-        //     format!("fct_topology_flows_{}.txt", self.cc_kind.as_str()).as_ref(),
-        // ))?;
         let records = parse_ns3_records(&s)?;
-        // let data_dir=self.data_dir.to_str().unwrap();
-        // let fct_file=format!("fct_topology_flows_{}.txt", self.cc_kind.as_str());
-        // println!("rm {data_dir}/{fct_file}");
-        // let _output = Command::new("sh")
-        //     .arg("-c")
-        //     .arg(format!("rm {data_dir}/{fct_file}"))
-        //     .output()?;
         Ok(records)
     }
 
@@ -133,11 +123,6 @@ impl Ns3Simulation {
         let enable_tr = 0;
         let max_inflight_flows = self.max_inflight_flows;
         let n_clients_per_rack_for_closed_loop = 16;
-        // let command_sim = format!(
-        //     "python2 run.py --root {data_dir} --base_rtt {base_rtt} \
-        //     --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} \
-        //     > {data_dir}/output.txt 2>&1"
-        // );
         let command_sim = format!(
             "python run_m4.py --root {data_dir} --base_rtt {base_rtt} --topo topology --trace flows --bw 10 --bfsz {bfsz} --fwin {window} --shard_cc 0 --random_seed 0 --enable_pfc {enable_pfc} --cc {cc} --param_1 {param_1} --param_2 {param_2} --enable_tr {enable_tr} --enable_debug 0 --max_inflight_flows {max_inflight_flows} --n_clients_per_rack_for_closed_loop {n_clients_per_rack_for_closed_loop} \
             > {data_dir}/log_sim.txt 2>&1"
@@ -157,7 +142,7 @@ impl Ns3Simulation {
         let command_flowsim = format!(
           "../../../flowsim/main {data_dir}/fat.npy {data_dir}/fsize.npy {data_dir}/topology.txt {data_dir}/flow_to_path.txt {data_dir}/flowsim_fct.npy > {data_dir}/log_flowsim.txt 2>&1"
         );
-        // let command_flowsim= format!(
+        // let command_flowsim = format!(
         //     "../../../flowsim/build/pure_flowsim {data_dir} {data_dir}/app_flowsim_fct.npy {max_inflight_flows} {n_clients_per_rack_for_closed_loop} {data_dir}/flowsim_release_times.npy > {data_dir}/flowsim_log.txt"
         // );
 
@@ -165,7 +150,6 @@ impl Ns3Simulation {
         // Execute the command in a child process.
         let _output = Command::new("sh")
           .arg("-c")
-            // .arg(format!("cd {ns3_dir}; {command_sim}; rm {data_dir}/flows.txt"))
           .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
             // .arg(format!("cd {ns3_dir}; {command_post}"))
           .output()?;

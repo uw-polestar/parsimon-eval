@@ -55,6 +55,9 @@ pub struct Ns3Simulation {
     /// The congestion control parameter.
     #[builder(default = 0.0)]
     pub param_2: f64,
+    /// Enable MLSYS
+    #[builder(default = false)]
+    pub enable_mlsys: bool,
 }
 
 impl Ns3Simulation {
@@ -80,8 +83,11 @@ impl Ns3Simulation {
             flows,
         )?;
 
-        // Run ns-3
-        self.invoke_ns3()?;
+        if self.enable_mlsys {
+            self.invoke_mlsys()?;
+        } else {
+            self.invoke_ns3()?;
+        }
 
         // Parse and return results
         let s = fs::read_to_string(mk_path(
@@ -139,14 +145,30 @@ impl Ns3Simulation {
            .arg(format!("cd {ns3_dir};{command_sim}; {command_post};"))
             // .arg(format!("cd {ns3_dir}; {command_post}"))
            .output()?;
-        // let _output_flowsim = Command::new("sh")
-        //    .arg("-c")
-        //    .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
-        //    .output()?;
-        // let _output_m4 = Command::new("sh")
-        //     .arg("-c")
-        //     .arg(format!("{command_flowsim_pre}; {command_m4};"))
-        //     .output()?;
+        let _output_flowsim = Command::new("sh")
+           .arg("-c")
+           .arg(format!("{command_flowsim_pre}; {command_flowsim};"))
+           .output()?;
+        Ok(())
+    }
+
+    fn invoke_mlsys(&self) -> io::Result<()> {
+        // We need to canonicalize the directories because we run `cd` below.
+        let data_dir = std::fs::canonicalize(&self.data_dir)?;
+        let data_dir = data_dir.display();
+        let command_flowsim_pre = format!(
+            "python ../../../flowsim/convert.py {data_dir} {data_dir} > {data_dir}/convert_log.txt"
+        );
+        
+        let command_m4 = format!(
+            "../../../flowsim/build/no_flowsim {data_dir} /data1/lichenni/projects/per-flow-sim/config/test_config_lstm_topo_eval.yaml {data_dir}/m4_fct.npy"
+        ); 
+        // println!("{command_sim}");
+        // Execute the command in a child process.
+        let _output_m4 = Command::new("sh")
+            .arg("-c")
+            .arg(format!("{command_flowsim_pre}; {command_m4};"))
+            .output()?;
         Ok(())
     }
 }
