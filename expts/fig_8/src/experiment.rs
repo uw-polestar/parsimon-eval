@@ -34,7 +34,7 @@ const BASE_RTT: Nanosecs = Nanosecs::new(14_400);
 const DCTCP_GAIN: f64 = 0.0625;
 const DCTCP_AI: Mbps = Mbps::new(615);
 const INIT_START_TIME: Nanosecs = Nanosecs::new(1_000_000_000);
-const NR_FLOWS: usize = 20_000;
+// const NR_FLOWS: usize = 20_000;
 // const NR_FLOWS: usize = 2_000;
 
 #[derive(Debug, clap::Parser)]
@@ -49,6 +49,8 @@ pub struct Experiment {
     sim: SimKind,
     #[clap(long)]
     enable_app: bool,
+    #[clap(long, default_value_t = 2000)]
+    NR_FLOWS: usize,
 }
 
 impl Experiment {
