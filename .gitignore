@@ -1,5 +1,6 @@
 **/target/
 **/data/
+**/data_50k/
 **/__pycache__/
 **/deprecated/
 **/eval_train/
