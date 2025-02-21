@@ -115,15 +115,19 @@ impl FlowGenerator {
         let mut flows = Vec::new();
         let mut nr_flows = 0;
         let mut cur = start_time;
-        let (end, max_nr_flows) = match stop_when {
+        let mut max_nr_flows;
+        let (end, temp_max_nr_flows) = match stop_when {
             StopWhen::Elapsed(duration) => (start_time + duration.into(), usize::MAX),
-            StopWhen::NrFlows(max_nr_flows) => (Nanosecs::MAX, max_nr_flows),
+            StopWhen::NrFlows(temp_max_nr_flows) => (Nanosecs::MAX, temp_max_nr_flows),
         };
+        max_nr_flows = temp_max_nr_flows;
+        if max_nr_flows > 100000 {
+            max_nr_flows=100000;
+        }
         while cur < end && nr_flows < max_nr_flows {
             let (src, dst) = spatial_wk.sample(&mut rng);
             let mut raw_size=size_dist.sample(&mut rng).round() as u64;
             if raw_size<1{
-                // raw_size=4_294_967_295;
                 raw_size=10;
             }
             if raw_size%1000 == 0 {

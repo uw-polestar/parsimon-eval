@@ -135,9 +135,9 @@ impl Ns3Simulation {
         //     "../../../flowsim/build/pure_flowsim {data_dir} {data_dir}/flowsim_fct.npy 0 16 > {data_dir}/flowsim_log.txt"
         // );
 
-        let command_m4 = format!(
-            "../../../flowsim/build/no_flowsim {data_dir} /data1/lichenni/projects/per-flow-sim/config/test_config_lstm_topo_eval.yaml {data_dir}/m4_fct.npy"
-        ); 
+        // let command_m4 = format!(
+        //     "../../../flowsim/build/no_flowsim {data_dir} /data1/lichenni/projects/per-flow-sim/config/test_config_lstm_topo_eval.yaml {data_dir}/m4_fct.npy"
+        // ); 
         // println!("{command_sim}");
         // Execute the command in a child process.
         let _output = Command::new("sh")

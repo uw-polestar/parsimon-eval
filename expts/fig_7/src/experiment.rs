@@ -54,7 +54,7 @@ impl Experiment {
         let mix: Mix = serde_json::from_str(&fs::read_to_string(&self.mix)?)?;
         match self.sim {
             SimKind::Ns3 => self.run_ns3(&mix, false),
-            Simkind::Mlsys => self.run_ns3(&mix, true),
+            SimKind::Mlsys => self.run_ns3(&mix, true),
             SimKind::Pmn => self.run_pmn(&mix),
             SimKind::PmnM => self.run_pmn_m(&mix),
             SimKind::PmnMC => self.run_pmn_mc(&mix),
