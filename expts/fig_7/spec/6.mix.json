@@ -2,7 +2,7 @@
     "id": 6,
     "spatial": "../../workload/spatials/cluster_b_24k.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
-    "lognorm_sigma": 2.0,
+    "lognorm_sigma": 1.0,
     "max_load": 0.3,
     "cluster": "../../workload/topologies/cluster_b_2_to_1_24k.json",
     "duration": 1,

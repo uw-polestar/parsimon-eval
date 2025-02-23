@@ -1,10 +1,10 @@
 {
-    "id": 8,
-    "spatial": "../../workload/spatials/cluster_b_48k.json",
+    "id": 5,
+    "spatial": "../../workload/spatials/cluster_b_12k.json",
     "size_dist": "../../workload/distributions/facebook/cachefollower-all.txt",
     "lognorm_sigma": 1.0,
     "max_load": 0.3,
-    "cluster": "../../workload/topologies/cluster_b_2_to_1_48k.json",
+    "cluster": "../../workload/topologies/cluster_b_2_to_1_12k.json",
     "duration": 1,
     "param_id": 0,
     "bfsz": 10.0,
