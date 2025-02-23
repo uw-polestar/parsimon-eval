@@ -121,9 +121,6 @@ impl FlowGenerator {
             StopWhen::NrFlows(temp_max_nr_flows) => (Nanosecs::MAX, temp_max_nr_flows),
         };
         max_nr_flows = temp_max_nr_flows;
-        if max_nr_flows > 100000 {
-            max_nr_flows=100000;
-        }
         while cur < end && nr_flows < max_nr_flows {
             let (src, dst) = spatial_wk.sample(&mut rng);
             let mut raw_size=size_dist.sample(&mut rng).round() as u64;
